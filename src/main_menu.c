@@ -679,8 +679,11 @@ void IronMonSetRandomName(void)
     StringCopy(dst, sIronMonNamePool[Random() % ARRAY_COUNT(sIronMonNamePool)]);
     ConvertIntToDecimalStringN(gStringVar1, Random() % 1000, STR_CONV_MODE_LEFT_ALIGN, 3);
     StringAppend(dst, gStringVar1);
-    if (IS_FRLG) // FRLG: rivalName non inizializzato causa crash al new game (cause-radice instant-start)
-        StringCopy(gSaveBlock1Ptr->rivalName, sIronMonNamePool[Random() % ARRAY_COUNT(sIronMonNamePool)]);
+#if GAME_VERSION != VERSION_EMERALD
+    // FRLG: rivalName non inizializzato causa crash al new game (cause-radice instant-start).
+    // Guard compile-time: SaveBlock1.rivalName non esiste su Emerald.
+    StringCopy(gSaveBlock1Ptr->rivalName, sIronMonNamePool[Random() % ARRAY_COUNT(sIronMonNamePool)]);
+#endif
 }
 static void Task_IronMonInstantNewGame(u8 taskId)
 {
