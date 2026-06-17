@@ -1952,6 +1952,28 @@ static void IronmonHardenTrainerMon(struct Pokemon *mon)
         SetMonData(mon, MON_DATA_HELD_ITEM, &item);
 }
 
+#if NV_KAIZO
+// Kaizo: i boss (Capopalestra/Superquattro/Campione/Rivale, Hoenn + FRLG) ricevono +3 Pokémon.
+static bool32 IronmonIsBossClass(u8 c)
+{
+    switch (c)
+    {
+    case TRAINER_CLASS_LEADER:
+    case TRAINER_CLASS_ELITE_FOUR:
+    case TRAINER_CLASS_CHAMPION:
+    case TRAINER_CLASS_RIVAL:
+    case TRAINER_CLASS_LEADER_FRLG:
+    case TRAINER_CLASS_ELITE_FOUR_FRLG:
+    case TRAINER_CLASS_CHAMPION_FRLG:
+    case TRAINER_CLASS_RIVAL_EARLY_FRLG:
+    case TRAINER_CLASS_RIVAL_LATE_FRLG:
+    case TRAINER_CLASS_BOSS_FRLG:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+#endif
 u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer *trainer, bool32 halfTeam, u32 battleTypeFlags)
 {
     u32 personalityValue;
@@ -1974,8 +1996,19 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             monsCount = trainer->partySize;
         }
 
+#if NV_KAIZO
+        // Kaizo: +3 ai boss. Riempio gli slot extra riusando la squadra del boss (cap a PARTY_SIZE).
+        u32 nvBase = monsCount;
+        if (nvBase > 0 && IronmonIsBossClass(trainer->trainerClass))
+            monsCount = (nvBase + 3 > PARTY_SIZE) ? PARTY_SIZE : (nvBase + 3);
+        u32 monIndices[monsCount];
+        DoTrainerPartyPool(trainer, monIndices, nvBase, battleTypeFlags);
+        for (u32 nvK = nvBase; nvK < monsCount; nvK++)
+            monIndices[nvK] = monIndices[(nvK - nvBase) % nvBase];
+#else
         u32 monIndices[monsCount];
         DoTrainerPartyPool(trainer, monIndices, monsCount, battleTypeFlags);
+#endif
 
         for (s32 i = 0; i < monsCount; i++)
         {
