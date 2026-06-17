@@ -464,6 +464,24 @@ static u8 PickWildMonNature(enum Species species)
 
 void CreateWildMon(enum Species species, u8 level)
 {
+#if NV_KAIZO
+    // Kaizo: catturi solo fino a +4 livelli sul tuo Pokémon più alto -> cap del livello selvatico.
+    {
+        u32 i, maxLvl = 0, l;
+        for (i = 0; i < PARTY_SIZE; i++)
+        {
+            if (GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES) == SPECIES_NONE)
+                continue;
+            if (GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG))
+                continue;
+            l = GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_LEVEL);
+            if (l > maxLvl)
+                maxLvl = l;
+        }
+        if (maxLvl != 0 && level > maxLvl + 4)
+            level = maxLvl + 4;
+    }
+#endif
     species = IronmonRemapSpecies(species); // IronMon Nuzlocke EM: randomizer selvatici seedato
 #if NV_KAIZO
     species = IronmonClampBst(species); // Kaizo: niente catture con BST >= 600
