@@ -3490,6 +3490,20 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, enum Item item, u8 partyIndex, 
     if (mon->box.unused_13) // Nuzverse permadeath: i morti non si rianimano con oggetti
         return TRUE;
 #endif
+#if NV_KAIZO
+    // Kaizo: flauti banditi per la cura dello status (sempre, anche in battaglia).
+    if (item == ITEM_BLUE_FLUTE || item == ITEM_RED_FLUTE || item == ITEM_YELLOW_FLUTE)
+        return TRUE;
+    // Kaizo: niente cure (HP/PP/status/revive) FUORI dalla battaglia. PP-Su/Max, EV ed evo OK.
+    if (!gMain.inBattle)
+    {
+        const u8 *nvFx = GetItemEffect(item);
+        if (nvFx != NULL
+         && ((nvFx[4] & (ITEM4_HEAL_HP | ITEM4_HEAL_PP | ITEM4_HEAL_PP_ONE | ITEM4_REVIVE))
+          || (nvFx[3] & ITEM3_STATUS_ALL)))
+            return TRUE;
+    }
+#endif
     u32 dataUnsigned;
     s32 dataSigned, evCap;
     s32 friendship;
