@@ -2006,7 +2006,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 otId.method = OT_ID_PRESET;
                 otId.value = HIHALF(personalityValue) ^ LOHALF(personalityValue);
             }
-            CreateMon(&party[i], IronmonRemapSpecies(partyData[monIndex].species), /*IronMon Nuzlocke EM*/ partyData[monIndex].lvl, personalityValue, otId);
+            CreateMon(&party[i], IronmonRemapSpecies(partyData[monIndex].species), /*IronMon Nuzlocke EM*/ NV_TRAINER_LEVEL(partyData[monIndex].lvl), personalityValue, otId);
             SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[monIndex].heldItem);
 
             CustomTrainerPartyAssignMoves(&party[i], &partyData[monIndex]);
