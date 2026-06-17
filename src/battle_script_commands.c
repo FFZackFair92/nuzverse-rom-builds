@@ -3859,7 +3859,11 @@ static void Cmd_getexp(void)
     case 0: // check if should receive exp at all
         if (IsOnPlayerSide(gBattlerFainted)
             || IsAiVsAiBattle()
-            || !BattleTypeAllowsExp())
+            || !BattleTypeAllowsExp()
+#if NV_KAIZO
+            || !(gBattleTypeFlags & BATTLE_TYPE_TRAINER) // Kaizo IronMon: niente XP dai selvatici
+#endif
+            )
         {
             gBattleScripting.getexpState = 6; // goto last case
         }

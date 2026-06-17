@@ -40,6 +40,13 @@
 #define NV_GAMEOVER_ON_LOSS 1
 #endif
 
+// Regole Kaizo IronMon in-ROM (BST<600 catture, mosse/abilità bandite, +3 boss, evo
+// forzata Lv30, no cure fuori battaglia, cattura +4 lv, held whitelist, no TM/tutor,
+// 1 Pokémon = solo il capofila combatte, selvatici 0 XP). IronMon, entrambe le regioni.
+#ifndef NV_KAIZO
+#define NV_KAIZO 1
+#endif
+
 // ⚠️ DEBUG/TEMP — tutti i Pokémon degli allenatori a Lv1 (battaglie lampo per collaudo).
 // Rimettere a 0 (o build con -DNV_DEBUG_ENEMY_LV1=0) prima del bilanciamento/lancio.
 #ifndef NV_DEBUG_ENEMY_LV1
