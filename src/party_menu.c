@@ -7051,6 +7051,11 @@ static void TryTutorSelectedMon(u8 taskId)
         gPartyMenu.data1 = gSpecialVar_0x8005;
         StringCopy(gStringVar2, GetMoveName(gPartyMenu.data1));
         move[1] = 2;
+#if NV_KAIZO
+        // Kaizo: insegna-mosse disattivato — il tutor non insegna mai (esito "rifiutato").
+        DisplayLearnMoveMessageAndClose(taskId, gText_PkmnCantLearnMove);
+        return;
+#endif
         switch (CanTeachMove(mon, gPartyMenu.data1))
         {
         case CANNOT_LEARN_MOVE:

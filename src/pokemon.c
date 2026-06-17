@@ -3351,6 +3351,33 @@ const u16 *GetSpeciesEggMoves(enum Species species)
     return learnset;
 }
 
+#if NV_KAIZO
+// Kaizo: forma finale di una specie (per "nemici full-evo a Lv>=30"). Ramo = primo target valido.
+u16 IronmonFinalEvo(u16 species)
+{
+    u32 guard = 0;
+    while (guard++ < 5)
+    {
+        const struct Evolution *evos = GetSpeciesEvolutions(species);
+        u16 next = SPECIES_NONE;
+        u32 i;
+        if (evos == NULL)
+            break;
+        for (i = 0; evos[i].method != EVOLUTIONS_END; i++)
+        {
+            if (SanitizeSpeciesId(evos[i].targetSpecies) != SPECIES_NONE)
+            {
+                next = evos[i].targetSpecies;
+                break;
+            }
+        }
+        if (next == SPECIES_NONE)
+            break;
+        species = next;
+    }
+    return species;
+}
+#endif
 const struct Evolution *GetSpeciesEvolutions(enum Species species)
 {
     const struct Evolution *evolutions = gSpeciesInfo[SanitizeSpeciesId(species)].evolutions;

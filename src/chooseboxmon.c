@@ -94,6 +94,10 @@ static u32 ChooseBoxMon_CanMonDeleteMove(struct BoxPokemon *boxmon)
 
 static u32 ChooseBoxMon_CanMonLearnMove(struct BoxPokemon *boxmon, enum Move move)
 {
+#if NV_KAIZO
+    if (sSelectionType == SELECT_PC_MON_MOVE_TUTOR) // Kaizo: insegna-mosse disattivato (i tutor non insegnano)
+        return CANNOT_LEARN_MOVE;
+#endif
     if (GetBoxMonData(boxmon, MON_DATA_IS_EGG))
         return CANNOT_LEARN_MOVE_IS_EGG;
     if (BoxMonKnowsMove(boxmon, move))

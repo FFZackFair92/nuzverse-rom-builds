@@ -30,6 +30,7 @@
 #include "constants/abilities.h"
 #include "constants/items.h"
 #include "constants/battle_frontier.h"
+#include "constants/map_types.h" // Kaizo: MAP_TYPE_UNDERGROUND (niente cure nei dungeon)
 
 static void CB2_ReturnFromChooseHalfParty(void);
 static void CB2_ReturnFromChooseBattleFrontierParty(void);
@@ -38,6 +39,10 @@ static void HealPlayerBoxes(void);
 void HealPlayerParty(void)
 {
     u32 i;
+#if NV_KAIZO
+    if (gMapHeader.mapType == MAP_TYPE_UNDERGROUND) // Kaizo: niente cure nei dungeon (grotte)
+        return;
+#endif
     for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
 #if NV_PERMADEATH
     {

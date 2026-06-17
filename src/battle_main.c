@@ -2039,7 +2039,17 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 otId.method = OT_ID_PRESET;
                 otId.value = HIHALF(personalityValue) ^ LOHALF(personalityValue);
             }
+#if NV_KAIZO
+            // Kaizo: evo forzata — i nemici da Lv30 in su sono generati full-evo.
+            {
+                u16 nvSpecies = IronmonRemapSpecies(partyData[monIndex].species);
+                if (partyData[monIndex].lvl >= 30)
+                    nvSpecies = IronmonFinalEvo(nvSpecies);
+                CreateMon(&party[i], nvSpecies, NV_TRAINER_LEVEL(partyData[monIndex].lvl), personalityValue, otId);
+            }
+#else
             CreateMon(&party[i], IronmonRemapSpecies(partyData[monIndex].species), /*IronMon Nuzlocke EM*/ NV_TRAINER_LEVEL(partyData[monIndex].lvl), personalityValue, otId);
+#endif
             SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[monIndex].heldItem);
 
             CustomTrainerPartyAssignMoves(&party[i], &partyData[monIndex]);

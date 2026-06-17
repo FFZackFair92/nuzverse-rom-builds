@@ -835,6 +835,9 @@ const struct LevelUpMove *GetSpeciesLevelUpLearnset(enum Species species);
 const u16 *GetSpeciesTeachableLearnset(enum Species species);
 const u16 *GetSpeciesEggMoves(enum Species species);
 const struct Evolution *GetSpeciesEvolutions(enum Species species);
+#if NV_KAIZO
+u16 IronmonFinalEvo(u16 species); // Kaizo: forma finale (nemici full-evo a Lv>=30)
+#endif
 const u16 *GetSpeciesFormTable(enum Species species);
 const struct FormChange *GetSpeciesFormChanges(enum Species species);
 u8 CalculatePPWithBonus(enum Move move, u8 ppBonuses, u8 moveIndex);
