@@ -147,7 +147,7 @@ static void WarpToTruck(void)
         FlagClear(FLAG_HIDE_ROUTE_101_BIRCH_ZIGZAGOON_BATTLE);
         FlagClear(FLAG_HIDE_ROUTE_101_ZIGZAGOON);
         FlagClear(FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG);
-        SetWarpDestination(MAP_GROUP(MAP_ROUTE101), MAP_NUM(MAP_ROUTE101), WARP_ID_NONE, 7, 13);
+        SetWarpDestination(MAP_GROUP(MAP_ROUTE101), MAP_NUM(MAP_ROUTE101), WARP_ID_NONE, 7, 15);
     }
     WarpIntoMap();
 }
