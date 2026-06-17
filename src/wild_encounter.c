@@ -462,8 +462,25 @@ static u8 PickWildMonNature(enum Species species)
     return GetSynchronizedNature(WILDMON_ORIGIN, species);
 }
 
+#if NV_PERMADEATH
+// Nuzlocke ("solo primo incontro per area"): bit per regionMapSectionId in SaveBlock1.
+static bool8 IronmonAreaEncounterSpent(void)
+{
+    u32 sec = gMapHeader.regionMapSectionId;
+    return (gSaveBlock1Ptr->nvNuzFirstEnc[sec >> 3] >> (sec & 7)) & 1;
+}
+static void IronmonMarkAreaEncounter(void)
+{
+    u32 sec = gMapHeader.regionMapSectionId;
+    gSaveBlock1Ptr->nvNuzFirstEnc[sec >> 3] |= (1 << (sec & 7));
+}
+#endif
+
 void CreateWildMon(enum Species species, u8 level)
 {
+#if NV_PERMADEATH
+    IronmonMarkAreaEncounter(); // Nuzlocke: questa zona ha ora usato il suo unico incontro
+#endif
 #if NV_KAIZO
     // Kaizo: catturi solo fino a +4 livelli sul tuo Pokémon più alto -> cap del livello selvatico.
     {
@@ -671,6 +688,10 @@ bool8 StandardWildEncounter(u16 curMetatileBehavior, u16 prevMetatileBehavior)
 
     if (sWildEncountersDisabled == TRUE)
         return FALSE;
+#if NV_PERMADEATH
+    if (IronmonAreaEncounterSpent()) // Nuzlocke: niente piu' incontri dopo il primo della zona
+        return FALSE;
+#endif
 
     headerId = GetCurrentMapWildMonHeaderId();
     if (headerId == HEADER_NONE)
@@ -811,6 +832,9 @@ bool8 StandardWildEncounter(u16 curMetatileBehavior, u16 prevMetatileBehavior)
 
 void RockSmashWildEncounter(void)
 {
+#if NV_PERMADEATH
+    if (IronmonAreaEncounterSpent()) { gSpecialVar_Result = FALSE; return; } // Nuzlocke: 1 incontro/zona
+#endif
     u32 headerId = GetCurrentMapWildMonHeaderId();
     enum TimeOfDay timeOfDay;
 
@@ -857,6 +881,10 @@ bool8 SweetScentWildEncounter(void)
     u32 headerId;
     enum TimeOfDay timeOfDay;
 
+#if NV_PERMADEATH
+    if (IronmonAreaEncounterSpent()) // Nuzlocke: 1 incontro/zona (anche Profumino)
+        return FALSE;
+#endif
     PlayerGetDestCoords(&x, &y);
     headerId = GetCurrentMapWildMonHeaderId();
     if (headerId == HEADER_NONE)
@@ -935,6 +963,10 @@ bool8 SweetScentWildEncounter(void)
 
 bool8 DoesCurrentMapHaveFishingMons(void)
 {
+#if NV_PERMADEATH
+    if (IronmonAreaEncounterSpent()) // Nuzlocke: zona gia' usata -> pesca "non abbocca niente"
+        return FALSE;
+#endif
     u32 headerId = GetCurrentMapWildMonHeaderId();
     enum TimeOfDay timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_FISHING);
 

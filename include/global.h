@@ -1210,6 +1210,10 @@ struct SaveBlock1
     u8 rivalName[PLAYER_NAME_LENGTH + 1];
     struct DaycareMon route5DayCareMon;
 #endif
+#if NV_PERMADEATH
+    // Nuzlocke: 1 bit per regionMapSectionId = "primo incontro gia' usato in quest'area"
+    u8 nvNuzFirstEnc[32];
+#endif
     // sizeof: 0x3???
 };
 
