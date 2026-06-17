@@ -151,10 +151,10 @@ static void WarpToTruck(void)
     }
     else
     {
-        // Nuzverse hoenn skip-intro: spawn su Route 101 accanto alla borsa di Birch.
+        // Nuzverse hoenn skip-intro: spawn su Route 101, SOLO la borsa (Birch nascosto = start pulito).
         VarSet(VAR_ROUTE101_STATE, 2);
-        FlagClear(FLAG_HIDE_ROUTE_101_BIRCH_ZIGZAGOON_BATTLE);
-        FlagClear(FLAG_HIDE_ROUTE_101_ZIGZAGOON);
+        FlagSet(FLAG_HIDE_ROUTE_101_BIRCH_ZIGZAGOON_BATTLE);
+        FlagSet(FLAG_HIDE_ROUTE_101_ZIGZAGOON);
         FlagClear(FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG);
         SetWarpDestination(MAP_GROUP(MAP_ROUTE101), MAP_NUM(MAP_ROUTE101), WARP_ID_NONE, 7, 15);
     }
