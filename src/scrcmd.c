@@ -2312,8 +2312,12 @@ bool8 ScrCmd_checkfieldmove(struct ScriptContext *ctx)
     Script_RequestEffects(SCREFF_V1);
 
     gSpecialVar_Result = PARTY_SIZE;
+#if !NV_HM_FREE
     if (doUnlockedCheck && !IsFieldMoveUnlocked(fieldMove))
         return FALSE;
+#else
+    (void)doUnlockedCheck; // Nuzverse MN-less: nessun gate medaglia
+#endif
 
     move = FieldMove_GetMoveId(fieldMove);
     for (u32 i = 0; i < PARTY_SIZE; i++)
@@ -2329,6 +2333,15 @@ bool8 ScrCmd_checkfieldmove(struct ScriptContext *ctx)
         }
     }
 
+#if NV_HM_FREE
+    // Nuzverse MN-less: se nessun Pokémon conosce la mossa (o manca la medaglia),
+    // usa comunque il mon di testa per eseguire l'effetto di campo.
+    if (gSpecialVar_Result == PARTY_SIZE)
+    {
+        gSpecialVar_Result = 0;
+        gSpecialVar_0x8004 = GetMonData(&gParties[B_TRAINER_PLAYER][0], MON_DATA_SPECIES);
+    }
+#endif
     return FALSE;
 }
 

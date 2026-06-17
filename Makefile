@@ -157,6 +157,7 @@ else
 O_LEVEL ?= 2
 endif
 CPPFLAGS := $(INCLUDE_CPP_ARGS) -Wno-trigraphs -DMODERN=1 -DTESTING=$(TEST) -D$(GAME_VERSION) -std=gnu17
+override CPPFLAGS += $(NV_DEFINES)   # Nuzverse: la CI passa es. NV_DEFINES="-DNV_PERMADEATH=1"
 ifeq ($(RELEASE),1)
 	override CPPFLAGS += -DRELEASE
 	ifeq ($(USE_LTO_ON_RELEASE),1)

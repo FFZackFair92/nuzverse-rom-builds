@@ -641,19 +641,31 @@ static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metati
 {
     if (MetatileBehavior_IsFastWater(metatileBehavior) == TRUE && !TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING))
         return EventScript_CurrentTooFast;
+#if NV_HM_FREE
+    if (IsPlayerFacingSurfableFishableWater() == TRUE && CheckFollowerNPCFlag(FOLLOWER_NPC_FLAG_CAN_SURF)) // Nuzverse MN-less: Surf senza MN/medaglia
+        return EventScript_UseSurf;
+#else
     if (IsFieldMoveUnlocked(FIELD_MOVE_SURF) && PartyHasMonWithSurf() == TRUE && IsPlayerFacingSurfableFishableWater() == TRUE
      && CheckFollowerNPCFlag(FOLLOWER_NPC_FLAG_CAN_SURF)
      )
         return EventScript_UseSurf;
+#endif
 
     if (MetatileBehavior_IsWaterfall(metatileBehavior) == TRUE
      && CheckFollowerNPCFlag(FOLLOWER_NPC_FLAG_CAN_WATERFALL)
      )
     {
+#if NV_HM_FREE
+        if (IsPlayerSurfingNorth() == TRUE) // Nuzverse MN-less: Cascata senza MN/medaglia
+            return EventScript_UseWaterfall;
+        else
+            return EventScript_CannotUseWaterfall;
+#else
         if (IsFieldMoveUnlocked(FIELD_MOVE_WATERFALL) && IsPlayerSurfingNorth() == TRUE)
             return EventScript_UseWaterfall;
         else
             return EventScript_CannotUseWaterfall;
+#endif
     }
     return NULL;
 }
@@ -663,7 +675,11 @@ static bool32 TrySetupDiveDownScript(void)
     if (!CheckFollowerNPCFlag(FOLLOWER_NPC_FLAG_CAN_DIVE))
         return FALSE;
 
+#if NV_HM_FREE
+    if (TrySetDiveWarp() == 2) // Nuzverse MN-less: Sub senza MN/medaglia
+#else
     if (IsFieldMoveUnlocked(FIELD_MOVE_DIVE) && TrySetDiveWarp() == 2)
+#endif
     {
         ScriptContext_SetupScript(EventScript_UseDive);
         return TRUE;
@@ -676,7 +692,11 @@ static bool32 TrySetupDiveEmergeScript(void)
     if (!CheckFollowerNPCFlag(FOLLOWER_NPC_FLAG_CAN_DIVE))
         return FALSE;
 
+#if NV_HM_FREE
+    if (gMapHeader.mapType == MAP_TYPE_UNDERWATER && TrySetDiveWarp() == 1) // Nuzverse MN-less: riemersione senza MN/medaglia
+#else
     if (IsFieldMoveUnlocked(FIELD_MOVE_DIVE) && gMapHeader.mapType == MAP_TYPE_UNDERWATER && TrySetDiveWarp() == 1)
+#endif
     {
         ScriptContext_SetupScript(EventScript_UseDiveUnderwater);
         return TRUE;

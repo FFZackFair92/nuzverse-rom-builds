@@ -11,6 +11,7 @@
 #include "fpmath.h"
 #include "metaprogram.h"
 #include "constants/global.h"
+#include "nuzverse_config.h" // Nuzverse: flag feature compile-time (MN-less, permadeath, ...)
 #include "constants/flags.h"
 #include "constants/vars.h"
 #include "constants/species.h"
