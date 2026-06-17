@@ -1080,11 +1080,13 @@ PalletTown_ProfessorOaksLab_EventScript_BulbasaurBall::
 PalletTown_ProfessorOaksLab_EventScript_ConfirmStarterChoice::
 	applymovement LOCALID_OAKS_LAB_PROF_OAK, Common_Movement_FaceRight
 	waitmovement 0
-	showmonpic PLAYER_STARTER_SPECIES, 10, 3
+	callnative IronmonStarterDisplay
+	showmonpic VAR_TEMP_5, 10, 3
 	textcolor NPC_TEXT_COLOR_MALE
-	goto_if_eq PLAYER_STARTER_NUM, 0, PalletTown_ProfessorOaksLab_EventScript_ConfirmBulbasaur
-	goto_if_eq PLAYER_STARTER_NUM, 1, PalletTown_ProfessorOaksLab_EventScript_ConfirmSquirtle
-	goto_if_eq PLAYER_STARTER_NUM, 2, PalletTown_ProfessorOaksLab_EventScript_ConfirmCharmander
+	bufferspeciesname STR_VAR_1, VAR_TEMP_5
+	msgbox PalletTown_ProfessorOaksLab_Text_IronmonConfirm, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, PalletTown_ProfessorOaksLab_EventScript_ChoseStarter
+	goto_if_eq VAR_RESULT, NO, PalletTown_ProfessorOaksLab_EventScript_DeclinedStarter
 	end
 
 PalletTown_ProfessorOaksLab_EventScript_ConfirmBulbasaur::
@@ -1119,7 +1121,7 @@ PalletTown_ProfessorOaksLab_EventScript_ChoseStarter::
 	setflag FLAG_PALLET_LADY_NOT_BLOCKING_SIGN
 	givemon PLAYER_STARTER_SPECIES, 5
 	copyvar VAR_STARTER_MON, PLAYER_STARTER_NUM
-	bufferspeciesname STR_VAR_1, PLAYER_STARTER_SPECIES
+	bufferspeciesname STR_VAR_1, VAR_TEMP_5
 	message PalletTown_ProfessorOaksLab_Text_ReceivedMonFromOak
 	waitmessage
 	playfanfare MUS_RG_OBTAIN_KEY_ITEM
@@ -1421,6 +1423,12 @@ PalletTown_ProfessorOaksLab_Text_OakChoosingBulbasaur::
 PalletTown_ProfessorOaksLab_Text_OakThisMonIsEnergetic::
 	.string "This POKéMON is really quite\n"
 	.string "energetic!$"
+
+PalletTown_ProfessorOaksLab_Text_IronmonConfirm::
+	.string "Ah! {STR_VAR_1} is your choice.\n"
+	.string "You should raise it patiently.\p"
+	.string "So, {PLAYER}, you're claiming\n"
+	.string "{STR_VAR_1}?$"
 
 PalletTown_ProfessorOaksLab_Text_ReceivedMonFromOak::
 	.string "{PLAYER} received the {STR_VAR_1}\n"

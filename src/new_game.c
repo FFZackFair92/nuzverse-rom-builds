@@ -139,10 +139,19 @@ static void ClearFrontierRecord(void)
 static void WarpToTruck(void)
 {
     if (IS_FRLG)
-        SetWarpDestination(MAP_GROUP(MAP_PALLET_TOWN_PLAYERS_HOUSE_2F), MAP_NUM(MAP_PALLET_TOWN_PLAYERS_HOUSE_2F), WARP_ID_NONE, 6, 6);
+    {
+        // Nuzverse kanto skip-intro: spawn nel lab di Oak, pronti a scegliere lo starter.
+        VarSet(VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 2);
+        FlagClear(FLAG_HIDE_OAK_IN_HIS_LAB);
+        FlagClear(FLAG_HIDE_RIVAL_IN_LAB);
+        FlagClear(FLAG_HIDE_BULBASAUR_BALL);
+        FlagClear(FLAG_HIDE_SQUIRTLE_BALL);
+        FlagClear(FLAG_HIDE_CHARMANDER_BALL);
+        SetWarpDestination(MAP_GROUP(MAP_PALLET_TOWN_PROFESSOR_OAKS_LAB), MAP_NUM(MAP_PALLET_TOWN_PROFESSOR_OAKS_LAB), WARP_ID_NONE, 6, 11);
+    }
     else
     {
-        // IronMon hoenn skip-intro: spawn su Route 101 accanto alla borsa di Birch.
+        // Nuzverse hoenn skip-intro: spawn su Route 101 accanto alla borsa di Birch.
         VarSet(VAR_ROUTE101_STATE, 2);
         FlagClear(FLAG_HIDE_ROUTE_101_BIRCH_ZIGZAGOON_BATTLE);
         FlagClear(FLAG_HIDE_ROUTE_101_ZIGZAGOON);
@@ -241,7 +250,10 @@ void NewGameInitData(void)
     ResetTrainerTowerResults();
     ResetContestLinkResults();
 
-    // ===== IronMon lineare (preset trama) =====
+    // ===== Nuzverse mai-bloccante (preset trama) =====
+#if NV_NO_BLOCKERS
+#if GAME_VERSION == VERSION_EMERALD
+    // -- Hoenn --
     VarSet(VAR_PETALBURG_CITY_STATE, 3);   // tutorial Wally fatto
     VarSet(VAR_PETALBURG_GYM_STATE, 2);    // Norman: 4 badge => battaglia
     VarSet(VAR_SOOTOPOLIS_CITY_STATE, 6);  // crisi legendari risolta, gym aperta
@@ -251,6 +263,20 @@ void NewGameInitData(void)
     FlagSet(FLAG_HIDE_ROUTE_119_TEAM_AQUA);    // ponte Istituto Meteo libero
     FlagSet(FLAG_HIDE_RUSTURF_TUNNEL_ROCK_1);  // scorciatoia Verdanturf<->Rustboro
     FlagSet(FLAG_HIDE_RUSTURF_TUNNEL_ROCK_2);
+#else
+    // -- Kanto (FRLG): rimuove roadblock e gate-oggetto del percorso principale --
+    FlagSet(FLAG_HIDE_ROUTE_12_SNORLAX);   // Snorlax Route 12
+    FlagSet(FLAG_HIDE_ROUTE_16_SNORLAX);   // Snorlax Route 16
+    FlagSet(FLAG_FOUND_BOTH_VERMILION_GYM_SWITCHES); // niente puzzle cestini Surge
+    FlagSet(FLAG_RESCUED_MR_FUJI);         // coerenza Torre/Flauto
+    FlagSet(FLAG_GOT_POKE_FLUTE);
+    AddBagItem(ITEM_SILPH_SCOPE, 1);       // fantasmi Torre Pokémon
+    AddBagItem(ITEM_SECRET_KEY, 1);        // palestra di Blaine
+    AddBagItem(ITEM_TEA, 1);               // guardie di Zafferano
+    AddBagItem(ITEM_POKE_FLUTE, 1);
+    AddBagItem(ITEM_SS_TICKET, 1);
+#endif
+#endif
     // ==========================================
     SetCurrentDifficultyLevel(DIFFICULTY_NORMAL);
     ResetItemFlags();

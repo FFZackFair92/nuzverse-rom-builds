@@ -3435,3 +3435,10 @@ bool8 ScrCmd_getbraillestringwidth(struct ScriptContext * ctx)
     gSpecialVar_0x8004 = GetStringWidth(FONT_BRAILLE, msg, -1);
     return FALSE;
 }
+
+// Nuzverse kanto-starter-display: lo starter mostrato in scelta = specie randomizzata (WYSIWYG).
+void IronmonStarterDisplay(struct ScriptContext *ctx)
+{
+    (void)ctx;
+    VarSet(VAR_TEMP_5, IronmonRemapSpecies(VarGet(VAR_TEMP_2)));
+}
