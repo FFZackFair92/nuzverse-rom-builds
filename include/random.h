@@ -319,3 +319,5 @@ const void *RandomElementArrayDefaultValue(enum RandomTag tag, const void *array
 u32 Crc32B (const u8 *data, u32 size);
 
 #endif // GUARD_RANDOM_H
+extern volatile const u32 gIronmonFixedSeed; // IronMon Nuzlocke EM
+u16 IronmonRemapSpecies(u16 species); // IronMon Nuzlocke EM

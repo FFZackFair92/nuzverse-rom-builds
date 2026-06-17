@@ -16,6 +16,8 @@
 #include "sound.h"
 #include "strings.h"
 #include "string_util.h"
+#include "new_game.h"
+void IronMonSetRandomName(void); // IronMon instant-start (def in main_menu.c)
 #include "task.h"
 #include "text_window.h"
 #include "util.h"
@@ -690,10 +692,10 @@ static void CB2_NewGameScene(void)
 
 void StartNewGameSceneFrlg(void)
 {
-    gPlttBufferUnfaded[0] = RGB_BLACK;
-    gPlttBufferFaded[0]   = RGB_BLACK;
-    CreateTask(Task_NewGameScene, 0);
-    SetMainCallback2(CB2_NewGameScene);
+    // IronMon instant-start: salta l'Oak speech, vai dritto al new game (nome random).
+    gSaveBlock2Ptr->playerGender = MALE;
+    IronMonSetRandomName();
+    SetMainCallback2(CB2_NewGame);
 }
 
 #define tSpriteTimer                data[0]

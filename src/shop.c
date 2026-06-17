@@ -381,11 +381,13 @@ static void SetShopMenuCallback(void (*callback)(void))
     sMartInfo.callback = callback;
 }
 
+// IronMon shops-closed: ogni mart vende solo CANCEL.
+static const u16 sIronMonEmptyMart[] = { ITEM_NONE };
 static void SetShopItemsForSale(const u16 *items)
 {
     u16 i = 0;
 
-    sMartInfo.itemList = items;
+    sMartInfo.itemList = sIronMonEmptyMart;
     sMartInfo.itemCount = 0;
 
     assertf(items != NULL, "Shop items list should never be set as NULL")

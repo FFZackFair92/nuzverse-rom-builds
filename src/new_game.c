@@ -18,6 +18,9 @@
 #include "rtc.h"
 #include "easy_chat.h"
 #include "event_data.h"
+#include "constants/maps.h"
+#include "constants/flags.h"
+#include "constants/vars.h"
 #include "money.h"
 #include "trainer_hill.h"
 #include "trainer_tower.h"
@@ -92,7 +95,7 @@ void CopyTrainerId(u8 *dst, u8 *src)
 
 static void InitPlayerTrainerId(void)
 {
-    u32 trainerId = (Random() << 16) | GetGeneratedTrainerIdLower();
+    u32 trainerId = gIronmonFixedSeed /*IronMon Nuzlocke EM: seed per-run*/;
     SetTrainerId(trainerId, gSaveBlock2Ptr->playerTrainerId);
 }
 
@@ -138,7 +141,14 @@ static void WarpToTruck(void)
     if (IS_FRLG)
         SetWarpDestination(MAP_GROUP(MAP_PALLET_TOWN_PLAYERS_HOUSE_2F), MAP_NUM(MAP_PALLET_TOWN_PLAYERS_HOUSE_2F), WARP_ID_NONE, 6, 6);
     else
-        SetWarpDestination(MAP_GROUP(MAP_INSIDE_OF_TRUCK), MAP_NUM(MAP_INSIDE_OF_TRUCK), WARP_ID_NONE, -1, -1);
+    {
+        // IronMon hoenn skip-intro: spawn su Route 101 accanto alla borsa di Birch.
+        VarSet(VAR_ROUTE101_STATE, 2);
+        FlagClear(FLAG_HIDE_ROUTE_101_BIRCH_ZIGZAGOON_BATTLE);
+        FlagClear(FLAG_HIDE_ROUTE_101_ZIGZAGOON);
+        FlagClear(FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG);
+        SetWarpDestination(MAP_GROUP(MAP_ROUTE101), MAP_NUM(MAP_ROUTE101), WARP_ID_NONE, 7, 13);
+    }
     WarpIntoMap();
 }
 
@@ -230,6 +240,18 @@ void NewGameInitData(void)
     ResetTrainerHillResults();
     ResetTrainerTowerResults();
     ResetContestLinkResults();
+
+    // ===== IronMon lineare (preset trama) =====
+    VarSet(VAR_PETALBURG_CITY_STATE, 3);   // tutorial Wally fatto
+    VarSet(VAR_PETALBURG_GYM_STATE, 2);    // Norman: 4 badge => battaglia
+    VarSet(VAR_SOOTOPOLIS_CITY_STATE, 6);  // crisi legendari risolta, gym aperta
+    FlagSet(FLAG_HIDE_ROUTE_112_TEAM_MAGMA);   // funivia libera
+    FlagSet(FLAG_HIDE_MT_CHIMNEY_TEAM_MAGMA);  // vetta senza meteorite
+    FlagSet(FLAG_HIDE_MT_CHIMNEY_TEAM_AQUA);
+    FlagSet(FLAG_HIDE_ROUTE_119_TEAM_AQUA);    // ponte Istituto Meteo libero
+    FlagSet(FLAG_HIDE_RUSTURF_TUNNEL_ROCK_1);  // scorciatoia Verdanturf<->Rustboro
+    FlagSet(FLAG_HIDE_RUSTURF_TUNNEL_ROCK_2);
+    // ==========================================
     SetCurrentDifficultyLevel(DIFFICULTY_NORMAL);
     ResetItemFlags();
     ResetDexNav();

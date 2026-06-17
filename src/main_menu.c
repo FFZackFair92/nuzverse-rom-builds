@@ -35,6 +35,8 @@
 #include "strings.h"
 #include "string_util.h"
 #include "task.h"
+#include "new_game.h"
+static const u8 sIronMonPlayerName[] = _("RED");
 #include "text.h"
 #include "text_window.h"
 #include "title_screen.h"
@@ -642,6 +644,56 @@ static u32 InitMainMenu(bool8 returningFromOptionsMenu)
 
 #define tArrowTaskIsScrolled data[15]   // For scroll indicator arrow task
 
+
+// ── IronMon instant-start: nome random + new game immediato ──
+static const u8 sIMNm00[] = _("RED");
+static const u8 sIMNm01[] = _("ASH");
+static const u8 sIMNm02[] = _("MAX");
+static const u8 sIMNm03[] = _("LEO");
+static const u8 sIMNm04[] = _("KAI");
+static const u8 sIMNm05[] = _("ZOE");
+static const u8 sIMNm06[] = _("REX");
+static const u8 sIMNm07[] = _("JAX");
+static const u8 sIMNm08[] = _("ACE");
+static const u8 sIMNm09[] = _("NEO");
+static const u8 sIMNm10[] = _("RAY");
+static const u8 sIMNm11[] = _("SKY");
+static const u8 sIMNm12[] = _("FOX");
+static const u8 sIMNm13[] = _("IVY");
+static const u8 sIMNm14[] = _("GIO");
+static const u8 sIMNm15[] = _("TOM");
+static const u8 sIMNm16[] = _("SAM");
+static const u8 sIMNm17[] = _("EVE");
+static const u8 sIMNm18[] = _("LIA");
+static const u8 sIMNm19[] = _("NIK");
+static const u8 sIMNm20[] = _("DAN");
+static const u8 sIMNm21[] = _("RIO");
+static const u8 sIMNm22[] = _("ZED");
+static const u8 sIMNm23[] = _("AMY");
+static const u8 *const sIronMonNamePool[] = {
+    sIMNm00, sIMNm01, sIMNm02, sIMNm03, sIMNm04, sIMNm05, sIMNm06, sIMNm07, sIMNm08, sIMNm09, sIMNm10, sIMNm11, sIMNm12, sIMNm13, sIMNm14, sIMNm15, sIMNm16, sIMNm17, sIMNm18, sIMNm19, sIMNm20, sIMNm21, sIMNm22, sIMNm23,
+};
+void IronMonSetRandomName(void)
+{
+    u8 *dst = gSaveBlock2Ptr->playerName;
+    StringCopy(dst, sIronMonNamePool[Random() % ARRAY_COUNT(sIronMonNamePool)]);
+    ConvertIntToDecimalStringN(gStringVar1, Random() % 1000, STR_CONV_MODE_LEFT_ALIGN, 3);
+    StringAppend(dst, gStringVar1);
+}
+static void Task_IronMonInstantNewGame(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        gPlttBufferUnfaded[0] = RGB_BLACK;
+        gPlttBufferFaded[0] = RGB_BLACK;
+        DestroyTask(taskId);
+        FreeAllWindowBuffers();
+        gSaveBlock2Ptr->playerGender = MALE;
+        IronMonSetRandomName();
+        SetMainCallback2(CB2_NewGame);
+    }
+}
+
 static void Task_MainMenuCheckSaveFile(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
@@ -736,7 +788,11 @@ static void Task_MainMenuCheckBattery(u8 taskId)
 
         if (!(RtcGetErrorStatus() & RTC_ERR_FLAG_MASK))
         {
-            gTasks[taskId].func = Task_DisplayMainMenu;
+            // IronMon instant-start: nessun salvataggio -> salta menu+intro+nome.
+            if (gTasks[taskId].tMenuType == HAS_NO_SAVED_GAME)
+                gTasks[taskId].func = Task_IronMonInstantNewGame;
+            else
+                gTasks[taskId].func = Task_DisplayMainMenu;
         }
         else
         {
@@ -1296,6 +1352,18 @@ static void HighlightSelectedMainMenuItem(enum PartyMenuType menuType, u8 select
 
 static void Task_NewGameBirchSpeech_Init(u8 taskId)
 {
+    // IronMon instant-start: salta il discorso di Birch (nome random).
+    gSaveBlock2Ptr->playerGender = MALE;
+    IronMonSetRandomName();
+    DestroyTask(taskId);
+    SetMainCallback2(CB2_NewGame);
+    return;
+    // IronMon skip-intro: salta il discorso di Birch, vai al new game.
+    gSaveBlock2Ptr->playerGender = MALE;
+    StringCopy(gSaveBlock2Ptr->playerName, sIronMonPlayerName);
+    DestroyTask(taskId);
+    SetMainCallback2(CB2_NewGame);
+    return;
     SetGpuReg(REG_OFFSET_DISPCNT, 0);
     SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP);
     InitBgFromTemplate(&sBirchBgTemplate);

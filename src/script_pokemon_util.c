@@ -361,6 +361,8 @@ void SetTeraType(struct ScriptContext *ctx)
  */
 static u32 ScriptGiveMonParameterized(u8 side, u8 slot, enum Species species, u8 level, enum Item item, enum PokeBall ball, u8 nature, u8 abilityNum, u8 gender, u16 *evs, u16 *ivs, enum Move *moves, enum ShinyMode shinyMode, bool8 gmaxFactor, enum Type teraType, u8 dmaxLevel)
 {
+    species = IronmonRemapSpecies(species); // IronMon Nuzlocke EM paramgive
+
     struct Pokemon mon;
     u32 i;
     bool32 isShiny;
@@ -478,6 +480,8 @@ static u32 ScriptGiveMonParameterized(u8 side, u8 slot, enum Species species, u8
 
 u32 ScriptGiveMon(enum Species species, u8 level, enum Item item)
 {
+    species = IronmonRemapSpecies(species); // IronMon Nuzlocke EM give
+
     struct Pokemon mon;
     u8 heldItem[2];
 

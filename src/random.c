@@ -1,5 +1,6 @@
 #include "global.h"
 #include "random.h"
+#include "constants/species.h" // IronMon Nuzlocke EM
 #if MODERN
 #include <alloca.h>
 #endif
@@ -283,4 +284,45 @@ u32 Crc32B (const u8 *data, u32 size)
         }
    }
    return ~crc;
+}
+
+// IronMon Nuzlocke EM: seed per-run, VOLATILE const (.rodata = ROM, no folding -> simbolo nel
+// .map, patchabile 4B dal server). Lo legge InitPlayerTrainerId per il trainerId.
+volatile const u32 gIronmonFixedSeed = 0xE1A5EED0;
+
+// IronMon Nuzlocke EM: rimappa una specie deterministicamente dal SEED = trainerId del save.
+// Bijezione affine f(x) = 1 + ((x-1)*a + b) mod n, a coprimo con n = NUM_SPECIES-1.
+// Fail-safe: SPECIES_NONE e fuori-range passano invariati (mai mon glitch).
+
+#define IRONMON_POOL_MAX 64
+// IronMon HARD EM: pool specie ottenibili, patchabile dal server (0 = pool pieno).
+volatile const u16 gIronmonPoolCount = 0;
+volatile const u16 gIronmonPool[IRONMON_POOL_MAX] = {0};
+
+u16 IronmonRemapSpecies(u16 species)
+{
+    const u8 *tid = gSaveBlock2Ptr->playerTrainerId;
+    u32 seed = (u32)tid[0] | ((u32)tid[1] << 8) | ((u32)tid[2] << 16) | ((u32)tid[3] << 24);
+    u32 n, a, b, g0, g1, t;
+    if (species == SPECIES_NONE || species >= NUM_SPECIES)
+        return species;
+    n = NUM_SPECIES - 1;
+    if (n < 2)
+        return species;
+    a = (seed | 1u);
+    b = seed % n;
+    // rendi a coprimo con n (Euclide); a resta dispari, incremento di 2.
+    for (;;)
+    {
+        g0 = a % n; g1 = n;
+        while (g0 != 0) { t = g1 % g0; g1 = g0; g0 = t; }
+        if (g1 == 1) break;
+        a += 2;
+    }
+    {
+        u16 ironmonResult = (u16)(1 + ((((u32)(species - 1)) * a + b) % n));
+        if (gIronmonPoolCount > 0)
+            ironmonResult = gIronmonPool[(ironmonResult - 1) % gIronmonPoolCount];
+        return ironmonResult;
+    }
 }

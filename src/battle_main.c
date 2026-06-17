@@ -1836,6 +1836,66 @@ u32 GeneratePersonalityForGender(u32 gender, enum Species species)
         return speciesInfo->genderRatio / 2;
 }
 
+// IronMon HARD EM: moveset offensivo procedurale per allenatori senza mosse custom.
+static void IronmonBestMoveset(struct Pokemon *mon)
+{
+    enum Species species = GetMonData(mon, MON_DATA_SPECIES);
+    u32 level = GetMonData(mon, MON_DATA_LEVEL);
+    const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
+    u16 best[MAX_MON_MOVES] = {MOVE_NONE, MOVE_NONE, MOVE_NONE, MOVE_NONE};
+    u16 bestPow[MAX_MON_MOVES] = {0, 0, 0, 0};
+    u32 i, j, count;
+
+    if (learnset == NULL)
+        return;
+
+    for (i = 0; learnset[i].move != LEVEL_UP_MOVE_END; i++)
+    {
+        u16 move = learnset[i].move;
+        u16 pow;
+        bool32 dup = FALSE;
+        u32 minIdx = 0;
+
+        if (learnset[i].level > level)
+            continue;
+        pow = GetMovePower(move);
+        if (pow == 0)
+            continue; // solo mosse offensive (le mosse di stato restano quelle iniziali)
+
+        for (j = 0; j < MAX_MON_MOVES; j++)
+            if (best[j] == move)
+                dup = TRUE;
+        if (dup)
+            continue;
+
+        for (j = 1; j < MAX_MON_MOVES; j++)
+            if (bestPow[j] < bestPow[minIdx])
+                minIdx = j;
+        if (pow > bestPow[minIdx])
+        {
+            best[minIdx] = move;
+            bestPow[minIdx] = pow;
+        }
+    }
+
+    count = 0;
+    for (j = 0; j < MAX_MON_MOVES; j++)
+        if (best[j] != MOVE_NONE)
+            best[count++] = best[j];
+    if (count == 0)
+        return; // nessuna mossa offensiva: lascia il moveset iniziale del mon
+    for (; count < MAX_MON_MOVES; count++)
+        best[count] = MOVE_NONE;
+
+    for (j = 0; j < MAX_MON_MOVES; j++)
+    {
+        u16 move = best[j];
+        u32 pp = (move != MOVE_NONE) ? GetMovePP(move) : 0;
+        SetMonData(mon, MON_DATA_MOVE1 + j, &move);
+        SetMonData(mon, MON_DATA_PP1 + j, &pp);
+    }
+}
+
 void CustomTrainerPartyAssignMoves(struct Pokemon *mon, const struct TrainerMon *partyEntry)
 {
     bool32 noMoveSet = TRUE;
@@ -1848,8 +1908,7 @@ void CustomTrainerPartyAssignMoves(struct Pokemon *mon, const struct TrainerMon 
     }
     if (noMoveSet)
     {
-        GiveMonInitialMoveset(mon);
-        // TODO: Figure out a default strategy when moves are not set, to generate a good moveset
+        IronmonBestMoveset(mon); // IronMon HARD EM: moveset offensivo procedurale
         return;
     }
 
@@ -1859,6 +1918,38 @@ void CustomTrainerPartyAssignMoves(struct Pokemon *mon, const struct TrainerMon 
         SetMonData(mon, MON_DATA_MOVE1 + j, &partyEntry->moves[j]);
         SetMonData(mon, MON_DATA_PP1 + j, &pp);
     }
+}
+
+// IronMon HARD EM: porta ogni Pokemon allenatore a difficolta' competitiva
+// (IV 31, EV 252 HP / 252 stat offensivo dominante / 4 Spe, oggetto base).
+static void IronmonHardenTrainerMon(struct Pokemon *mon)
+{
+    u32 i;
+    u8 ivMax = 31, evMax = 252, evMin = 4, evZero = 0;
+    u16 item = ITEM_LEFTOVERS;
+    enum Species species = GetMonData(mon, MON_DATA_SPECIES);
+    bool32 special = gSpeciesInfo[species].baseSpAttack > gSpeciesInfo[species].baseAttack;
+
+    for (i = MON_DATA_HP_IV; i <= MON_DATA_SPDEF_IV; i++)
+        SetMonData(mon, i, &ivMax);
+
+    SetMonData(mon, MON_DATA_HP_EV,    &evMax);
+    SetMonData(mon, MON_DATA_DEF_EV,   &evZero);
+    SetMonData(mon, MON_DATA_SPDEF_EV, &evZero);
+    SetMonData(mon, MON_DATA_SPEED_EV, &evMin);
+    if (special)
+    {
+        SetMonData(mon, MON_DATA_SPATK_EV, &evMax);
+        SetMonData(mon, MON_DATA_ATK_EV,   &evZero);
+    }
+    else
+    {
+        SetMonData(mon, MON_DATA_ATK_EV,   &evMax);
+        SetMonData(mon, MON_DATA_SPATK_EV, &evZero);
+    }
+
+    if (GetMonData(mon, MON_DATA_HELD_ITEM) == ITEM_NONE)
+        SetMonData(mon, MON_DATA_HELD_ITEM, &item);
 }
 
 u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer *trainer, bool32 halfTeam, u32 battleTypeFlags)
@@ -1915,7 +2006,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 otId.method = OT_ID_PRESET;
                 otId.value = HIHALF(personalityValue) ^ LOHALF(personalityValue);
             }
-            CreateMon(&party[i], partyData[monIndex].species, partyData[monIndex].lvl, personalityValue, otId);
+            CreateMon(&party[i], IronmonRemapSpecies(partyData[monIndex].species), /*IronMon Nuzlocke EM*/ partyData[monIndex].lvl, personalityValue, otId);
             SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[monIndex].heldItem);
 
             CustomTrainerPartyAssignMoves(&party[i], &partyData[monIndex]);
@@ -1983,6 +2074,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 enum Type data = partyData[monIndex].teraType;
                 SetMonData(&party[i], MON_DATA_TERA_TYPE, &data);
             }
+            IronmonHardenTrainerMon(&party[i]); // IronMon HARD EM
             CalculateMonStats(&party[i]);
 
             if (B_TRAINER_CLASS_POKE_BALLS >= GEN_7 && ball == -1)
