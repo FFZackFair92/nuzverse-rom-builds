@@ -315,9 +315,14 @@ static void HandleInputChooseAction(enum BattlerId battler)
         case 1: // Top right
             BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_USE_ITEM, 0);
             break;
-        case 2: // Bottom left
+        case 2: // Bottom left (Pokémon / switch)
+#if NV_KAIZO
+            // Kaizo: 1 Pokémon = solo il capofila combatte -> niente switch volontario.
+            return; // resta sul menu azione (non emette SWITCH, non completa l'azione)
+#else
             BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_SWITCH, 0);
             break;
+#endif
         case 3: // Bottom right
             BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_RUN, 0);
             break;
