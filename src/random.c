@@ -337,10 +337,28 @@ static u32 IronmonBst(u16 s)
     const struct SpeciesInfo *si = &gSpeciesInfo[s];
     return (u32)si->baseHP + si->baseAttack + si->baseDefense + si->baseSpeed + si->baseSpAttack + si->baseSpDefense;
 }
+// Specie vietata per il PLAYER in Kaizo: BST >= 600, oppure (BST >= 400 con
+// Macroforza/Forzapura come abilità della specie). L'abilità deriva dalla specie
+// (slot da personality), quindi bandirle = scartare queste specie.
+static bool32 IronmonSpeciesBanned(u16 s)
+{
+    u32 bst = IronmonBst(s);
+    if (bst >= 600)
+        return TRUE;
+    if (bst >= 400)
+    {
+        u32 a0 = GetSpeciesAbility(s, 0);
+        u32 a1 = GetSpeciesAbility(s, 1);
+        if (a0 == ABILITY_HUGE_POWER || a0 == ABILITY_PURE_POWER
+         || a1 == ABILITY_HUGE_POWER || a1 == ABILITY_PURE_POWER)
+            return TRUE;
+    }
+    return FALSE;
+}
 u16 IronmonClampBst(u16 species)
 {
     u32 guard = 0;
-    while (species > SPECIES_NONE && species < NUM_SPECIES && IronmonBst(species) >= 600 && guard++ < NUM_SPECIES)
+    while (species > SPECIES_NONE && species < NUM_SPECIES && IronmonSpeciesBanned(species) && guard++ < NUM_SPECIES)
         species = IronmonRemapSpecies(species);
     return species;
 }
