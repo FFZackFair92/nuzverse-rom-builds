@@ -694,6 +694,27 @@ static bool32 CanSelectBattler(enum MoveTarget target)
     return FALSE;
 }
 
+#if NV_KAIZO
+// Kaizo: mosse bandite per il player = cure (flag healingMove: Ripresa/Riposo/Sintesi/Vuoto...),
+// assorbi-vita, Velenseme, Spora, Assist.
+static bool32 IronmonMoveBanned(u16 move)
+{
+    if (move == MOVE_NONE)
+        return FALSE;
+    if (gMovesInfo[move].healingMove)
+        return TRUE;
+    if (move == MOVE_SPORE || move == MOVE_ASSIST)
+        return TRUE;
+    switch (gMovesInfo[move].effect)
+    {
+    case EFFECT_ABSORB:      // assorbi-vita (Gigassorbimento, Forza Drenante, ...)
+    case EFFECT_LEECH_SEED:  // Velenseme
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+#endif
 void HandleInputChooseMove(enum BattlerId battler)
 {
     u32 canSelectTarget = 0;
@@ -706,6 +727,10 @@ void HandleInputChooseMove(enum BattlerId battler)
 
     if (JOY_NEW(A_BUTTON) && !gBattleStruct->descriptionSubmenu)
     {
+#if NV_KAIZO
+        if (IronmonMoveBanned(moveInfo->moves[gMoveSelectionCursor[battler]]))
+            return; // Kaizo: mossa bandita -> non selezionabile (resta sul menu mosse)
+#endif
         TryToHideMoveInfoWindow();
         PlaySE(SE_SELECT);
 
