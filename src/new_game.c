@@ -250,6 +250,7 @@ void NewGameInitData(void)
     ResetTrainerTowerResults();
     ResetContestLinkResults();
 
+    gNvRunResult = 0; // Nuzverse: nuova run attiva (reset del marker fine-run per il webapp)
     // ===== Nuzverse mai-bloccante (preset trama) =====
 #if NV_NO_BLOCKERS
 #if GAME_VERSION == VERSION_EMERALD

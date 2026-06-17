@@ -220,6 +220,10 @@ s16 gTimeUpdateCounter; // playTimeVBlanks will eventually overflow, so this is 
 EWRAM_DATA static u8 sObjectEventLoadFlag = 0;
 EWRAM_DATA struct WarpData gLastUsedWarp = {0};
 EWRAM_DATA static struct WarpData sWarpDestination = {0};  // new warp position
+// Nuzverse: marker fine-run letto dal webapp (offset esportato dal .map in CI).
+// 0 = run attiva; 1 = run persa (GAME OVER). Il webapp lo legge, segna il punteggio,
+// prende un nuovo seed e riavvia la run.
+EWRAM_DATA volatile u32 gNvRunResult = 0;
 EWRAM_DATA static struct WarpData sFixedDiveWarp = {0};
 EWRAM_DATA static struct WarpData sFixedHoleWarp = {0};
 EWRAM_DATA static mapsec_u16_t sLastMapSectionId = 0;
@@ -392,9 +396,11 @@ static void (*const sMovementStatusHandler[])(struct LinkPlayerObjectEvent *, st
 void DoWhiteOut(void)
 {
 #if NV_GAMEOVER_ON_LOSS
-    // Nuzverse: black-out = GAME OVER. Soft-reset -> instant-start = run nuova.
-    // La run persa NON e' continuabile: regola in-ROM, a prova di bomba.
-    DoSoftReset();
+    // Nuzverse: black-out = GAME OVER. Segnala la fine run al webapp (gNvRunResult=1) e
+    // FERMA la ROM: la run persa NON e' continuabile (regola in-ROM, a prova di bomba).
+    // Il webapp legge il marker, registra il punteggio, prende un nuovo seed e riavvia.
+    gNvRunResult = 1;
+    for (;;) {}
 #endif
     RunScriptImmediately(EventScript_WhiteOut);
     HealPlayerParty();

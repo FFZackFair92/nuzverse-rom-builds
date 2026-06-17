@@ -203,4 +203,6 @@ bool8 GetSetItemObtained(enum Item item, enum ItemObtainFlags caseId);
 void Overworld_CreditsMainCB(void);
 bool32 Overworld_DoScrollSceneForCredits(u8 *, const struct CreditsOverworldCmd *);
 
+extern volatile u32 gNvRunResult; // Nuzverse: marker fine-run (0=attiva, 1=persa), letto dal webapp
+
 #endif // GUARD_OVERWORLD_H
