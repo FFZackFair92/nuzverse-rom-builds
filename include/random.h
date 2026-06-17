@@ -318,6 +318,10 @@ const void *RandomElementArrayDefaultValue(enum RandomTag tag, const void *array
 
 u32 Crc32B (const u8 *data, u32 size);
 
+#if NV_KAIZO
+u16 IronmonClampBst(u16 species); // Kaizo: specie player con BST < 600
+#endif
+
 #endif // GUARD_RANDOM_H
 extern volatile const u32 gIronmonFixedSeed; // IronMon Nuzlocke EM
 u16 IronmonRemapSpecies(u16 species); // IronMon Nuzlocke EM

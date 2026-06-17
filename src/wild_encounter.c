@@ -465,6 +465,9 @@ static u8 PickWildMonNature(enum Species species)
 void CreateWildMon(enum Species species, u8 level)
 {
     species = IronmonRemapSpecies(species); // IronMon Nuzlocke EM: randomizer selvatici seedato
+#if NV_KAIZO
+    species = IronmonClampBst(species); // Kaizo: niente catture con BST >= 600
+#endif
 
     ZeroEnemyPartyMons();
     u32 personality = GetMonPersonality(species, GetSynchronizedGender(WILDMON_ORIGIN, species), PickWildMonNature(species), RANDOM_UNOWN_LETTER);

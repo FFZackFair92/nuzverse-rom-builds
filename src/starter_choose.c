@@ -352,7 +352,11 @@ u16 GetStarterPokemon(u16 chosenStarterId)
 {
     if (chosenStarterId > STARTER_MON_COUNT)
         chosenStarterId = 0;
+#if NV_KAIZO
+    return IronmonClampBst(IronmonRemapSpecies(sStarterMon[chosenStarterId])); // Kaizo: starter BST < 600
+#else
     return IronmonRemapSpecies(sStarterMon[chosenStarterId]); // IronMon Nuzlocke EM
+#endif
 }
 
 static void VblankCB_StarterChoose(void)

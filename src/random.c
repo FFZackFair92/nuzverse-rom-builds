@@ -1,6 +1,7 @@
 #include "global.h"
 #include "random.h"
 #include "constants/species.h" // IronMon Nuzlocke EM
+#include "pokemon.h" // IronMon Kaizo: gSpeciesInfo per il filtro BST
 #if MODERN
 #include <alloca.h>
 #endif
@@ -326,3 +327,21 @@ u16 IronmonRemapSpecies(u16 species)
         return ironmonResult;
     }
 }
+
+#if NV_KAIZO
+// Kaizo IronMon: i Pokémon del PLAYER (starter/catture) non possono avere BST >= 600.
+// Rimappa con la stessa bijezione seedata finché < 600 (l'evoluzione oltre 600 è ok:
+// qui filtriamo solo la specie base ottenuta). Fail-safe con guard anti-loop.
+static u32 IronmonBst(u16 s)
+{
+    const struct SpeciesInfo *si = &gSpeciesInfo[s];
+    return (u32)si->baseHP + si->baseAttack + si->baseDefense + si->baseSpeed + si->baseSpAttack + si->baseSpDefense;
+}
+u16 IronmonClampBst(u16 species)
+{
+    u32 guard = 0;
+    while (species > SPECIES_NONE && species < NUM_SPECIES && IronmonBst(species) >= 600 && guard++ < NUM_SPECIES)
+        species = IronmonRemapSpecies(species);
+    return species;
+}
+#endif
