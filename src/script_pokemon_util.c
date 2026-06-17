@@ -39,7 +39,15 @@ void HealPlayerParty(void)
 {
     u32 i;
     for (i = 0; i < gPartiesCount[B_TRAINER_PLAYER]; i++)
+#if NV_PERMADEATH
+    {
+        if (gParties[B_TRAINER_PLAYER][i].box.unused_13) // Nuzverse permadeath: i morti non si curano
+            continue;
         HealPokemon(&gParties[B_TRAINER_PLAYER][i]);
+    }
+#else
+        HealPokemon(&gParties[B_TRAINER_PLAYER][i]);
+#endif
     if (OW_PC_HEAL >= GEN_8)
         HealPlayerBoxes();
 

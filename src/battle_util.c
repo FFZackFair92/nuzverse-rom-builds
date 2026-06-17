@@ -10998,6 +10998,10 @@ void SetValuesOnFaint(enum BattlerId battler)
     if (IsOnPlayerSide(battler))
     {
         gHitMarker |= HITMARKER_PLAYER_FAINTED;
+#if NV_PERMADEATH
+        // Nuzverse permadeath: marca il Pokémon del player come morto allo svenimento.
+        gParties[B_TRAINER_PLAYER][gBattlerPartyIndexes[battler]].box.unused_13 = 1;
+#endif
         if (gBattleResults.playerFaintCounter < 255)
             gBattleResults.playerFaintCounter++;
         AdjustFriendshipOnBattleFaint(battler);

@@ -3486,6 +3486,10 @@ const u32 sExpCandyExperienceTable[] = {
 // Returns TRUE if the item has no effect on the Pokémon, FALSE otherwise
 bool8 PokemonUseItemEffects(struct Pokemon *mon, enum Item item, u8 partyIndex, u8 moveIndex, bool8 usedByAI)
 {
+#if NV_PERMADEATH
+    if (mon->box.unused_13) // Nuzverse permadeath: i morti non si rianimano con oggetti
+        return TRUE;
+#endif
     u32 dataUnsigned;
     s32 dataSigned, evCap;
     s32 friendship;
