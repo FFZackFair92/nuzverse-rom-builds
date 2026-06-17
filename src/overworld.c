@@ -391,6 +391,11 @@ static void (*const sMovementStatusHandler[])(struct LinkPlayerObjectEvent *, st
 // code
 void DoWhiteOut(void)
 {
+#if NV_GAMEOVER_ON_LOSS
+    // Nuzverse: black-out = GAME OVER. Soft-reset -> instant-start = run nuova.
+    // La run persa NON e' continuabile: regola in-ROM, a prova di bomba.
+    DoSoftReset();
+#endif
     RunScriptImmediately(EventScript_WhiteOut);
     HealPlayerParty();
     Overworld_ResetStateAfterWhiteOut();

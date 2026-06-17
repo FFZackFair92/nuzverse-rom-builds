@@ -793,8 +793,9 @@ static void Task_MainMenuCheckBattery(u8 taskId)
 
         if (!(RtcGetErrorStatus() & RTC_ERR_FLAG_MASK))
         {
-            // IronMon instant-start: nessun salvataggio -> salta menu+intro+nome.
-            if (gTasks[taskId].tMenuType == HAS_NO_SAVED_GAME)
+            // Nuzverse: NV_INSTANT_START -> SEMPRE nuova partita (niente Continua); run usa-e-getta.
+            // Game-over a prova di bomba: una run persa non e' continuabile.
+            if (NV_INSTANT_START || gTasks[taskId].tMenuType == HAS_NO_SAVED_GAME)
                 gTasks[taskId].func = Task_IronMonInstantNewGame;
             else
                 gTasks[taskId].func = Task_DisplayMainMenu;

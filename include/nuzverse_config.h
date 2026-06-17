@@ -34,6 +34,12 @@
 #define NV_INSTANT_START 1
 #endif
 
+// Game over a prova di bomba: il black-out (sconfitta) termina la run DENTRO la ROM
+// (soft-reset -> instant-start = run nuova). Vale per IronMon e Nuzlocke.
+#ifndef NV_GAMEOVER_ON_LOSS
+#define NV_GAMEOVER_ON_LOSS 1
+#endif
+
 // ⚠️ DEBUG/TEMP — tutti i Pokémon degli allenatori a Lv1 (battaglie lampo per collaudo).
 // Rimettere a 0 (o build con -DNV_DEBUG_ENEMY_LV1=0) prima del bilanciamento/lancio.
 #ifndef NV_DEBUG_ENEMY_LV1
