@@ -268,6 +268,10 @@ void NewGameInitData(void)
     FlagSet(FLAG_HIDE_ROUTE_12_SNORLAX);   // Snorlax Route 12
     FlagSet(FLAG_HIDE_ROUTE_16_SNORLAX);   // Snorlax Route 16
     FlagSet(FLAG_FOUND_BOTH_VERMILION_GYM_SWITCHES); // niente puzzle cestini Surge
+    VarSet(VAR_MAP_SCENE_VICTORY_ROAD_1F, 100);          // Via Vittoria: barriere mai disegnate (niente puzzle massi/interruttori)
+    VarSet(VAR_MAP_SCENE_VICTORY_ROAD_2F_BOULDER1, 100);
+    VarSet(VAR_MAP_SCENE_VICTORY_ROAD_2F_BOULDER2, 100);
+    VarSet(VAR_MAP_SCENE_VICTORY_ROAD_3F, 100);
     FlagSet(FLAG_RESCUED_MR_FUJI);         // coerenza Torre/Flauto
     FlagSet(FLAG_GOT_POKE_FLUTE);
     AddBagItem(ITEM_SILPH_SCOPE, 1);       // fantasmi Torre Pokémon
