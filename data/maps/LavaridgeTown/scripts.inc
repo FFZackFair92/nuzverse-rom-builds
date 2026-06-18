@@ -391,12 +391,12 @@ LavaridgeTown_Text_HotSpringsClaims:
 	.string "money…$"
 
 LavaridgeTown_Text_TownSign:
-	.string "CINDERSPRING\p"
+	.string "LAVARIDGE TOWN\p"
 	.string "“POKéMON CENTER HOT SPRINGS\n"
 	.string "An excellent place for relaxing!”$"
 
 LavaridgeTown_Text_GymSign:
-	.string "CINDERSPRING POKéMON GYM\n"
+	.string "LAVARIDGE TOWN POKéMON GYM\n"
 	.string "LEADER: FLANNERY\l"
 	.string "“One with a fiery passion that burns!”$"
 

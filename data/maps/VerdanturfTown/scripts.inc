@@ -106,7 +106,7 @@ VerdanturfTown_Text_EasyToGetToRustboroNow:
 	.string "new DEVON products in RUSTBORO now.$"
 
 VerdanturfTown_Text_TownSign:
-	.string "STILLTURF\p"
+	.string "VERDANTURF TOWN\p"
 	.string "“The windswept highlands with the\n"
 	.string "sweet fragrance of grass.”$"
 

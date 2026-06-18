@@ -55,7 +55,7 @@ VictoryRoad_B2F_Text_OwenDefeat:
 
 VictoryRoad_B2F_Text_OwenPostBattle:
 	.string "The rumors I heard, that tough little\n"
-	.string "kid is from WARDHOLD.$"
+	.string "kid is from PETALBURG CITY.$"
 
 VictoryRoad_B2F_Text_CarolineIntro:
 	.string "You must be getting a little tired.$"

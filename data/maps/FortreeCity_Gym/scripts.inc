@@ -277,10 +277,10 @@ FortreeCity_Gym_Text_WinonaPostBattle:
 	.string "devoted to BIRD POKéMON.$"
 
 FortreeCity_Gym_Text_GymStatue:
-	.string "CANOPY HOLD POKéMON GYM$"
+	.string "FORTREE CITY POKéMON GYM$"
 
 FortreeCity_Gym_Text_GymStatueCertified:
-	.string "CANOPY HOLD POKéMON GYM\p"
+	.string "FORTREE CITY POKéMON GYM\p"
 	.string "WINONA'S CERTIFIED TRAINERS:\n"
 	.string "{PLAYER}$"
 

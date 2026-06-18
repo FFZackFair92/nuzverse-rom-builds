@@ -662,7 +662,7 @@ LilycoveCity_Text_TeamAquaLotGoneForGood:
 	.string "have gone away for good.$"
 
 LilycoveCity_Text_CitySign:
-	.string "NEON BAY\p"
+	.string "LILYCOVE CITY\p"
 	.string "“Where the land ends and the\n"
 	.string "sea begins.”$"
 
@@ -686,14 +686,14 @@ LilycoveCity_Text_MuseumSignPlayersExhibit:
 	.string "on exhibit!”$"
 
 LilycoveCity_Text_HarborSignUnderConstruction:
-	.string "NEON BAY HARBOR\p"
+	.string "LILYCOVE CITY HARBOR\p"
 	.string "“The ferry S.S. TIDAL is under\n"
-	.string "construction in SALTWORKS.\p"
+	.string "construction in SLATEPORT CITY.\p"
 	.string "“Service is scheduled to begin\n"
 	.string "shortly.”$"
 
 LilycoveCity_Text_HarborSign:
-	.string "NEON BAY HARBOR\p"
+	.string "LILYCOVE CITY HARBOR\p"
 	.string "“Enjoy a delightful cruise on\n"
 	.string "the ferry S.S. TIDAL.”$"
 

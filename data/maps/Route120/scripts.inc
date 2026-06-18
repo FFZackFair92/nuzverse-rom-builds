@@ -422,7 +422,7 @@ Kecleon_Text_UseDevonScopeMonAttacked:
 
 Route120_Text_RouteSignFortree:
 	.string "ROUTE 120\n"
-	.string "{LEFT_ARROW} CANOPY HOLD$"
+	.string "{LEFT_ARROW} FORTREE CITY$"
 
 Route120_Text_RouteSign121:
 	.string "{RIGHT_ARROW} ROUTE 121\n"

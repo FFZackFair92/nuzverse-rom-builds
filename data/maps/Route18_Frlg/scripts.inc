@@ -61,7 +61,7 @@ Route18_Text_JacobPostBattle::
 
 Route18_Text_RouteSign::
 	.string "ROUTE 18\n"
-	.string "BRASSROW - THORNWILD$"
+	.string "CELADON CITY - FUCHSIA CITY$"
 
 Route18_Text_CyclingRoadSign::
 	.string "CYCLING ROAD\n"

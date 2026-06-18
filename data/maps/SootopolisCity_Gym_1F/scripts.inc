@@ -275,10 +275,10 @@ SootopolisCity_Gym_1F_Text_GoGetFortreeBadge:
 	.string "BADGE from the GYM in FORTREE.$"
 
 SootopolisCity_Gym_1F_Text_GymStatue:
-	.string "CRUCIBLE POKéMON GYM$"
+	.string "SOOTOPOLIS CITY POKéMON GYM$"
 
 SootopolisCity_Gym_1F_Text_GymStatueCertified:
-	.string "CRUCIBLE POKéMON GYM\p"
+	.string "SOOTOPOLIS CITY POKéMON GYM\p"
 	.string "JUAN'S CERTIFIED TRAINERS:\n"
 	.string "{PLAYER}$"
 

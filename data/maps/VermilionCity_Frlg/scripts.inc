@@ -295,7 +295,7 @@ VermilionCity_Text_SSAnneVisitsOnceAYear::
 	.string "It visits VERMILION once a year.$"
 
 VermilionCity_Text_CitySign::
-	.string "VOLTPORT\n"
+	.string "VERMILION CITY\n"
 	.string "The Port of Exquisite Sunsets$"
 
 VermilionCity_Text_SnorlaxBlockingRoute12::
@@ -303,7 +303,7 @@ VermilionCity_Text_SnorlaxBlockingRoute12::
 	.string "ROUTE 12 may be blocked off by a\n"
 	.string "sleeping POKéMON.\p"
 	.string "Detour through ROCK TUNNEL to\n"
-	.string "PALE VIGIL.\p"
+	.string "LAVENDER TOWN.\p"
 	.string "VERMILION POLICE$"
 
 VermilionCity_Text_PokemonFanClubSign::
@@ -311,7 +311,7 @@ VermilionCity_Text_PokemonFanClubSign::
 	.string "All POKéMON fans welcome!$"
 
 VermilionCity_Text_GymSign::
-	.string "VOLTPORT POKéMON GYM\n"
+	.string "VERMILION CITY POKéMON GYM\n"
 	.string "LEADER: LT. SURGE\l"
 	.string "The Lightning American!$"
 

@@ -18,6 +18,6 @@ SlateportCity_House_Text_NatureToDoWithStatGains:
 
 SlateportCity_House_Text_MustBeGoingToBattleTent:
 	.string "You're a TRAINER, aren't you?\p"
-	.string "Since you came to SALTWORKS,\n"
+	.string "Since you came to SLATEPORT CITY,\n"
 	.string "you must be going to the BATTLE TENT.$"
 

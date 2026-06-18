@@ -31,7 +31,7 @@ EverGrandeCity_Text_EnteringPokemonLeague:
 	.string "CENTER GATE$"
 
 EverGrandeCity_Text_CitySign:
-	.string "FINAL FORGE\p"
+	.string "EVER GRANDE CITY\p"
 	.string "“The paradise of flowers, the sea,\n"
 	.string "and POKéMON.”$"
 

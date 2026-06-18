@@ -148,11 +148,11 @@ CeladonCity_Text_ExplainXAccuracyDireHit::
 	.string "DEPT. STORE!$"
 
 CeladonCity_Text_CitySign::
-	.string "BRASSROW\n"
+	.string "CELADON CITY\n"
 	.string "The City of Rainbow Dreams$"
 
 CeladonCity_Text_GymSign::
-	.string "BRASSROW POKéMON GYM\n"
+	.string "CELADON CITY POKéMON GYM\n"
 	.string "LEADER: ERIKA\l"
 	.string "The Nature-Loving Princess!$"
 

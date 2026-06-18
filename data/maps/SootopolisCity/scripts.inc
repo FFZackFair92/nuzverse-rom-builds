@@ -1379,13 +1379,13 @@ SootopolisCity_Movement_DestroyTask::
 	step_end
 
 SootopolisCity_Text_GymSign:
-	.string "CRUCIBLE POKéMON GYM\n"
+	.string "SOOTOPOLIS CITY POKéMON GYM\n"
 	.string "LEADER: JUAN\p"
 	.string "“The GYM LEADER with the beauty\n"
 	.string "of pure water!”$"
 
 SootopolisCity_Text_CitySign:
-	.string "CRUCIBLE\p"
+	.string "SOOTOPOLIS CITY\p"
 	.string "“The mystical city where history\n"
 	.string "slumbers.”$"
 
@@ -1485,10 +1485,10 @@ SootopolisCity_Text_PrettyMonCameFromSky:
 
 SootopolisCity_Text_SootopolisWillBeWrecked:
 	.string "Oh, no!\n"
-	.string "CRUCIBLE will get wrecked!$"
+	.string "SOOTOPOLIS CITY will get wrecked!$"
 
 SootopolisCity_Text_SootopolisDidntGetWrecked:
-	.string "CRUCIBLE didn't get wrecked!$"
+	.string "SOOTOPOLIS CITY didn't get wrecked!$"
 
 SootopolisCity_Text_NoOrdinaryTourist:
 	.string "Hm!\n"

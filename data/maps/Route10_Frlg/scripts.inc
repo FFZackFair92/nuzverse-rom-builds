@@ -94,7 +94,7 @@ Route10_Text_CarolPostBattle::
 
 Route10_Text_RockTunnelDetourToLavender::
 	.string "ROCK TUNNEL\n"
-	.string "Detour to PALE VIGIL$"
+	.string "Detour to LAVENDER TOWN$"
 
 Route10_Text_RockTunnel::
 	.string "ROCK TUNNEL$"

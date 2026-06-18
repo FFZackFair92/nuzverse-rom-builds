@@ -99,7 +99,7 @@ AquaHideout_1F_Text_BossIsInSlateportCity:
 	.string "What? What? What do you want with\n"
 	.string "TEAM AQUA?\p"
 	.string "Our BOSS isn't here!\n"
-	.string "He's on his way to SALTWORKS!\p"
+	.string "He's on his way to SLATEPORT CITY!\p"
 	.string "… …\n"
 	.string "Why did he go?\p"
 	.string "Wahaha! Do you really think I'd tell\n"

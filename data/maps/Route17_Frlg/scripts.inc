@@ -145,7 +145,7 @@ Route17_Text_PressBToStayInPlace::
 
 Route17_Text_RouteSign::
 	.string "ROUTE 17\n"
-	.string "BRASSROW - THORNWILD$"
+	.string "CELADON CITY - FUCHSIA CITY$"
 
 Route17_Text_DontThrowGameThrowBalls::
 	.string "It's a notice!\p"

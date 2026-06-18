@@ -392,6 +392,249 @@ OldaleTown_Text_BrendanLetsGoBack:
 	.string "{PLAYER}, you should hustle back, too.$"
 
 OldaleTown_Text_TownSign:
-	.string "RUSTFORD\n"
+	.string "OLDALE TOWN\n"
 	.string "“Where things start off scarce.”$"
 
+IronMon_EventScript_OutdoorNurse::
+	lock
+	faceplayer
+	msgbox IronMon_Text_OutdoorNurseHello
+	closemessage
+	special HealPlayerParty
+	msgbox IronMon_Text_OutdoorNurseDone
+	release
+	end
+
+IronMon_Text_OutdoorNurseHello::
+	.string "Ciao! Vi rimetto subito in sesto!$"
+
+IronMon_Text_OutdoorNurseDone::
+	.string "Fatto! In bocca al lupo!$"
+
+IronMon_EventScript_Ferry_RustboroCity::
+	lock
+	faceplayer
+	msgbox IronMon_EventScript_Ferry_RustboroCity_Txt0, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, IronMon_EventScript_Ferry_RustboroCity_Go0
+	release
+	end
+
+IronMon_EventScript_Ferry_RustboroCity_Go0::
+	closemessage
+	warp MAP_DEWFORD_TOWN, 2, 11
+	waitstate
+	release
+	end
+
+IronMon_EventScript_Ferry_RustboroCity_Txt0::
+	.string "Traghetto IronMon!\nAndiamo a DEWFORD?$"
+
+IronMon_EventScript_Ferry_DewfordTown::
+	lock
+	faceplayer
+	msgbox IronMon_EventScript_Ferry_DewfordTown_Txt0, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, IronMon_EventScript_Ferry_DewfordTown_Go0
+	msgbox IronMon_EventScript_Ferry_DewfordTown_Txt1, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, IronMon_EventScript_Ferry_DewfordTown_Go1
+	release
+	end
+
+IronMon_EventScript_Ferry_DewfordTown_Go0::
+	closemessage
+	warp MAP_SLATEPORT_CITY, 19, 20
+	waitstate
+	release
+	end
+
+IronMon_EventScript_Ferry_DewfordTown_Go1::
+	closemessage
+	warp MAP_RUSTBORO_CITY, 16, 39
+	waitstate
+	release
+	end
+
+IronMon_EventScript_Ferry_DewfordTown_Txt0::
+	.string "Traghetto IronMon!\nAndiamo a SLATEPORT?$"
+
+IronMon_EventScript_Ferry_DewfordTown_Txt1::
+	.string "Traghetto IronMon!\nAndiamo a RUSTBORO?$"
+
+IronMon_EventScript_Ferry_SlateportCity::
+	lock
+	faceplayer
+	msgbox IronMon_EventScript_Ferry_SlateportCity_Txt0, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, IronMon_EventScript_Ferry_SlateportCity_Go0
+	release
+	end
+
+IronMon_EventScript_Ferry_SlateportCity_Go0::
+	closemessage
+	warp MAP_DEWFORD_TOWN, 2, 11
+	waitstate
+	release
+	end
+
+IronMon_EventScript_Ferry_SlateportCity_Txt0::
+	.string "Traghetto IronMon!\nAndiamo a DEWFORD?$"
+
+IronMon_EventScript_Ferry_LilycoveCity::
+	lock
+	faceplayer
+	msgbox IronMon_EventScript_Ferry_LilycoveCity_Txt0, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, IronMon_EventScript_Ferry_LilycoveCity_Go0
+	release
+	end
+
+IronMon_EventScript_Ferry_LilycoveCity_Go0::
+	closemessage
+	warp MAP_MOSSDEEP_CITY, 28, 17
+	waitstate
+	release
+	end
+
+IronMon_EventScript_Ferry_LilycoveCity_Txt0::
+	.string "Traghetto IronMon!\nAndiamo a MOSSDEEP?$"
+
+IronMon_EventScript_Ferry_MossdeepCity::
+	lock
+	faceplayer
+	msgbox IronMon_EventScript_Ferry_MossdeepCity_Txt0, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, IronMon_EventScript_Ferry_MossdeepCity_Go0
+	msgbox IronMon_EventScript_Ferry_MossdeepCity_Txt1, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, IronMon_EventScript_Ferry_MossdeepCity_Go1
+	release
+	end
+
+IronMon_EventScript_Ferry_MossdeepCity_Go0::
+	closemessage
+	warp MAP_SOOTOPOLIS_CITY, 43, 32
+	waitstate
+	release
+	end
+
+IronMon_EventScript_Ferry_MossdeepCity_Go1::
+	closemessage
+	warp MAP_LILYCOVE_CITY, 24, 15
+	waitstate
+	release
+	end
+
+IronMon_EventScript_Ferry_MossdeepCity_Txt0::
+	.string "Traghetto IronMon!\nAndiamo a SOOTOPOLIS?$"
+
+IronMon_EventScript_Ferry_MossdeepCity_Txt1::
+	.string "Traghetto IronMon!\nAndiamo a LILYCOVE?$"
+
+IronMon_EventScript_Ferry_SootopolisCity::
+	lock
+	faceplayer
+	msgbox IronMon_EventScript_Ferry_SootopolisCity_Txt0, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, IronMon_EventScript_Ferry_SootopolisCity_Go0
+	msgbox IronMon_EventScript_Ferry_SootopolisCity_Txt1, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, IronMon_EventScript_Ferry_SootopolisCity_Go1
+	msgbox IronMon_EventScript_Ferry_SootopolisCity_Txt2, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, IronMon_EventScript_Ferry_SootopolisCity_Go2
+	release
+	end
+
+IronMon_EventScript_Ferry_SootopolisCity_Go0::
+	closemessage
+	warp MAP_MOSSDEEP_CITY, 28, 17
+	waitstate
+	release
+	end
+
+IronMon_EventScript_Ferry_SootopolisCity_Go1::
+	closemessage
+	warp MAP_EVER_GRANDE_CITY, 27, 49
+	waitstate
+	release
+	end
+
+IronMon_EventScript_Ferry_SootopolisCity_Go2::
+	closemessage
+	warp MAP_SOOTOPOLIS_CITY, 31, 33
+	waitstate
+	release
+	end
+
+IronMon_EventScript_Ferry_SootopolisCity_Txt0::
+	.string "Traghetto IronMon!\nAndiamo a MOSSDEEP?$"
+
+IronMon_EventScript_Ferry_SootopolisCity_Txt1::
+	.string "Traghetto IronMon!\nAndiamo a EVER GRANDE?$"
+
+IronMon_EventScript_Ferry_SootopolisCity_Txt2::
+	.string "Traghetto IronMon!\nTi porto alla PALESTRA?$"
+
+IronMon_EventScript_Ferry_EverGrandeCity::
+	lock
+	faceplayer
+	msgbox IronMon_EventScript_Ferry_EverGrandeCity_Txt0, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, IronMon_EventScript_Ferry_EverGrandeCity_Go0
+	release
+	end
+
+IronMon_EventScript_Ferry_EverGrandeCity_Go0::
+	closemessage
+	warp MAP_SOOTOPOLIS_CITY, 43, 32
+	waitstate
+	release
+	end
+
+IronMon_EventScript_Ferry_EverGrandeCity_Txt0::
+	.string "Traghetto IronMon!\nAndiamo a SOOTOPOLIS?$"
+
+IronMon_EventScript_Ferry_R118West::
+	lock
+	faceplayer
+	msgbox IronMon_EventScript_Ferry_R118West_Txt0, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, IronMon_EventScript_Ferry_R118West_Go0
+	release
+	end
+
+IronMon_EventScript_Ferry_R118West_Go0::
+	closemessage
+	warp MAP_ROUTE118, 32, 12
+	waitstate
+	release
+	end
+
+IronMon_EventScript_Ferry_R118West_Txt0::
+	.string "Traghetto IronMon!\nTi porto sull'altra riva?$"
+
+IronMon_EventScript_Ferry_R118East::
+	lock
+	faceplayer
+	msgbox IronMon_EventScript_Ferry_R118East_Txt0, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, IronMon_EventScript_Ferry_R118East_Go0
+	release
+	end
+
+IronMon_EventScript_Ferry_R118East_Go0::
+	closemessage
+	warp MAP_ROUTE118, 14, 12
+	waitstate
+	release
+	end
+
+IronMon_EventScript_Ferry_R118East_Txt0::
+	.string "Traghetto IronMon!\nTi porto sull'altra riva?$"
+
+IronMon_EventScript_Ferry_SootopolisGym::
+	lock
+	faceplayer
+	msgbox IronMon_EventScript_Ferry_SootopolisGym_Txt0, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, IronMon_EventScript_Ferry_SootopolisGym_Go0
+	release
+	end
+
+IronMon_EventScript_Ferry_SootopolisGym_Go0::
+	closemessage
+	warp MAP_SOOTOPOLIS_CITY, 43, 32
+	waitstate
+	release
+	end
+
+IronMon_EventScript_Ferry_SootopolisGym_Txt0::
+	.string "Traghetto IronMon!\nTorniamo al CENTRO POKEMON?$"

@@ -166,5 +166,5 @@ ViridianForest_Text_WeakenMonsBeforeCapture::
 
 ViridianForest_Text_LeavingViridianForest::
 	.string "LEAVING VIRIDIAN FOREST\n"
-	.string "GREYANVIL AHEAD$"
+	.string "PEWTER CITY AHEAD$"
 

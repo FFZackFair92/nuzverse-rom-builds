@@ -7,5 +7,5 @@ Route5_EventScript_UndergroundPathSign::
 
 Route5_Text_UndergroundPathSign::
 	.string "UNDERGROUND PATH\n"
-	.string "TIDEHOLD - VOLTPORT$"
+	.string "CERULEAN CITY - VERMILION CITY$"
 

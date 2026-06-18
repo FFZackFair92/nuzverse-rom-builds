@@ -23,7 +23,7 @@ ThreeIsland_House2_Text_CantMakeThisSpoonBend::
 
 ThreeIsland_House2_Text_IAdmireSabrina::
 	.string "You know about a girl GYM LEADER\n"
-	.string "in MINDSPIRE?\p"
+	.string "in SAFFRON CITY?\p"
 	.string "She uses PSYCHIC-type POKéMON,\n"
 	.string "right?\p"
 	.string "I admire her, I really do.\p"

@@ -24,7 +24,7 @@ Route25_Text_JoeyPostBattle::
 
 Route25_Text_DanIntro::
 	.string "Dad took me to a great party on\n"
-	.string "the S.S. ANNE at VOLTPORT.$"
+	.string "the S.S. ANNE at VERMILION CITY.$"
 
 Route25_Text_DanDefeat::
 	.string "I'm not mad!$"
@@ -112,7 +112,7 @@ Route25_Text_WayneDefeat::
 
 Route25_Text_WaynePostBattle::
 	.string "The trail below is a shortcut to\n"
-	.string "TIDEHOLD.$"
+	.string "CERULEAN CITY.$"
 
 Route25_Text_SeaCottageSign::
 	.string "SEA COTTAGE\n"

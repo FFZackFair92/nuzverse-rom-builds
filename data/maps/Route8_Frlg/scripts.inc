@@ -113,7 +113,7 @@ Route8_Text_JuliaPostBattle::
 
 Route8_Text_UndergroundPathSign::
 	.string "UNDERGROUND PATH\n"
-	.string "BRASSROW - PALE VIGIL$"
+	.string "CELADON CITY - LAVENDER TOWN$"
 
 Route8_Text_EliIntro::
 	.string "ELI: Twin power is fantastic.\n"

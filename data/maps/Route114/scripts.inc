@@ -188,7 +188,7 @@ Route114_Text_Poochyena:
 
 Route114_Text_MeteorFallsSign:
 	.string "METEOR FALLS\n"
-	.string "COGWORKS THROUGH HERE$"
+	.string "RUSTBORO CITY THROUGH HERE$"
 
 Route114_Text_FossilManiacsHouseSign:
 	.string "FOSSIL MANIAC'S HOUSE\n"
