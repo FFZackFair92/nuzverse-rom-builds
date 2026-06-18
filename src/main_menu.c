@@ -791,6 +791,14 @@ static void Task_MainMenuCheckBattery(u8 taskId)
         SetGpuReg(REG_OFFSET_BLDALPHA, 0);
         SetGpuReg(REG_OFFSET_BLDY, 7);
 
+#if NV_INSTANT_START
+        // Nuzverse: salta SEMPRE al nuovo gioco IGNORANDO lo stato RTC.
+        // L'RTC emulato (mGBA-WASM) a volte segnala errore "batteria scarica"
+        // (e su FireRed non c'e' proprio RTC): senza questo bypass la schermata
+        // d'errore prendeva il posto del salto -> "a volte non salta l'intro".
+        gTasks[taskId].func = Task_IronMonInstantNewGame;
+        return;
+#endif
         if (!(RtcGetErrorStatus() & RTC_ERR_FLAG_MASK))
         {
             // Nuzverse: NV_INSTANT_START -> SEMPRE nuova partita (niente Continua); run usa-e-getta.
