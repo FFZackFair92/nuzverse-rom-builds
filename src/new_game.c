@@ -264,6 +264,12 @@ void NewGameInitData(void)
     FlagSet(FLAG_HIDE_ROUTE_119_TEAM_AQUA);    // ponte Istituto Meteo libero
     FlagSet(FLAG_HIDE_RUSTURF_TUNNEL_ROCK_1);  // scorciatoia Verdanturf<->Rustboro
     FlagSet(FLAG_HIDE_RUSTURF_TUNNEL_ROCK_2);
+    // Nuzverse lineare: salta cutscene-storia filler (solo dialogo, NON gate di progressione)
+    VarSet(VAR_LITTLEROOT_TOWN_STATE, 4);  // intro Littleroot (gemelli/scarpe) gia' fatta
+    VarSet(VAR_LITTLEROOT_RIVAL_STATE, 3); // incontro rivale in cameretta saltato
+    VarSet(VAR_ROUTE116_STATE, 2);         // Briney "Peeko rapito" (solo dialogo)
+    VarSet(VAR_ROUTE118_STATE, 1);         // Steven sul dislivello (solo flavor)
+    VarSet(VAR_ROUTE121_STATE, 1);         // grunt Aqua che chiacchierano e se ne vanno
 #else
     // -- Kanto (FRLG): rimuove roadblock e gate-oggetto del percorso principale --
     FlagSet(FLAG_HIDE_ROUTE_12_SNORLAX);   // Snorlax Route 12
@@ -280,6 +286,16 @@ void NewGameInitData(void)
     AddBagItem(ITEM_TEA, 1);               // guardie di Zafferano
     AddBagItem(ITEM_POKE_FLUTE, 1);
     AddBagItem(ITEM_SS_TICKET, 1);
+    // Nuzverse lineare: salta cutscene-storia filler del main path (non-gate; key item gia' in borsa)
+    VarSet(VAR_MAP_SCENE_PALLET_TOWN_OAK, 3);                    // Oak non ti ferma sulla Route 1
+    VarSet(VAR_MAP_SCENE_VIRIDIAN_CITY_OLD_MAN, 2);             // Route 2 libera + niente tutorial cattura
+    VarSet(VAR_MAP_SCENE_PEWTER_CITY, 2);                       // niente guida-palestra forzata
+    VarSet(VAR_MAP_SCENE_CERULEAN_CITY_RIVAL, 1);              // niente rivale all'incrocio
+    VarSet(VAR_MAP_SCENE_CERULEAN_CITY_ROCKET, 1);            // niente grunt della casa derubata
+    VarSet(VAR_MAP_SCENE_ROUTE22, 2);                          // salta SOLO il primo rivale (il tardo pre-Lega resta)
+    VarSet(VAR_MAP_SCENE_ROUTE24, 1);                          // niente cutscene del Ponte Pepita
+    FlagSet(FLAG_HIDE_NUGGET_BRIDGE_ROCKET);                   // nasconde il Rocket sul ponte
+    VarSet(VAR_MAP_SCENE_ROUTE5_ROUTE6_ROUTE7_ROUTE8_GATES, 1); // guardie gate Saffron via (Te' gia' in borsa)
 #endif
 #endif
 #if NV_KAIZO
