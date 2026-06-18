@@ -1568,7 +1568,7 @@ PalletTown_ProfessorOaksLab_Text_EmailMessage::
 	.string "Bring your best POKéMON and see\n"
 	.string "how you rate as a TRAINER!\p"
 	.string "POKéMON LEAGUE HQ\n"
-	.string "THE LAST ANVIL\p"
+	.string "INDIGO PLATEAU\p"
 	.string "PROF. OAK, please visit us!\n"
 	.string "…$"
 
@@ -1656,4 +1656,10 @@ PalletTown_ProfessorOaksLab_Text_OakMustReallyWorkToFillPokedex::
 
 PalletTown_ProfessorOaksLab_Text_RivalIllCompleteThePokedex::
 	.string "{RIVAL}: Gramps, calm down.\n"
-	.string "Don't get so
+	.string "Don't get so excited.\p"
+	.string "I'll get the POKéDEX completed,\n"
+	.string "don't you worry about a thing.\p"
+	.string "I think I'll try looking around\n"
+	.string "ONE ISLAND first…\p"
+	.string "Anyways, I'm outta here!$"
+
