@@ -1214,6 +1214,10 @@ struct SaveBlock1
     // Nuzlocke: 1 bit per regionMapSectionId = "primo incontro gia' usato in quest'area"
     u8 nvNuzFirstEnc[32];
 #endif
+#if NV_KAIZO
+    // Kaizo: 1 bit per regionMapSectionId = "cattura permessa qui" (prime 3 zone con selvatici)
+    u8 nvKaizoCatchSec[32];
+#endif
     // sizeof: 0x3???
 };
 

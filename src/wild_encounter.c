@@ -476,10 +476,29 @@ static void IronmonMarkAreaEncounter(void)
 }
 #endif
 
+#if NV_KAIZO
+// Kaizo: cattura permessa solo nelle prime 3 zone con selvatici (poi swap del capofila).
+bool8 IronmonCatchAllowed(void) // non-static: usata anche da battle_script_commands (Cmd_handleballthrow)
+{
+    u32 sec = gMapHeader.regionMapSectionId;
+    return (gSaveBlock1Ptr->nvKaizoCatchSec[sec >> 3] >> (sec & 7)) & 1;
+}
+static void IronmonMarkCatchRoute(void)
+{
+    u32 sec = gMapHeader.regionMapSectionId, i, n = 0;
+    if (IronmonCatchAllowed()) return; // zona gia' abilitata
+    for (i = 0; i < 32; i++) { u8 b = gSaveBlock1Ptr->nvKaizoCatchSec[i]; while (b) { n += b & 1; b >>= 1; } }
+    if (n < 3) gSaveBlock1Ptr->nvKaizoCatchSec[sec >> 3] |= (1 << (sec & 7)); // abilita solo le prime 3
+}
+#endif
+
 void CreateWildMon(enum Species species, u8 level)
 {
 #if NV_PERMADEATH
     IronmonMarkAreaEncounter(); // Nuzlocke: questa zona ha ora usato il suo unico incontro
+#endif
+#if NV_KAIZO
+    IronmonMarkCatchRoute(); // Kaizo: registra la zona tra le prime 3 dove si puo' catturare
 #endif
 #if NV_KAIZO
     // Kaizo: catturi solo fino a +4 livelli sul tuo Pokémon più alto -> cap del livello selvatico.

@@ -2996,8 +2996,13 @@ u8 GiveCapturedMonToPlayer(struct Pokemon *mon)
     }
 
 #if NV_KAIZO
-    if (i >= 1) // Kaizo: 1 Pokémon alla volta -> le catture extra vanno nel PC (resti con 1 in squadra)
-        return CopyMonToPC(mon);
+    // Kaizo: cattura = SOSTITUZIONE immediata del capofila (party resta 1).
+    if (i >= 1)
+    {
+        CopyMon(&gParties[B_TRAINER_PLAYER][0], mon, sizeof(*mon));
+        gPartiesCount[B_TRAINER_PLAYER] = 1;
+        return MON_GIVEN_TO_PARTY;
+    }
 #endif
     if (i >= PARTY_SIZE)
         return CopyMonToPC(mon);

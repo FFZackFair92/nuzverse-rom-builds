@@ -10038,6 +10038,9 @@ static void Cmd_handleballthrow(void)
     {
         gBallToDisplay = gLastThrownBall = gLastUsedItem;
         u32 odds = ComputeCaptureOdds(gBattlerTarget, gBattlerAttacker);
+#if NV_KAIZO
+        if (!IronmonCatchAllowed()) odds = 0; // Kaizo: cattura solo nelle prime 3 zone -> ball fallisce
+#endif
         if (gTestRunnerEnabled)
             TestRunner_Battle_RecordCatchChance(odds);
 

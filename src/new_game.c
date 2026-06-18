@@ -282,6 +282,11 @@ void NewGameInitData(void)
     AddBagItem(ITEM_SS_TICKET, 1);
 #endif
 #endif
+#if NV_KAIZO
+    // Kaizo: borsa di partenza — Ultra Ball per le catture (prime 3 route) + cure in battaglia.
+    AddBagItem(ITEM_ULTRA_BALL, 5);
+    AddBagItem(ITEM_POTION, 3);
+#endif
     // ==========================================
     SetCurrentDifficultyLevel(DIFFICULTY_NORMAL);
     ResetItemFlags();
