@@ -3437,8 +3437,15 @@ bool8 ScrCmd_getbraillestringwidth(struct ScriptContext * ctx)
 }
 
 // Nuzverse kanto-starter-display: lo starter mostrato in scelta = specie randomizzata (WYSIWYG).
+// VAR_TEMP_5 = specie EFFETTIVA che verra' consegnata (lo script FRLG fa givemon VAR_TEMP_5),
+// quindi deve passare per le STESSE regole di GetStarterPokemon (Emerald): remap su tutte
+// le gen e, in Kaizo, clamp BST < 600. Cosi' Kanto/FRLG ha starter Gen 1-9 come i selvatici.
 void IronmonStarterDisplay(struct ScriptContext *ctx)
 {
     (void)ctx;
+#if NV_KAIZO
+    VarSet(VAR_TEMP_5, IronmonClampBst(IronmonRemapSpecies(VarGet(VAR_TEMP_2)))); // Kaizo: starter BST < 600
+#else
     VarSet(VAR_TEMP_5, IronmonRemapSpecies(VarGet(VAR_TEMP_2)));
+#endif
 }

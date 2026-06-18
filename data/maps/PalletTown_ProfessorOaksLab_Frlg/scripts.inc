@@ -1119,7 +1119,11 @@ PalletTown_ProfessorOaksLab_EventScript_ChoseStarter::
 	call EventScript_RestorePrevTextColor
 	setflag FLAG_SYS_POKEMON_GET
 	setflag FLAG_PALLET_LADY_NOT_BLOCKING_SIGN
-	givemon PLAYER_STARTER_SPECIES, 5
+	@ IronMon: consegna la specie GIA' randomizzata (e clampata in Kaizo) calcolata da
+	@ IronmonStarterDisplay in VAR_TEMP_5 — la STESSA mostrata in conferma (WYSIWYG).
+	@ Prima qui c'era `givemon PLAYER_STARTER_SPECIES` (= VAR_TEMP_2, Bulbasaur/Squirtle/
+	@ Charmander hardcoded) che bypassava il remap -> starter sempre Gen 1-3 in Kanto.
+	givemon VAR_TEMP_5, 5
 	copyvar VAR_STARTER_MON, PLAYER_STARTER_NUM
 	bufferspeciesname STR_VAR_1, VAR_TEMP_5
 	message PalletTown_ProfessorOaksLab_Text_ReceivedMonFromOak
