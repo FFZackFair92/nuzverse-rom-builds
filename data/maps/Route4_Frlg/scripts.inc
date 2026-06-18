@@ -38,7 +38,7 @@ Route4_Text_MtMoonEntrance::
 
 Route4_Text_RouteSign::
 	.string "ROUTE 4\n"
-	.string "MT. MOON - CERULEAN CITY$"
+	.string "MT. MOON - TIDEHOLD$"
 
 Text_MegaPunchTeach::
 	.string "A punch of roaring ferocity!\p"

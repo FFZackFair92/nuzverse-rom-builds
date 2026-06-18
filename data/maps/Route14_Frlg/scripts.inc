@@ -129,7 +129,7 @@ Route14_Text_MalikPostBattle::
 
 Route14_Text_RouteSign::
 	.string "ROUTE 14\n"
-	.string "West to FUCHSIA CITY$"
+	.string "West to THORNWILD$"
 
 Route14_Text_KiriIntro::
 	.string "KIRI: JAN, let's try really,\n"

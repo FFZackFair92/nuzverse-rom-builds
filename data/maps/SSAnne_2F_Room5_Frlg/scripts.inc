@@ -11,7 +11,7 @@ SSAnne_2F_Room5_EventScript_LittleBoy::
 
 SSAnne_2F_Room5_Text_HaveYouGoneToSafariZone::
 	.string "Have you gone to the SAFARI ZONE\n"
-	.string "in FUCHSIA CITY?\p"
+	.string "in THORNWILD?\p"
 	.string "There are many kinds of rare\n"
 	.string "POKéMON.$"
 

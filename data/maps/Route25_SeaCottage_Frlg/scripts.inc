@@ -376,7 +376,7 @@ Route25_SeaCottage_Text_YouveGotTooMuchStuff::
 
 Route25_SeaCottage_Text_SSAnnePartyYouGoInstead::
 	.string "That cruise ship S.S. ANNE is in\n"
-	.string "VERMILION CITY.\p"
+	.string "VOLTPORT.\p"
 	.string "I hear there are lots of TRAINERS\n"
 	.string "on board, too.\p"
 	.string "They invited me to their party, but\n"

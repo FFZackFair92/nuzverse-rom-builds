@@ -117,7 +117,7 @@ Route20_Text_NoraPostBattle::
 	.string "CLOYSTER?$"
 
 Route20_Text_MissyIntro::
-	.string "I swam here from CINNABAR ISLAND.\n"
+	.string "I swam here from MAGMAREACH.\n"
 	.string "It wasn't easy, I tell you.$"
 
 Route20_Text_MissyDefeat::

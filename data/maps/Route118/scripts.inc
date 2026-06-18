@@ -292,7 +292,7 @@ Route118_Text_CanCrossRiversWithSurf:
 
 Route118_Text_RouteSignMauville:
 	.string "ROUTE 118\n"
-	.string "{LEFT_ARROW} MAUVILLE CITY$"
+	.string "{LEFT_ARROW} ARCWAY$"
 
 Route118_Text_RouteSign119:
 	.string "ROUTE 118\n"

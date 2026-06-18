@@ -72,7 +72,7 @@ Route10_PokemonCenter_1F_Text_NuggetUselessSoldFor5000::
 
 Route10_PokemonCenter_1F_Text_HeardGhostsHauntLavender::
 	.string "I heard that ghosts haunt\n"
-	.string "LAVENDER TOWN.$"
+	.string "PALE VIGIL.$"
 
 Route10_PokemonCenter_1F_Text_GiveEverstoneIfCaught20Mons::
 	.string "Oh… {PLAYER}!\n"

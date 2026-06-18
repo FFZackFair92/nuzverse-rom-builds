@@ -122,7 +122,7 @@ Route19_Text_ConniePostBattle::
 
 Route19_Text_RouteSign::
 	.string "SEA ROUTE 19\n"
-	.string "FUCHSIA CITY - SEAFOAM ISLANDS$"
+	.string "THORNWILD - SEAFOAM ISLANDS$"
 
 Route19_Text_LiaIntro::
 	.string "LIA: I'm looking after my brother.\n"

@@ -218,7 +218,7 @@ JaggedPass_Text_EthanRematchDefeat:
 
 JaggedPass_Text_EthanPostRematch:
 	.string "I should get an ACRO BIKE from RYDEL\n"
-	.string "in MAUVILLE CITY…$"
+	.string "in ARCWAY…$"
 
 JaggedPass_Text_GruntIntro:
 	.string "Wah!\n"

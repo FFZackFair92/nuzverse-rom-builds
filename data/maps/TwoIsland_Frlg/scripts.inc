@@ -258,7 +258,7 @@ TwoIsland_Text_BringingItemsFromDistantLands::
 
 TwoIsland_Text_FellowMovedFromCeladonCity::
 	.string "That fellow there, he moved here\n"
-	.string "from CELADON CITY.\p"
+	.string "from BRASSROW.\p"
 	.string "He started up a shop with his\n"
 	.string "younger brother.\p"
 	.string "You have to wonder if he knew what\n"

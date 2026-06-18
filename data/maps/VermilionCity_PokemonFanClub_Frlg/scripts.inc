@@ -176,7 +176,7 @@ VermilionCity_PokemonFanClub_Text_ReceivedBikeVoucherFromChairman::
 
 VermilionCity_PokemonFanClub_Text_ExplainBikeVoucher::
 	.string "Take that BIKE VOUCHER to the\n"
-	.string "BIKE SHOP in CERULEAN CITY.\p"
+	.string "BIKE SHOP in TIDEHOLD.\p"
 	.string "Exchange that for a BICYCLE\n"
 	.string "free of charge!\p"
 	.string "Don't worry, my favorite FEAROW\n"

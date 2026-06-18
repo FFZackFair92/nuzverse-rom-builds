@@ -67,7 +67,7 @@ SSTidalRooms_Text_TakeRestOnBed:
 	.string "Let's take a rest.$"
 
 SSTidalRooms_Text_ColtonIntro:
-	.string "I often sail to LILYCOVE CITY.\p"
+	.string "I often sail to NEON BAY.\p"
 	.string "I enjoy attending CONTESTS,\n"
 	.string "you see.$"
 
