@@ -264,6 +264,8 @@ void NewGameInitData(void)
     FlagSet(FLAG_HIDE_ROUTE_119_TEAM_AQUA);    // ponte Istituto Meteo libero
     FlagSet(FLAG_HIDE_RUSTURF_TUNNEL_ROCK_1);  // scorciatoia Verdanturf<->Rustboro
     FlagSet(FLAG_HIDE_RUSTURF_TUNNEL_ROCK_2);
+    FlagSet(FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK); // Nuzverse: niente camion del trasloco a Littleroot
+    FlagSet(FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK);     // (instant-start: il trasloco non avviene mai)
     // Nuzverse lineare: salta cutscene-storia filler (solo dialogo, NON gate di progressione)
     VarSet(VAR_LITTLEROOT_TOWN_STATE, 4);  // intro Littleroot (gemelli/scarpe) gia' fatta
     VarSet(VAR_LITTLEROOT_RIVAL_STATE, 3); // incontro rivale in cameretta saltato

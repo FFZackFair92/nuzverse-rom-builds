@@ -21,7 +21,16 @@ static inline bool32 SetUpFieldMove(enum FieldMove fieldMove)
 
 static inline bool32 IsFieldMoveUnlocked(enum FieldMove fieldMove)
 {
+#if NV_HM_FREE
+    // Nuzverse MN-less: nessun gate medaglia. Ogni mossa di campo (Taglio/Spaccaroccia/
+    // Forza/Surf/Cascata/Sub/RockClimb...) risulta sempre "sbloccata", così i trigger di
+    // campo (field_control_avatar) e il menu Pokémon (party_menu) la considerano usabile
+    // senza possedere la MN né la medaglia. Il mon di testa esegue l'effetto.
+    (void)fieldMove;
+    return TRUE;
+#else
     return gFieldMoveInfo[fieldMove].isUnlockedFunc();
+#endif
 }
 
 static inline u32 FieldMove_GetMoveId(enum FieldMove fieldMove)

@@ -3449,3 +3449,12 @@ void IronmonStarterDisplay(struct ScriptContext *ctx)
     VarSet(VAR_TEMP_5, IronmonRemapSpecies(VarGet(VAR_TEMP_2)));
 #endif
 }
+
+// IronMon WYSIWYG (lab Kanto/FRLG): consegna ESATTAMENTE VAR_TEMP_5 (gia' remappata+clampata
+// da IronmonStarterDisplay) SENZA ri-rimappare. `givemon` la rimapperebbe una 2a volta.
+void IronmonGiveStarter(struct ScriptContext *ctx)
+{
+    (void)ctx;
+    extern u32 ScriptGiveMonNoRemap(enum Species species, u8 level, enum Item item);
+    ScriptGiveMonNoRemap(VarGet(VAR_TEMP_5), 5, ITEM_NONE);
+}

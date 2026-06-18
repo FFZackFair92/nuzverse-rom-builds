@@ -494,6 +494,9 @@ static void IronmonMarkCatchRoute(void)
 
 void CreateWildMon(enum Species species, u8 level)
 {
+#if NV_DEBUG_ENEMY_LV1
+    level = 1; // DEBUG/TEMP: selvatici a Lv1 (come i trainer via NV_TRAINER_LEVEL). Rimettere NV_DEBUG_ENEMY_LV1=0 al lancio.
+#endif
 #if NV_PERMADEATH
     IronmonMarkAreaEncounter(); // Nuzlocke: questa zona ha ora usato il suo unico incontro
 #endif

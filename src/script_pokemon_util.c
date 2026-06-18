@@ -509,6 +509,26 @@ u32 ScriptGiveMon(enum Species species, u8 level, enum Item item)
     return GiveScriptedMonToPlayer(&mon, PARTY_SIZE);
 }
 
+// IronMon WYSIWYG starter: consegna ESATTAMENTE la specie passata, SENZA applicare
+// IronmonRemapSpecies. Da usare quando la specie è GIA' stata rimappata+clampata a monte
+// (es. GetStarterPokemon = IronmonClampBst(IronmonRemapSpecies(...))). Passarla a
+// ScriptGiveMon la rimapperebbe una SECONDA volta -> starter consegnato != mostrato.
+u32 ScriptGiveMonNoRemap(enum Species species, u8 level, enum Item item)
+{
+    struct Pokemon mon;
+    u8 heldItem[2];
+
+    CreateRandomMon(&mon, species, level);
+    if (item)
+    {
+        heldItem[0] = item;
+        heldItem[1] = item >> 8;
+        SetMonData(&mon, MON_DATA_HELD_ITEM, heldItem);
+    }
+
+    return GiveScriptedMonToPlayer(&mon, PARTY_SIZE);
+}
+
 #define PARSE_FLAG(n, default_) (flags & (1 << (n))) ? VarGet(ScriptReadHalfword(ctx)) : (default_)
 
 /* Give or create a mon to either player or opponent

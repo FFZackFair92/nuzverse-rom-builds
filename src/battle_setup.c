@@ -964,7 +964,10 @@ static void CB2_GiveStarter(void)
 
     *GetVarPointer(VAR_STARTER_MON) = gSpecialVar_Result;
     starterMon = GetStarterPokemon(gSpecialVar_Result);
-    ScriptGiveMon(starterMon, 5, ITEM_NONE);
+    // IronMon WYSIWYG: starterMon è GIA' rimappato+clampato da GetStarterPokemon (= la specie
+    // mostrata in scelta/conferma). ScriptGiveMon lo rimapperebbe una SECONDA volta (consegna
+    // != mostrato): usiamo la variante NoRemap per consegnare ESATTAMENTE quella specie.
+    ScriptGiveMonNoRemap(starterMon, 5, ITEM_NONE);
     ResetTasks();
     PlayBattleBGM();
     SetMainCallback2(CB2_StartFirstBattle);
