@@ -114,13 +114,6 @@
   ],
   "warp_events": [
     {
-      "x": 19,
-      "y": 13,
-      "elevation": 0,
-      "dest_map": "MAP_UNDERGROUND_PATH_SOUTH_ENTRANCE",
-      "dest_warp_id": "1"
-    },
-    {
       "x": 12,
       "y": 5,
       "elevation": 3,

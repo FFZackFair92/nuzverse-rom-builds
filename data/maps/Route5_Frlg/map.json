@@ -26,17 +26,8 @@
       "direction": "down"
     }
   ],
-  "object_events": [
-
-  ],
+  "object_events": [],
   "warp_events": [
-    {
-      "x": 31,
-      "y": 31,
-      "elevation": 0,
-      "dest_map": "MAP_UNDERGROUND_PATH_NORTH_ENTRANCE",
-      "dest_warp_id": "1"
-    },
     {
       "x": 23,
       "y": 25,
@@ -59,9 +50,7 @@
       "dest_warp_id": "1"
     }
   ],
-  "coord_events": [
-
-  ],
+  "coord_events": [],
   "bg_events": [
     {
       "type": "sign",
