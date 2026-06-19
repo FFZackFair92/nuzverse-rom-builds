@@ -13,6 +13,7 @@
 #include "battle_pyramid.h"
 #include "battle_scripts.h"
 #include "battle_setup.h"
+#include "nuzverse_levels.h"
 #include "battle_tower.h"
 #include "battle_z_move.h"
 #include "battle_gimmick.h"
@@ -2056,10 +2057,10 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 }
                 if (partyData[monIndex].lvl >= 30)
                     nvSpecies = IronmonFinalEvo(nvSpecies);
-                CreateMon(&party[i], nvSpecies, NV_TRAINER_LEVEL(partyData[monIndex].lvl), personalityValue, otId);
+                CreateMon(&party[i], nvSpecies, NvKaizoLevel(partyData[monIndex].lvl, TRAINER_BATTLE_PARAM.opponentA, monIndex, trainer->partySize), personalityValue, otId);
             }
 #else
-            CreateMon(&party[i], IronmonRemapSpecies(partyData[monIndex].species), /*IronMon Nuzlocke EM*/ NV_TRAINER_LEVEL(partyData[monIndex].lvl), personalityValue, otId);
+            CreateMon(&party[i], IronmonRemapSpecies(partyData[monIndex].species), /*IronMon Nuzlocke EM*/ NvKaizoLevel(partyData[monIndex].lvl, TRAINER_BATTLE_PARAM.opponentA, monIndex, trainer->partySize), personalityValue, otId);
 #endif
             SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[monIndex].heldItem);
 
