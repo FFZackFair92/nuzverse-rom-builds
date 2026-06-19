@@ -305,6 +305,13 @@ void NewGameInitData(void)
     AddBagItem(ITEM_MASTER_BALL, 10);
     AddBagItem(ITEM_POTION, 1);
 #endif
+    // Nuzverse QoL (la QoL retail lato-client e' saltata sulle variant fork): testo
+    // veloce, niente animazioni di battaglia, stile SET e scarpe da corsa. Con
+    // IsRunningDisallowed gia' forzata a FALSE -> si corre OVUNQUE (indoor incluso).
+    gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_FAST;
+    gSaveBlock2Ptr->optionsBattleSceneOff = TRUE;
+    gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SET;
+    FlagSet(FLAG_SYS_B_DASH);
     // ==========================================
     SetCurrentDifficultyLevel(DIFFICULTY_NORMAL);
     ResetItemFlags();
