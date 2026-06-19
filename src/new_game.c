@@ -320,6 +320,7 @@ void NewGameInitData(void)
     // Kaizo: borsa di partenza — 10 Master Ball (catture sicure nelle prime 3 route) + 1 Pozione.
     AddBagItem(ITEM_MASTER_BALL, 10);
     AddBagItem(ITEM_POTION, 1);
+    AddBagItem(ITEM_MAX_REPEL, 99);
 #endif
     // Nuzverse QoL (la QoL retail lato-client e' saltata sulle variant fork): testo
     // veloce, niente animazioni di battaglia, stile SET e scarpe da corsa. Con
