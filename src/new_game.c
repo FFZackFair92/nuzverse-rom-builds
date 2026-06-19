@@ -274,6 +274,12 @@ void NewGameInitData(void)
     // Nuzverse lineare: salta cutscene-storia filler (solo dialogo, NON gate di progressione)
     VarSet(VAR_LITTLEROOT_TOWN_STATE, 4);  // intro Littleroot (gemelli/scarpe) gia' fatta
     VarSet(VAR_LITTLEROOT_RIVAL_STATE, 3); // incontro rivale in cameretta saltato
+    // Nuzverse: la scena Pokédex del lab di Birch e' saltata -> settiamo a mano i flag che
+    // quella scena imposta. Senza, Oldale BLOCCA l'uscita ovest (gate FLAG_ADVENTURE_STARTED)
+    // e si e' forzati a tornare al lab dopo il rivale di Route103. Cosi' si prosegue subito.
+    FlagSet(FLAG_ADVENTURE_STARTED);            // sblocca Oldale ovest (niente ritorno forzato)
+    FlagSet(FLAG_SYS_POKEDEX_GET);              // Pokédex gia' in mano
+    FlagSet(FLAG_RECEIVED_POKEDEX_FROM_BIRCH);  // scena consegna Pokédex marcata fatta
     VarSet(VAR_ROUTE116_STATE, 2);         // Briney "Peeko rapito" (solo dialogo)
     VarSet(VAR_ROUTE118_STATE, 1);         // Steven sul dislivello (solo flavor)
     VarSet(VAR_ROUTE121_STATE, 1);         // grunt Aqua che chiacchierano e se ne vanno
