@@ -61,4 +61,11 @@
 #define NV_TRAINER_LEVEL(lvl) (lvl)
 #endif
 
+// Centri Pokemon chiusi: la porta non entra (l'infermiera e' gia' fuori dal Centro).
+// Il warp d'ingresso viene neutralizzato -> il giocatore resta davanti alla porta.
+// Entrambe le regioni (tutti i layout di Centro 1F).
+#ifndef NV_NO_POKECENTERS
+#define NV_NO_POKECENTERS 1
+#endif
+
 #endif // GUARD_NUZVERSE_CONFIG_H

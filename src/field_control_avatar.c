@@ -41,6 +41,7 @@
 #include "constants/event_objects.h"
 #include "constants/field_poison.h"
 #include "constants/layouts.h"
+#include "nuzverse_config.h"
 #include "constants/metatile_behaviors.h"
 #include "constants/songs.h"
 #include "constants/trainer_hill.h"
@@ -1075,6 +1076,26 @@ static s8 GetWarpEventAtMapPosition(struct MapHeader *mapHeader, struct MapPosit
     return GetWarpEventAtPosition(mapHeader, position->x - MAP_OFFSET, position->y - MAP_OFFSET, position->elevation);
 }
 
+#if NV_NO_POKECENTERS
+// Nuzverse: riconosce TUTTI i layout di Centro Pokemon 1F (Hoenn, FRLG, Lavaridge,
+// Indigo Plateau, One Island, RS) per neutralizzare il warp d'ingresso ai Centri.
+static bool32 NvIsPokeCenterLayout(u16 layoutId)
+{
+    switch (layoutId)
+    {
+    case LAYOUT_POKEMON_CENTER_1F:
+    case LAYOUT_POKEMON_CENTER_1F_FRLG:
+    case LAYOUT_LAVARIDGE_TOWN_POKEMON_CENTER_1F:
+    case LAYOUT_INDIGO_PLATEAU_POKEMON_CENTER_1F:
+    case LAYOUT_ONE_ISLAND_POKEMON_CENTER_1F:
+    case LAYOUT_RS_POKEMON_CENTER_1F:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+#endif
+
 static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPosition *position)
 {
     const struct WarpEvent *warpEvent;
@@ -1110,11 +1131,22 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
     }
     else
     {
-        const struct MapHeader *mapHeader;
+        const struct MapHeader *mapHeader = Overworld_GetMapHeaderByGroupAndId(warpEvent->mapGroup, warpEvent->mapNum);
+
+#if NV_NO_POKECENTERS
+        // Nuzverse: Centri Pokemon chiusi (infermiera fuori). Neutralizza il warp della
+        // porta: invece di entrare, il giocatore resta davanti alla porta (porta = position,
+        // +1 in y = tile davanti). Vale per tutti i layout di Centro, Hoenn + FRLG.
+        if (NvIsPokeCenterLayout(mapHeader->mapLayoutId))
+        {
+            SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
+                               WARP_ID_NONE, position->x - MAP_OFFSET, position->y - MAP_OFFSET + 1);
+            return;
+        }
+#endif
 
         SetWarpDestinationToMapWarp(warpEvent->mapGroup, warpEvent->mapNum, warpEvent->warpId);
         UpdateEscapeWarp(position->x, position->y);
-        mapHeader = Overworld_GetMapHeaderByGroupAndId(warpEvent->mapGroup, warpEvent->mapNum);
         if (mapHeader->events->warps[warpEvent->warpId].mapNum == MAP_NUM(MAP_DYNAMIC))
             SetDynamicWarp(mapHeader->events->warps[warpEventId].warpId, gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum, warpEventId);
     }
