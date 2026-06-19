@@ -301,6 +301,11 @@ void NewGameInitData(void)
     AddBagItem(ITEM_SS_TICKET, 1);
     // Nuzverse lineare: salta cutscene-storia filler del main path (non-gate; key item gia' in borsa)
     VarSet(VAR_MAP_SCENE_PALLET_TOWN_OAK, 3);                    // Oak non ti ferma sulla Route 1
+    // Nuzverse: la scena Pokédex (consegna "pacco di Oak") e' saltata -> settiamo a mano i
+    // flag che dava, altrimenti manca il Pokédex e la quest pacco/Oak resta aperta (NPC che
+    // blocca a fine Viridian finche' non torni da Oak). Cosi' Pokédex in mano e quest fatta.
+    FlagSet(FLAG_SYS_POKEDEX_GET);     // Pokédex in mano
+    FlagSet(FLAG_ADVENTURE_STARTED);   // quest pacco/Oak completata (0x74 = "RECEIVED Pokédex")
     VarSet(VAR_MAP_SCENE_VIRIDIAN_CITY_OLD_MAN, 2);             // Route 2 libera + niente tutorial cattura
     VarSet(VAR_MAP_SCENE_PEWTER_CITY, 2);                       // niente guida-palestra forzata
     VarSet(VAR_MAP_SCENE_CERULEAN_CITY_RIVAL, 1);              // niente rivale all'incrocio
