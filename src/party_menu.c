@@ -34,6 +34,8 @@
 #include "item.h"
 #include "item_menu.h"
 #include "item_use.h"
+#include "random.h"
+#include "nuzverse_config.h"
 #include "caps.h"
 #include "link.h"
 #include "link_rfu.h"
@@ -5560,6 +5562,11 @@ static void DisplayLearnMoveMessageAndClose(u8 taskId, const u8 *str)
 
 // move[1] doesn't use constants cause I don't know if it's actually a move ID storage
 
+#if NV_TM_5050
+// Regola MT Kaizo: 50% di probabilita' che la MT consumabile non venga appresa.
+static const u8 sNvText_TmFailed[] = _("{STR_VAR_1} failed to\nlearn {STR_VAR_2}!");
+#endif
+
 void ItemUseCB_TMHM(u8 taskId, TaskFunc task)
 {
     struct Pokemon *mon;
@@ -5586,6 +5593,17 @@ void ItemUseCB_TMHM(u8 taskId, TaskFunc task)
     default:
         break;
     }
+
+#if NV_TM_5050
+    // 50% di fallimento: brucia la MT consumabile senza insegnare la mossa.
+    // Le MN/oggetti importanti (GetItemImportance != 0) non sono interessati.
+    if (GetItemImportance(item) == 0 && (Random() % 2) == 0)
+    {
+        RemoveBagItem(item, 1);
+        DisplayLearnMoveMessageAndClose(taskId, sNvText_TmFailed);
+        return;
+    }
+#endif
 
     if (GiveMoveToMon(mon, move) != MON_HAS_MAX_MOVES)
     {

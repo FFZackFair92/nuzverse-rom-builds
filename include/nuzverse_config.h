@@ -68,4 +68,12 @@
 #define NV_NO_POKECENTERS 1
 #endif
 
+// Regola MT Kaizo (stile StartAB): quando insegni una MT consumabile c'e' solo il 50%
+// di probabilita' che il Pokemon la impari; sul fallimento la MT viene comunque bruciata.
+// MN e oggetti 'importanti' (GetItemImportance != 0) NON sono toccati.
+// Default = NV_KAIZO (ON IronMon su entrambe le regioni, OFF Nuzlocke). Override da CLI.
+#ifndef NV_TM_5050
+#define NV_TM_5050 NV_KAIZO
+#endif
+
 #endif // GUARD_NUZVERSE_CONFIG_H
