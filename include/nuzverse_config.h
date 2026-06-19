@@ -53,7 +53,7 @@
 // ⚠️ DEBUG/TEMP — tutti i Pokémon degli allenatori a Lv1 (battaglie lampo per collaudo).
 // Rimettere a 0 (o build con -DNV_DEBUG_ENEMY_LV1=0) prima del bilanciamento/lancio.
 #ifndef NV_DEBUG_ENEMY_LV1
-#define NV_DEBUG_ENEMY_LV1 0
+#define NV_DEBUG_ENEMY_LV1 1
 #endif
 #if NV_DEBUG_ENEMY_LV1
 #define NV_TRAINER_LEVEL(lvl) 1
