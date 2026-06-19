@@ -1,5 +1,7 @@
 #include "global.h"
 #include "wild_encounter_ow.h"
+#include "constants/region_map_sections.h"
+#include "nuzverse_config.h"
 #include "battle_setup.h"
 #include "battle_main.h"
 #include "battle_pike.h"
@@ -228,6 +230,25 @@ const struct FieldEffectInfoOWE gOverworldWildEncounterFieldEffectInfo[] =
 };
 
 
+#if NV_KAIZO
+// Nuzverse: selvatici VISIBILI (OWE) solo sui primi 3 percorsi (dove ci sono le 4
+// specie @ Lv8). Altrove restano gli incontri normali (invisibili).
+static bool32 NvOweRouteAllowed(void)
+{
+    switch (gMapHeader.regionMapSectionId)
+    {
+    case MAPSEC_ROUTE_101: case MAPSEC_ROUTE_102: case MAPSEC_ROUTE_103: // Hoenn
+    case MAPSEC_ROUTE_1:   case MAPSEC_ROUTE_2:   case MAPSEC_ROUTE_3:   // Kanto
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+#define NV_OWE_BLOCKED (!NvOweRouteAllowed())
+#else
+#define NV_OWE_BLOCKED FALSE
+#endif
+
 void UpdateOverworldWildEncounter(void)
 {
     //Check if possible to spawn.
@@ -238,6 +259,7 @@ void UpdateOverworldWildEncounter(void)
         return;
 
     if (!WE_OW_ENCOUNTERS
+     || NV_OWE_BLOCKED
      || FlagGet(WE_OWE_FLAG_DISABLED)
      || FlagGet(WE_FLAG_NO_ENCOUNTER)
      || FlagGet(DN_FLAG_SEARCHING)
