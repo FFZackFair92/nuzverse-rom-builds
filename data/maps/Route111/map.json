@@ -220,32 +220,6 @@
       "flag": "FLAG_HIDE_ROUTE_111_GABBY_AND_TY_1"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_BREAKABLE_ROCK",
-      "x": 18,
-      "y": 101,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "EventScript_RockSmash",
-      "flag": "FLAG_TEMP_11"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_BREAKABLE_ROCK",
-      "x": 19,
-      "y": 100,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "EventScript_RockSmash",
-      "flag": "FLAG_TEMP_12"
-    },
-    {
       "graphics_id": "OBJ_EVENT_GFX_GIRL_1",
       "x": 23,
       "y": 8,
@@ -378,19 +352,6 @@
       "trainer_sight_or_berry_tree_id": "ITEM_HP_UP",
       "script": "Common_EventScript_FindItem",
       "flag": "FLAG_ITEM_ROUTE_111_HP_UP"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_CUTTABLE_TREE",
-      "x": 22,
-      "y": 21,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "EventScript_CutTree",
-      "flag": "FLAG_TEMP_13"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_PICNICKER",
