@@ -186,7 +186,12 @@ void NewGameInitData(void)
         RtcReset();
 
 #if IS_FRLG
-    StringCopy(rivalName, gSaveBlock1Ptr->rivalName);
+    // Nuzverse instant-start: sigla/naming saltati -> gSaveBlock1Ptr->rivalName puo' NON
+    // essere terminato (garbage) e StringCopy sforerebbe il buffer locale da 8B (stack
+    // overflow -> reset -> LOOP del logo GBA su Kanto). Copia LIMITATA + EOS = sicura,
+    // a prova di stato del SaveBlock e indipendente dal timing del menu.
+    StringCopyN(rivalName, gSaveBlock1Ptr->rivalName, PLAYER_NAME_LENGTH);
+    rivalName[PLAYER_NAME_LENGTH] = EOS;
 #endif
     gDifferentSaveFile = TRUE;
     gSaveBlock2Ptr->encryptionKey = 0;
