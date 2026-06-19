@@ -2042,7 +2042,18 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
 #if NV_KAIZO
             // Kaizo: evo forzata — i nemici da Lv30 in su sono generati full-evo.
             {
-                u16 nvSpecies = IronmonRemapSpecies(partyData[monIndex].species);
+                u16 nvSpecies;
+                if ((u32)i >= nvBase)
+                {
+                    // +3 boss: specie RANDOM per-slot (deterministica dal seed via la
+                    // bijection IronmonRemapSpecies), NON un duplicato del capofila.
+                    u32 nvRoll = 1 + ((personalityHash + (u32)i * 2654435761u) % (NUM_SPECIES - 1));
+                    nvSpecies = IronmonRemapSpecies((u16)nvRoll);
+                }
+                else
+                {
+                    nvSpecies = IronmonRemapSpecies(partyData[monIndex].species);
+                }
                 if (partyData[monIndex].lvl >= 30)
                     nvSpecies = IronmonFinalEvo(nvSpecies);
                 CreateMon(&party[i], nvSpecies, NV_TRAINER_LEVEL(partyData[monIndex].lvl), personalityValue, otId);
