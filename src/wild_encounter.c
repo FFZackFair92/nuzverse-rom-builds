@@ -20,6 +20,7 @@
 #include "script.h"
 #include "tv.h"
 #include "wild_encounter.h"
+#include "nuzverse_repel.h"
 #include "battle_debug.h"
 #include "battle_pike.h"
 #include "battle_pyramid.h"
@@ -899,6 +900,8 @@ void RockSmashWildEncounter(void)
 
 bool8 SweetScentWildEncounter(void)
 {
+    if (NvRepelToggleOn())
+        return FALSE;
     s16 x, y;
     u32 headerId;
     enum TimeOfDay timeOfDay;
@@ -985,6 +988,8 @@ bool8 SweetScentWildEncounter(void)
 
 bool8 DoesCurrentMapHaveFishingMons(void)
 {
+    if (NvRepelToggleOn())
+        return FALSE;
 #if NV_PERMADEATH
     if (IronmonAreaEncounterSpent()) // Nuzlocke: zona gia' usata -> pesca "non abbocca niente"
         return FALSE;
@@ -1124,6 +1129,8 @@ bool8 UpdateRepelCounter(void)
 
 bool8 IsWildLevelAllowedByRepel(u8 wildLevel)
 {
+    if (NvRepelToggleOn())
+        return FALSE; // interruttore repel ON = niente incontro (erba/surf/spaccaroccia)
     u8 i;
 
     if (!REPEL_STEP_COUNT)

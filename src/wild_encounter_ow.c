@@ -2,6 +2,7 @@
 #include "wild_encounter_ow.h"
 #include "constants/region_map_sections.h"
 #include "nuzverse_config.h"
+#include "nuzverse_repel.h"
 #include "battle_setup.h"
 #include "battle_main.h"
 #include "battle_pike.h"
@@ -260,6 +261,7 @@ void UpdateOverworldWildEncounter(void)
 
     if (!WE_OW_ENCOUNTERS
      || NV_OWE_BLOCKED
+     || NvRepelToggleOn()
      || FlagGet(WE_OWE_FLAG_DISABLED)
      || FlagGet(WE_FLAG_NO_ENCOUNTER)
      || FlagGet(DN_FLAG_SEARCHING)

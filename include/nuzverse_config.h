@@ -76,4 +76,8 @@
 #define NV_TM_5050 NV_KAIZO
 #endif
 
+// Interruttore repellente (key item): ON = nessun incontro selvatico + nessuno spawn OWE,
+// SENZA conteggio passi. Stato in un flag salvato (entrambe le regioni). Toggle dallo zaino.
+#define FLAG_NV_REPEL_TOGGLE FLAG_UNUSED_0x4A7
+
 #endif // GUARD_NUZVERSE_CONFIG_H

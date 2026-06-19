@@ -14296,7 +14296,7 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_DEVON_SCOPE] =
     {
-        .name = ITEM_NAME("Devon Scope"),
+        .name = ITEM_NAME("Repel Switch"),
         .price = 0,
         .description = COMPOUND_STRING(
             "A device by Devon\n"
@@ -14304,8 +14304,8 @@ const struct ItemInfo gItemsInfo[] =
             "unseeable Pokémon."),
         .importance = 1,
         .pocket = POCKET_KEY_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_NvRepelToggle,
         .iconPic = gItemIcon_DevonScope,
         .iconPalette = gItemIconPalette_DevonScope,
     },

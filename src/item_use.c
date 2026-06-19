@@ -11,6 +11,7 @@
 #include "coins.h"
 #include "data.h"
 #include "event_data.h"
+#include "nuzverse_config.h"
 #include "event_object_lock.h"
 #include "event_object_movement.h"
 #include "event_scripts.h"
@@ -1590,6 +1591,21 @@ static void Task_PlayPokeFlute(u8 taskId)
 {
     PlayFanfareByFanfareNum(FANFARE_RG_POKE_FLUTE);
     gTasks[taskId].func = Task_DisplayPokeFluteMessage;
+}
+
+static const u8 sText_NvRepelOn[] = _("Repel switch: ON.{PAUSE_UNTIL_PRESS}");
+static const u8 sText_NvRepelOff[] = _("Repel switch: OFF.{PAUSE_UNTIL_PRESS}");
+
+void ItemUseOutOfBattle_NvRepelToggle(u8 taskId)
+{
+    bool32 nowOn;
+    FlagToggle(FLAG_NV_REPEL_TOGGLE);
+    nowOn = FlagGet(FLAG_NV_REPEL_TOGGLE);
+    PlaySE(SE_REPEL);
+    if (!gTasks[taskId].tUsingRegisteredKeyItem)
+        DisplayItemMessage(taskId, FONT_NORMAL, nowOn ? sText_NvRepelOn : sText_NvRepelOff, CloseItemMessage);
+    else
+        DisplayItemMessageOnField(taskId, nowOn ? sText_NvRepelOn : sText_NvRepelOff, Task_CloseCantUseKeyItemMessage);
 }
 
 void ItemUseOutOfBattle_PokeFlute(u8 taskId)
