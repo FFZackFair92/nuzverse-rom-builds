@@ -64,11 +64,9 @@
                                                   // 16x32, 32x32, 64x64 etc are fine
 #define OW_MON_WANDER_WALK             TRUE       // If true, OW Pokémon with MOVEMENT_TYPE_WANDER will walk-in-place in between steps.
 // Follower Pokémon
-#if NV_KAIZO
-#define OW_FOLLOWERS_ENABLED           TRUE       // Nuzverse: il tuo Pokemon ti segue (solo IronMon/Kaizo), HGSS style.
-#else
-#define OW_FOLLOWERS_ENABLED           FALSE      // Enables follower Pokémon, HGSS style. Requires OW_POKEMON_OBJECT_EVENTS.
-#endif
+// Nuzverse: il tuo Pokemon ti segue su TUTTE le variant (IronMon + Nuzlocke), HGSS style.
+// (I selvatici visibili OWE restano invece solo IronMon, vedi WE_OW_ENCOUNTERS.)
+#define OW_FOLLOWERS_ENABLED           TRUE
 #define OW_FOLLOWERS_BOBBING           TRUE       // If TRUE, follower Pokémon will bob up and down during their idle & walking animations
 #define OW_FOLLOWERS_POKEBALLS         TRUE       // If TRUE, follower Pokémon will emerge from the Poké Ball they are stored in, instead of a normal Poké Ball
 #define OW_FOLLOWERS_WEATHER_FORMS     FALSE      // If TRUE, Castform and Cherrim gain FORM_CHANGE_OVERWORLD_WEATHER, which will make them transform in the overworld based on the weather.
