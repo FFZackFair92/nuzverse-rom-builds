@@ -271,7 +271,9 @@ void UpdateOverworldWildEncounter(void)
     {
         if (sOWESpawnCountdown != OWE_NO_ENCOUNTER_SET)
         {
-            DespawnAllOverworldWildEncounters(OWE_GENERATED, 0);
+            // Repel Switch: rimuovi ANCHE gli OWE manual (i Pokemon mostrati dei
+            // primi 3 percorsi), non solo i generati -> OWE_ANY.
+            DespawnAllOverworldWildEncounters(OWE_ANY, 0);
             sOWESpawnCountdown = OWE_NO_ENCOUNTER_SET;
         }
         return;

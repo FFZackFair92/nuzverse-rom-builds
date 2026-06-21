@@ -42,6 +42,7 @@
 #include "util.h"
 #include "wild_encounter.h"
 #include "wild_encounter_ow.h"
+#include "nuzverse_repel.h" // Repel Switch: gate spawn OWE manual
 #include "constants/event_object_movement.h"
 #include "constants/abilities.h"
 #include "constants/battle.h"
@@ -1911,6 +1912,15 @@ u8 TrySpawnObjectEventTemplate(const struct ObjectEventTemplate *objectEventTemp
     objectEventId = TrySetupObjectEventSprite(&objectEventTemplateLocal, &spriteTemplate, mapNum, mapGroup, cameraX, cameraY);
     if (objectEventId == OBJECT_EVENTS_COUNT)
         return OBJECT_EVENTS_COUNT;
+
+    // Repel Switch: mentre il repel e' ON non far comparire gli OWE manual (i
+    // Pokemon mostrati nei primi 3 percorsi). Cosi' restano nascosti finche' il
+    // repel resta attivo (riappaiono spostandosi col repel OFF).
+    if (NvRepelToggleOn() && IsOverworldWildEncounter(&gObjectEvents[objectEventId], OWE_MANUAL))
+    {
+        RemoveObjectEvent(&gObjectEvents[objectEventId]);
+        return OBJECT_EVENTS_COUNT;
+    }
 
     gSprites[gObjectEvents[objectEventId].spriteId].images = graphicsInfo->images;
     if (subspriteTables)
