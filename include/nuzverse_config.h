@@ -80,4 +80,12 @@
 // SENZA conteggio passi. Stato in un flag salvato (entrambe le regioni). Toggle dallo zaino.
 #define FLAG_NV_REPEL_TOGGLE FLAG_UNUSED_0x4A7
 
+// Dungeon a senso unico ("sigilla dopo completato"): quando esci da un dungeon verso
+// l'esterno setti il flag persistente; con il flag attivo il warp d'ingresso e' neutralizzato.
+#define NV_ONEWAY_DUNGEONS 1
+#define FLAG_NV_DUNGEON_MTMOON       FLAG_UNUSED_0x020
+#define FLAG_NV_DUNGEON_ROCKTUNNEL   FLAG_UNUSED_0x021
+#define FLAG_NV_DUNGEON_VICTORYRD_K  FLAG_UNUSED_0x022
+#define FLAG_NV_DUNGEON_VICTORYRD_H  FLAG_UNUSED_0x023
+
 #endif // GUARD_NUZVERSE_CONFIG_H
