@@ -154,3 +154,29 @@ FortreeCity_Text_GymSign:
 	.string "“The bird user taking flight into\n"
 	.string "the world.”$"
 
+
+@ Nuzverse — traghetto-gate DEEP TIDE: blocca l'ingresso di CANOPY HOLD (Fortree)
+@ dal bordo ovest (da Route119) finche' non hai 4 medaglie. I coord-event chiamano qui.
+FortreeCity_EventScript_DeepTideGate::
+	lockall
+	goto_if_set FLAG_BADGE04_GET, FortreeCity_EventScript_DeepTideOpen
+	msgbox FortreeCity_Text_DeepTide, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_PLAYER, FortreeCity_Movement_DeepTidePush
+	waitmovement 0
+	releaseall
+	end
+
+FortreeCity_EventScript_DeepTideOpen::
+	releaseall
+	end
+
+FortreeCity_Movement_DeepTidePush:
+	walk_left
+	walk_left
+	step_end
+
+FortreeCity_Text_DeepTide:
+	.string "Le correnti del DEEP TIDE sono\n"
+	.string "troppo forti per passare...\p"
+	.string "Torna con 4 medaglie.$"
