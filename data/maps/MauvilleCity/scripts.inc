@@ -662,3 +662,29 @@ MauvilleCity_Text_ExplainTV:
 
 MauvilleCity_Text_BeenCheckingOutTV:
 	.string "Hi, have you been checking out TVs?$"
+
+@ Nuzverse — DEEP TIDE: l'uscita EST di Mauville (->Route118) e' il chokepoint unico
+@ verso TUTTA la seconda meta' (Fortree E il bypass sud Route123/122/121). Gate a 4 medaglie.
+MauvilleCity_EventScript_DeepTideGate::
+	lockall
+	goto_if_set FLAG_BADGE04_GET, MauvilleCity_EventScript_DeepTideOpen
+	msgbox MauvilleCity_Text_DeepTide, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_PLAYER, MauvilleCity_Movement_DeepTidePush
+	waitmovement 0
+	releaseall
+	end
+
+MauvilleCity_EventScript_DeepTideOpen::
+	releaseall
+	end
+
+MauvilleCity_Movement_DeepTidePush:
+	walk_left
+	walk_left
+	step_end
+
+MauvilleCity_Text_DeepTide:
+	.string "Le correnti del DEEP TIDE bloccano\n"
+	.string "la strada a est...\p"
+	.string "Torna con 4 medaglie.$"
