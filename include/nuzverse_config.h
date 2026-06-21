@@ -83,9 +83,11 @@
 // Dungeon a senso unico ("sigilla dopo completato"): quando esci da un dungeon verso
 // l'esterno setti il flag persistente; con il flag attivo il warp d'ingresso e' neutralizzato.
 #define NV_ONEWAY_DUNGEONS 1
-#define FLAG_NV_DUNGEON_MTMOON       FLAG_UNUSED_0x020
-#define FLAG_NV_DUNGEON_ROCKTUNNEL   FLAG_UNUSED_0x021
-#define FLAG_NV_DUNGEON_VICTORYRD_K  FLAG_UNUSED_0x022
-#define FLAG_NV_DUNGEON_VICTORYRD_H  FLAG_UNUSED_0x023
+// NB: usare flag presenti SIA in flags.h (Emerald) SIA in flags_frlg.h (FireRed) — il
+// codice e' condiviso tra le due build. 0x4A8-0x4AB sono unused in entrambi (accanto al repel 0x4A7).
+#define FLAG_NV_DUNGEON_MTMOON       FLAG_UNUSED_0x4A8
+#define FLAG_NV_DUNGEON_ROCKTUNNEL   FLAG_UNUSED_0x4A9
+#define FLAG_NV_DUNGEON_VICTORYRD_K  FLAG_UNUSED_0x4AA
+#define FLAG_NV_DUNGEON_VICTORYRD_H  FLAG_UNUSED_0x4AB
 
 #endif // GUARD_NUZVERSE_CONFIG_H
