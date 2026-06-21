@@ -1562,6 +1562,52 @@ void GiveMonInitialMoveset(struct Pokemon *mon)
     GiveBoxMonInitialMoveset(&mon->box);
 }
 
+// IronMon: randomizer MOSSE seedato (UPR-style). Rimappa una mossa deterministicamente dal
+// SEED (trainerId del save), bijezione affine f(x)=1+((x-1)*a+b) mod n con salt distinto da
+// quello delle specie, cosi' player e nemici condividono lo stesso learnset randomizzato.
+// Re-roll deterministico per scartare mosse vietate/illegali (cura/drain/Spora/Assist/Struggle).
+static bool32 IronmonMoveRandDisallowed(u16 m)
+{
+    if (m == MOVE_NONE || m >= MOVES_COUNT || m == MOVE_STRUGGLE)
+        return TRUE;
+    if (gMovesInfo[m].healingMove)
+        return TRUE;
+    if (m == MOVE_SPORE || m == MOVE_ASSIST)
+        return TRUE;
+    if (gMovesInfo[m].effect == EFFECT_ABSORB || gMovesInfo[m].effect == EFFECT_LEECH_SEED)
+        return TRUE;
+    return FALSE;
+}
+
+u16 IronmonRemapMove(u16 move)
+{
+    const u8 *tid = gSaveBlock2Ptr->playerTrainerId;
+    u32 seed = ((u32)tid[0] | ((u32)tid[1] << 8) | ((u32)tid[2] << 16) | ((u32)tid[3] << 24)) ^ 0x4D4F5645u;
+    u32 n, a, b, g0, g1, t, guard;
+    u16 res;
+    if (move == MOVE_NONE || move >= MOVES_COUNT)
+        return move;
+    n = MOVES_COUNT - 1;
+    if (n < 2)
+        return move;
+    a = (seed | 1u);
+    b = seed % n;
+    for (;;)
+    {
+        g0 = a % n; g1 = n;
+        while (g0 != 0) { t = g1 % g0; g1 = g0; g0 = t; }
+        if (g1 == 1) break;
+        a += 2;
+    }
+    res = (u16)(1 + ((((u32)(move - 1)) * a + b) % n));
+    guard = 0;
+    while (guard++ < n && IronmonMoveRandDisallowed(res))
+        res = (u16)(1 + ((((u32)(res - 1)) * a + b) % n));
+    if (IronmonMoveRandDisallowed(res))
+        return move; // fail-safe: nessuna mossa valida trovata, tieni l'originale
+    return res;
+}
+
 void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon) //Credit: AsparagusEduardo
 {
     enum Species species = GetBoxMonData(boxMon, MON_DATA_SPECIES);
@@ -1581,9 +1627,10 @@ void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon) //Credit: AsparagusEdua
         if (learnset[i].level == 0)
             continue;
 
+        u16 nvMove = IronmonRemapMove(learnset[i].move);
         for (j = 0; j < addedMoves; j++)
         {
-            if (moves[j] == learnset[i].move)
+            if (moves[j] == nvMove)
             {
                 alreadyKnown = TRUE;
                 break;
@@ -1594,14 +1641,14 @@ void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon) //Credit: AsparagusEdua
         {
             if (addedMoves < MAX_MON_MOVES)
             {
-                moves[addedMoves] = learnset[i].move;
+                moves[addedMoves] = nvMove;
                 addedMoves++;
             }
             else
             {
                 for (j = 0; j < MAX_MON_MOVES - 1; j++)
                     moves[j] = moves[j + 1];
-                moves[MAX_MON_MOVES - 1] = learnset[i].move;
+                moves[MAX_MON_MOVES - 1] = nvMove;
             }
         }
     }
@@ -1634,16 +1681,17 @@ void GiveBoxMonDefaultMove(struct BoxPokemon *boxMon, u32 slot)
         if (learnset[i].level == 0)
             continue;
 
+        u16 nvMove = IronmonRemapMove(learnset[i].move);
         for (j = 0; j < slot; j++)
         {
-            if (GetBoxMonData(boxMon, MON_DATA_MOVE1 + j) == learnset[i].move)
+            if (GetBoxMonData(boxMon, MON_DATA_MOVE1 + j) == nvMove)
             {
                 alreadyKnown = TRUE;
                 break;
             }
         }
         if (!alreadyKnown)
-            move = learnset[i].move;
+            move = nvMove;
     }
 
     SetBoxMonData(boxMon, MON_DATA_MOVE1 + slot, &move);
@@ -1694,7 +1742,7 @@ enum Move MonTryLearningNewMoveAtLevel(struct Pokemon *mon, bool32 firstMove, u3
 
     if (learnset[sLearningMoveTableID].level == level)
     {
-        gMoveToLearn = learnset[sLearningMoveTableID].move;
+        gMoveToLearn = IronmonRemapMove(learnset[sLearningMoveTableID].move);
         sLearningMoveTableID++;
         retVal = GiveMoveToMon(mon, gMoveToLearn);
     }
@@ -5262,7 +5310,7 @@ u8 GetLevelUpMovesBySpecies(enum Species species, u16 *moves)
     const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
 
     for (i = 0; i < MAX_LEVEL_UP_MOVES && learnset[i].move != LEVEL_UP_MOVE_END; i++)
-         moves[numMoves++] = learnset[i].move;
+         moves[numMoves++] = IronmonRemapMove(learnset[i].move);
 
      return numMoves;
 }
@@ -6430,7 +6478,7 @@ u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove)
         while ((learnset[sLearningMoveTableID].level == 0 || learnset[sLearningMoveTableID].level == level)
              && !(P_EVOLUTION_LEVEL_1_LEARN >= GEN_8 && learnset[sLearningMoveTableID].level == 1))
         {
-            gMoveToLearn = learnset[sLearningMoveTableID].move;
+            gMoveToLearn = IronmonRemapMove(learnset[sLearningMoveTableID].move);
             sLearningMoveTableID++;
             return GiveMoveToMon(mon, gMoveToLearn);
         }

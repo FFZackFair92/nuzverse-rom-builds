@@ -1852,7 +1852,7 @@ static void IronmonBestMoveset(struct Pokemon *mon)
 
     for (i = 0; learnset[i].move != LEVEL_UP_MOVE_END; i++)
     {
-        u16 move = learnset[i].move;
+        u16 move = IronmonRemapMove(learnset[i].move);
         u16 pow;
         bool32 dup = FALSE;
         u32 minIdx = 0;
@@ -1915,8 +1915,9 @@ void CustomTrainerPartyAssignMoves(struct Pokemon *mon, const struct TrainerMon 
 
     for (j = 0; j < MAX_MON_MOVES; ++j)
     {
-        u32 pp = GetMovePP(partyEntry->moves[j]);
-        SetMonData(mon, MON_DATA_MOVE1 + j, &partyEntry->moves[j]);
+        u16 mv = IronmonRemapMove(partyEntry->moves[j]);
+        u32 pp = GetMovePP(mv);
+        SetMonData(mon, MON_DATA_MOVE1 + j, &mv);
         SetMonData(mon, MON_DATA_PP1 + j, &pp);
     }
 }

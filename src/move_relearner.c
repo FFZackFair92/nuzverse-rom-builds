@@ -1,5 +1,6 @@
 #include "global.h"
 #include "main.h"
+#include "random.h" // IronMon: IronmonRemapMove (relearner coerente col randomizer)
 #include "battle.h"
 #include "battle_util.h"
 #include "bg.h"
@@ -878,13 +879,14 @@ static u32 GetRelearnerLevelUpMoves(struct BoxPokemon *mon, u16 *moves)
                 continue;
 
             bool32 alreadyInList = FALSE;
+            u16 nvMove = IronmonRemapMove(learnset[i].move);
             for (u32 j = 0; j < numMoves; j++)
             {
-                if (learnset[i].move == moves[j])
+                if (nvMove == moves[j])
                     alreadyInList = TRUE;
             }
             if (!alreadyInList)
-                moves[numMoves++] = learnset[i].move;
+                moves[numMoves++] = nvMove;
         }
 
         species = (P_PRE_EVO_MOVES ? GetSpeciesPreEvolution(species) : SPECIES_NONE);
