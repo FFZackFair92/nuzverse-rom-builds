@@ -1098,11 +1098,14 @@ static bool32 NvIsPokeCenterLayout(u16 layoutId)
 }
 #endif
 
+#if NV_ONEWAY_DUNGEONS || NV_GYM_ORDER
+#define NV_MAP_IS(g,n,mc) ((g) == MAP_GROUP(mc) && (n) == MAP_NUM(mc))
+#endif
+
 #if NV_ONEWAY_DUNGEONS
 // Nuzverse dungeon one-way: ritorna il flag "completato" del dungeon che contiene la
 // mappa (g,n), o 0 se non e' un interno di un dungeon tracciato. Vanno elencate TUTTE
 // le mappe interne di un dungeon (cosi' la navigazione interna non scatta seal/mark).
-#define NV_MAP_IS(g,n,mc) ((g) == MAP_GROUP(mc) && (n) == MAP_NUM(mc))
 static u16 NvDungeonClearedFlagForMap(u16 g, u16 n)
 {
     if (NV_MAP_IS(g,n,MAP_MT_MOON_1F) || NV_MAP_IS(g,n,MAP_MT_MOON_B1F) || NV_MAP_IS(g,n,MAP_MT_MOON_B2F))
@@ -1113,6 +1116,23 @@ static u16 NvDungeonClearedFlagForMap(u16 g, u16 n)
         return FLAG_NV_DUNGEON_VICTORYRD_K;
     if (NV_MAP_IS(g,n,MAP_VICTORY_ROAD_1F) || NV_MAP_IS(g,n,MAP_VICTORY_ROAD_B1F) || NV_MAP_IS(g,n,MAP_VICTORY_ROAD_B2F))
         return FLAG_NV_DUNGEON_VICTORYRD_H;
+    return 0;
+}
+#endif
+
+#if NV_GYM_ORDER
+// Nuzverse: ordine palestre G1->G8 (Hoenn). Medaglia RICHIESTA per entrare nella palestra
+// (g,n), o 0 se non gated. La palestra N richiede la medaglia N-1 (mappatura badge vanilla).
+static u16 NvGymRequiredBadge(u16 g, u16 n)
+{
+    if (NV_MAP_IS(g,n,MAP_DEWFORD_TOWN_GYM))       return FLAG_BADGE01_GET;
+    if (NV_MAP_IS(g,n,MAP_MAUVILLE_CITY_GYM))      return FLAG_BADGE02_GET;
+    if (NV_MAP_IS(g,n,MAP_LAVARIDGE_TOWN_GYM_1F))  return FLAG_BADGE03_GET;
+    // Petalburg (Norman) NON gated all'ingresso: ci si entra a inizio gioco (tutorial Wally)
+    // e Norman ha gia' il suo gate per la battaglia. L'ordine resta: Fortree richiede BADGE05.
+    if (NV_MAP_IS(g,n,MAP_FORTREE_CITY_GYM))       return FLAG_BADGE05_GET;
+    if (NV_MAP_IS(g,n,MAP_MOSSDEEP_CITY_GYM))      return FLAG_BADGE06_GET;
+    if (NV_MAP_IS(g,n,MAP_SOOTOPOLIS_CITY_GYM_1F)) return FLAG_BADGE07_GET;
     return 0;
 }
 #endif
@@ -1181,6 +1201,20 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
             // MARK: esci dal dungeon (src interno) verso l'esterno -> "completato".
             if (nvSrc != 0 && nvDst != nvSrc)
                 FlagSet(nvSrc);
+        }
+#endif
+
+#if NV_GYM_ORDER
+        {
+            // Ordine palestre: se entri in una palestra senza la medaglia precedente,
+            // neutralizza il warp (resti davanti alla porta).
+            u16 reqBadge = NvGymRequiredBadge(warpEvent->mapGroup, warpEvent->mapNum);
+            if (reqBadge != 0 && !FlagGet(reqBadge))
+            {
+                SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
+                                   WARP_ID_NONE, position->x - MAP_OFFSET, position->y - MAP_OFFSET + 1);
+                return;
+            }
         }
 #endif
 

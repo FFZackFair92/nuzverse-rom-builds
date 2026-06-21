@@ -90,4 +90,8 @@
 #define FLAG_NV_DUNGEON_VICTORYRD_K  FLAG_UNUSED_0x4AA
 #define FLAG_NV_DUNGEON_VICTORYRD_H  FLAG_UNUSED_0x4AB
 
+// Ordine palestre G1->G8 (Hoenn): blocca l'ingresso di una palestra se manca la
+// medaglia precedente (usa i FLAG_BADGE0x_GET, comuni a entrambe le build).
+#define NV_GYM_ORDER 1
+
 #endif // GUARD_NUZVERSE_CONFIG_H
