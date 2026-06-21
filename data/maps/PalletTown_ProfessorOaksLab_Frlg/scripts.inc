@@ -1134,13 +1134,24 @@ PalletTown_ProfessorOaksLab_EventScript_ChoseStarter::
 	waitfanfare
 	msgbox gText_NicknameThisPokemon, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, EventScript_GiveNicknameToStarter
-	goto_if_eq VAR_RESULT, NO, PalletTown_ProfessorOaksLab_EventScript_RivalPicksStarter
+	goto_if_eq VAR_RESULT, NO, PalletTown_ProfessorOaksLab_EventScript_NvAfterStarter
 	end
 
 EventScript_GiveNicknameToStarter::
 	setvar VAR_0x8004, 0
 	call Common_EventScript_NameReceivedPartyMon
-	goto PalletTown_ProfessorOaksLab_EventScript_RivalPicksStarter
+	goto PalletTown_ProfessorOaksLab_EventScript_NvAfterStarter
+	end
+
+@ Nuzverse: salta la scena professore/rivale dopo lo starter. Replica lo stato-fine
+@ della scena (lab "intro fatta" + lady che non blocca piu' l'uscita di Pallet) e
+@ rilascia subito il giocatore, gia' con lo starter in squadra.
+PalletTown_ProfessorOaksLab_EventScript_NvAfterStarter::
+	setvar VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 3
+	setvar VAR_MAP_SCENE_PALLET_TOWN_SIGN_LADY, 1
+	removeobject LOCALID_OAKS_LAB_RIVAL
+	closemessage
+	release
 	end
 
 PalletTown_ProfessorOaksLab_EventScript_RivalPicksStarter::
