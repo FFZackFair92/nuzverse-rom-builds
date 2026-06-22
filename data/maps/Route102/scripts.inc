@@ -1,5 +1,37 @@
 Route102_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, Route102_OnTransition
 	.byte 0
+
+Route102_OnTransition:
+	call Common_EventScript_SetupRivalGfxId
+	end
+
+Route102_EventScript_Rival::
+	lockall
+	applymovement LOCALID_ROUTE102_RIVAL, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement LOCALID_ROUTE102_RIVAL, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox Route102_Text_RivalIntro, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_ROUTE102_RIVAL, Route102_Text_RivalDefeated
+	msgbox Route102_Text_RivalPostBattle, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_UNUSED_0x404E, 1
+	setflag FLAG_UNUSED_0x021
+	removeobject LOCALID_ROUTE102_RIVAL
+	releaseall
+	end
+
+Route102_Text_RivalIntro:
+	.string "Hey! Hold it right there!\p"
+	.string "You're not getting past me without\n"
+	.string "a battle!$"
+
+Route102_Text_RivalDefeated:
+	.string "Tch… You've gotten stronger.$"
+
+Route102_Text_RivalPostBattle:
+	.string "Don't get cocky. I'll be back!$"
 
 Route102_EventScript_LittleBoy::
 	msgbox Route102_Text_ImNotVeryTall, MSGBOX_NPC
