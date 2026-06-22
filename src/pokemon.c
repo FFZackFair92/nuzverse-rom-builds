@@ -1622,8 +1622,8 @@ void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon) //Credit: AsparagusEdua
         s32 j;
         bool32 alreadyKnown = FALSE;
 
-        if (learnset[i].level > level)
-            break;
+        if (learnset[i].level > level && addedMoves >= MAX_MON_MOVES)
+            break; // Nuzverse: tutti i Pokemon partono con 4 mosse -> se <4, pesca le mosse future
         if (learnset[i].level == 0)
             continue;
 
