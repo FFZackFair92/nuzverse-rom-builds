@@ -4095,6 +4095,21 @@ static void CursorCb_FieldMove(u8 taskId)
 
     PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
     PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
+
+#if NV_NO_UTILITY_FIELD_MOVES
+    // Nuzverse: mosse campo non essenziali disabilitate (fuga/scorciatoia/cura).
+    // Le mosse di traversata (Surf/Taglio/Forza/Cascata/Spaccaroccia/Sub/Rampicante/
+    // Flash) restano usabili. In battaglia Volo/Fossa restano mosse normali.
+    if (fieldMove == FIELD_MOVE_FLY || fieldMove == FIELD_MOVE_DIG
+     || fieldMove == FIELD_MOVE_TELEPORT || fieldMove == FIELD_MOVE_SWEET_SCENT
+     || fieldMove == FIELD_MOVE_SECRET_POWER || fieldMove == FIELD_MOVE_MILK_DRINK
+     || fieldMove == FIELD_MOVE_SOFT_BOILED)
+    {
+        DisplayPartyMenuStdMessage(PARTY_MSG_CANT_USE_HERE);
+        gTasks[taskId].func = Task_CancelAfterAorBPress;
+        return;
+    }
+#endif
     if (MenuHelpers_IsLinkActive() == TRUE || InUnionRoom() == TRUE)
     {
         if (fieldMove == FIELD_MOVE_MILK_DRINK || fieldMove == FIELD_MOVE_SOFT_BOILED)

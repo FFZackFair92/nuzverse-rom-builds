@@ -114,4 +114,14 @@
 #define NV_NO_ESCAPE_ROPE 1
 #endif
 
+// Mosse campo NON essenziali disabilitate (usarle dal menu Pokemon = "non si puo'
+// usare qui"): Volo, Fossa, Teletrasporto, Profumino, Forza Segreta, Covauovo,
+// Lattepronto. Sono scorciatoie/fughe/cure che minano dungeon a senso unico e
+// difficolta'. Le mosse di TRAVERSATA restano usabili (Surf, Taglio, Forza,
+// Cascata, Spaccaroccia, Sub, Rampicante, Flash). Solo uso sul CAMPO: in battaglia
+// Volo/Fossa restano mosse d'attacco normali. Entrambe le regioni.
+#ifndef NV_NO_UTILITY_FIELD_MOVES
+#define NV_NO_UTILITY_FIELD_MOVES 1
+#endif
+
 #endif // GUARD_NUZVERSE_CONFIG_H
