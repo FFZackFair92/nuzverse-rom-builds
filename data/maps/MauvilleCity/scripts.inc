@@ -667,7 +667,7 @@ MauvilleCity_Text_BeenCheckingOutTV:
 @ verso TUTTA la seconda meta' (Fortree E il bypass sud Route123/122/121). Gate a 4 medaglie.
 MauvilleCity_EventScript_DeepTideGate::
 	lockall
-	goto_if_set FLAG_BADGE04_GET, MauvilleCity_EventScript_DeepTideOpen
+	goto_if_set FLAG_BADGE05_GET, MauvilleCity_EventScript_DeepTideOpen
 	msgbox MauvilleCity_Text_DeepTide, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_PLAYER, MauvilleCity_Movement_DeepTidePush
@@ -687,4 +687,4 @@ MauvilleCity_Movement_DeepTidePush:
 MauvilleCity_Text_DeepTide:
 	.string "Le correnti del DEEP TIDE bloccano\n"
 	.string "la strada a est...\p"
-	.string "Torna con 4 medaglie.$"
+	.string "Torna con 5 medaglie.$"

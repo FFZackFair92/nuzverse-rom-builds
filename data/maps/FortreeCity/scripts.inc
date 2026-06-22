@@ -159,7 +159,7 @@ FortreeCity_Text_GymSign:
 @ dal bordo ovest (da Route119) finche' non hai 4 medaglie. I coord-event chiamano qui.
 FortreeCity_EventScript_DeepTideGate::
 	lockall
-	goto_if_set FLAG_BADGE04_GET, FortreeCity_EventScript_DeepTideOpen
+	goto_if_set FLAG_BADGE05_GET, FortreeCity_EventScript_DeepTideOpen
 	msgbox FortreeCity_Text_DeepTide, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_PLAYER, FortreeCity_Movement_DeepTidePush
@@ -179,4 +179,4 @@ FortreeCity_Movement_DeepTidePush:
 FortreeCity_Text_DeepTide:
 	.string "Le correnti del DEEP TIDE sono\n"
 	.string "troppo forti per passare...\p"
-	.string "Torna con 4 medaglie.$"
+	.string "Torna con 5 medaglie.$"
