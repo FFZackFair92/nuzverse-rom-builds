@@ -415,6 +415,8 @@ void StartWildBattleWithOWE(struct ScriptContext *ctx)
         return;
 
     enum Species speciesId = OW_SPECIES(owe);
+    if (speciesId == SPECIES_DITTO) // Ditto jolly: OW mostra Ditto, in battaglia e' random seedato
+        speciesId = IronmonDittoBattleSpecies();
     bool32 shiny = OW_SHINY(owe) ? TRUE : FALSE;
     u32 gender = OW_FEMALE(owe) ? MON_FEMALE : MON_MALE;
     u32 level = owe->sOverworldEncounterLevel & ~OWE_NO_DESPAWN_FLAG;

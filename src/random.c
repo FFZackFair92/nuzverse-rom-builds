@@ -318,7 +318,7 @@ static bool32 IronmonSpeciesValid(u16 s)
     return TRUE;
 }
 
-u16 IronmonRemapSpecies(u16 species)
+static u16 IronmonRemapCore(u16 species)
 {
     const u8 *tid = gSaveBlock2Ptr->playerTrainerId;
     u32 seed = (u32)tid[0] | ((u32)tid[1] << 8) | ((u32)tid[2] << 16) | ((u32)tid[3] << 24);
@@ -369,6 +369,20 @@ u16 IronmonRemapSpecies(u16 species)
         }
         return species;
     }
+}
+
+// Ditto jolly: il Ditto selvatico resta Ditto per il DISPLAY nell'erba (esente dal remap),
+// ma in BATTAGLIA diventa una specie random seedata (IronmonDittoBattleSpecies).
+u16 IronmonRemapSpecies(u16 species)
+{
+    if (species == SPECIES_DITTO)
+        return SPECIES_DITTO;
+    return IronmonRemapCore(species);
+}
+
+u16 IronmonDittoBattleSpecies(void)
+{
+    return IronmonRemapCore(SPECIES_DITTO);
 }
 
 #if NV_KAIZO

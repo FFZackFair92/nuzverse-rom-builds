@@ -325,4 +325,5 @@ u16 IronmonClampBst(u16 species); // Kaizo: specie player con BST < 600
 #endif // GUARD_RANDOM_H
 extern volatile const u32 gIronmonFixedSeed; // IronMon Nuzlocke EM
 u16 IronmonRemapSpecies(u16 species); // IronMon Nuzlocke EM
+u16 IronmonDittoBattleSpecies(void); // Ditto jolly: specie random seedata in battaglia
 u16 IronmonRemapMove(u16 move); // IronMon: randomizer MOSSE seedato (def in pokemon.c)

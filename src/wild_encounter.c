@@ -523,6 +523,8 @@ void CreateWildMon(enum Species species, u8 level)
     }
 #endif
     species = IronmonRemapSpecies(species); // IronMon Nuzlocke EM: randomizer selvatici seedato
+    if (species == SPECIES_DITTO) // Ditto jolly: nell'erba e' Ditto, in battaglia e' random seedato
+        species = IronmonDittoBattleSpecies();
 #if NV_KAIZO
     species = IronmonClampBst(species); // Kaizo: niente catture con BST >= 600
 #endif
