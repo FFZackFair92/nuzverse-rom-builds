@@ -21,11 +21,6 @@
       "direction": "up"
     },
     {
-      "map": "MAP_ROUTE13",
-      "offset": -48,
-      "direction": "down"
-    },
-    {
       "map": "MAP_ROUTE11",
       "offset": 60,
       "direction": "left"

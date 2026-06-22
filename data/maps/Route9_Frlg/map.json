@@ -16,11 +16,6 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_CERULEAN_CITY",
-      "offset": -10,
-      "direction": "left"
-    },
-    {
       "map": "MAP_ROUTE10",
       "offset": 0,
       "direction": "right"
