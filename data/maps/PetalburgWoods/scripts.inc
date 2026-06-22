@@ -1,5 +1,55 @@
 PetalburgWoods_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, PetalburgWoods_OnLoad
 	.byte 0
+
+PetalburgWoods_OnLoad:
+	call_if_set FLAG_UNUSED_0x022, PetalburgWoods_EventScript_SealSouth
+	end
+
+PetalburgWoods_EventScript_SealSouth::
+	setmetatile 16, 38, 469, TRUE
+	setmetatile 17, 38, 469, TRUE
+	setmetatile 36, 38, 469, TRUE
+	setmetatile 37, 38, 469, TRUE
+	return
+
+PetalburgWoods_EventScript_DungeonEnter::
+	lockall
+	goto_if_set FLAG_UNUSED_0x022, PetalburgWoods_EventScript_DungeonEnterDone
+	msgbox PetalburgWoods_Text_DungeonEnter, MSGBOX_DEFAULT
+	setflag FLAG_UNUSED_0x022
+	call PetalburgWoods_EventScript_SealSouth
+PetalburgWoods_EventScript_DungeonEnterDone::
+	releaseall
+	end
+
+PetalburgWoods_EventScript_DungeonExit::
+	lockall
+	msgbox PetalburgWoods_Text_DungeonExit, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq PetalburgWoods_EventScript_DungeonExitCancel
+	releaseall
+	end
+
+PetalburgWoods_EventScript_DungeonExitCancel::
+	applymovement LOCALID_PLAYER, PetalburgWoods_Movement_PushBackSouth
+	waitmovement 0
+	releaseall
+	end
+
+PetalburgWoods_Movement_PushBackSouth:
+	walk_down
+	step_end
+
+PetalburgWoods_Text_DungeonEnter:
+	.string "Stai entrando nel BOSCO PETALBURG.\p"
+	.string "Una volta dentro, se esci non potrai\n"
+	.string "piu' rientrare.$"
+
+PetalburgWoods_Text_DungeonExit:
+	.string "Stai per uscire dal BOSCO.\n"
+	.string "Non potrai piu' rientrare.\p"
+	.string "Sei sicuro di voler uscire?$"
 
 PetalburgWoods_EventScript_DevonResearcherLeft::
 	lockall

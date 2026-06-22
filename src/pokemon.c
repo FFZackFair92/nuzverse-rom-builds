@@ -5064,6 +5064,13 @@ void AdjustFriendship(struct Pokemon *mon, u8 event)
     if (ShouldSkipFriendshipChange())
         return;
 
+    // QoL: i Pokémon del player sempre a MAX friendship (Kanto + Hoenn).
+    {
+        u8 nvMaxFriendship = MAX_FRIENDSHIP;
+        SetMonData(mon, MON_DATA_FRIENDSHIP, &nvMaxFriendship);
+        return;
+    }
+
     species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
     heldItem = GetMonData(mon, MON_DATA_HELD_ITEM, 0);
 
