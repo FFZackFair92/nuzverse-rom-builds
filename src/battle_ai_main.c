@@ -279,8 +279,21 @@ static u64 GetAiFlags(u16 trainerId, enum BattlerId battler)
         else
         {
             flags = GetTrainerAIFlagsFromId(trainerId);
-            // IronMon HARD EM: AI smart forzata su ogni allenatore (set forte ma equo)
-            flags |= AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY | AI_FLAG_SMART_SWITCHING;
+            // Nuzverse: AI DIFFICILE solo sui trainer chiave (capipalestra, Lega/E4, campione,
+            // capi-team avversario). Gli altri allenatori mantengono la loro AI di base.
+            switch (GetTrainerClassFromId(trainerId))
+            {
+            case TRAINER_CLASS_LEADER:
+            case TRAINER_CLASS_ELITE_FOUR:
+            case TRAINER_CLASS_CHAMPION:
+            case TRAINER_CLASS_AQUA_LEADER:
+            case TRAINER_CLASS_MAGMA_LEADER:
+                flags |= AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY
+                       | AI_FLAG_SMART_SWITCHING | AI_FLAG_OMNISCIENT | AI_FLAG_PREDICT_SWITCH | AI_FLAG_PREDICT_MOVE;
+                break;
+            default:
+                break;
+            }
         }
     }
 
