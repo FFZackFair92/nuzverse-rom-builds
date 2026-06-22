@@ -233,6 +233,7 @@ Route101_EventScript_BirchsBag::
 	setflag FLAG_HIDE_ROUTE_101_BIRCH_ZIGZAGOON_BATTLE
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
 	setflag FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG
+	removeobject LOCALID_ROUTE101_BIRCHS_BAG @ Nuzverse: la borsa sparisce subito dopo lo starter
 	@ Nuzverse: salta la scena del lab di Birch. Marca l'avventura come avviata e
 	@ consegna Pokedex (+ Poke Ball) replicando lo stato-fine del lab, cosi' la
 	@ progressione non si blocca; il giocatore resta su Route 101 con lo starter.
