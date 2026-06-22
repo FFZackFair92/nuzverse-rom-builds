@@ -138,7 +138,7 @@ Route103_EventScript_RivalExitFacingSouth::
 
 Route103_EventScript_RivalEnd::
 	removeobject LOCALID_ROUTE103_RIVAL
-	setvar VAR_BIRCH_LAB_STATE, 4
+	setvar VAR_BIRCH_LAB_STATE, 5 @ Nuzverse: lab gia' concluso (Pokedex dato allo start) -> niente ritorno al lab
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL
 	setflag FLAG_DEFEATED_RIVAL_ROUTE103
 	setvar VAR_OLDALE_RIVAL_STATE, 1
