@@ -638,3 +638,16 @@ IronMon_EventScript_Ferry_SootopolisGym_Go0::
 
 IronMon_EventScript_Ferry_SootopolisGym_Txt0::
 	.string "Traghetto IronMon!\nTorniamo al CENTRO POKEMON?$"
+
+OldaleTown_EventScript_MewtwoGuide::
+	lock
+	faceplayer
+	msgbox OldaleTown_Text_MewtwoGuide, MSGBOX_DEFAULT
+	release
+	end
+
+OldaleTown_Text_MewtwoGuide:
+	.string "MEWTWO: La tua avventura inizia qui.\p"
+	.string "Vai a OVEST verso PETALBURG.\n"
+	.string "Poi attraversa il BOSCO fino a\l"
+	.string "RUSTBORO per la prima MEDAGLIA!$"
