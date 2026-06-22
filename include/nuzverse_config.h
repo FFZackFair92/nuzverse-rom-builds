@@ -107,4 +107,11 @@
 #define NV_CAMERA_LOCK 1
 #endif
 
+// Fune di Fuga disabilitata: usarla NON ha effetto ("non si puo' usare qui"). Mina
+// i dungeon a senso unico (NV_ONEWAY_DUNGEONS) e la difficolta'. Solo l'ITEM Escape
+// Rope (la mossa Fossa/Dig non e' toccata). Entrambe le regioni.
+#ifndef NV_NO_ESCAPE_ROPE
+#define NV_NO_ESCAPE_ROPE 1
+#endif
+
 #endif // GUARD_NUZVERSE_CONFIG_H
