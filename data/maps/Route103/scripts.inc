@@ -4,6 +4,7 @@ Route103_MapScripts::
 	.byte 0
 
 Route103_OnTransition:
+	setflag FLAG_HIDE_ROUTE_103_RIVAL
 	call Common_EventScript_SetupRivalGfxId
 	call ProfBirch_EventScript_UpdateLocation
 	end
