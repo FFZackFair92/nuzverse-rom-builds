@@ -89,6 +89,8 @@
 #define FLAG_NV_DUNGEON_ROCKTUNNEL   FLAG_UNUSED_0x4A9
 #define FLAG_NV_DUNGEON_VICTORYRD_K  FLAG_UNUSED_0x4AA
 #define FLAG_NV_DUNGEON_VICTORYRD_H  FLAG_UNUSED_0x4AB
+#define FLAG_NV_DUNGEON_WARDWOODS    FLAG_UNUSED_0x4AC
+#define FLAG_NV_DUNGEON_GRANITE      FLAG_UNUSED_0x4AD
 
 // Ordine palestre G1->G8 (Hoenn): blocca l'ingresso di una palestra se manca la
 // medaglia precedente (usa i FLAG_BADGE0x_GET, comuni a entrambe le build).
