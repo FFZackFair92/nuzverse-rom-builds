@@ -260,6 +260,7 @@ u8 GetMoveDirectionFasterAnimNum(enum Direction direction);
 u8 GetMoveDirectionFastestAnimNum(enum Direction direction);
 enum Direction GetLedgeJumpDirection(s16 x, s16 y, enum Direction direction);
 void CameraObjectSetFollowedSpriteId(u8 objectId);
+void NvCameraReattachToPlayer(void);
 u16 GetObjectPaletteTag(u8 palSlot);
 void UpdateObjectEventSpriteInvisibility(struct Sprite *sprite, bool8 invisible);
 s16 GetFigure8XOffset(s16 idx);

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "nuzverse_config.h"
 #include "malloc.h"
 #include "battle_anim.h"
 #include "battle_pyramid.h"
@@ -3635,6 +3636,26 @@ void CameraObjectSetFollowedSpriteId(u8 spriteId)
         CameraObjectReset();
     }
 }
+
+#if NV_CAMERA_LOCK
+// Nuzverse: ri-aggancia la camera allo sprite ATTUALE del player se il link si e'
+// staccato (Caso 2: cammini ma il mondo resta fermo). Solo con i controlli liberi
+// (durante script/cutscene la camera puo' inseguire altro di proposito) e SOLO se
+// diverso (re-agganciare ogni frame azzererebbe il movimento via CameraObjectReset).
+void NvCameraReattachToPlayer(void)
+{
+    struct Sprite *camera;
+    u8 pid;
+    if (ArePlayerFieldControlsLocked())
+        return;
+    camera = FindCameraSprite();
+    if (camera == NULL)
+        return;
+    pid = GetPlayerAvatarSpriteId();
+    if (pid < MAX_SPRITES && camera->sCamera_FollowSpriteId != pid)
+        CameraObjectSetFollowedSpriteId(pid);
+}
+#endif
 
 static u8 UNUSED CameraObjectGetFollowedSpriteId(void)
 {

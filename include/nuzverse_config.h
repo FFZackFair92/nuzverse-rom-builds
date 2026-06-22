@@ -96,4 +96,15 @@
 // medaglia precedente (usa i FLAG_BADGE0x_GET, comuni a entrambe le build).
 #define NV_GYM_ORDER 1
 
+// Camera "lock" sul player: ri-aggancia la camera allo sprite ATTUALE del giocatore
+// se il collegamento si stacca. Sintomo (Caso 2): cammini ma il mondo resta fermo e
+// il personaggio scorre decentrato — la camera inseguiva uno sprite stale (capita con
+// instant-start / ricreazione sprite / feature OWE-follower). Agisce SOLO quando hai
+// il controllo (mai durante script/cutscene, che spostano la camera di proposito) e
+// SOLO se il link e' davvero diverso dallo sprite del player (re-aggancio ogni frame
+// azzererebbe il movimento). Entrambe le regioni.
+#ifndef NV_CAMERA_LOCK
+#define NV_CAMERA_LOCK 1
+#endif
+
 #endif // GUARD_NUZVERSE_CONFIG_H

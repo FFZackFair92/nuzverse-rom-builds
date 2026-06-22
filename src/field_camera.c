@@ -1,4 +1,5 @@
 #include "global.h"
+#include "nuzverse_config.h"
 #include "berry.h"
 #include "bike.h"
 #include "field_camera.h"
@@ -429,6 +430,11 @@ void CameraUpdate(void)
     int movementSpeedX;
     int movementSpeedY;
 
+#if NV_CAMERA_LOCK
+    // Difensiva: se il link camera->player si e' staccato (player cammina ma mondo
+    // fermo), lo ripristina prima di leggere il movimento. No-op se gia' agganciato.
+    NvCameraReattachToPlayer();
+#endif
     if (gFieldCamera.callback != NULL)
         gFieldCamera.callback(&gFieldCamera);
     movementSpeedX = gFieldCamera.movementSpeedX;
