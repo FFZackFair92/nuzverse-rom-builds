@@ -1,0 +1,145 @@
+name: ROM · Emerald variants (FORK)
+
+# FASE B: builda le stagioni Emerald DIRETTAMENTE dai branch del fork decomp
+# (FFZackFair92/nuzverse-expansion, branch nuzverse/<variant>). NIENTE apply-*.py:
+# il sorgente E' gia' la variant (materializzato da decomp/fork-migration/bootstrap-fork.sh).
+# Gira in PARALLELO a rom-emerald-variants.yml finche' non e' verde, poi si switcha.
+#
+# PREREQUISITO — secret FORK_PAT:
+#   Crea un PAT fine-grained con accesso READ "Contents" su nuzverse-expansion, poi
+#   Settings -> Secrets and variables -> Actions -> New repository secret -> nome FORK_PAT.
+#   (Serve perche' il fork e' privato e GITHUB_TOKEN non vede altri repo.)
+#
+# Output (artifact "{variant}"): {variant}.bps (diff vs Emerald vanilla byte-exact BPEE0)
+# + {variant}.gba + seed-offset.txt. Stesso formato dei workflow attuali.
+
+on:
+  workflow_dispatch:
+    inputs:
+      variant:
+        description: "ironmon-full | nuzlocke-emerald | all"
+        required: true
+        default: all
+      fork_ref:
+        description: "ref del fork da buildare (vuoto = branch nuzverse/<variant>)"
+        required: false
+        default: ""
+
+env:
+  PRET_EMERALD_REF: master
+  FORK_HOST: github.com/FFZackFair92/nuzverse-expansion.git
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      variants: ${{ steps.m.outputs.variants }}
+    steps:
+      - id: m
+        run: |
+          if [ "${{ inputs.variant }}" != "all" ]; then
+            echo "variants=[\"${{ inputs.variant }}\"]" >> "$GITHUB_OUTPUT"
+          else
+            echo 'variants=["ironmon-full","nuzlocke-emerald"]' >> "$GITHUB_OUTPUT"
+          fi
+          echo "Variants:" && cat "$GITHUB_OUTPUT"
+
+  vanilla-emerald:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/build-vanilla
+        with:
+          game: emerald
+          pret-ref: ${{ env.PRET_EMERALD_REF }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vanilla-emerald
+          path: vanilla-emerald.gba
+          if-no-files-found: error
+
+  variant:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    needs: [setup, vanilla-emerald]
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: ${{ fromJSON(needs.setup.outputs.variants) }}
+    steps:
+      - uses: actions/checkout@v4   # pokemon-ironmon: per make_bps.py + build-vanilla
+
+      - name: Toolchain moderna (expansion)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential binutils-arm-none-eabi gcc-arm-none-eabi libpng-dev python3 git
+
+      - name: Clona il branch del fork (sorgente = variant, niente apply)
+        run: |
+          REF="${{ inputs.fork_ref }}"
+          [ -z "$REF" ] && REF="nuzverse/main"   # branch unico: tutte le variant
+          echo "Clono $REF da $FORK_HOST"
+          git clone --depth 1 --branch "$REF" \
+            "https://x-access-token:${{ secrets.FORK_PAT }}@${FORK_HOST}" pex
+
+      - name: Build variant
+        run: |
+          case "${{ matrix.variant }}" in
+            *nuzlocke*) NV='-DNV_PERMADEATH=1' ;;
+            *) NV='' ;;
+          esac
+          echo "NV_DEFINES=$NV"
+          cd pex
+          make -j"$(nproc)" NV_DEFINES="$NV" || make NV_DEFINES="$NV"
+          cp pokeemerald.gba "../${{ matrix.variant }}.gba"
+
+      - name: Esporta offset seed + pool dal .map (NON-FATALE)
+        run: |
+          cd pex
+          : > ../seed-offset.txt
+          for SYM in gIronmonFixedSeed gIronmonPoolCount gIronmonPool gNvRunResult gBattleMons gLastMoves gMain gParties gSaveBlock1Ptr; do
+            OFF=$(grep -E "0x0[0-9a-fA-F]+ +${SYM}\b" pokeemerald.map | awk '{print $1}' | head -1)
+            if [ -n "$OFF" ]; then
+              echo "symbol=${SYM} addr=${OFF}" | tee -a ../seed-offset.txt
+            else
+              echo "WARN ${SYM} non nel .map" | tee -a ../seed-offset.txt
+            fi
+          done
+
+      - name: Scarica vanilla per il diff
+        uses: actions/download-artifact@v4
+        with:
+          name: vanilla-emerald
+
+      - name: Genera BPS (variant vs vanilla)
+        run: |
+          V="${{ matrix.variant }}"
+          python3 decomp/ironmon-overlays/make_bps.py vanilla-emerald.gba "$V.gba" "$V.bps"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.variant }}
+          path: |
+            ${{ matrix.variant }}.gba
+            ${{ matrix.variant }}.bps
+            seed-offset.txt
+          if-no-files-found: error
+
+      - name: Auto-deploy in produzione (bps + offset)
+        env:
+          DEPLOY_URL: ${{ secrets.ROM_DEPLOY_URL }}
+          DEPLOY_TOKEN: ${{ secrets.ROM_DEPLOY_TOKEN }}
+        run: |
+          if [ -z "$DEPLOY_URL" ] || [ -z "$DEPLOY_TOKEN" ]; then
+            echo "ROM_DEPLOY_URL/TOKEN non settati -> skip auto-deploy (artifact comunque caricato)"; exit 0; fi
+          SEED=$(grep "symbol=gIronmonFixedSeed " seed-offset.txt | grep -oE "0x0[0-9a-fA-F]+" | head -1)
+          PC=$(grep "symbol=gIronmonPoolCount " seed-offset.txt | grep -oE "0x0[0-9a-fA-F]+" | head -1)
+          PD=$(grep "symbol=gIronmonPool " seed-offset.txt | grep -oE "0x0[0-9a-fA-F]+" | head -1)
+          echo "deploy ${{ matrix.variant }} (BPEE0): seed=$SEED pool_count=$PC pool=$PD"
+          curl -fsS -X POST "$DEPLOY_URL/api/rom/deploy" \
+            -H "X-Deploy-Token: $DEPLOY_TOKEN" \
+            -F "game_key=BPEE0" -F "variant=${{ matrix.variant }}" \
+            -F "patch=@${{ matrix.variant }}.bps" \
+            ${SEED:+-F "seed_addr=$SEED"} ${PC:+-F "pool_count_addr=$PC"} ${PD:+-F "pool_addr=$PD"}
+          echo "auto-deploy OK"

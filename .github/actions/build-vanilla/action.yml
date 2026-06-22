@@ -1,0 +1,94 @@
+name: Build vanilla GBA (cached)
+description: >
+  Builda da sorgente una ROM pret byte-exact (identica al retail = base del diff
+  per i .bps) e la mette in cache per ref. Sui run successivi, se il commit pret +
+  agbcc non sono cambiati, salta interamente agbcc+make e riusa la ROM cachata.
+
+inputs:
+  game:
+    description: "emerald | firered"
+    required: true
+  pret-ref:
+    description: "Commit o branch di pret da buildare. Metti uno SHA per pinnare."
+    required: false
+    default: master
+  agbcc-ref:
+    description: "Commit o branch di agbcc."
+    required: false
+    default: master
+  cache-version:
+    description: "Bump manuale per invalidare la cache (es. v1 -> v2)."
+    required: false
+    default: v1
+
+outputs:
+  rom-path:
+    description: "Path (relativo al workspace) della ROM vanilla buildata."
+    value: ${{ steps.meta.outputs.rom-path }}
+
+runs:
+  using: composite
+  steps:
+    - id: meta
+      shell: bash
+      run: |
+        case "${{ inputs.game }}" in
+          emerald)
+            echo "repo=https://github.com/pret/pokeemerald.git" >> "$GITHUB_OUTPUT"
+            echo "src=pokeemerald"        >> "$GITHUB_OUTPUT"
+            echo "rom-path=vanilla-emerald.gba" >> "$GITHUB_OUTPUT" ;;
+          firered)
+            echo "repo=https://github.com/pret/pokefirered.git" >> "$GITHUB_OUTPUT"
+            echo "src=pokefirered"        >> "$GITHUB_OUTPUT"
+            echo "rom-path=vanilla-firered.gba" >> "$GITHUB_OUTPUT" ;;
+          *)
+            echo "::error::input 'game' deve essere 'emerald' o 'firered' (ricevuto: ${{ inputs.game }})"
+            exit 1 ;;
+        esac
+
+    - id: resolve
+      shell: bash
+      run: |
+        # Risolve gli SHA reali (anche se pret-ref e' un branch): cache deterministica.
+        SHA=$(git ls-remote "${{ steps.meta.outputs.repo }}" "${{ inputs.pret-ref }}" | awk '{print $1}' | head -1)
+        [ -z "$SHA" ] && SHA="${{ inputs.pret-ref }}"   # pret-ref e' gia' uno SHA pinnato
+        AGBCC=$(git ls-remote https://github.com/pret/agbcc.git "${{ inputs.agbcc-ref }}" | awk '{print $1}' | head -1)
+        [ -z "$AGBCC" ] && AGBCC="${{ inputs.agbcc-ref }}"
+        echo "pret-sha=$SHA"   >> "$GITHUB_OUTPUT"
+        echo "agbcc-sha=$AGBCC" >> "$GITHUB_OUTPUT"
+        echo "vanilla ${{ inputs.game }}: pret@$SHA  agbcc@$AGBCC"
+
+    - id: cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.meta.outputs.rom-path }}
+        key: vanilla-${{ inputs.game }}-${{ inputs.cache-version }}-${{ steps.resolve.outputs.pret-sha }}-${{ steps.resolve.outputs.agbcc-sha }}
+
+    - name: Toolchain agbcc (solo su cache miss)
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential binutils-arm-none-eabi gcc-arm-none-eabi libpng-dev python3 git
+
+    - name: Clona pret + agbcc e builda byte-exact (solo su cache miss)
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        SRC="${{ steps.meta.outputs.src }}"
+        git init -q "$SRC" && cd "$SRC"
+        git remote add origin "${{ steps.meta.outputs.repo }}"
+        git fetch -q --depth 1 origin "${{ steps.resolve.outputs.pret-sha }}"
+        git checkout -q FETCH_HEAD
+        git init -q agbcc && ( cd agbcc \
+          && git remote add origin https://github.com/pret/agbcc.git \
+          && git fetch -q --depth 1 origin "${{ steps.resolve.outputs.agbcc-sha }}" \
+          && git checkout -q FETCH_HEAD && ./build.sh && ./install.sh ../ )
+        make -j"$(nproc)" || make
+        cp "${SRC}.gba" "../${{ steps.meta.outputs.rom-path }}"
+
+    - name: Verifica ROM presente
+      shell: bash
+      run: |
+        ls -l "${{ steps.meta.outputs.rom-path }}"
+        test -s "${{ steps.meta.outputs.rom-path }}"

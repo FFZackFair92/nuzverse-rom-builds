@@ -1,0 +1,146 @@
+name: ROM · Kanto variants (FORK)
+
+# FASE B: builda le stagioni Kanto DIRETTAMENTE dai branch del fork decomp
+# (FFZackFair92/nuzverse-expansion, branch nuzverse/<variant>), con `make firered`.
+# NIENTE apply-*.py: il sorgente E' gia' la variant. Parallelo a rom-kanto-variants.yml.
+#
+# PREREQUISITO — secret FORK_PAT (PAT fine-grained, READ Contents su nuzverse-expansion):
+#   Settings -> Secrets and variables -> Actions -> New repository secret -> FORK_PAT.
+#
+# Output (artifact "{variant}"): ironmon-base-BPRE0-{variant}.bps (diff vs FireRed vanilla
+# byte-exact BPRE0) + seed-offset.txt + variant.map.
+
+on:
+  workflow_dispatch:
+    inputs:
+      variant:
+        description: "firered | firered-nuzlocke | all"
+        required: true
+        default: all
+      fork_ref:
+        description: "ref del fork da buildare (vuoto = branch nuzverse/<variant>)"
+        required: false
+        default: ""
+
+env:
+  PRET_FIRERED_REF: master
+  FORK_HOST: github.com/FFZackFair92/nuzverse-expansion.git
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      variants: ${{ steps.m.outputs.variants }}
+    steps:
+      - id: m
+        run: |
+          if [ "${{ inputs.variant }}" != "all" ]; then
+            echo "variants=[\"${{ inputs.variant }}\"]" >> "$GITHUB_OUTPUT"
+          else
+            echo 'variants=["firered","firered-nuzlocke"]' >> "$GITHUB_OUTPUT"
+          fi
+          echo "Variants:" && cat "$GITHUB_OUTPUT"
+
+  vanilla-firered:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/build-vanilla
+        with:
+          game: firered
+          pret-ref: ${{ env.PRET_FIRERED_REF }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vanilla-firered
+          path: vanilla-firered.gba
+          if-no-files-found: error
+
+  variant:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    needs: [setup, vanilla-firered]
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: ${{ fromJSON(needs.setup.outputs.variants) }}
+    steps:
+      - uses: actions/checkout@v4   # pokemon-ironmon: per make_bps.py + build-vanilla
+
+      - name: Toolchain moderna (expansion)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential binutils-arm-none-eabi gcc-arm-none-eabi libpng-dev python3 git
+
+      - name: Clona il branch del fork (sorgente = variant, niente apply)
+        run: |
+          REF="${{ inputs.fork_ref }}"
+          [ -z "$REF" ] && REF="nuzverse/main"   # branch unico: tutte le variant
+          echo "Clono $REF da $FORK_HOST"
+          git clone --depth 1 --branch "$REF" \
+            "https://x-access-token:${{ secrets.FORK_PAT }}@${FORK_HOST}" pex
+
+      - name: Build variant (make firered)
+        run: |
+          case "${{ matrix.variant }}" in
+            *nuzlocke*) NV='-DNV_PERMADEATH=1' ;;
+            *) NV='' ;;
+          esac
+          echo "NV_DEFINES=$NV"
+          cd pex
+          make firered -j"$(nproc)" NV_DEFINES="$NV" || make firered NV_DEFINES="$NV"
+          GBA=$(ls *.gba | head -1)
+          echo "built $GBA"
+          cp "$GBA" "../${{ matrix.variant }}.gba"
+
+      - name: Esporta offset seed + pool dal .map (NON-FATALE)
+        run: |
+          cd pex
+          MAP=$(ls *.map | head -1)
+          : > ../seed-offset.txt
+          for SYM in gIronmonFixedSeed gIronmonPoolCount gIronmonPool gNvRunResult gBattleMons gLastMoves gMain gParties gSaveBlock1Ptr; do
+            OFF=$(grep -E "0x0[0-9a-fA-F]+ +${SYM}\b" "$MAP" | awk '{print $1}' | head -1)
+            if [ -n "$OFF" ]; then
+              echo "symbol=${SYM} addr=${OFF}" | tee -a ../seed-offset.txt
+            else
+              echo "WARN ${SYM} non nel .map" | tee -a ../seed-offset.txt
+            fi
+          done
+          cp "$MAP" ../variant.map || true
+
+      - name: Scarica vanilla FireRed per il diff
+        uses: actions/download-artifact@v4
+        with:
+          name: vanilla-firered
+
+      - name: Genera BPS (variant vs vanilla FireRed)
+        run: |
+          OUT="ironmon-base-BPRE0-${{ matrix.variant }}.bps"
+          python3 decomp/ironmon-overlays/make_bps.py vanilla-firered.gba "${{ matrix.variant }}.gba" "$OUT"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.variant }}
+          path: |
+            ironmon-base-BPRE0-${{ matrix.variant }}.bps
+            seed-offset.txt
+            variant.map
+          if-no-files-found: error
+
+      - name: Auto-deploy in produzione (bps + offset)
+        env:
+          DEPLOY_URL: ${{ secrets.ROM_DEPLOY_URL }}
+          DEPLOY_TOKEN: ${{ secrets.ROM_DEPLOY_TOKEN }}
+        run: |
+          if [ -z "$DEPLOY_URL" ] || [ -z "$DEPLOY_TOKEN" ]; then
+            echo "ROM_DEPLOY_URL/TOKEN non settati -> skip auto-deploy (artifact comunque caricato)"; exit 0; fi
+          SEED=$(grep "symbol=gIronmonFixedSeed " seed-offset.txt | grep -oE "0x0[0-9a-fA-F]+" | head -1)
+          PC=$(grep "symbol=gIronmonPoolCount " seed-offset.txt | grep -oE "0x0[0-9a-fA-F]+" | head -1)
+          PD=$(grep "symbol=gIronmonPool " seed-offset.txt | grep -oE "0x0[0-9a-fA-F]+" | head -1)
+          echo "deploy ${{ matrix.variant }} (BPRE0): seed=$SEED pool_count=$PC pool=$PD"
+          curl -fsS -X POST "$DEPLOY_URL/api/rom/deploy" \
+            -H "X-Deploy-Token: $DEPLOY_TOKEN" \
+            -F "game_key=BPRE0" -F "variant=${{ matrix.variant }}" \
+            -F "patch=@ironmon-base-BPRE0-${{ matrix.variant }}.bps" \
+            ${SEED:+-F "seed_addr=$SEED"} ${PC:+-F "pool_count_addr=$PC"} ${PD:+-F "pool_addr=$PD"}
+          echo "auto-deploy OK"
