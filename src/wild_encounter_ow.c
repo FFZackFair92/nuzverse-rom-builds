@@ -246,8 +246,13 @@ static bool32 NvOweRouteAllowed(void)
     }
 }
 #define NV_OWE_BLOCKED (!NvOweRouteAllowed())
+// Sui primi 3 percorsi gli OWE (Pokemon MOSTRATI) devono generarsi anche col repel
+// ON: bypassa il check repel nello spawn OWE (gli incontri invisibili restano
+// soppressi dagli hook in wild_encounter.c, che NON passano da qui).
+#define NV_OWE_REPEL_BYPASS (NvOweRouteAllowed())
 #else
 #define NV_OWE_BLOCKED FALSE
+#define NV_OWE_REPEL_BYPASS FALSE
 #endif
 
 void UpdateOverworldWildEncounter(void)
@@ -319,7 +324,7 @@ void UpdateOverworldWildEncounter(void)
 
     if (infoOWE.speciesId == SPECIES_NONE
      || (WE_OWE_SPECIAL_ONLY && infoOWE.category >= OWE_CATEGORY_WILD)
-     || !IsWildLevelAllowedByRepel(infoOWE.level)
+     || (!NV_OWE_REPEL_BYPASS && !IsWildLevelAllowedByRepel(infoOWE.level))
      || !IsAbilityAllowingEncounter(infoOWE.level)
      || !CheckCanLoadOWE(infoOWE.speciesId, infoOWE.isFemale, infoOWE.isShiny, x, y))
     {
