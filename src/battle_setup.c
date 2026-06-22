@@ -967,7 +967,7 @@ static void CB2_GiveStarter(void)
     // IronMon WYSIWYG: starterMon è GIA' rimappato+clampato da GetStarterPokemon (= la specie
     // mostrata in scelta/conferma). ScriptGiveMon lo rimapperebbe una SECONDA volta (consegna
     // != mostrato): usiamo la variante NoRemap per consegnare ESATTAMENTE quella specie.
-    ScriptGiveMonNoRemap(starterMon, 5, ITEM_NONE);
+    ScriptGiveMonNoRemap(starterMon, 8, ITEM_NONE); // Nuzverse: starter a Lv8 (come le scout zone)
     ResetTasks();
     PlayBattleBGM();
     SetMainCallback2(CB2_StartFirstBattle);

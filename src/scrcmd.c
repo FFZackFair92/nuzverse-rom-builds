@@ -3456,5 +3456,5 @@ void IronmonGiveStarter(struct ScriptContext *ctx)
 {
     (void)ctx;
     extern u32 ScriptGiveMonNoRemap(enum Species species, u8 level, enum Item item);
-    ScriptGiveMonNoRemap(VarGet(VAR_TEMP_5), 5, ITEM_NONE);
+    ScriptGiveMonNoRemap(VarGet(VAR_TEMP_5), 8, ITEM_NONE); // Nuzverse: starter a Lv8 (come le scout zone)
 }
