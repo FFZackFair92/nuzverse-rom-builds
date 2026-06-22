@@ -320,40 +320,52 @@ u16 IronmonRemapSpecies(u16 species)
 {
     const u8 *tid = gSaveBlock2Ptr->playerTrainerId;
     u32 seed = (u32)tid[0] | ((u32)tid[1] << 8) | ((u32)tid[2] << 16) | ((u32)tid[3] << 24);
-    u32 n, a, b, g0, g1, t;
+    u32 a, b, g0, g1, t;
     if (species == SPECIES_NONE || species >= NUM_SPECIES)
         return species;
-    n = NUM_SPECIES - 1;
-    if (n < 2)
-        return species;
-    a = (seed | 1u);
-    b = seed % n;
-    // rendi a coprimo con n (Euclide); a resta dispari, incremento di 2.
-    for (;;)
+    // FIX collasso (5x Jolteon): la vecchia versione applicava la bijezione su
+    // TUTTE le specie e poi faceva re-roll x->f(x) finche' valida. Con tante
+    // forme/custom non valide nel expansion, molti input diversi convergevano
+    // sulla stessa specie valida -> output ripetuti. Ora la bijezione affine
+    // gira sul RANGO delle sole specie valide: biiezione vera, zero collisioni.
     {
-        g0 = a % n; g1 = n;
-        while (g0 != 0) { t = g1 % g0; g1 = g0; g0 = t; }
-        if (g1 == 1) break;
-        a += 2;
-    }
-    {
-        u16 ironmonResult = (u16)(1 + ((((u32)(species - 1)) * a + b) % n));
+        u32 V = 0, rank = 0, k = 0, outRank;
+        bool32 inputValid = FALSE;
+        u16 s;
+        // conta le specie valide (V) e il rango 0-based dell'input fra esse
+        for (s = 1; s < NUM_SPECIES; s++)
+        {
+            if (s == species) { rank = V; inputValid = IronmonSpeciesValid(s); }
+            if (IronmonSpeciesValid(s)) V++;
+        }
+        if (V < 2)
+            return species;
+        if (!inputValid && rank >= V)
+            rank %= V;
+        // bijezione affine sul rango: a coprimo con V
+        a = (seed | 1u);
+        b = seed % V;
+        for (;;)
+        {
+            g0 = a % V; g1 = V;
+            while (g0 != 0) { t = g1 % g0; g1 = g0; g0 = t; }
+            if (g1 == 1) break;
+            a += 2;
+        }
+        outRank = ((u32)rank * a + b) % V;
         if (gIronmonPoolCount > 0)
+            return gIronmonPool[outRank % gIronmonPoolCount];
+        // ritorna la specie valida di indice outRank
+        for (s = 1; s < NUM_SPECIES; s++)
         {
-            ironmonResult = gIronmonPool[(ironmonResult - 1) % gIronmonPoolCount];
+            if (IronmonSpeciesValid(s))
+            {
+                if (k == outRank)
+                    return s;
+                k++;
+            }
         }
-        else
-        {
-            // re-roll deterministico (riapplica la stessa bijezione) finche' il
-            // risultato non e' una specie base valida: niente custom/uovo ("#id"
-            // unknown nel tracker) ne' forme. Guard anti-loop, fail-safe = originale.
-            u32 guard = 0;
-            while (!IronmonSpeciesValid(ironmonResult) && guard++ < NUM_SPECIES)
-                ironmonResult = (u16)(1 + ((((u32)(ironmonResult - 1)) * a + b) % n));
-            if (!IronmonSpeciesValid(ironmonResult))
-                return species;
-        }
-        return ironmonResult;
+        return species;
     }
 }
 
