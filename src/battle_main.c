@@ -2001,7 +2001,8 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
 #if NV_KAIZO
         // Kaizo: +3 ai boss. Riempio gli slot extra riusando la squadra del boss (cap a PARTY_SIZE).
         u32 nvBase = monsCount;
-        if (nvBase > 0 && IronmonIsBossClass(trainer->trainerClass))
+        if (nvBase > 0 && IronmonIsBossClass(trainer->trainerClass)
+            && TRAINER_BATTLE_PARAM.opponentA != TRAINER_ROUTE102_RIVAL) // Nuzverse: il primo rivale resta con 1 solo Pokemon
             monsCount = (nvBase + 3 > PARTY_SIZE) ? PARTY_SIZE : (nvBase + 3);
         u32 monIndices[monsCount];
         DoTrainerPartyPool(trainer, monIndices, nvBase, battleTypeFlags);
