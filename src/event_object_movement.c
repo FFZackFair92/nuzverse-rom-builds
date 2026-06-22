@@ -1914,14 +1914,9 @@ u8 TrySpawnObjectEventTemplate(const struct ObjectEventTemplate *objectEventTemp
     if (objectEventId == OBJECT_EVENTS_COUNT)
         return OBJECT_EVENTS_COUNT;
 
-    // Repel Switch: mentre il repel e' ON non far comparire gli OWE manual (i
-    // Pokemon mostrati nei primi 3 percorsi). Cosi' restano nascosti finche' il
-    // repel resta attivo (riappaiono spostandosi col repel OFF).
-    if (NvRepelToggleOn() && IsOverworldWildEncounter(&gObjectEvents[objectEventId], OWE_MANUAL))
-    {
-        RemoveObjectEvent(&gObjectEvents[objectEventId]);
-        return OBJECT_EVENTS_COUNT;
-    }
+    // NB: il Repel Switch NON rimuove piu' gli OWE manual: i Pokemon MOSTRATI dei
+    // primi 3 percorsi (zone di cattura) restano visibili anche col repel ON. Il
+    // repel agisce solo sugli incontri invisibili (hook in wild_encounter.c).
 
     gSprites[gObjectEvents[objectEventId].spriteId].images = graphicsInfo->images;
     if (subspriteTables)

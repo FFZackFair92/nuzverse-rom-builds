@@ -259,9 +259,12 @@ void UpdateOverworldWildEncounter(void)
     if (ArePlayerFieldControlsLocked() || FlagGet(DN_FLAG_SEARCHING) || !CheckCurrentWildMonHeaderForOWE(shouldSpawnWaterMons))
         return;
 
+    // NB: il Repel Switch NON blocca piu' gli OWE: i Pokemon MOSTRATI dei primi 3
+    // percorsi (le zone di cattura) devono restare visibili anche col repel ON.
+    // Gli incontri invisibili restano soppressi ovunque (hook in wild_encounter.c),
+    // e gli OWE esistono comunque solo sui primi 3 percorsi (NV_OWE_BLOCKED).
     if (!WE_OW_ENCOUNTERS
      || NV_OWE_BLOCKED
-     || NvRepelToggleOn()
      || FlagGet(WE_OWE_FLAG_DISABLED)
      || FlagGet(WE_FLAG_NO_ENCOUNTER)
      || FlagGet(DN_FLAG_SEARCHING)
