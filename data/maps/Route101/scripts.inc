@@ -222,9 +222,11 @@ Route101_EventScript_BirchsBag::
 	setflag FLAG_RESCUED_BIRCH
 	fadescreen FADE_TO_BLACK
 	removeobject LOCALID_ROUTE101_ZIGZAGOON
-	setobjectxy LOCALID_PLAYER, 6, 13
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
-	waitmovement 0
+	@ Nuzverse: rimosso setobjectxy/teleport del player. setobjectxy NON risincronizza
+	@ la camera (lo fa solo un warp) e, avendo tolto il warp al lab, la camera restava
+	@ storta (player in alto a destra) finche' non entravi in un edificio. Senza teleport
+	@ il player resta dov'e' (camera gia' centrata su di lui). Birch e' nascosto -> la
+	@ vecchia regia di avvicinamento non serve piu'.
 	special ChooseStarter
 	@ Nuzverse: Birch nascosto su Route 101 (start pulito) -> niente avvicinamento/dialogo
 	special HealPlayerParty
