@@ -1587,7 +1587,7 @@ u16 IronmonRemapMove(u16 move)
     u16 res;
     if (move == MOVE_NONE || move >= MOVES_COUNT)
         return move;
-    n = MOVES_COUNT_GEN6 - 1; // pool Gen 1-6: il tracker (moveData.js) copre 1..621, niente "Unknown"
+    n = MOVES_COUNT - 1; // pool mosse di TUTTE le generazioni (il tracker viene esteso a gen9)
     if (n < 2)
         return move;
     a = (seed | 1u);

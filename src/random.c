@@ -300,6 +300,22 @@ volatile const u32 gIronmonFixedSeed = 0xE1A5EED0;
 volatile const u16 gIronmonPoolCount = 0;
 volatile const u16 gIronmonPool[IRONMON_POOL_MAX] = {0};
 
+// IronMon: una specie e' un risultato VALIDO del randomizer solo se e' una specie
+// BASE con numero National Dex. Esclude gli slot custom/uovo (senza dex -> il tracker
+// mostrava "#id" = gli "unknown") e le FORME (Mega/Alola/Galar/Gmax/...) che, pur
+// avendo il nome base, porterebbero stat da forma -> squilibrio. Cosi ogni mostro
+// randomizzato e' un Pokemon "vero" gen 1-9 che il tracker mappa sempre a un nome.
+static bool32 IronmonSpeciesValid(u16 s)
+{
+    if (s == SPECIES_NONE || s >= NUM_SPECIES)
+        return FALSE;
+    if (SpeciesToNationalPokedexNum(s) == 0)   // custom / uovo / senza dex
+        return FALSE;
+    if (GET_BASE_SPECIES_ID(s) != s)           // forma (non specie base)
+        return FALSE;
+    return TRUE;
+}
+
 u16 IronmonRemapSpecies(u16 species)
 {
     const u8 *tid = gSaveBlock2Ptr->playerTrainerId;
@@ -323,7 +339,20 @@ u16 IronmonRemapSpecies(u16 species)
     {
         u16 ironmonResult = (u16)(1 + ((((u32)(species - 1)) * a + b) % n));
         if (gIronmonPoolCount > 0)
+        {
             ironmonResult = gIronmonPool[(ironmonResult - 1) % gIronmonPoolCount];
+        }
+        else
+        {
+            // re-roll deterministico (riapplica la stessa bijezione) finche' il
+            // risultato non e' una specie base valida: niente custom/uovo ("#id"
+            // unknown nel tracker) ne' forme. Guard anti-loop, fail-safe = originale.
+            u32 guard = 0;
+            while (!IronmonSpeciesValid(ironmonResult) && guard++ < NUM_SPECIES)
+                ironmonResult = (u16)(1 + ((((u32)(ironmonResult - 1)) * a + b) % n));
+            if (!IronmonSpeciesValid(ironmonResult))
+                return species;
+        }
         return ironmonResult;
     }
 }
