@@ -46,7 +46,19 @@ void NvGetBerryRandomItem(void)
         ITEM_PROTEIN, ITEM_IRON, ITEM_CALCIUM, ITEM_CARBOS, ITEM_ZINC,
         ITEM_GREAT_BALL, ITEM_ULTRA_BALL, ITEM_NUGGET,
         // --- INUTILI alla run (difficolta'): tesori vendibili, repellenti (inutili col
-        //     toggle repel), oggetti di fuga. Diluiscono il pool -> risorse vere piu' rare. ---
+        //     toggle repel), oggetti di fuga. Diluiscono il pool -> risorse vere piu' rare.
+        //     Il blocco e' DUPLICATO (32x2 = 64 voci) per pesare ~70% spazzatura:
+        //     28 utili / 92 totali ~= 30% utili. Pick uniforme sull'array. ---
+        ITEM_TINY_MUSHROOM, ITEM_BIG_MUSHROOM, ITEM_BALM_MUSHROOM,
+        ITEM_PEARL, ITEM_BIG_PEARL, ITEM_PEARL_STRING,
+        ITEM_STARDUST, ITEM_STAR_PIECE, ITEM_COMET_SHARD, ITEM_BIG_NUGGET,
+        ITEM_HEART_SCALE, ITEM_SHOAL_SALT, ITEM_SHOAL_SHELL,
+        ITEM_RED_SHARD, ITEM_BLUE_SHARD, ITEM_YELLOW_SHARD, ITEM_GREEN_SHARD,
+        ITEM_RELIC_COPPER, ITEM_RELIC_SILVER, ITEM_RELIC_GOLD,
+        ITEM_RELIC_VASE, ITEM_RELIC_BAND, ITEM_RELIC_STATUE, ITEM_RELIC_CROWN,
+        ITEM_PRETTY_FEATHER, ITEM_HONEY,
+        ITEM_REPEL, ITEM_SUPER_REPEL, ITEM_MAX_REPEL,
+        ITEM_ESCAPE_ROPE, ITEM_POKE_DOLL, ITEM_FLUFFY_TAIL,
         ITEM_TINY_MUSHROOM, ITEM_BIG_MUSHROOM, ITEM_BALM_MUSHROOM,
         ITEM_PEARL, ITEM_BIG_PEARL, ITEM_PEARL_STRING,
         ITEM_STARDUST, ITEM_STAR_PIECE, ITEM_COMET_SHARD, ITEM_BIG_NUGGET,
