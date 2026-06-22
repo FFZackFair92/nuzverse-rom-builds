@@ -309,6 +309,8 @@ static bool32 IronmonSpeciesValid(u16 s)
 {
     if (s == SPECIES_NONE || s >= NUM_SPECIES)
         return FALSE;
+    if (!IsSpeciesEnabled(s))                  // specie disabilitata/compilata fuori -> assert "disabled species" -> crash
+        return FALSE;
     if (SpeciesToNationalPokedexNum(s) == 0)   // custom / uovo / senza dex
         return FALSE;
     if (GET_BASE_SPECIES_ID(s) != s)           // forma (non specie base)
