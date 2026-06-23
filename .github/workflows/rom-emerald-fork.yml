@@ -136,10 +136,12 @@ jobs:
           SEED=$(grep "symbol=gIronmonFixedSeed " seed-offset.txt | grep -oE "0x0[0-9a-fA-F]+" | head -1)
           PC=$(grep "symbol=gIronmonPoolCount " seed-offset.txt | grep -oE "0x0[0-9a-fA-F]+" | head -1)
           PD=$(grep "symbol=gIronmonPool " seed-offset.txt | grep -oE "0x0[0-9a-fA-F]+" | head -1)
+          PARTIES=$(grep "symbol=gParties " seed-offset.txt | grep -oE "0x0[0-9a-fA-F]+" | head -1)
+          SB1=$(grep "symbol=gSaveBlock1Ptr " seed-offset.txt | grep -oE "0x0[0-9a-fA-F]+" | head -1)
           echo "deploy ${{ matrix.variant }} (BPEE0): seed=$SEED pool_count=$PC pool=$PD"
           curl -fsS -X POST "$DEPLOY_URL/api/rom/deploy" \
             -H "X-Deploy-Token: $DEPLOY_TOKEN" \
             -F "game_key=BPEE0" -F "variant=${{ matrix.variant }}" \
             -F "patch=@${{ matrix.variant }}.bps" \
-            ${SEED:+-F "seed_addr=$SEED"} ${PC:+-F "pool_count_addr=$PC"} ${PD:+-F "pool_addr=$PD"}
+            ${SEED:+-F "seed_addr=$SEED"} ${PC:+-F "pool_count_addr=$PC"} ${PD:+-F "pool_addr=$PD"} ${PARTIES:+-F "parties_addr=$PARTIES"} ${SB1:+-F "sb1ptr_addr=$SB1"}
           echo "auto-deploy OK"
