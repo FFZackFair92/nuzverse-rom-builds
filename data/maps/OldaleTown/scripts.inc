@@ -647,7 +647,7 @@ OldaleTown_EventScript_MewtwoGuide::
 	end
 
 OldaleTown_Text_MewtwoGuide:
-	.string "MEWTWO: La tua avventura inizia qui.\p"
+	.string "DEOXYS: La tua avventura inizia qui.\p"
 	.string "Vai a OVEST verso PETALBURG.\n"
 	.string "Poi attraversa il BOSCO fino a\l"
 	.string "RUSTBORO per la prima MEDAGLIA!$"

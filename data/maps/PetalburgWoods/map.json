@@ -250,10 +250,6 @@
       "var_value": "0",
       "script": "PetalburgWoods_EventScript_DevonResearcherRight"
     },
-    { "type": "trigger", "x": 16, "y": 37, "elevation": 3, "var": "VAR_TEMP_1", "var_value": "0", "script": "PetalburgWoods_EventScript_DungeonEnter" },
-    { "type": "trigger", "x": 17, "y": 37, "elevation": 3, "var": "VAR_TEMP_1", "var_value": "0", "script": "PetalburgWoods_EventScript_DungeonEnter" },
-    { "type": "trigger", "x": 36, "y": 37, "elevation": 3, "var": "VAR_TEMP_1", "var_value": "0", "script": "PetalburgWoods_EventScript_DungeonEnter" },
-    { "type": "trigger", "x": 37, "y": 37, "elevation": 3, "var": "VAR_TEMP_1", "var_value": "0", "script": "PetalburgWoods_EventScript_DungeonEnter" },
     { "type": "trigger", "x": 14, "y": 6, "elevation": 3, "var": "VAR_TEMP_1", "var_value": "0", "script": "PetalburgWoods_EventScript_DungeonExit" },
     { "type": "trigger", "x": 15, "y": 6, "elevation": 3, "var": "VAR_TEMP_1", "var_value": "0", "script": "PetalburgWoods_EventScript_DungeonExit" }
   ],

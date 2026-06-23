@@ -45,6 +45,20 @@ Route104_EventScript_Rival::
 	waitmovement 0
 	goto Route104_EventScript_RivalEncounter
 
+Route104_EventScript_WoodsDoor::
+	goto_if_set FLAG_UNUSED_0x022, Route104_EventScript_WoodsDoorSkip
+	lockall
+	msgbox Route104_Text_WoodsDoor, MSGBOX_DEFAULT
+	setflag FLAG_UNUSED_0x022
+	releaseall
+Route104_EventScript_WoodsDoorSkip:
+	end
+
+Route104_Text_WoodsDoor:
+	.string "Stai per entrare nel BOSCO PETALBURG.\p"
+	.string "Una volta dentro, se esci dall'altro\n"
+	.string "lato non potrai piu' rientrare.$"
+
 Route104_EventScript_RivalTrigger::
 	lockall
 	setflag FLAG_HIDE_RUSTBORO_CITY_RIVAL

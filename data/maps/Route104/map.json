@@ -531,7 +531,11 @@
       "var": "VAR_ROUTE104_STATE",
       "var_value": "1",
       "script": "Route104_EventScript_RivalTrigger"
-    }
+    },
+    { "type": "trigger", "x": 10, "y": 39, "elevation": 3, "var": "VAR_TEMP_1", "var_value": "0", "script": "Route104_EventScript_WoodsDoor" },
+    { "type": "trigger", "x": 11, "y": 39, "elevation": 3, "var": "VAR_TEMP_1", "var_value": "0", "script": "Route104_EventScript_WoodsDoor" },
+    { "type": "trigger", "x": 32, "y": 43, "elevation": 3, "var": "VAR_TEMP_1", "var_value": "0", "script": "Route104_EventScript_WoodsDoor" },
+    { "type": "trigger", "x": 33, "y": 43, "elevation": 3, "var": "VAR_TEMP_1", "var_value": "0", "script": "Route104_EventScript_WoodsDoor" }
   ],
   "bg_events": [
     {
