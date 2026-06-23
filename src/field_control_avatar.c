@@ -1114,6 +1114,25 @@ static bool32 NvIsPokeMartLayout(u16 layoutId)
 }
 #endif
 
+#if NV_NO_REGI
+// Nuzverse: layout delle camere Regi + Sealed Chamber (quest Regi rimossa) -> ingresso sigillato.
+static bool32 NvIsRegiChamberLayout(u16 layoutId)
+{
+    switch (layoutId)
+    {
+    case LAYOUT_DESERT_RUINS:
+    case LAYOUT_ISLAND_CAVE:
+    case LAYOUT_ANCIENT_TOMB:
+    case LAYOUT_SEALED_CHAMBER_OUTER_ROOM:
+    case LAYOUT_SEALED_CHAMBER_INNER_ROOM:
+    case LAYOUT_UNDERWATER_SEALED_CHAMBER:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+#endif
+
 #if NV_ONEWAY_DUNGEONS || NV_GYM_ORDER
 #define NV_MAP_IS(g,n,mc) ((g) == MAP_GROUP(mc) && (n) == MAP_NUM(mc))
 #endif
@@ -1193,7 +1212,7 @@ static u16 NvGymOwnBadge(u16 g, u16 n)
 }
 #endif
 
-#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_ONEWAY_DUNGEONS || NV_GYM_ORDER
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_ONEWAY_DUNGEONS || NV_GYM_ORDER
 // Nuzverse: quando un warp viene neutralizzato (Centro chiuso / dungeon o palestra
 // one-way), il giocatore va rimbalzato sulla tile da cui e' ARRIVATO (opposto alla
 // direzione di marcia), che e' sempre calpestabile. Un offset fisso (+1 in y) causava
@@ -1270,6 +1289,17 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
         // Nuzverse: Market chiusi. Neutralizza il warp della porta -> resti davanti.
         // Entrambe le regioni (LAYOUT_MART Hoenn + LAYOUT_MART_FRLG Kanto).
         if (NvIsPokeMartLayout(mapHeader->mapLayoutId))
+        {
+            { s16 nvbx, nvby; NvBounceCoords(position, &nvbx, &nvby);
+              SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
+                                 WARP_ID_NONE, nvbx, nvby); }
+            return;
+        }
+#endif
+
+#if NV_NO_REGI
+        // Quest Regi rimossa: ingresso camere Regi/Sealed Chamber sigillato (resti fuori).
+        if (NvIsRegiChamberLayout(mapHeader->mapLayoutId))
         {
             { s16 nvbx, nvby; NvBounceCoords(position, &nvbx, &nvby);
               SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,

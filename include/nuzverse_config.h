@@ -75,6 +75,12 @@
 #define NV_NO_POKEMARTS 1
 #endif
 
+// Quest Regi rimossa: niente Regirock/Regice/Registeel ne' Sealed Chamber.
+// Sigilla l'ingresso (warp neutralizzato) di tutte le camere Regi + Sealed Chamber.
+#ifndef NV_NO_REGI
+#define NV_NO_REGI 1
+#endif
+
 // Regola MT Kaizo (stile StartAB): quando insegni una MT consumabile c'e' solo il 50%
 // di probabilita' che il Pokemon la impari; sul fallimento la MT viene comunque bruciata.
 // MN e oggetti 'importanti' (GetItemImportance != 0) NON sono toccati.
