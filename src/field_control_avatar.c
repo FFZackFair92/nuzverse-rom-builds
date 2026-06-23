@@ -1177,6 +1177,29 @@ static u16 NvGymOwnBadge(u16 g, u16 n)
 }
 #endif
 
+#if NV_NO_POKECENTERS || NV_ONEWAY_DUNGEONS || NV_GYM_ORDER
+// Nuzverse: quando un warp viene neutralizzato (Centro chiuso / dungeon o palestra
+// one-way), il giocatore va rimbalzato sulla tile da cui e' ARRIVATO (opposto alla
+// direzione di marcia), che e' sempre calpestabile. Un offset fisso (+1 in y) causava
+// softlock/loop sugli ingressi percorsi verso il basso (es. entrata nord del BOSCO
+// PETALBURG) o quando la tile a sud era bloccata.
+static void NvBounceCoords(struct MapPosition *position, s16 *bx, s16 *by)
+{
+    s16 x = position->x - MAP_OFFSET;
+    s16 y = position->y - MAP_OFFSET;
+    switch (GetPlayerFacingDirection())
+    {
+    case DIR_SOUTH: y -= 1; break; // arrivato da nord
+    case DIR_EAST:  x -= 1; break; // arrivato da ovest
+    case DIR_WEST:  x += 1; break; // arrivato da est
+    case DIR_NORTH:
+    default:        y += 1; break; // arrivato da sud (default sicuro = porte)
+    }
+    *bx = x;
+    *by = y;
+}
+#endif
+
 static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPosition *position)
 {
     const struct WarpEvent *warpEvent;
@@ -1220,8 +1243,9 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
         // +1 in y = tile davanti). Vale per tutti i layout di Centro, Hoenn + FRLG.
         if (NvIsPokeCenterLayout(mapHeader->mapLayoutId))
         {
-            SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
-                               WARP_ID_NONE, position->x - MAP_OFFSET, position->y - MAP_OFFSET + 1);
+            { s16 nvbx, nvby; NvBounceCoords(position, &nvbx, &nvby);
+              SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
+                                 WARP_ID_NONE, nvbx, nvby); }
             return;
         }
 #endif
@@ -1234,8 +1258,9 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
             // non in quel dungeon) -> neutralizza il warp (il giocatore resta davanti).
             if (nvDst != 0 && nvSrc != nvDst && FlagGet(nvDst))
             {
-                SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
-                                   WARP_ID_NONE, position->x - MAP_OFFSET, position->y - MAP_OFFSET + 1);
+                { s16 nvbx, nvby; NvBounceCoords(position, &nvbx, &nvby);
+                  SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
+                                     WARP_ID_NONE, nvbx, nvby); }
                 return;
             }
             // MARK: esci dal dungeon (src interno) verso l'esterno -> "completato".
@@ -1251,8 +1276,9 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
             u16 reqBadge = NvGymRequiredBadge(warpEvent->mapGroup, warpEvent->mapNum);
             if (reqBadge != 0 && !FlagGet(reqBadge))
             {
-                SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
-                                   WARP_ID_NONE, position->x - MAP_OFFSET, position->y - MAP_OFFSET + 1);
+                { s16 nvbx, nvby; NvBounceCoords(position, &nvbx, &nvby);
+                  SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
+                                     WARP_ID_NONE, nvbx, nvby); }
                 return;
             }
             // Palestre one-way: lock-in finche' non hai la medaglia + sigillo rientro dopo.
@@ -1262,16 +1288,18 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
                 // RIENTRO: palestra gia' battuta (dst, badge preso) da fuori -> resti in citta'.
                 if (gymDst != 0 && gymSrc != gymDst && FlagGet(gymDst))
                 {
-                    SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
-                                       WARP_ID_NONE, position->x - MAP_OFFSET, position->y - MAP_OFFSET + 1);
+                    { s16 nvbx, nvby; NvBounceCoords(position, &nvbx, &nvby);
+                      SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
+                                         WARP_ID_NONE, nvbx, nvby); }
                     return;
                 }
                 // LOCK-IN: provi a uscire (src palestra) senza la sua medaglia -> resti DENTRO
                 // (spinto a nord della porta) finche' non batti il capopalestra.
                 if (gymSrc != 0 && gymDst != gymSrc && !FlagGet(gymSrc))
                 {
-                    SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
-                                       WARP_ID_NONE, position->x - MAP_OFFSET, position->y - MAP_OFFSET - 1);
+                    { s16 nvbx, nvby; NvBounceCoords(position, &nvbx, &nvby);
+                      SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
+                                         WARP_ID_NONE, nvbx, nvby); }
                     return;
                 }
             }
