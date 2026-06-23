@@ -1098,6 +1098,22 @@ static bool32 NvIsPokeCenterLayout(u16 layoutId)
 }
 #endif
 
+#if NV_NO_POKEMARTS
+// Nuzverse: riconosce i layout dei Market (Poke Mart) per neutralizzare il warp
+// d'ingresso. LAYOUT_MART = Hoenn/RS, LAYOUT_MART_FRLG = Kanto.
+static bool32 NvIsPokeMartLayout(u16 layoutId)
+{
+    switch (layoutId)
+    {
+    case LAYOUT_MART:
+    case LAYOUT_MART_FRLG:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+#endif
+
 #if NV_ONEWAY_DUNGEONS || NV_GYM_ORDER
 #define NV_MAP_IS(g,n,mc) ((g) == MAP_GROUP(mc) && (n) == MAP_NUM(mc))
 #endif
@@ -1177,7 +1193,7 @@ static u16 NvGymOwnBadge(u16 g, u16 n)
 }
 #endif
 
-#if NV_NO_POKECENTERS || NV_ONEWAY_DUNGEONS || NV_GYM_ORDER
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_ONEWAY_DUNGEONS || NV_GYM_ORDER
 // Nuzverse: quando un warp viene neutralizzato (Centro chiuso / dungeon o palestra
 // one-way), il giocatore va rimbalzato sulla tile da cui e' ARRIVATO (opposto alla
 // direzione di marcia), che e' sempre calpestabile. Un offset fisso (+1 in y) causava
@@ -1242,6 +1258,18 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
         // porta: invece di entrare, il giocatore resta davanti alla porta (porta = position,
         // +1 in y = tile davanti). Vale per tutti i layout di Centro, Hoenn + FRLG.
         if (NvIsPokeCenterLayout(mapHeader->mapLayoutId))
+        {
+            { s16 nvbx, nvby; NvBounceCoords(position, &nvbx, &nvby);
+              SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
+                                 WARP_ID_NONE, nvbx, nvby); }
+            return;
+        }
+#endif
+
+#if NV_NO_POKEMARTS
+        // Nuzverse: Market chiusi. Neutralizza il warp della porta -> resti davanti.
+        // Entrambe le regioni (LAYOUT_MART Hoenn + LAYOUT_MART_FRLG Kanto).
+        if (NvIsPokeMartLayout(mapHeader->mapLayoutId))
         {
             { s16 nvbx, nvby; NvBounceCoords(position, &nvbx, &nvby);
               SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,

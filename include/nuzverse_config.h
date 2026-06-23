@@ -68,6 +68,13 @@
 #define NV_NO_POKECENTERS 1
 #endif
 
+// Market (Poke Mart) chiusi: come i Centri, la porta non entra. Neutralizza il warp
+// d'ingresso -> il giocatore resta davanti. Entrambe le regioni (LAYOUT_MART Hoenn +
+// LAYOUT_MART_FRLG Kanto).
+#ifndef NV_NO_POKEMARTS
+#define NV_NO_POKEMARTS 1
+#endif
+
 // Regola MT Kaizo (stile StartAB): quando insegni una MT consumabile c'e' solo il 50%
 // di probabilita' che il Pokemon la impari; sul fallimento la MT viene comunque bruciata.
 // MN e oggetti 'importanti' (GetItemImportance != 0) NON sono toccati.
