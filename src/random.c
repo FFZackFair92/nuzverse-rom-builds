@@ -318,10 +318,10 @@ static bool32 IronmonSpeciesValid(u16 s)
     return TRUE;
 }
 
-static u16 IronmonRemapCore(u16 species)
+static u16 IronmonRemapCore(u16 species, u32 extraKey)
 {
     const u8 *tid = gSaveBlock2Ptr->playerTrainerId;
-    u32 seed = (u32)tid[0] | ((u32)tid[1] << 8) | ((u32)tid[2] << 16) | ((u32)tid[3] << 24);
+    u32 seed = ((u32)tid[0] | ((u32)tid[1] << 8) | ((u32)tid[2] << 16) | ((u32)tid[3] << 24)) ^ extraKey;
     u32 a, b, g0, g1, t;
     if (species == SPECIES_NONE || species >= NUM_SPECIES)
         return species;
@@ -377,12 +377,20 @@ u16 IronmonRemapSpecies(u16 species)
 {
     if (species == SPECIES_DITTO)
         return SPECIES_DITTO;
-    return IronmonRemapCore(species);
+    return IronmonRemapCore(species, 0);
+}
+
+// Full random PER-ISTANZA: stessa specie-base -> output DIVERSO per ogni chiave
+// (key|1 != 0 = mai la mappa per-specie). Allenatori: chiave per (trainer,slot);
+// selvatici non-cattura: chiave da RNG. Elimina i "troppi uguali" (no collasso per specie).
+u16 IronmonRemapSpeciesKeyed(u16 species, u32 key)
+{
+    return IronmonRemapCore(species, key | 1u);
 }
 
 u16 IronmonDittoBattleSpecies(void)
 {
-    return IronmonRemapCore(SPECIES_DITTO);
+    return IronmonRemapCore(SPECIES_DITTO, 0);
 }
 
 #if NV_KAIZO

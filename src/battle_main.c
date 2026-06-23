@@ -2055,14 +2055,14 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 }
                 else
                 {
-                    nvSpecies = IronmonRemapSpecies(partyData[monIndex].species);
+                    nvSpecies = IronmonRemapSpeciesKeyed(partyData[monIndex].species, ((u32)TRAINER_BATTLE_PARAM.opponentA * 2654435761u) + (u32)monIndex);
                 }
                 if (partyData[monIndex].lvl >= 30)
                     nvSpecies = IronmonFinalEvo(nvSpecies);
                 CreateMon(&party[i], nvSpecies, NvKaizoLevel(partyData[monIndex].lvl, TRAINER_BATTLE_PARAM.opponentA, monIndex, trainer->partySize), personalityValue, otId);
             }
 #else
-            CreateMon(&party[i], IronmonRemapSpecies(partyData[monIndex].species), /*IronMon Nuzlocke EM*/ NvKaizoLevel(partyData[monIndex].lvl, TRAINER_BATTLE_PARAM.opponentA, monIndex, trainer->partySize), personalityValue, otId);
+            CreateMon(&party[i], IronmonRemapSpeciesKeyed(partyData[monIndex].species, ((u32)TRAINER_BATTLE_PARAM.opponentA * 2654435761u) + (u32)monIndex), /*IronMon Nuzlocke EM*/ NvKaizoLevel(partyData[monIndex].lvl, TRAINER_BATTLE_PARAM.opponentA, monIndex, trainer->partySize), personalityValue, otId);
 #endif
             SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[monIndex].heldItem);
 

@@ -29,6 +29,7 @@
 #include "constants/item.h"
 #include "constants/items.h"
 #include "constants/layouts.h"
+#include "constants/region_map_sections.h"
 #include "constants/weather.h"
 
 extern const u8 EventScript_SprayWoreOff[];
@@ -537,7 +538,18 @@ void CreateWildMon(enum Species species, u8 level)
             level = maxLvl + 4;
     }
 #endif
-    species = IronmonRemapSpecies(species); // IronMon Nuzlocke EM: randomizer selvatici seedato
+    // Visibili (zone-cattura/OWE: percorsi 101-104 Hoenn, 1-3 Kanto) -> per-specie
+    // (poche specie, coerenti tra display e battaglia). TUTTO IL RESTO -> FULL RANDOM
+    // per-istanza: ogni incontro una specie diversa (non collassato per specie-base).
+    {
+        u16 nvSec = gMapHeader.regionMapSectionId;
+        bool32 nvVisible = (nvSec == MAPSEC_ROUTE_101 || nvSec == MAPSEC_ROUTE_102 || nvSec == MAPSEC_ROUTE_103 || nvSec == MAPSEC_ROUTE_104
+                         || nvSec == MAPSEC_ROUTE_1 || nvSec == MAPSEC_ROUTE_2 || nvSec == MAPSEC_ROUTE_3);
+        if (nvVisible)
+            species = IronmonRemapSpecies(species);
+        else
+            species = IronmonRemapSpeciesKeyed(species, Random32());
+    }
     if (species == SPECIES_DITTO) // Ditto jolly: nell'erba e' Ditto, in battaglia e' random seedato
         species = IronmonDittoBattleSpecies();
 #if NV_KAIZO
