@@ -1120,6 +1120,7 @@ static u16 NvDungeonClearedFlagForMap(u16 g, u16 n)
         return FLAG_NV_DUNGEON_WARDWOODS;
     if (NV_MAP_IS(g,n,MAP_GRANITE_CAVE_1F) || NV_MAP_IS(g,n,MAP_GRANITE_CAVE_B1F) || NV_MAP_IS(g,n,MAP_GRANITE_CAVE_B2F) || NV_MAP_IS(g,n,MAP_GRANITE_CAVE_STEVENS_ROOM)) // GRANITE DEEP
         return FLAG_NV_DUNGEON_GRANITE;
+#if !IS_FRLG // dungeon Hoenn: irraggiungibili in FireRed + i flag 0x4B0+ in FRLG sono i gym Kanto
     // Mt Pyre (interno: NO Exterior, cosi' il sigillo scatta sulla porta 1F)
     if (NV_MAP_IS(g,n,MAP_MT_PYRE_1F) || NV_MAP_IS(g,n,MAP_MT_PYRE_2F) || NV_MAP_IS(g,n,MAP_MT_PYRE_3F) || NV_MAP_IS(g,n,MAP_MT_PYRE_4F) || NV_MAP_IS(g,n,MAP_MT_PYRE_5F) || NV_MAP_IS(g,n,MAP_MT_PYRE_6F) || NV_MAP_IS(g,n,MAP_MT_PYRE_SUMMIT))
         return FLAG_NV_DUNGEON_MTPYRE;
@@ -1136,6 +1137,7 @@ static u16 NvDungeonClearedFlagForMap(u16 g, u16 n)
     // Sky Pillar (interno: NO Outside, sigillo sulla porta Entrance)
     if (NV_MAP_IS(g,n,MAP_SKY_PILLAR_ENTRANCE) || NV_MAP_IS(g,n,MAP_SKY_PILLAR_1F) || NV_MAP_IS(g,n,MAP_SKY_PILLAR_2F) || NV_MAP_IS(g,n,MAP_SKY_PILLAR_3F) || NV_MAP_IS(g,n,MAP_SKY_PILLAR_4F) || NV_MAP_IS(g,n,MAP_SKY_PILLAR_5F) || NV_MAP_IS(g,n,MAP_SKY_PILLAR_TOP))
         return FLAG_NV_DUNGEON_SKYPILLAR;
+#endif // !IS_FRLG
     return 0;
 }
 #endif
