@@ -1120,6 +1120,22 @@ static u16 NvDungeonClearedFlagForMap(u16 g, u16 n)
         return FLAG_NV_DUNGEON_WARDWOODS;
     if (NV_MAP_IS(g,n,MAP_GRANITE_CAVE_1F) || NV_MAP_IS(g,n,MAP_GRANITE_CAVE_B1F) || NV_MAP_IS(g,n,MAP_GRANITE_CAVE_B2F) || NV_MAP_IS(g,n,MAP_GRANITE_CAVE_STEVENS_ROOM)) // GRANITE DEEP
         return FLAG_NV_DUNGEON_GRANITE;
+    // Mt Pyre (interno: NO Exterior, cosi' il sigillo scatta sulla porta 1F)
+    if (NV_MAP_IS(g,n,MAP_MT_PYRE_1F) || NV_MAP_IS(g,n,MAP_MT_PYRE_2F) || NV_MAP_IS(g,n,MAP_MT_PYRE_3F) || NV_MAP_IS(g,n,MAP_MT_PYRE_4F) || NV_MAP_IS(g,n,MAP_MT_PYRE_5F) || NV_MAP_IS(g,n,MAP_MT_PYRE_6F) || NV_MAP_IS(g,n,MAP_MT_PYRE_SUMMIT))
+        return FLAG_NV_DUNGEON_MTPYRE;
+    if (NV_MAP_IS(g,n,MAP_CAVE_OF_ORIGIN_ENTRANCE) || NV_MAP_IS(g,n,MAP_CAVE_OF_ORIGIN_1F) || NV_MAP_IS(g,n,MAP_CAVE_OF_ORIGIN_B1F))
+        return FLAG_NV_DUNGEON_CAVEORIGIN;
+    if (NV_MAP_IS(g,n,MAP_SEAFLOOR_CAVERN_ENTRANCE) || NV_MAP_IS(g,n,MAP_SEAFLOOR_CAVERN_ROOM1) || NV_MAP_IS(g,n,MAP_SEAFLOOR_CAVERN_ROOM2) || NV_MAP_IS(g,n,MAP_SEAFLOOR_CAVERN_ROOM3) || NV_MAP_IS(g,n,MAP_SEAFLOOR_CAVERN_ROOM4) || NV_MAP_IS(g,n,MAP_SEAFLOOR_CAVERN_ROOM5) || NV_MAP_IS(g,n,MAP_SEAFLOOR_CAVERN_ROOM6) || NV_MAP_IS(g,n,MAP_SEAFLOOR_CAVERN_ROOM7) || NV_MAP_IS(g,n,MAP_SEAFLOOR_CAVERN_ROOM8) || NV_MAP_IS(g,n,MAP_SEAFLOOR_CAVERN_ROOM9))
+        return FLAG_NV_DUNGEON_SEAFLOOR;
+    if (NV_MAP_IS(g,n,MAP_MAGMA_HIDEOUT_1F) || NV_MAP_IS(g,n,MAP_MAGMA_HIDEOUT_2F_1R) || NV_MAP_IS(g,n,MAP_MAGMA_HIDEOUT_2F_2R) || NV_MAP_IS(g,n,MAP_MAGMA_HIDEOUT_2F_3R) || NV_MAP_IS(g,n,MAP_MAGMA_HIDEOUT_3F_1R) || NV_MAP_IS(g,n,MAP_MAGMA_HIDEOUT_3F_2R) || NV_MAP_IS(g,n,MAP_MAGMA_HIDEOUT_3F_3R) || NV_MAP_IS(g,n,MAP_MAGMA_HIDEOUT_4F))
+        return FLAG_NV_DUNGEON_MAGMA;
+    if (NV_MAP_IS(g,n,MAP_AQUA_HIDEOUT_1F) || NV_MAP_IS(g,n,MAP_AQUA_HIDEOUT_B1F) || NV_MAP_IS(g,n,MAP_AQUA_HIDEOUT_B2F))
+        return FLAG_NV_DUNGEON_AQUA;
+    if (NV_MAP_IS(g,n,MAP_NEW_MAUVILLE_ENTRANCE) || NV_MAP_IS(g,n,MAP_NEW_MAUVILLE_INSIDE))
+        return FLAG_NV_DUNGEON_NEWMAUVILLE;
+    // Sky Pillar (interno: NO Outside, sigillo sulla porta Entrance)
+    if (NV_MAP_IS(g,n,MAP_SKY_PILLAR_ENTRANCE) || NV_MAP_IS(g,n,MAP_SKY_PILLAR_1F) || NV_MAP_IS(g,n,MAP_SKY_PILLAR_2F) || NV_MAP_IS(g,n,MAP_SKY_PILLAR_3F) || NV_MAP_IS(g,n,MAP_SKY_PILLAR_4F) || NV_MAP_IS(g,n,MAP_SKY_PILLAR_5F) || NV_MAP_IS(g,n,MAP_SKY_PILLAR_TOP))
+        return FLAG_NV_DUNGEON_SKYPILLAR;
     return 0;
 }
 #endif
@@ -1137,6 +1153,24 @@ static u16 NvGymRequiredBadge(u16 g, u16 n)
     if (NV_MAP_IS(g,n,MAP_FORTREE_CITY_GYM))       return FLAG_BADGE05_GET;
     if (NV_MAP_IS(g,n,MAP_MOSSDEEP_CITY_GYM))      return FLAG_BADGE06_GET;
     if (NV_MAP_IS(g,n,MAP_SOOTOPOLIS_CITY_GYM_1F)) return FLAG_BADGE07_GET;
+    return 0;
+}
+
+// Nuzverse palestre one-way: la medaglia PROPRIA della palestra che contiene (g,n)
+// (tutte le mappe interne, anche multi-piano). 0 = non e' una palestra one-way.
+// Petalburg (Norman) ESCLUSA: si entra a inizio gioco (tutorial Wally) prima di poter
+// battere Norman -> il lock-in la renderebbe un softlock.
+static u16 NvGymOwnBadge(u16 g, u16 n)
+{
+    if (NV_MAP_IS(g,n,MAP_RUSTBORO_CITY_GYM))      return FLAG_BADGE01_GET;
+    if (NV_MAP_IS(g,n,MAP_DEWFORD_TOWN_GYM))       return FLAG_BADGE02_GET;
+    if (NV_MAP_IS(g,n,MAP_MAUVILLE_CITY_GYM))      return FLAG_BADGE03_GET;
+    if (NV_MAP_IS(g,n,MAP_LAVARIDGE_TOWN_GYM_1F) || NV_MAP_IS(g,n,MAP_LAVARIDGE_TOWN_GYM_B1F))
+        return FLAG_BADGE04_GET;
+    if (NV_MAP_IS(g,n,MAP_FORTREE_CITY_GYM))       return FLAG_BADGE06_GET;
+    if (NV_MAP_IS(g,n,MAP_MOSSDEEP_CITY_GYM))      return FLAG_BADGE07_GET;
+    if (NV_MAP_IS(g,n,MAP_SOOTOPOLIS_CITY_GYM_1F) || NV_MAP_IS(g,n,MAP_SOOTOPOLIS_CITY_GYM_B1F))
+        return FLAG_BADGE08_GET;
     return 0;
 }
 #endif
@@ -1218,6 +1252,26 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
                 SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
                                    WARP_ID_NONE, position->x - MAP_OFFSET, position->y - MAP_OFFSET + 1);
                 return;
+            }
+            // Palestre one-way: lock-in finche' non hai la medaglia + sigillo rientro dopo.
+            {
+                u16 gymDst = NvGymOwnBadge(warpEvent->mapGroup, warpEvent->mapNum);
+                u16 gymSrc = NvGymOwnBadge(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum);
+                // RIENTRO: palestra gia' battuta (dst, badge preso) da fuori -> resti in citta'.
+                if (gymDst != 0 && gymSrc != gymDst && FlagGet(gymDst))
+                {
+                    SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
+                                       WARP_ID_NONE, position->x - MAP_OFFSET, position->y - MAP_OFFSET + 1);
+                    return;
+                }
+                // LOCK-IN: provi a uscire (src palestra) senza la sua medaglia -> resti DENTRO
+                // (spinto a nord della porta) finche' non batti il capopalestra.
+                if (gymSrc != 0 && gymDst != gymSrc && !FlagGet(gymSrc))
+                {
+                    SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
+                                       WARP_ID_NONE, position->x - MAP_OFFSET, position->y - MAP_OFFSET - 1);
+                    return;
+                }
             }
         }
 #endif

@@ -91,6 +91,14 @@
 #define FLAG_NV_DUNGEON_VICTORYRD_H  FLAG_UNUSED_0x4AB
 #define FLAG_NV_DUNGEON_WARDWOODS    FLAG_UNUSED_0x4AC
 #define FLAG_NV_DUNGEON_GRANITE      FLAG_UNUSED_0x4AD
+// Dungeon Hoenn aggiunti (23 giu): 0x4AE-0x4B4 unused in flags.h E flags_frlg.h.
+#define FLAG_NV_DUNGEON_MTPYRE       FLAG_UNUSED_0x4AE
+#define FLAG_NV_DUNGEON_CAVEORIGIN   FLAG_UNUSED_0x4AF
+#define FLAG_NV_DUNGEON_SEAFLOOR     FLAG_UNUSED_0x4B0
+#define FLAG_NV_DUNGEON_MAGMA        FLAG_UNUSED_0x4B1
+#define FLAG_NV_DUNGEON_AQUA         FLAG_UNUSED_0x4B2
+#define FLAG_NV_DUNGEON_NEWMAUVILLE  FLAG_UNUSED_0x4B3
+#define FLAG_NV_DUNGEON_SKYPILLAR    FLAG_UNUSED_0x4B4
 
 // Ordine palestre G1->G8 (Hoenn): blocca l'ingresso di una palestra se manca la
 // medaglia precedente (usa i FLAG_BADGE0x_GET, comuni a entrambe le build).
