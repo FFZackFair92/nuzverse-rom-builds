@@ -6,6 +6,10 @@
 #define FLAG_0x021               0x021
 #define FLAG_0x022               0x022
 #define FLAG_0x023               0x023
+// Alias per gli script Hoenn condivisi (rivale Route 102 = 0x021, sigillo Bosco Petalburg = 0x022):
+// in flags.h (Emerald) sono FLAG_UNUSED_0x021/0x022; qui i bit esistono gia' come FLAG_0x021/0x022.
+#define FLAG_UNUSED_0x021        FLAG_0x021
+#define FLAG_UNUSED_0x022        FLAG_0x022
 #define FLAG_0x024               0x024
 #define FLAG_0x025               0x025
 #define FLAG_0x026               0x026
