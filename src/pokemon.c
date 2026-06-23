@@ -1576,6 +1576,21 @@ static bool32 IronmonMoveRandDisallowed(u16 m)
         return TRUE;
     if (gMovesInfo[m].effect == EFFECT_ABSORB || gMovesInfo[m].effect == EFFECT_LEECH_SEED)
         return TRUE;
+    // MN (HM) fuori dalla randomizzazione: niente Surf/Volo/Taglio/ecc. casuali nei
+    // learnset (anti-skip palestre: non puoi pescare Surf e saltare la prima). L'USO
+    // delle MN resta gated dal badge come nella storia.
+    switch (m)
+    {
+    case MOVE_CUT:
+    case MOVE_FLY:
+    case MOVE_SURF:
+    case MOVE_STRENGTH:
+    case MOVE_FLASH:
+    case MOVE_ROCK_SMASH:
+    case MOVE_WATERFALL:
+    case MOVE_DIVE:
+        return TRUE;
+    }
     return FALSE;
 }
 
