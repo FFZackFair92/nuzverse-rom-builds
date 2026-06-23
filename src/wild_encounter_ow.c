@@ -236,9 +236,12 @@ const struct FieldEffectInfoOWE gOverworldWildEncounterFieldEffectInfo[] =
 // specie @ Lv8). Altrove restano gli incontri normali (invisibili).
 static bool32 NvOweRouteAllowed(void)
 {
+    // Dopo aver catturato in questa zona, gli OWE visibili spariscono (1 cattura/zona).
+    if (IronmonCaughtHere())
+        return FALSE;
     switch (gMapHeader.regionMapSectionId)
     {
-    case MAPSEC_ROUTE_101: case MAPSEC_ROUTE_102: case MAPSEC_ROUTE_103: // Hoenn
+    case MAPSEC_ROUTE_101: case MAPSEC_ROUTE_102: case MAPSEC_ROUTE_103: case MAPSEC_ROUTE_104: // Hoenn
     case MAPSEC_ROUTE_1:   case MAPSEC_ROUTE_2:   case MAPSEC_ROUTE_3:   // Kanto
         return TRUE;
     default:

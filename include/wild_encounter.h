@@ -70,6 +70,8 @@ u32 CalculateChainFishingShinyRolls(void);
 void CreateWildMon(enum Species species, u8 level);
 #if NV_KAIZO
 bool8 IronmonCatchAllowed(void); // Kaizo: cattura permessa (prime 3 zone con selvatici)
+bool8 IronmonCaughtHere(void);   // Kaizo: gia' catturato in questa zona (nascondi OWE)
+void IronmonMarkCaught(void);    // Kaizo: segna "catturato" nella zona corrente
 #endif
 bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum WildPokemonArea area, u8 flags);
 bool8 SetUpMassOutbreakEncounter(u8 flags);

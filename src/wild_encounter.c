@@ -482,7 +482,22 @@ static void IronmonMarkAreaEncounter(void)
 bool8 IronmonCatchAllowed(void) // non-static: usata anche da battle_script_commands (Cmd_handleballthrow)
 {
     u32 sec = gMapHeader.regionMapSectionId;
+    // gia' catturato in questa zona -> 1 sola cattura per zona
+    if ((gSaveBlock1Ptr->nvKaizoCaughtSec[sec >> 3] >> (sec & 7)) & 1)
+        return FALSE;
     return (gSaveBlock1Ptr->nvKaizoCatchSec[sec >> 3] >> (sec & 7)) & 1;
+}
+// Gia' catturato in questa zona (per nascondere gli OWE visibili).
+bool8 IronmonCaughtHere(void)
+{
+    u32 sec = gMapHeader.regionMapSectionId;
+    return (gSaveBlock1Ptr->nvKaizoCaughtSec[sec >> 3] >> (sec & 7)) & 1;
+}
+// Segna "catturato" la zona corrente (chiamata alla cattura riuscita).
+void IronmonMarkCaught(void)
+{
+    u32 sec = gMapHeader.regionMapSectionId;
+    gSaveBlock1Ptr->nvKaizoCaughtSec[sec >> 3] |= (1 << (sec & 7));
 }
 static void IronmonMarkCatchRoute(void)
 {

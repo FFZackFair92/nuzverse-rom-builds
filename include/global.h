@@ -1217,6 +1217,8 @@ struct SaveBlock1
 #if NV_KAIZO
     // Kaizo: 1 bit per regionMapSectionId = "cattura permessa qui" (prime 3 zone con selvatici)
     u8 nvKaizoCatchSec[32];
+    // Kaizo: 1 bit per regionMapSectionId = "gia' catturato in questa zona" (nascondi OWE + 1 cattura/zona)
+    u8 nvKaizoCaughtSec[32];
 #endif
     // sizeof: 0x3???
 };

@@ -9669,6 +9669,9 @@ static void FinalizeCapture(void)
     MarkBattlerForControllerExec(gBattlerAttacker);
     TryBattleFormChange(gBattlerTarget, FORM_CHANGE_END_BATTLE, GetBattlerAbility(gBattlerTarget));
     gBattlescriptCurrInstr = BattleScript_SuccessBallThrow;
+#if NV_KAIZO
+    IronmonMarkCaught(); // Kaizo: questa zona ha usato la sua cattura -> nascondi gli OWE visibili
+#endif
     struct Pokemon *caughtMon = GetBattlerMon(gBattlerTarget);
     SetMonData(caughtMon, MON_DATA_POKEBALL, &ballId);
 
