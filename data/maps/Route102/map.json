@@ -3,7 +3,6 @@
   "name": "Route102",
   "layout": "LAYOUT_ROUTE102",
   "music": "MUS_ROUTE101",
-  "region": "REGION_HOENN",
   "region_map_section": "MAPSEC_ROUTE_102",
   "requires_flash": false,
   "weather": "WEATHER_SUNNY",
@@ -12,6 +11,7 @@
   "allow_escaping": false,
   "allow_running": true,
   "show_map_name": true,
+  "floor_number": 0,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
@@ -27,6 +27,7 @@
   ],
   "object_events": [
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_LITTLE_BOY",
       "x": 18,
       "y": 11,
@@ -40,6 +41,7 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_BOY_1",
       "x": 37,
       "y": 4,
@@ -53,6 +55,7 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
       "x": 11,
       "y": 15,
@@ -66,6 +69,7 @@
       "flag": "FLAG_ITEM_ROUTE_102_POTION"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
       "x": 24,
       "y": 2,
@@ -79,6 +83,7 @@
       "flag": "FLAG_UNUSED_0x264"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
       "x": 25,
       "y": 2,
@@ -93,9 +98,10 @@
     },
     {
       "local_id": "LOCALID_ROUTE102_RIVAL",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_VAR_0",
-      "x": 11,
-      "y": 12,
+      "x": 0,
+      "y": 7,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 1,
@@ -110,7 +116,16 @@
   "coord_events": [
     {
       "type": "trigger",
-      "x": 12,
+      "x": 1,
+      "y": 6,
+      "elevation": 3,
+      "var": "VAR_UNUSED_0x404E",
+      "var_value": "0",
+      "script": "Route102_EventScript_Rival"
+    },
+    {
+      "type": "trigger",
+      "x": 1,
       "y": 7,
       "elevation": 3,
       "var": "VAR_UNUSED_0x404E",
@@ -119,7 +134,7 @@
     },
     {
       "type": "trigger",
-      "x": 12,
+      "x": 1,
       "y": 8,
       "elevation": 3,
       "var": "VAR_UNUSED_0x404E",
@@ -128,80 +143,8 @@
     },
     {
       "type": "trigger",
-      "x": 12,
+      "x": 1,
       "y": 9,
-      "elevation": 3,
-      "var": "VAR_UNUSED_0x404E",
-      "var_value": "0",
-      "script": "Route102_EventScript_Rival"
-    },
-    {
-      "type": "trigger",
-      "x": 12,
-      "y": 10,
-      "elevation": 3,
-      "var": "VAR_UNUSED_0x404E",
-      "var_value": "0",
-      "script": "Route102_EventScript_Rival"
-    },
-    {
-      "type": "trigger",
-      "x": 12,
-      "y": 11,
-      "elevation": 3,
-      "var": "VAR_UNUSED_0x404E",
-      "var_value": "0",
-      "script": "Route102_EventScript_Rival"
-    },
-    {
-      "type": "trigger",
-      "x": 12,
-      "y": 12,
-      "elevation": 3,
-      "var": "VAR_UNUSED_0x404E",
-      "var_value": "0",
-      "script": "Route102_EventScript_Rival"
-    },
-    {
-      "type": "trigger",
-      "x": 12,
-      "y": 13,
-      "elevation": 3,
-      "var": "VAR_UNUSED_0x404E",
-      "var_value": "0",
-      "script": "Route102_EventScript_Rival"
-    },
-    {
-      "type": "trigger",
-      "x": 12,
-      "y": 14,
-      "elevation": 3,
-      "var": "VAR_UNUSED_0x404E",
-      "var_value": "0",
-      "script": "Route102_EventScript_Rival"
-    },
-    {
-      "type": "trigger",
-      "x": 12,
-      "y": 15,
-      "elevation": 3,
-      "var": "VAR_UNUSED_0x404E",
-      "var_value": "0",
-      "script": "Route102_EventScript_Rival"
-    },
-    {
-      "type": "trigger",
-      "x": 12,
-      "y": 16,
-      "elevation": 3,
-      "var": "VAR_UNUSED_0x404E",
-      "var_value": "0",
-      "script": "Route102_EventScript_Rival"
-    },
-    {
-      "type": "trigger",
-      "x": 12,
-      "y": 17,
       "elevation": 3,
       "var": "VAR_UNUSED_0x404E",
       "var_value": "0",
@@ -211,19 +154,12 @@
   "bg_events": [
     {
       "type": "sign",
-      "x": 17,
-      "y": 2,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "Route102_EventScript_RouteSignPetalburg"
-    },
-    {
-      "type": "sign",
       "x": 40,
       "y": 9,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Route102_EventScript_RouteSignOldale"
     }
-  ]
+  ],
+  "region": "REGION_HOENN"
 }

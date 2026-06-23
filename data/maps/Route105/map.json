@@ -48,8 +48,9 @@
   ],
   "warp_events": [
     {
+      "warp_id": "warp",
       "x": 9,
-      "y": 20,
+      "y": 18,
       "elevation": 0,
       "dest_map": "MAP_ISLAND_CAVE",
       "dest_warp_id": "0"
