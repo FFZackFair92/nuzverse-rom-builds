@@ -145,38 +145,8 @@ Route119_EventScript_RivalExitScottArrive::
 	setvar VAR_ROUTE119_STATE, 1
 	savebgm MUS_DUMMY
 	fadedefaultbgm
-	delay 60
-	call_if_eq VAR_TEMP_1, 1, Route119_EventScript_SetScottPos1
-	call_if_eq VAR_TEMP_1, 2, Route119_EventScript_SetScottPos2
-	addobject LOCALID_ROUTE119_SCOTT
-	applymovement LOCALID_ROUTE119_SCOTT, Route119_Movement_ScottEnter
-	waitmovement 0
-	addvar VAR_SCOTT_STATE, 1
-	msgbox Route119_Text_ScottWayToGoBeSeeingYou, MSGBOX_DEFAULT
-	closemessage
-	call_if_eq VAR_TEMP_1, 1, Route119_EventScript_ScottExit1
-	call_if_eq VAR_TEMP_1, 2, Route119_EventScript_ScottExit2
-	removeobject LOCALID_ROUTE119_SCOTT
 	releaseall
 	end
-
-Route119_EventScript_SetScottPos1::
-	setobjectxyperm LOCALID_ROUTE119_SCOTT, 27, 25
-	return
-
-Route119_EventScript_SetScottPos2::
-	setobjectxyperm LOCALID_ROUTE119_SCOTT, 28, 25
-	return
-
-Route119_EventScript_ScottExit1::
-	applymovement LOCALID_ROUTE119_SCOTT, Route119_Movement_ScottExit1
-	waitmovement 0
-	return
-
-Route119_EventScript_ScottExit2::
-	applymovement LOCALID_ROUTE119_SCOTT, Route119_Movement_ScottExit2
-	waitmovement 0
-	return
 
 Route119_EventScript_RivalEnter1::
 	applymovement LOCALID_ROUTE119_RIVAL_ON_BIKE, Route119_Movement_RivalEnter1
@@ -272,37 +242,6 @@ Route119_Movement_RivalExit2:
 	walk_fast_up
 	walk_fast_up
 	walk_fast_up
-	step_end
-
-Route119_Movement_ScottEnter:
-	walk_down
-	walk_down
-	walk_down
-	walk_down
-	walk_left
-	walk_left
-	walk_down
-	step_end
-
-Route119_Movement_ScottExit1:
-	walk_up
-	walk_right
-	walk_right
-	walk_up
-	walk_up
-	walk_up
-	walk_up
-	walk_up
-	step_end
-
-Route119_Movement_ScottExit2:
-	walk_up
-	walk_right
-	walk_up
-	walk_up
-	walk_up
-	walk_up
-	walk_up
 	step_end
 
 Route119_EventScript_CyclingTriathleteM::
