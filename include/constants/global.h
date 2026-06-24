@@ -78,6 +78,14 @@ enum Language
 #endif
 #define GAME_LANGUAGE (LANGUAGE_ENGLISH)
 
+// Nuzverse: lingua dei TESTI tradotti del ROM (build multilingua). Default = inglese (nessun
+// override, impatto zero). Le build tradotte passano -DNV_LANG=LANGUAGE_ITALIAN ecc. via CI.
+// Portoghese non esiste nell'enum Gen3 -> valore custom 8.
+#define NV_LANG_PORTUGUESE 8
+#ifndef NV_LANG
+#define NV_LANG (LANGUAGE_ENGLISH)
+#endif
+
 // party sizes
 #define PARTY_SIZE 6
 #define MULTI_PARTY_SIZE (PARTY_SIZE / 2)

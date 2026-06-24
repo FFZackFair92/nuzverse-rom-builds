@@ -237,9 +237,19 @@ static inline enum Move SanitizeMoveId(enum Move moveId)
     return moveId;
 }
 
+#if NV_LANG != LANGUAGE_ENGLISH
+extern const u8 *const gNvMoveNames[]; // tabella nomi tradotti (src/nv_i18n_moves.c), per NV_LANG
+#endif
+
 static inline const u8 *GetMoveName(enum Move moveId)
 {
-    return gMovesInfo[SanitizeMoveId(moveId)].name;
+    moveId = SanitizeMoveId(moveId);
+#if NV_LANG != LANGUAGE_ENGLISH
+    // Nuzverse multilingua: nome tradotto se disponibile, altrimenti l'inglese di default.
+    if (gNvMoveNames[moveId] != NULL)
+        return gNvMoveNames[moveId];
+#endif
+    return gMovesInfo[moveId].name;
 }
 
 static inline enum BattleMoveEffects GetMoveEffect(enum Move moveId)
