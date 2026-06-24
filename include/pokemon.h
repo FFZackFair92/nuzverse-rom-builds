@@ -732,6 +732,19 @@ extern const u16 gUnionRoomFacilityClasses[];
 extern const struct SpriteTemplate gBattlerSpriteTemplates[];
 extern const u32 sExpCandyExperienceTable[];
 extern const struct AbilityInfo gAbilitiesInfo[];
+#if NV_LANG != LANGUAGE_ENGLISH
+extern const u8 *const gNvAbilityNames[]; // nomi abilita' tradotti (src/nv_i18n_moves.c), per NV_LANG
+#endif
+// Nuzverse: getter unico del nome abilita' (override multilingua). Rimpiazza gli accessi
+// diretti gAbilitiesInfo[x].name; con NV_LANG=EN si comporta esattamente come prima.
+static inline const u8 *GetAbilityName(u16 ability)
+{
+#if NV_LANG != LANGUAGE_ENGLISH
+    if (gNvAbilityNames[ability] != NULL)
+        return gNvAbilityNames[ability];
+#endif
+    return gAbilitiesInfo[ability].name;
+}
 extern const struct NatureInfo gNaturesInfo[];
 extern const struct BehaviorOWE gOWESpeciesBehavior[OWE_SPECIES_BEHAVIOR_COUNT];
 

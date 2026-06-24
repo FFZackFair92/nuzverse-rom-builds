@@ -3288,7 +3288,7 @@ static void Debug_Display_Ability(u32 abilityNum, u32 digit, u8 windowId)//(u32 
     StringCopy(gStringVar2, gText_DigitIndicator[digit]);
     ConvertIntToDecimalStringN(gStringVar3, abilityNum, STR_CONV_MODE_LEFT_ALIGN, 2);
     StringCopyPadded(gStringVar3, gStringVar3, CHAR_SPACE, 15);
-    u8 *end = StringCopy(gStringVar1, gAbilitiesInfo[abilityId].name);
+    u8 *end = StringCopy(gStringVar1, GetAbilityName(abilityId));
     WrapFontIdToFit(gStringVar1, end, DEBUG_MENU_FONT, WindowWidthPx(windowId));
     StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("Ability Num: {STR_VAR_3}{CLEAR_TO 90}\n{STR_VAR_1}{CLEAR_TO 90}\n{CLEAR_TO 90}\n{STR_VAR_2}{CLEAR_TO 90}"));
     AddTextPrinterParameterized(windowId, DEBUG_MENU_FONT, gStringVar4, 0, 0, 0, NULL);
@@ -4947,9 +4947,9 @@ static void DebugAction_Party_HealParty(u8 taskId)
 void DebugNative_GetAbilityNames(void)
 {
     enum Species species = GetMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], MON_DATA_SPECIES);
-    StringCopy(gStringVar1, gAbilitiesInfo[GetAbilityBySpecies(species, 0)].name);
-    StringCopy(gStringVar2, gAbilitiesInfo[GetAbilityBySpecies(species, 1)].name);
-    StringCopy(gStringVar3, gAbilitiesInfo[GetAbilityBySpecies(species, 2)].name);
+    StringCopy(gStringVar1, GetAbilityName(GetAbilityBySpecies(species, 0)));
+    StringCopy(gStringVar2, GetAbilityName(GetAbilityBySpecies(species, 1)));
+    StringCopy(gStringVar3, GetAbilityName(GetAbilityBySpecies(species, 2)));
 }
 
 #define tPartyId               data[5]
