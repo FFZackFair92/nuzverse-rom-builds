@@ -1212,7 +1212,7 @@ static u16 NvGymOwnBadge(u16 g, u16 n)
 }
 #endif
 
-#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_ONEWAY_DUNGEONS || NV_GYM_ORDER || NV_NO_SAFARI
+#if NV_NO_REGI || NV_ONEWAY_DUNGEONS || NV_GYM_ORDER || NV_NO_SAFARI
 // Nuzverse: quando un warp viene neutralizzato (Centro chiuso / dungeon o palestra
 // one-way), il giocatore va rimbalzato sulla tile da cui e' ARRIVATO (opposto alla
 // direzione di marcia), che e' sempre calpestabile. Un offset fisso (+1 in y) causava
@@ -1272,30 +1272,9 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
     {
         const struct MapHeader *mapHeader = Overworld_GetMapHeaderByGroupAndId(warpEvent->mapGroup, warpEvent->mapNum);
 
-#if NV_NO_POKECENTERS
-        // Nuzverse: Centri Pokemon chiusi (infermiera fuori). Neutralizza il warp della
-        // porta: invece di entrare, il giocatore resta davanti alla porta (porta = position,
-        // +1 in y = tile davanti). Vale per tutti i layout di Centro, Hoenn + FRLG.
-        if (NvIsPokeCenterLayout(mapHeader->mapLayoutId))
-        {
-            { s16 nvbx, nvby; NvBounceCoords(position, &nvbx, &nvby);
-              SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
-                                 WARP_ID_NONE, nvbx, nvby); }
-            return;
-        }
-#endif
-
-#if NV_NO_POKEMARTS
-        // Nuzverse: Market chiusi. Neutralizza il warp della porta -> resti davanti.
-        // Entrambe le regioni (LAYOUT_MART Hoenn + LAYOUT_MART_FRLG Kanto).
-        if (NvIsPokeMartLayout(mapHeader->mapLayoutId))
-        {
-            { s16 nvbx, nvby; NvBounceCoords(position, &nvbx, &nvby);
-              SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
-                                 WARP_ID_NONE, nvbx, nvby); }
-            return;
-        }
-#endif
+        // Nuzverse: Centri Pokemon e Market piccoli -> ingresso rimosso del tutto (porta
+        // inerte) gestito a monte in TryDoorWarp (NvIsSealedDoorWarpEvent): nessun warp,
+        // nessuna transizione. Qui non serve piu' il bounce su tile.
 
 #if NV_NO_REGI
         // Quest Regi rimossa: ingresso camere Regi/Sealed Chamber sigillato (resti fuori).
@@ -1385,6 +1364,34 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
     }
 }
 
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS
+// Nuzverse: la destinazione del warp (g,n) e' un Centro Pokemon o un Market piccolo
+// sigillato? In tal caso la porta deve essere INERTE (ingresso rimosso del tutto): nessun
+// warp e nessuna transizione, il giocatore resta fermo come davanti a un muro. I grandi
+// magazzini (LAYOUT diverso da LAYOUT_MART) NON sono toccati.
+static bool32 NvIsSealedDoorWarpEvent(s8 warpEventId)
+{
+    const struct WarpEvent *warpEvent;
+    const struct MapHeader *mapHeader;
+
+    if (warpEventId == WARP_ID_NONE)
+        return FALSE;
+    warpEvent = &gMapHeader.events->warps[warpEventId];
+    if (warpEvent->mapNum == MAP_NUM(MAP_DYNAMIC))
+        return FALSE;
+    mapHeader = Overworld_GetMapHeaderByGroupAndId(warpEvent->mapGroup, warpEvent->mapNum);
+#if NV_NO_POKECENTERS
+    if (NvIsPokeCenterLayout(mapHeader->mapLayoutId))
+        return TRUE;
+#endif
+#if NV_NO_POKEMARTS
+    if (NvIsPokeMartLayout(mapHeader->mapLayoutId))
+        return TRUE;
+#endif
+    return FALSE;
+}
+#endif
+
 static bool8 TryDoorWarp(struct MapPosition *position, u16 metatileBehavior, enum Direction direction)
 {
     s8 warpEventId;
@@ -1402,6 +1409,11 @@ static bool8 TryDoorWarp(struct MapPosition *position, u16 metatileBehavior, enu
             warpEventId = GetWarpEventAtMapPosition(&gMapHeader, position);
             if (warpEventId != WARP_ID_NONE && IsWarpMetatileBehavior(metatileBehavior) == TRUE)
             {
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS
+                // Nuzverse: ingresso Centro/Market rimosso -> porta inerte (nessun warp).
+                if (NvIsSealedDoorWarpEvent(warpEventId))
+                    return FALSE;
+#endif
                 StoreInitialPlayerAvatarState();
                 SetupWarp(&gMapHeader, warpEventId, position);
                 DoDoorWarp();
