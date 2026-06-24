@@ -66,3 +66,6 @@ tools/aif2pcm/aif2pcm
 *.smolTM
 __pycache__
 .map_version
+
+# i18n: catalogo/traduzioni generati (grandi)
+tools/i18n/catalog.*.json
