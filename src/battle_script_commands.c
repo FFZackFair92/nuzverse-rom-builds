@@ -1131,6 +1131,12 @@ static inline void SetDynamicMoveCategoryAndDamage(struct DamageContext *ctx)
 {
     SetDynamicMoveCategory(gBattlerAttacker, ctx->battlerDef, gCurrentMove);
     gBattleStruct->moveDamage[ctx->battlerDef] = CalculateMoveDamage(ctx);
+#if NV_DEBUG_GODMODE
+    // Collaudo: le mosse del GIOCATORE infliggono 9999 (sotto il clamp a 10000 -> one-shot).
+    // L'invincibilita' del giocatore e' gestita a parte in Cmd_datahpupdate.
+    if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER && gBattleStruct->moveDamage[ctx->battlerDef] > 0)
+        gBattleStruct->moveDamage[ctx->battlerDef] = 9999;
+#endif
 }
 
 static void Cmd_damagecalc(void)
@@ -1694,6 +1700,12 @@ static void Cmd_datahpupdate(void)
     if (gBattleControllerExecFlags)
         return;
 
+#if NV_DEBUG_GODMODE
+    // Collaudo god-mode: il Pokemon del GIOCATORE non subisce MAI danno (azzera qualunque danno
+    // in ingresso al lato player: mosse, ricaduta, meteo, stato).
+    if (GetBattlerSide(battler) == B_SIDE_PLAYER && gBattleStruct->moveDamage[battler] > 0)
+        gBattleStruct->moveDamage[battler] = 0;
+#endif
 
     switch (cmd->updateState)
     {

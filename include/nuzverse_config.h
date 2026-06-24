@@ -52,13 +52,23 @@
 
 // ⚠️ DEBUG/TEMP — tutti i Pokémon degli allenatori a Lv1 (battaglie lampo per collaudo).
 // Rimettere a 0 (o build con -DNV_DEBUG_ENEMY_LV1=0) prima del bilanciamento/lancio.
+// 24 giu: messo a 0 per COLLAUDARE i livelli REALI degli avversari (vedi NV_DEBUG_GODMODE).
 #ifndef NV_DEBUG_ENEMY_LV1
-#define NV_DEBUG_ENEMY_LV1 1
+#define NV_DEBUG_ENEMY_LV1 0
 #endif
 #if NV_DEBUG_ENEMY_LV1
 #define NV_TRAINER_LEVEL(lvl) 1
 #else
 #define NV_TRAINER_LEVEL(lvl) (lvl)
+#endif
+
+// ⚠️ DEBUG/TEMP — GOD MODE per collaudo: le mosse del GIOCATORE infliggono 9999 (one-shot) e il
+// Pokémon del giocatore NON subisce alcun danno (mosse/ricaduta/meteo/stato azzerati). Serve a
+// percorrere il gioco vedendo i livelli reali degli avversari senza rischiare la run.
+// RIMETTERE A 0 (o -DNV_DEBUG_GODMODE=0) prima del bilanciamento/lancio. Hook in
+// battle_script_commands.c (SetDynamicMoveCategoryAndDamage + Cmd_datahpupdate).
+#ifndef NV_DEBUG_GODMODE
+#define NV_DEBUG_GODMODE 1
 #endif
 
 // Centri Pokemon chiusi: la porta non entra (l'infermiera e' gia' fuori dal Centro).
