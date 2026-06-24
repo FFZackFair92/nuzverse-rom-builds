@@ -1166,6 +1166,7 @@ EventScript_SetBrineyLocation_Route109::
 	.include "data/scripts/pc.inc"
 	.include "data/scripts/move_relearner.inc"
 	.include "data/scripts/nuzverse_altars.inc"
+	.include "data/scripts/nuzverse_guides.inc"
 
 @ scripts/notices.inc? signs.inc? See comment about text/notices.inc
 Common_EventScript_ShowPokemartSign::
