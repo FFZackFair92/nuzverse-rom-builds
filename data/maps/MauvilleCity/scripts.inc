@@ -10,6 +10,12 @@ MauvilleCity_OnTransition:
 	clearflag FLAG_MAUVILLE_GYM_BARRIERS_STATE
 	setvar VAR_MAUVILLE_GYM_STATE, 0
 	call_if_set FLAG_GOT_TM_THUNDERBOLT_FROM_WATTSON, MauvilleCity_EventScript_MoveWattsonBackToGym
+	@ Rimossi: evento Wally+zio e sidequest New Mauville (Wattson in citta').
+	@ Li teniamo sempre nascosti; Wattson resta in palestra.
+	setflag FLAG_HIDE_MAUVILLE_CITY_WALLY
+	setflag FLAG_HIDE_MAUVILLE_CITY_WALLYS_UNCLE
+	setflag FLAG_HIDE_MAUVILLE_CITY_WATTSON
+	clearflag FLAG_HIDE_MAUVILLE_GYM_WATTSON
 	end
 
 MauvilleCity_EventScript_MoveWattsonBackToGym::
