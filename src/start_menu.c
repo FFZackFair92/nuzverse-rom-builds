@@ -335,10 +335,9 @@ static void AddStartMenuAction(u8 action)
 
 static void BuildNormalStartMenu(void)
 {
-    // Teleport tool, first entry: admin-gated, but auto-on in debug builds
-    if (FlagGet(FLAG_ADMIN_TELEPORT) || DEBUG_OVERWORLD_MENU == TRUE)
-        AddStartMenuAction(MENU_ACTION_TELEPORT);
-
+    // Nuzverse: voce "TELETRASPORTO" RIMOSSA dal menu Start (24 giu). Il codice del menu
+    // teleport (debug.c Teleport_ShowMenu + StartMenuTeleportCallback) resta dormiente e
+    // irraggiungibile: per riattivarlo, ri-aggiungere qui AddStartMenuAction(MENU_ACTION_TELEPORT).
     if (FlagGet(FLAG_SYS_POKEDEX_GET) == TRUE)
         AddStartMenuAction(MENU_ACTION_POKEDEX);
 
@@ -361,9 +360,7 @@ static void BuildNormalStartMenu(void)
 
 static void BuildDebugStartMenu(void)
 {
-    // Teleport tool, first entry: admin-gated, but auto-on in debug builds
-    if (FlagGet(FLAG_ADMIN_TELEPORT) || DEBUG_OVERWORLD_MENU == TRUE)
-        AddStartMenuAction(MENU_ACTION_TELEPORT);
+    // Nuzverse: voce "TELETRASPORTO" RIMOSSA anche dal menu Start in debug (24 giu).
     AddStartMenuAction(MENU_ACTION_DEBUG);
     if (FlagGet(FLAG_SYS_POKEDEX_GET) == TRUE)
         AddStartMenuAction(MENU_ACTION_POKEDEX);
