@@ -282,6 +282,11 @@ void NewGameInitData(void)
     FlagSet(FLAG_HIDE_ROUTE_119_TEAM_AQUA);    // ponte Istituto Meteo libero
     FlagSet(FLAG_HIDE_RUSTURF_TUNNEL_ROCK_1);  // scorciatoia Verdanturf<->Rustboro
     FlagSet(FLAG_HIDE_RUSTURF_TUNNEL_ROCK_2);
+    // Nuzverse FIX: senza FLAG_RUSTURF_TUNNEL_OPENED, usare Spaccaroccia nel tunnel chiamava
+    // TryUpdateRusturfTunnelState che, vedendo i due FLAG_HIDE_..._ROCK gia' set (sopra), saltava
+    // VAR_RUSTURF_TUNNEL_STATE a 4/5 -> sovrascriveva lo stato del grunt/Peeko (STATE 2) e lanciava
+    // la cutscene di Wanda, rompendo/saltando l'evento Peeko. Settando OPENED la special esce subito.
+    FlagSet(FLAG_RUSTURF_TUNNEL_OPENED);       // tunnel gia' aperto: niente cutscene Spaccaroccia/Wanda
     FlagSet(FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK); // Nuzverse: niente camion del trasloco a Littleroot
     FlagSet(FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK);     // (instant-start: il trasloco non avviene mai)
     // Nuzverse lineare: salta cutscene-storia filler (solo dialogo, NON gate di progressione)
