@@ -1232,6 +1232,11 @@
 #define FLAG_0x4C4               0x4C4
 #define FLAG_0x4C5               0x4C5
 #define FLAG_0x4C6               0x4C6
+// Nuzverse: altari NPC modificatori (one-shot per run) + hide-flag (visibili a C/script/map.json).
+#define FLAG_NV_ALTAR_MOVES      0x4C3
+#define FLAG_NV_ALTAR_ABILITY    0x4C4
+#define FLAG_NV_ALTAR_NATURE     0x4C5
+#define FLAG_NV_ALTARS_HIDDEN    0x4C6
 #define FLAG_0x4C7               0x4C7
 #define FLAG_0x4C8               0x4C8
 #define FLAG_0x4C9               0x4C9

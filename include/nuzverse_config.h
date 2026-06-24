@@ -148,17 +148,10 @@
 #define FLAG_NV_DUNGEON_MANSION      FLAG_0x4C1
 #define FLAG_NV_DUNGEON_VIRIDIANFOR  FLAG_0x4C2
 
-// Altari NPC "modificatori" (one-shot per run): mosse (relearner), abilita', natura.
-// Flag salvati = usabili una volta per partita (azzerati da ClearSav1 a new-game). Uso il
-// numero hex grezzo perche' 0x4C3-0x4C5 hanno nomi-macro diversi tra flags.h (FLAG_UNUSED_)
-// e flags_frlg.h (FLAG_), ma il numero e' libero in ENTRAMBE (verificato: 0 referenze in FRLG).
-#define FLAG_NV_ALTAR_MOVES    0x4C3
-#define FLAG_NV_ALTAR_ABILITY  0x4C4
-#define FLAG_NV_ALTAR_NATURE   0x4C5
-// Hide-flag degli object event altare: SOLO IronMon. I .inc inclusi via .include NON passano
-// dal preprocessore C, quindi non posso usare #if NV_KAIZO negli script -> uso il flagId d'oggetto:
-// in new_game.c, se !NV_KAIZO setto questo flag -> in Nuzlocke gli NPC altare sono nascosti.
-#define FLAG_NV_ALTARS_HIDDEN  0x4C6
+// Altari NPC "modificatori" (one-shot per run) + hide-flag: i loro #define stanno in
+// constants/flags.h E constants/flags_frlg.h (0x4C3-0x4C6), NON qui, perche' devono essere
+// visibili anche agli script (.inc -> event_scripts.s) e ai flagId in map.json, che vedono
+// constants/flags.h ma NON nuzverse_config.h. Vedi FLAG_NV_ALTAR_MOVES/ABILITY/NATURE/HIDDEN.
 
 // Ordine palestre G1->G8 (Hoenn): blocca l'ingresso di una palestra se manca la
 // medaglia precedente (usa i FLAG_BADGE0x_GET, comuni a entrambe le build).
