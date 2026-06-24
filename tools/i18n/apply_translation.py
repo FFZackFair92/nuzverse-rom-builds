@@ -26,7 +26,8 @@ cat = json.load(open(CAT, encoding='utf-8'))
 _LEFTDQ = '\u201c'
 _RIGHTDQ = '\u201d'
 _SUB = {'\u2018': "'", '\u2019': "'", '\u2013': '-', '\u2014': '-',
-        '\u2026': '...', '\u00a0': ' ', '\u2007': ' ', '\u202f': ' '}
+        '\u2026': '...', '\u00a0': ' ', '\u2007': ' ', '\u202f': ' ',
+        '\u00ab': _LEFTDQ, '\u00bb': _RIGHTDQ, '\u00b0': ''}
 def sanitize(s):
     # le curve eventuali restano (mappate dal charmap); converto le dritte in curve
     for k, v in _SUB.items():
