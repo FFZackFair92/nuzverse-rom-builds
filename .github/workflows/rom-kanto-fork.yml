@@ -103,6 +103,10 @@ jobs:
           echo "TAG=$TAG" >> "$GITHUB_ENV"
           echo "NV_DEFINES=$NV  TAG=$TAG"
           cd pex
+          if [ "${{ inputs.lang }}" != "en" ]; then
+            echo "Inject traduzioni dialoghi (${{ inputs.lang }})..."
+            python3 tools/i18n/apply_translation.py "${{ inputs.lang }}" || true
+          fi
           make firered -j"$(nproc)" NV_DEFINES="$NV" || make firered NV_DEFINES="$NV"
           GBA=$(ls *.gba | head -1)
           echo "built $GBA"
