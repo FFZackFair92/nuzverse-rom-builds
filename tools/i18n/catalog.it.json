@@ -238,5 +238,17 @@
  "Text_SubstituteDeclined": "Oh, davvero?\\nSOSTITUTO sembra così divertente...$",
  "Text_SubstituteWhichMon": "Quale POKéMON vuole imparare\\nSOSTITUTO?$",
  "Text_SubstituteTaught": "Cosa darei per infilarmi nel\\nmarsupio di un KANGASKHAN...$",
- "FuchsiaCity_Text_MyFatherIsGymLeader": "Mio padre è il CAPOPALESTRA di\\nquesta città.\\pMi alleno per usare i POKéMON VELENO\\nbene come lui.$"
+ "FuchsiaCity_Text_MyFatherIsGymLeader": "Mio padre è il CAPOPALESTRA di\\nquesta città.\\pMi alleno per usare i POKéMON VELENO\\nbene come lui.$",
+ "CinnabarIsland_Text_DoorIsLocked": "La porta è chiusa a chiave...$",
+ "CinnabarIsland_Text_BlaineLivedHereSinceBeforeLab": "BLAINE della PALESTRA di CINNABAR\\nè un tipo davvero strambo.\\pVive sull'isola da molto prima\\nche costruissero il LABORATORIO.$",
+ "CinnabarIsland_Text_ScientistsExperimentInMansion": "Gli scienziati fanno esperimenti\\nnell'edificio bruciato.\\pSì, quello che chiamano\\nVILLA POKéMON.$",
+ "CinnabarIsland_Text_IslandSign": "CINNABAR ISLAND\\nLa Città Ardente del Desiderio$",
+ "CinnabarIsland_Text_PokemonLab": "LABORATORIO POKéMON$",
+ "CinnabarIsland_Text_GymSign": "PALESTRA POKéMON DI CINNABAR\\nCAPO: BLAINE\\lLo Sbruffone Maestro dei Quiz!$",
+ "CinnabarIsland_Text_HeyIfItIsntPlayer": "Eh?\\nEhi, ma sei tu, {PLAYER}!$",
+ "CinnabarIsland_Text_ComeWithMeToOneIsland": "Guarda, sono io, BILL.\\nQuanto tempo!\\pSpero che tu stia ancora usando\\nil mio sistema PC.\\pBeh, senti, visto che ci siamo\\nincontrati, che ne dici di stare un po' con me?\\pC'è un'isoletta nel profondo\\nsud chiamata ONE ISLAND.\\pUn amico mi ha invitato, quindi\\nci sto andando.\\pAllora?\\nTi va di venire con me?$",
+ "CinnabarIsland_Text_AllRightLetsGo": "D'accordo, allora.\\nAndiamo!$",
+ "CinnabarIsland_Text_IllBeWaitingInPokeCenter": "Cosa, sei troppo occupato?\\pVabbè, va bene.\\nTanto la barca non è ancora arrivata.\\pTi aspetterò al CENTRO POKéMON\\nlaggiù.\\pVieni a trovarmi quando hai\\nfinito le tue faccende qui.$",
+ "CinnabarIsland_Text_MyPalsBoatArrived": "Pare che sia arrivata anche\\nla barca del mio amico.\\pL'ha mandata apposta qui a\\nCINNABAR per venirmi a prendere.$",
+ "CinnabarIsland_Text_IfYouHaveTriPassYouCanGoAgain": "Ehi, non è stata una bella\\ncrociera?\\pIl mio amico CELIO sembrava\\ngradire la tua compagnia.\\pSono sicuro che ti accoglierebbe\\nse tu andassi a trovarlo di nuovo.\\pSe hai un TRI-PASS, puoi sempre\\nprendere un traghetto da\\lVERMILION PORT.\\pBene, grazie della compagnia!$"
 }
