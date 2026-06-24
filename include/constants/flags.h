@@ -53,6 +53,8 @@
 
 #define FLAG_UNUSED_0x020    0x20 // Unused Flag
 #define FLAG_ADMIN_TELEPORT  FLAG_UNUSED_0x020 // Gate per la voce Start "TELETRASPORTO" (attivala via debug Flags&Vars o setflag)
+#define FLAG_GRANITE_CAVE_CLEARED   FLAG_UNUSED_0x023 // Granite Cave completata (raggiunto B2F) -> sblocca palestra Dewford
+#define FLAG_HIDE_DEWFORD_GYM_GUARD FLAG_UNUSED_0x024 // Guardia palestra Dewford: visibile = chiusa, nascosta = aperta
 #define FLAG_UNUSED_0x021    0x21 // Unused Flag
 #define FLAG_UNUSED_0x022    0x22 // Unused Flag
 #define FLAG_UNUSED_0x023    0x23 // Unused Flag

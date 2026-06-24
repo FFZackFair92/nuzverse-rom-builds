@@ -4,7 +4,20 @@ DewfordTown_MapScripts::
 
 DewfordTown_OnTransition:
 	setflag FLAG_VISITED_DEWFORD_TOWN
+	call DewfordTown_EventScript_UpdateGymGuard
 	end
+
+@ Guardia palestra: visibile = chiusa, nascosta = aperta.
+@ Aperta solo se la Granite Cave e' completata e Brawly non e' ancora stato battuto.
+DewfordTown_EventScript_UpdateGymGuard::
+	goto_if_set FLAG_BADGE02_GET, DewfordTown_EventScript_GymGuardShow
+	goto_if_set FLAG_GRANITE_CAVE_CLEARED, DewfordTown_EventScript_GymGuardHide
+DewfordTown_EventScript_GymGuardShow::
+	clearflag FLAG_HIDE_DEWFORD_GYM_GUARD
+	return
+DewfordTown_EventScript_GymGuardHide::
+	setflag FLAG_HIDE_DEWFORD_GYM_GUARD
+	return
 
 DewfordTown_EventScript_Briney::
 	lock
@@ -28,11 +41,22 @@ DewfordTown_EventScript_ChoosePetalburg::
 	end
 
 DewfordTown_EventScript_ChooseSlateport::
+	goto_if_unset FLAG_BADGE02_GET, DewfordTown_EventScript_SlateportLocked
 	msgbox DewfordTown_Text_SlateportWereSettingSail, MSGBOX_DEFAULT
 	closemessage
 	goto DewfordTown_EventScript_SailToSlateport
 	release
 	end
+
+DewfordTown_EventScript_SlateportLocked::
+	msgbox DewfordTown_Text_SlateportLocked, MSGBOX_DEFAULT
+	release
+	end
+
+DewfordTown_Text_SlateportLocked:
+	.string "MR. BRINEY: SLATEPORT, eh?\p"
+	.string "Prima conquista la palestra di\n"
+	.string "DEWFORD, poi salpiamo!$"
 
 DewfordTown_EventScript_CancelSailSelect::
 	msgbox DewfordTown_Text_JustTellMeWhenYouNeedToSetSail, MSGBOX_DEFAULT
@@ -68,6 +92,29 @@ DewfordTown_EventScript_GymSign::
 DewfordTown_EventScript_HallSign::
 	msgbox DewfordTown_Text_HallSign, MSGBOX_SIGN
 	end
+
+DewfordTown_EventScript_GymGuard::
+	lock
+	faceplayer
+	goto_if_set FLAG_BADGE02_GET, DewfordTown_EventScript_GymGuardAfterBadge
+	msgbox DewfordTown_Text_GymGuardBeforeCave, MSGBOX_DEFAULT
+	release
+	end
+
+DewfordTown_EventScript_GymGuardAfterBadge::
+	msgbox DewfordTown_Text_GymGuardAfterBadge, MSGBOX_DEFAULT
+	release
+	end
+
+DewfordTown_Text_GymGuardBeforeCave:
+	.string "La palestra e' chiusa.\p"
+	.string "Torna quando avrai attraversato\n"
+	.string "la GRANITE CAVE.$"
+
+DewfordTown_Text_GymGuardAfterBadge:
+	.string "La palestra e' chiusa.\p"
+	.string "Prendi il traghetto per SLATEPORT\n"
+	.string "per proseguire il viaggio.$"
 
 DewfordTown_EventScript_OldRodFisherman::
 	lock
