@@ -24,6 +24,10 @@ on:
         description: "ref del fork da buildare (vuoto = branch nuzverse/<variant>)"
         required: false
         default: ""
+      lang:
+        description: "lingua testi: en | it | es | fr | de | pt"
+        required: false
+        default: en
 
 env:
   PRET_EMERALD_REF: master
@@ -89,8 +93,23 @@ jobs:
             *nuzlocke*) NV='-DNV_PERMADEATH=1' ;;
             *) NV='' ;;
           esac
-          echo "NV_DEFINES=$NV"
+          case "${{ inputs.lang }}" in
+            it) NV="$NV -DNV_LANG=LANGUAGE_ITALIAN" ;;
+            es) NV="$NV -DNV_LANG=LANGUAGE_SPANISH" ;;
+            fr) NV="$NV -DNV_LANG=LANGUAGE_FRENCH" ;;
+            de) NV="$NV -DNV_LANG=LANGUAGE_GERMAN" ;;
+            pt) NV="$NV -DNV_LANG=NV_LANG_PORTUGUESE" ;;
+            *) ;;
+          esac
+          TAG="${{ matrix.variant }}"
+          [ "${{ inputs.lang }}" != "en" ] && TAG="${{ matrix.variant }}-${{ inputs.lang }}"
+          echo "TAG=$TAG" >> "$GITHUB_ENV"
+          echo "NV_DEFINES=$NV  TAG=$TAG"
           cd pex
+          if [ "${{ inputs.lang }}" != "en" ]; then
+            echo "Inject traduzioni dialoghi (${{ inputs.lang }})..."
+            python3 tools/i18n/apply_translation.py "${{ inputs.lang }}" || true
+          fi
           make -j"$(nproc)" NV_DEFINES="$NV" || make NV_DEFINES="$NV"
           cp pokeemerald.gba "../${{ matrix.variant }}.gba"
 
@@ -119,7 +138,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.variant }}
+          name: ${{ env.TAG }}
           path: |
             ${{ matrix.variant }}.gba
             ${{ matrix.variant }}.bps
@@ -131,6 +150,8 @@ jobs:
           DEPLOY_URL: ${{ secrets.ROM_DEPLOY_URL }}
           DEPLOY_TOKEN: ${{ secrets.ROM_DEPLOY_TOKEN }}
         run: |
+          if [ "${{ inputs.lang }}" != "en" ]; then
+            echo "build in lingua ${{ inputs.lang }} -> skip auto-deploy (solo artifact per test)"; exit 0; fi
           if [ -z "$DEPLOY_URL" ] || [ -z "$DEPLOY_TOKEN" ]; then
             echo "ROM_DEPLOY_URL/TOKEN non settati -> skip auto-deploy (artifact comunque caricato)"; exit 0; fi
           SEED=$(grep "symbol=gIronmonFixedSeed " seed-offset.txt | grep -oE "0x0[0-9a-fA-F]+" | head -1)
