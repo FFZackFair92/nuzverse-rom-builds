@@ -5772,6 +5772,38 @@ u16 StickerManGetBragFlags(void)
     return result;
 }
 
+// ===== Nuzverse: altari NPC "modificatori" (one-shot per run) =====
+// Operano sul Pokemon scelto dallo script (slot in VAR_0x8004, via ChooseMonForMoveTutor/Relearner).
+// L'abilita' e' memorizzata come slot (MON_DATA_ABILITY_NUM) e la natura come HIDDEN_NATURE
+// (override gen8, NON tocca il PID) -> nessun effetto collaterale su shiny/genere.
+
+// Abilita': cicla allo slot abilita' VALIDO successivo (cur -> cur+1 -> cur+2, modulo 3,
+// saltando gli slot ABILITY_NONE). gStringVar2 = nuovo nome abilita'; VAR_RESULT = TRUE se cambiata.
+void NvAltarCycleAbility(void)
+{
+    u8 slot = gSpecialVar_0x8004;
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][slot];
+    u16 species = GetMonData(mon, MON_DATA_SPECIES);
+    u8 cur = GetMonData(mon, MON_DATA_ABILITY_NUM);
+    u8 next = cur;
+    u8 i;
+
+    for (i = 1; i <= 2; i++)
+    {
+        u8 cand = (cur + i) % 3;
+        if (GetSpeciesAbility(species, cand) != ABILITY_NONE)
+        {
+            next = cand;
+            break;
+        }
+    }
+    SetMonData(mon, MON_DATA_ABILITY_NUM, &next);
+    StringCopy(gStringVar2, gAbilitiesInfo[GetSpeciesAbility(species, next)].name);
+    gSpecialVar_Result = (next != cur);
+}
+// NB: per la NATURA si riusa lo special stock SetHiddenNature (gia' presente: legge VAR_RESULT
+// come natura, set HIDDEN_NATURE + CalculateMonStats). Niente special custom per quella.
+
 bool8 CheckAddCoins(void)
 {
     if (gSpecialVar_Result + gSpecialVar_0x8006 > 9999)
