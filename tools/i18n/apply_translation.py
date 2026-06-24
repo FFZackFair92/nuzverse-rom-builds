@@ -18,6 +18,15 @@ if not os.path.isfile(CAT):
     print(f'catalog mancante: {CAT} (nessuna traduzione applicata)'); sys.exit(0)
 
 cat = json.load(open(CAT, encoding='utf-8'))
+
+# Sanitizza la punteggiatura non-ASCII assente nel charmap Gen3 (gli accenti latini restano).
+_SUB = {'‘': "'", '’': "'", '“': '"', '”': '"', '–': '-',
+        '—': '-', '…': '...', ' ': ' ', ' ': ' '}
+def sanitize(s):
+    for k, v in _SUB.items():
+        s = s.replace(k, v)
+    return s
+
 DIRS = [os.path.join(ROOT, 'data', 'text'), os.path.join(ROOT, 'data', 'maps')]
 RE_LABEL = re.compile(r'^([A-Za-z_][A-Za-z0-9_]*)::')
 RE_STRING = re.compile(r'^\s*\.string\s+"')
@@ -45,7 +54,7 @@ for base in DIRS:
                     while j < len(lines) and RE_STRING.match(lines[j]):
                         j += 1
                     if j > i:  # c'era almeno una .string
-                        out.append('\t.string "' + cat[m.group(1)] + '"')
+                        out.append('\t.string "' + sanitize(cat[m.group(1)]) + '"')
                         i = j
                         applied += 1
                         changed = True
