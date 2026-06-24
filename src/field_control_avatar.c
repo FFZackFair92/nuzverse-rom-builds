@@ -69,6 +69,9 @@ static bool8 IsWarpMetatileBehavior(u16);
 static bool8 IsArrowWarpMetatileBehavior(u16, enum Direction);
 static s8 GetWarpEventAtMapPosition(struct MapHeader *, struct MapPosition *);
 static void SetupWarp(struct MapHeader *, s8, struct MapPosition *);
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER
+static bool32 NvShouldCancelWarp(s8 warpEventId);
+#endif
 static bool8 TryDoorWarp(struct MapPosition *, u16, enum Direction);
 static s8 GetWarpEventAtPosition(struct MapHeader *, u16, u16, u8);
 static const u8 *GetCoordEventScriptAtPosition(struct MapHeader *, u16, u16, u8);
@@ -969,6 +972,12 @@ static bool8 TryArrowWarp(struct MapPosition *position, u16 metatileBehavior, en
     if (warpEventId == WARP_ID_NONE)
         return FALSE;
 
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER
+    // Nuzverse: ingresso sigillato (Regi/Safari/palestra ecc.) -> warp inerte (niente warp).
+    if (NvShouldCancelWarp(warpEventId))
+        return FALSE;
+#endif
+
     if (IsArrowWarpMetatileBehavior(metatileBehavior, direction) == TRUE)
     {
         StorePlayerStateAndSetupWarp(position, warpEventId);
@@ -997,6 +1006,11 @@ static bool8 TryStartWarpEventScript(struct MapPosition *position, u16 metatileB
 
     if (warpEventId != WARP_ID_NONE && IsWarpMetatileBehavior(metatileBehavior) == TRUE)
     {
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER
+        // Nuzverse: ingresso sigillato (Regi/Safari/palestra ecc.) -> warp inerte.
+        if (NvShouldCancelWarp(warpEventId))
+            return FALSE;
+#endif
         StoreInitialPlayerAvatarState();
         SetupWarp(&gMapHeader, warpEventId, position);
         if (MetatileBehavior_IsEscalator(metatileBehavior) == TRUE)
@@ -1212,7 +1226,7 @@ static u16 NvGymOwnBadge(u16 g, u16 n)
 }
 #endif
 
-#if NV_NO_REGI || NV_ONEWAY_DUNGEONS || NV_GYM_ORDER || NV_NO_SAFARI
+#if NV_ONEWAY_DUNGEONS
 // Nuzverse: quando un warp viene neutralizzato (Centro chiuso / dungeon o palestra
 // one-way), il giocatore va rimbalzato sulla tile da cui e' ARRIVATO (opposto alla
 // direzione di marcia), che e' sempre calpestabile. Un offset fisso (+1 in y) causava
@@ -1272,34 +1286,10 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
     {
         const struct MapHeader *mapHeader = Overworld_GetMapHeaderByGroupAndId(warpEvent->mapGroup, warpEvent->mapNum);
 
-        // Nuzverse: Centri Pokemon e Market piccoli -> ingresso rimosso del tutto (porta
-        // inerte) gestito a monte in TryDoorWarp (NvIsSealedDoorWarpEvent): nessun warp,
-        // nessuna transizione. Qui non serve piu' il bounce su tile.
-
-#if NV_NO_REGI
-        // Quest Regi rimossa: ingresso camere Regi/Sealed Chamber sigillato (resti fuori).
-        if (NvIsRegiChamberLayout(mapHeader->mapLayoutId))
-        {
-            { s16 nvbx, nvby; NvBounceCoords(position, &nvbx, &nvby);
-              SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
-                                 WARP_ID_NONE, nvbx, nvby); }
-            return;
-        }
-#endif
-
-#if NV_NO_SAFARI
-        // Nuzverse: Safari Zone sigillata. Neutralizza il warp d'ingresso al gate di
-        // Route 121 (dest = MAP_ROUTE121_SAFARI_ZONE_ENTRANCE) -> il giocatore resta su
-        // Route 121, non entra nel gate ne' paga l'attendente. Solo Hoenn.
-        if (warpEvent->mapGroup == MAP_GROUP(MAP_ROUTE121_SAFARI_ZONE_ENTRANCE)
-         && warpEvent->mapNum == MAP_NUM(MAP_ROUTE121_SAFARI_ZONE_ENTRANCE))
-        {
-            { s16 nvbx, nvby; NvBounceCoords(position, &nvbx, &nvby);
-              SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
-                                 WARP_ID_NONE, nvbx, nvby); }
-            return;
-        }
-#endif
+        // Nuzverse: Centri/Market piccoli, camere Regi, gate Safari e palestre -> ingresso
+        // RIMOSSO del tutto (warp inerte), gestito a monte in TryDoorWarp/TryArrowWarp/
+        // TryStartWarpEventScript via NvShouldCancelWarp: nessun warp, nessuna transizione.
+        // Qui resta solo il bounce dei dungeon one-way (+ il MARK di completamento).
 
 #if NV_ONEWAY_DUNGEONS
         {
@@ -1320,43 +1310,6 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
         }
 #endif
 
-#if NV_GYM_ORDER
-        {
-            // Ordine palestre: se entri in una palestra senza la medaglia precedente,
-            // neutralizza il warp (resti davanti alla porta).
-            u16 reqBadge = NvGymRequiredBadge(warpEvent->mapGroup, warpEvent->mapNum);
-            if (reqBadge != 0 && !FlagGet(reqBadge))
-            {
-                { s16 nvbx, nvby; NvBounceCoords(position, &nvbx, &nvby);
-                  SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
-                                     WARP_ID_NONE, nvbx, nvby); }
-                return;
-            }
-            // Palestre one-way: lock-in finche' non hai la medaglia + sigillo rientro dopo.
-            {
-                u16 gymDst = NvGymOwnBadge(warpEvent->mapGroup, warpEvent->mapNum);
-                u16 gymSrc = NvGymOwnBadge(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum);
-                // RIENTRO: palestra gia' battuta (dst, badge preso) da fuori -> resti in citta'.
-                if (gymDst != 0 && gymSrc != gymDst && FlagGet(gymDst))
-                {
-                    { s16 nvbx, nvby; NvBounceCoords(position, &nvbx, &nvby);
-                      SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
-                                         WARP_ID_NONE, nvbx, nvby); }
-                    return;
-                }
-                // LOCK-IN: provi a uscire (src palestra) senza la sua medaglia -> resti DENTRO
-                // (spinto a nord della porta) finche' non batti il capopalestra.
-                if (gymSrc != 0 && gymDst != gymSrc && !FlagGet(gymSrc))
-                {
-                    { s16 nvbx, nvby; NvBounceCoords(position, &nvbx, &nvby);
-                      SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
-                                         WARP_ID_NONE, nvbx, nvby); }
-                    return;
-                }
-            }
-        }
-#endif
-
         SetWarpDestinationToMapWarp(warpEvent->mapGroup, warpEvent->mapNum, warpEvent->warpId);
         UpdateEscapeWarp(position->x, position->y);
         if (mapHeader->events->warps[warpEvent->warpId].mapNum == MAP_NUM(MAP_DYNAMIC))
@@ -1364,22 +1317,27 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
     }
 }
 
-#if NV_NO_POKECENTERS || NV_NO_POKEMARTS
-// Nuzverse: la destinazione del warp (g,n) e' un Centro Pokemon o un Market piccolo
-// sigillato? In tal caso la porta deve essere INERTE (ingresso rimosso del tutto): nessun
-// warp e nessuna transizione, il giocatore resta fermo come davanti a un muro. I grandi
-// magazzini (LAYOUT diverso da LAYOUT_MART) NON sono toccati.
-static bool32 NvIsSealedDoorWarpEvent(s8 warpEventId)
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER
+// Nuzverse: il warp (verso warpEventId) deve essere ANNULLATO del tutto? Se TRUE l'ingresso
+// e' "rimosso": nessun warp e nessuna transizione (il giocatore resta fermo, niente bounce
+// su tile). Chiamato all'inizio di tutti i percorsi di warp del giocatore (porta/arrow/
+// generic). Copre: Centri, Market piccoli (non i grandi magazzini), camere Regi, gate Safari
+// e palestre (ingresso senza medaglia precedente / rientro dopo battuta / lock-in in uscita).
+// I dungeon one-way restano gestiti col bounce in SetupWarp (non inclusi qui).
+static bool32 NvShouldCancelWarp(s8 warpEventId)
 {
     const struct WarpEvent *warpEvent;
     const struct MapHeader *mapHeader;
+    u16 dg, dn;
 
     if (warpEventId == WARP_ID_NONE)
         return FALSE;
     warpEvent = &gMapHeader.events->warps[warpEventId];
     if (warpEvent->mapNum == MAP_NUM(MAP_DYNAMIC))
         return FALSE;
-    mapHeader = Overworld_GetMapHeaderByGroupAndId(warpEvent->mapGroup, warpEvent->mapNum);
+    dg = warpEvent->mapGroup;
+    dn = warpEvent->mapNum;
+    mapHeader = Overworld_GetMapHeaderByGroupAndId(dg, dn);
 #if NV_NO_POKECENTERS
     if (NvIsPokeCenterLayout(mapHeader->mapLayoutId))
         return TRUE;
@@ -1387,6 +1345,35 @@ static bool32 NvIsSealedDoorWarpEvent(s8 warpEventId)
 #if NV_NO_POKEMARTS
     if (NvIsPokeMartLayout(mapHeader->mapLayoutId))
         return TRUE;
+#endif
+#if NV_NO_REGI
+    if (NvIsRegiChamberLayout(mapHeader->mapLayoutId))
+        return TRUE;
+#endif
+#if NV_NO_SAFARI
+    if (dg == MAP_GROUP(MAP_ROUTE121_SAFARI_ZONE_ENTRANCE)
+     && dn == MAP_NUM(MAP_ROUTE121_SAFARI_ZONE_ENTRANCE))
+        return TRUE;
+#endif
+#if NV_GYM_ORDER
+    {
+        u16 sg = gSaveBlock1Ptr->location.mapGroup;
+        u16 sn = gSaveBlock1Ptr->location.mapNum;
+        // (a) ingresso palestra senza la medaglia precedente -> bloccato.
+        u16 reqBadge = NvGymRequiredBadge(dg, dn);
+        if (reqBadge != 0 && !FlagGet(reqBadge))
+            return TRUE;
+        {
+            u16 gymDst = NvGymOwnBadge(dg, dn);
+            u16 gymSrc = NvGymOwnBadge(sg, sn);
+            // (b) rientro in una palestra gia' battuta (dall'esterno) -> bloccato.
+            if (gymDst != 0 && gymSrc != gymDst && FlagGet(gymDst))
+                return TRUE;
+            // (c) lock-in: provi a USCIRE (src palestra) senza la sua medaglia -> resti dentro.
+            if (gymSrc != 0 && gymDst != gymSrc && !FlagGet(gymSrc))
+                return TRUE;
+        }
+    }
 #endif
     return FALSE;
 }
@@ -1409,9 +1396,10 @@ static bool8 TryDoorWarp(struct MapPosition *position, u16 metatileBehavior, enu
             warpEventId = GetWarpEventAtMapPosition(&gMapHeader, position);
             if (warpEventId != WARP_ID_NONE && IsWarpMetatileBehavior(metatileBehavior) == TRUE)
             {
-#if NV_NO_POKECENTERS || NV_NO_POKEMARTS
-                // Nuzverse: ingresso Centro/Market rimosso -> porta inerte (nessun warp).
-                if (NvIsSealedDoorWarpEvent(warpEventId))
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER
+                // Nuzverse: ingresso sigillato (Centro/Market/Regi/Safari/palestra) -> porta
+                // inerte: nessun warp, nessuna transizione.
+                if (NvShouldCancelWarp(warpEventId))
                     return FALSE;
 #endif
                 StoreInitialPlayerAvatarState();
