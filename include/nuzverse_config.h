@@ -88,11 +88,13 @@
 #define NV_NO_SAFARI 1
 #endif
 
-// Edifici opzionali sigillati (porta inerte, come gli altri ingressi): a Lilycove i
-// Grandi Magazzini, la Contest Lobby e il Museo. Sono contenuto secondario non necessario
-// al percorso. Lista mappe in NvIsSealedOptionalBuilding (estendibile).
+// Edifici opzionali/leisure sigillati (porta inerte, come gli altri ingressi): Sale Gara,
+// Grandi Magazzini, Game Corner, Battle Tent, Fan Club — Hoenn + Kanto. Contenuto secondario
+// non necessario al percorso. ESCLUSO il Museo Oceanico di Slateport (plot: Merce Devon).
+// Lista mappe nel blocco NV_NO_OPTIONAL_BUILDINGS di NvShouldCancelWarp.
+// SOLO IronMon (= NV_KAIZO ON): in Nuzlocke (NV_PERMADEATH) resta tutto aperto.
 #ifndef NV_NO_OPTIONAL_BUILDINGS
-#define NV_NO_OPTIONAL_BUILDINGS 1
+#define NV_NO_OPTIONAL_BUILDINGS NV_KAIZO
 #endif
 
 // Regola MT Kaizo (stile StartAB): quando insegni una MT consumabile c'e' solo il 50%
