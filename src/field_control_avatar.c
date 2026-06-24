@@ -69,7 +69,7 @@ static bool8 IsWarpMetatileBehavior(u16);
 static bool8 IsArrowWarpMetatileBehavior(u16, enum Direction);
 static s8 GetWarpEventAtMapPosition(struct MapHeader *, struct MapPosition *);
 static void SetupWarp(struct MapHeader *, s8, struct MapPosition *);
-#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER || NV_ONEWAY_DUNGEONS
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER || NV_ONEWAY_DUNGEONS || NV_NO_OPTIONAL_BUILDINGS
 static bool32 NvShouldCancelWarp(s8 warpEventId);
 #endif
 static bool8 TryDoorWarp(struct MapPosition *, u16, enum Direction);
@@ -972,7 +972,7 @@ static bool8 TryArrowWarp(struct MapPosition *position, u16 metatileBehavior, en
     if (warpEventId == WARP_ID_NONE)
         return FALSE;
 
-#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER || NV_ONEWAY_DUNGEONS
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER || NV_ONEWAY_DUNGEONS || NV_NO_OPTIONAL_BUILDINGS
     // Nuzverse: ingresso sigillato (Regi/Safari/palestra/dungeon ecc.) -> warp inerte.
     if (NvShouldCancelWarp(warpEventId))
         return FALSE;
@@ -1006,7 +1006,7 @@ static bool8 TryStartWarpEventScript(struct MapPosition *position, u16 metatileB
 
     if (warpEventId != WARP_ID_NONE && IsWarpMetatileBehavior(metatileBehavior) == TRUE)
     {
-#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER || NV_ONEWAY_DUNGEONS
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER || NV_ONEWAY_DUNGEONS || NV_NO_OPTIONAL_BUILDINGS
         // Nuzverse: ingresso sigillato (Regi/Safari/palestra/dungeon ecc.) -> warp inerte.
         if (NvShouldCancelWarp(warpEventId))
             return FALSE;
@@ -1287,7 +1287,7 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
     }
 }
 
-#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER || NV_ONEWAY_DUNGEONS
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER || NV_ONEWAY_DUNGEONS || NV_NO_OPTIONAL_BUILDINGS
 // Nuzverse: il warp (verso warpEventId) deve essere ANNULLATO del tutto? Se TRUE l'ingresso
 // e' "rimosso": nessun warp e nessuna transizione (il giocatore resta fermo, niente bounce
 // su tile). Chiamato all'inizio di tutti i percorsi di warp del giocatore (porta/arrow/
@@ -1356,6 +1356,13 @@ static bool32 NvShouldCancelWarp(s8 warpEventId)
             return TRUE;
     }
 #endif
+#if NV_NO_OPTIONAL_BUILDINGS
+    // Edifici opzionali a Lilycove (Grandi Magazzini, Contest Lobby, Museo) -> porta inerte.
+    if ((dg == MAP_GROUP(MAP_LILYCOVE_CITY_DEPARTMENT_STORE_1F) && dn == MAP_NUM(MAP_LILYCOVE_CITY_DEPARTMENT_STORE_1F))
+     || (dg == MAP_GROUP(MAP_LILYCOVE_CITY_CONTEST_LOBBY)        && dn == MAP_NUM(MAP_LILYCOVE_CITY_CONTEST_LOBBY))
+     || (dg == MAP_GROUP(MAP_LILYCOVE_CITY_LILYCOVE_MUSEUM_1F)   && dn == MAP_NUM(MAP_LILYCOVE_CITY_LILYCOVE_MUSEUM_1F)))
+        return TRUE;
+#endif
     return FALSE;
 }
 #endif
@@ -1377,7 +1384,7 @@ static bool8 TryDoorWarp(struct MapPosition *position, u16 metatileBehavior, enu
             warpEventId = GetWarpEventAtMapPosition(&gMapHeader, position);
             if (warpEventId != WARP_ID_NONE && IsWarpMetatileBehavior(metatileBehavior) == TRUE)
             {
-#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER || NV_ONEWAY_DUNGEONS
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER || NV_ONEWAY_DUNGEONS || NV_NO_OPTIONAL_BUILDINGS
                 // Nuzverse: ingresso sigillato (Centro/Market/Regi/Safari/palestra/dungeon) ->
                 // porta inerte: nessun warp, nessuna transizione.
                 if (NvShouldCancelWarp(warpEventId))

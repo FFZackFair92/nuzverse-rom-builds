@@ -88,6 +88,13 @@
 #define NV_NO_SAFARI 1
 #endif
 
+// Edifici opzionali sigillati (porta inerte, come gli altri ingressi): a Lilycove i
+// Grandi Magazzini, la Contest Lobby e il Museo. Sono contenuto secondario non necessario
+// al percorso. Lista mappe in NvIsSealedOptionalBuilding (estendibile).
+#ifndef NV_NO_OPTIONAL_BUILDINGS
+#define NV_NO_OPTIONAL_BUILDINGS 1
+#endif
+
 // Regola MT Kaizo (stile StartAB): quando insegni una MT consumabile c'e' solo il 50%
 // di probabilita' che il Pokemon la impari; sul fallimento la MT viene comunque bruciata.
 // MN e oggetti 'importanti' (GetItemImportance != 0) NON sono toccati.
