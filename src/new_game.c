@@ -263,6 +263,19 @@ void NewGameInitData(void)
     VarSet(VAR_PETALBURG_CITY_STATE, 3);   // tutorial Wally fatto
     VarSet(VAR_PETALBURG_GYM_STATE, 2);    // Norman: 4 badge => battaglia
     VarSet(VAR_SOOTOPOLIS_CITY_STATE, 6);  // crisi legendari risolta, gym aperta
+    // Nuzverse: climax leggendari (Kyogre/Groudon/Rayquaza) RIMOSSO -> dungeon percorribili,
+    // palestra di Juan aperta, zero cutscene. Lo state=6 sopra disinnesca le scene di Sootopolis;
+    // qui sblocchiamo la porta della palestra (murata via metatile finche' il flag e' unset) e
+    // disinneschiamo i trigger residui di Seafloor/Sky Pillar.
+    FlagSet(FLAG_SOOTOPOLIS_ARCHIE_MAXIE_LEAVE);   // apre porta palestra + case (fix softlock)
+    FlagSet(FLAG_KYOGRE_ESCAPED_SEAFLOOR_CAVERN);  // coerenza SootopolisCity_OnLoad
+    VarSet(VAR_SKY_PILLAR_RAYQUAZA_CRY_DONE, 1);   // niente cutscene/risveglio Rayquaza in cima
+    // Niente sprite leggendari/Magma nella camera di Seafloor Room9 (raggiungibile in Dive
+    // in qualsiasi momento): nascondi Kyogre (dormiente+sveglio), Maxie e i grunt Magma.
+    FlagSet(FLAG_HIDE_SEAFLOOR_CAVERN_ROOM_9_KYOGRE_ASLEEP);
+    FlagSet(FLAG_HIDE_SEAFLOOR_CAVERN_ROOM_9_KYOGRE);
+    FlagSet(FLAG_HIDE_SEAFLOOR_CAVERN_ROOM_9_MAXIE);
+    FlagSet(FLAG_HIDE_SEAFLOOR_CAVERN_ROOM_9_MAGMA_GRUNTS);
     FlagSet(FLAG_HIDE_ROUTE_112_TEAM_MAGMA);   // funivia libera
     FlagSet(FLAG_HIDE_MT_CHIMNEY_TEAM_MAGMA);  // vetta senza meteorite
     FlagSet(FLAG_HIDE_MT_CHIMNEY_TEAM_AQUA);
