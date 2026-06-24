@@ -81,6 +81,13 @@
 #define NV_NO_REGI 1
 #endif
 
+// Safari Zone sigillata: contenuto opzionale (mini-gioco di cattura) incompatibile con
+// le regole IronMon. Neutralizza il warp d'ingresso al gate di Route 121 -> il giocatore
+// resta fuori (non entra nemmeno nel gate, quindi non paga l'attendente). Solo Hoenn.
+#ifndef NV_NO_SAFARI
+#define NV_NO_SAFARI 1
+#endif
+
 // Regola MT Kaizo (stile StartAB): quando insegni una MT consumabile c'e' solo il 50%
 // di probabilita' che il Pokemon la impari; sul fallimento la MT viene comunque bruciata.
 // MN e oggetti 'importanti' (GetItemImportance != 0) NON sono toccati.

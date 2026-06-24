@@ -1212,7 +1212,7 @@ static u16 NvGymOwnBadge(u16 g, u16 n)
 }
 #endif
 
-#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_ONEWAY_DUNGEONS || NV_GYM_ORDER
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_ONEWAY_DUNGEONS || NV_GYM_ORDER || NV_NO_SAFARI
 // Nuzverse: quando un warp viene neutralizzato (Centro chiuso / dungeon o palestra
 // one-way), il giocatore va rimbalzato sulla tile da cui e' ARRIVATO (opposto alla
 // direzione di marcia), che e' sempre calpestabile. Un offset fisso (+1 in y) causava
@@ -1300,6 +1300,20 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
 #if NV_NO_REGI
         // Quest Regi rimossa: ingresso camere Regi/Sealed Chamber sigillato (resti fuori).
         if (NvIsRegiChamberLayout(mapHeader->mapLayoutId))
+        {
+            { s16 nvbx, nvby; NvBounceCoords(position, &nvbx, &nvby);
+              SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
+                                 WARP_ID_NONE, nvbx, nvby); }
+            return;
+        }
+#endif
+
+#if NV_NO_SAFARI
+        // Nuzverse: Safari Zone sigillata. Neutralizza il warp d'ingresso al gate di
+        // Route 121 (dest = MAP_ROUTE121_SAFARI_ZONE_ENTRANCE) -> il giocatore resta su
+        // Route 121, non entra nel gate ne' paga l'attendente. Solo Hoenn.
+        if (warpEvent->mapGroup == MAP_GROUP(MAP_ROUTE121_SAFARI_ZONE_ENTRANCE)
+         && warpEvent->mapNum == MAP_NUM(MAP_ROUTE121_SAFARI_ZONE_ENTRANCE))
         {
             { s16 nvbx, nvby; NvBounceCoords(position, &nvbx, &nvby);
               SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
