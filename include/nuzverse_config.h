@@ -82,8 +82,9 @@
 #endif
 
 // Safari Zone sigillata: contenuto opzionale (mini-gioco di cattura) incompatibile con
-// le regole IronMon. Neutralizza il warp d'ingresso al gate di Route 121 -> il giocatore
-// resta fuori (non entra nemmeno nel gate, quindi non paga l'attendente). Solo Hoenn.
+// le regole IronMon. Neutralizza il warp d'ingresso al gate -> il giocatore resta fuori
+// (non entra nemmeno nel gate, quindi non paga l'attendente). Hoenn (Route 121) + Kanto
+// (Fuchsia). Sigillata in ENTRAMBE le sfide (IronMon + Nuzlocke).
 #ifndef NV_NO_SAFARI
 #define NV_NO_SAFARI 1
 #endif

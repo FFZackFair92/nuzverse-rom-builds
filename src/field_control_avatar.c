@@ -1322,8 +1322,9 @@ static bool32 NvShouldCancelWarp(s8 warpEventId)
         return TRUE;
 #endif
 #if NV_NO_SAFARI
-    if (dg == MAP_GROUP(MAP_ROUTE121_SAFARI_ZONE_ENTRANCE)
-     && dn == MAP_NUM(MAP_ROUTE121_SAFARI_ZONE_ENTRANCE))
+    // Safari Zone (gate d'ingresso) -> inerte. Hoenn (Route 121) + Kanto (Fuchsia).
+    if ((dg == MAP_GROUP(MAP_ROUTE121_SAFARI_ZONE_ENTRANCE)     && dn == MAP_NUM(MAP_ROUTE121_SAFARI_ZONE_ENTRANCE))
+     || (dg == MAP_GROUP(MAP_FUCHSIA_CITY_SAFARI_ZONE_ENTRANCE) && dn == MAP_NUM(MAP_FUCHSIA_CITY_SAFARI_ZONE_ENTRANCE)))
         return TRUE;
 #endif
 #if NV_GYM_ORDER
@@ -1358,7 +1359,8 @@ static bool32 NvShouldCancelWarp(s8 warpEventId)
 #endif
 #if NV_NO_OPTIONAL_BUILDINGS
     // Edifici opzionali/leisure -> porta inerte (solo IronMon). Sale Gara, Grandi Magazzini,
-    // Game Corner, Battle Tent, Fan Club (Hoenn + Kanto). ESCLUSO Slateport Oceanic Museum (plot).
+    // Game Corner, Battle Tent, Fan Club + minigame (Trick House, Trainer Tower) (Hoenn + Kanto).
+    // ESCLUSO Slateport Oceanic Museum (plot).
     if (   (dg == MAP_GROUP(MAP_CONTEST_HALL)                          && dn == MAP_NUM(MAP_CONTEST_HALL))
         || (dg == MAP_GROUP(MAP_LILYCOVE_CITY_DEPARTMENT_STORE_1F)     && dn == MAP_NUM(MAP_LILYCOVE_CITY_DEPARTMENT_STORE_1F))
         || (dg == MAP_GROUP(MAP_LILYCOVE_CITY_CONTEST_LOBBY)           && dn == MAP_NUM(MAP_LILYCOVE_CITY_CONTEST_LOBBY))
@@ -1374,7 +1376,9 @@ static bool32 NvShouldCancelWarp(s8 warpEventId)
         || (dg == MAP_GROUP(MAP_CELADON_CITY_GAME_CORNER)            && dn == MAP_NUM(MAP_CELADON_CITY_GAME_CORNER))
         || (dg == MAP_GROUP(MAP_SAFFRON_CITY_POKEMON_TRAINER_FAN_CLUB) && dn == MAP_NUM(MAP_SAFFRON_CITY_POKEMON_TRAINER_FAN_CLUB))
         || (dg == MAP_GROUP(MAP_VERMILION_CITY_POKEMON_FAN_CLUB)      && dn == MAP_NUM(MAP_VERMILION_CITY_POKEMON_FAN_CLUB))
-        || (dg == MAP_GROUP(MAP_TWO_ISLAND_JOYFUL_GAME_CORNER)        && dn == MAP_NUM(MAP_TWO_ISLAND_JOYFUL_GAME_CORNER)))
+        || (dg == MAP_GROUP(MAP_TWO_ISLAND_JOYFUL_GAME_CORNER)        && dn == MAP_NUM(MAP_TWO_ISLAND_JOYFUL_GAME_CORNER))
+        || (dg == MAP_GROUP(MAP_ROUTE110_TRICK_HOUSE_ENTRANCE)        && dn == MAP_NUM(MAP_ROUTE110_TRICK_HOUSE_ENTRANCE))
+        || (dg == MAP_GROUP(MAP_TRAINER_TOWER_LOBBY)                  && dn == MAP_NUM(MAP_TRAINER_TOWER_LOBBY)))
         return TRUE;
 #endif
     return FALSE;
