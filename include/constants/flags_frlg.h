@@ -11,6 +11,10 @@
 #define FLAG_UNUSED_0x021        FLAG_0x021
 #define FLAG_UNUSED_0x022        FLAG_0x022
 #define FLAG_0x024               0x024
+// Alias per i flag custom usati in codice/script condivisi (build FRLG):
+#define FLAG_ADMIN_TELEPORT          FLAG_0x020
+#define FLAG_GRANITE_CAVE_CLEARED    FLAG_0x023
+#define FLAG_HIDE_DEWFORD_GYM_GUARD  FLAG_0x024
 #define FLAG_0x025               0x025
 #define FLAG_0x026               0x026
 #define FLAG_0x027               0x027
