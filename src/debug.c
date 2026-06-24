@@ -803,6 +803,222 @@ static bool32 Debug_SaveCallbackMenu(struct DebugMenuOption *callbackItems);
 
 // *******************************
 // Functions universal
+// *******************************
+// Teleport menu (always available as first Start menu entry)
+// Reuses the debug list-menu framework. Destination map id is stored in
+// actionParams as (MAP_x + 1) to avoid a NULL pointer for map id 0.
+static void Teleport_WarpToMap(u8 taskId, const void *params);
+
+#define TP(label, mapConst) { COMPOUND_STRING(label), Teleport_WarpToMap, (const void *)((mapConst) + 1) }
+
+static const struct DebugMenuOption sTeleport_Actions_Cities[] =
+{
+    TP("Littleroot Town",  MAP_LITTLEROOT_TOWN),
+    TP("Oldale Town",      MAP_OLDALE_TOWN),
+    TP("Petalburg City",   MAP_PETALBURG_CITY),
+    TP("Rustboro City",    MAP_RUSTBORO_CITY),
+    TP("Dewford Town",     MAP_DEWFORD_TOWN),
+    TP("Slateport City",   MAP_SLATEPORT_CITY),
+    TP("Mauville City",    MAP_MAUVILLE_CITY),
+    TP("Verdanturf Town",  MAP_VERDANTURF_TOWN),
+    TP("Fallarbor Town",   MAP_FALLARBOR_TOWN),
+    TP("Lavaridge Town",   MAP_LAVARIDGE_TOWN),
+    TP("Fortree City",     MAP_FORTREE_CITY),
+    TP("Lilycove City",    MAP_LILYCOVE_CITY),
+    TP("Mossdeep City",    MAP_MOSSDEEP_CITY),
+    TP("Sootopolis City",  MAP_SOOTOPOLIS_CITY),
+    TP("Pacifidlog Town",  MAP_PACIFIDLOG_TOWN),
+    TP("Ever Grande City", MAP_EVER_GRANDE_CITY),
+    { NULL }
+};
+
+static const struct DebugMenuOption sTeleport_Actions_Routes1[] =
+{
+    TP("Route 101", MAP_ROUTE101),
+    TP("Route 102", MAP_ROUTE102),
+    TP("Route 103", MAP_ROUTE103),
+    TP("Route 104", MAP_ROUTE104),
+    TP("Route 105", MAP_ROUTE105),
+    TP("Route 106", MAP_ROUTE106),
+    TP("Route 107", MAP_ROUTE107),
+    TP("Route 108", MAP_ROUTE108),
+    TP("Route 109", MAP_ROUTE109),
+    TP("Route 110", MAP_ROUTE110),
+    TP("Route 111", MAP_ROUTE111),
+    TP("Route 112", MAP_ROUTE112),
+    TP("Route 113", MAP_ROUTE113),
+    TP("Route 114", MAP_ROUTE114),
+    TP("Route 115", MAP_ROUTE115),
+    TP("Route 116", MAP_ROUTE116),
+    TP("Route 117", MAP_ROUTE117),
+    { NULL }
+};
+
+static const struct DebugMenuOption sTeleport_Actions_Routes2[] =
+{
+    TP("Route 118", MAP_ROUTE118),
+    TP("Route 119", MAP_ROUTE119),
+    TP("Route 120", MAP_ROUTE120),
+    TP("Route 121", MAP_ROUTE121),
+    TP("Route 122", MAP_ROUTE122),
+    TP("Route 123", MAP_ROUTE123),
+    TP("Route 124", MAP_ROUTE124),
+    TP("Route 125", MAP_ROUTE125),
+    TP("Route 126", MAP_ROUTE126),
+    TP("Route 127", MAP_ROUTE127),
+    TP("Route 128", MAP_ROUTE128),
+    TP("Route 129", MAP_ROUTE129),
+    TP("Route 130", MAP_ROUTE130),
+    TP("Route 131", MAP_ROUTE131),
+    TP("Route 132", MAP_ROUTE132),
+    TP("Route 133", MAP_ROUTE133),
+    TP("Route 134", MAP_ROUTE134),
+    { NULL }
+};
+
+static const struct DebugMenuOption sTeleport_Actions_Dungeons[] =
+{
+    TP("Petalburg Woods", MAP_PETALBURG_WOODS),
+    TP("Rusturf Tunnel",  MAP_RUSTURF_TUNNEL),
+    TP("Granite Cave",    MAP_GRANITE_CAVE_1F),
+    TP("Fiery Path",      MAP_FIERY_PATH),
+    TP("Jagged Pass",     MAP_JAGGED_PASS),
+    TP("Mt. Chimney",     MAP_MT_CHIMNEY),
+    TP("Meteor Falls",    MAP_METEOR_FALLS_1F_1R),
+    TP("Mirage Tower",    MAP_MIRAGE_TOWER_1F),
+    TP("New Mauville",    MAP_NEW_MAUVILLE_ENTRANCE),
+    TP("Abandoned Ship",  MAP_ABANDONED_SHIP_DECK),
+    TP("Safari Zone",     MAP_SAFARI_ZONE_SOUTH),
+    TP("Mt. Pyre",        MAP_MT_PYRE_1F),
+    TP("Magma Hideout",   MAP_MAGMA_HIDEOUT_1F),
+    TP("Aqua Hideout",    MAP_AQUA_HIDEOUT_1F),
+    TP("Shoal Cave",      MAP_SHOAL_CAVE_LOW_TIDE_ENTRANCE_ROOM),
+    TP("Seafloor Cavern", MAP_SEAFLOOR_CAVERN_ENTRANCE),
+    TP("Cave of Origin",  MAP_CAVE_OF_ORIGIN_ENTRANCE),
+    TP("Sky Pillar",      MAP_SKY_PILLAR_ENTRANCE),
+    TP("Victory Road",    MAP_VICTORY_ROAD_1F),
+    { NULL }
+};
+
+// --- Kanto (FRLG maps; note: constants drop the _FRLG suffix unless they
+//     collide with a Hoenn map, e.g. MAP_VICTORY_ROAD_1F_FRLG) ---
+static const struct DebugMenuOption sTeleport_Actions_KantoCities[] =
+{
+    TP("Pallet Town",      MAP_PALLET_TOWN),
+    TP("Viridian City",    MAP_VIRIDIAN_CITY),
+    TP("Pewter City",      MAP_PEWTER_CITY),
+    TP("Cerulean City",    MAP_CERULEAN_CITY),
+    TP("Lavender Town",    MAP_LAVENDER_TOWN),
+    TP("Vermilion City",   MAP_VERMILION_CITY),
+    TP("Celadon City",     MAP_CELADON_CITY),
+    TP("Fuchsia City",     MAP_FUCHSIA_CITY),
+    TP("Saffron City",     MAP_SAFFRON_CITY),
+    TP("Cinnabar Island",  MAP_CINNABAR_ISLAND),
+    TP("Indigo Plateau",   MAP_INDIGO_PLATEAU_EXTERIOR),
+    { NULL }
+};
+
+static const struct DebugMenuOption sTeleport_Actions_KantoRoutes1[] =
+{
+    TP("Route 1",  MAP_ROUTE1),
+    TP("Route 2",  MAP_ROUTE2),
+    TP("Route 3",  MAP_ROUTE3),
+    TP("Route 4",  MAP_ROUTE4),
+    TP("Route 5",  MAP_ROUTE5),
+    TP("Route 6",  MAP_ROUTE6),
+    TP("Route 7",  MAP_ROUTE7),
+    TP("Route 8",  MAP_ROUTE8),
+    TP("Route 9",  MAP_ROUTE9),
+    TP("Route 10", MAP_ROUTE10),
+    TP("Route 11", MAP_ROUTE11),
+    TP("Route 12", MAP_ROUTE12),
+    TP("Route 13", MAP_ROUTE13),
+    { NULL }
+};
+
+static const struct DebugMenuOption sTeleport_Actions_KantoRoutes2[] =
+{
+    TP("Route 14",      MAP_ROUTE14),
+    TP("Route 15",      MAP_ROUTE15),
+    TP("Route 16",      MAP_ROUTE16),
+    TP("Route 17",      MAP_ROUTE17),
+    TP("Route 18",      MAP_ROUTE18),
+    TP("Route 19",      MAP_ROUTE19),
+    TP("Route 20",      MAP_ROUTE20),
+    TP("Route 21 Nord", MAP_ROUTE21_NORTH),
+    TP("Route 21 Sud",  MAP_ROUTE21_SOUTH),
+    TP("Route 22",      MAP_ROUTE22),
+    TP("Route 23",      MAP_ROUTE23),
+    TP("Route 24",      MAP_ROUTE24),
+    TP("Route 25",      MAP_ROUTE25),
+    { NULL }
+};
+
+static const struct DebugMenuOption sTeleport_Actions_KantoDungeons[] =
+{
+    TP("Viridian Forest",  MAP_VIRIDIAN_FOREST),
+    TP("Mt. Moon",         MAP_MT_MOON_1F),
+    TP("S.S. Anne",        MAP_SSANNE_EXTERIOR),
+    TP("Diglett's Cave",   MAP_DIGLETTS_CAVE_NORTH_ENTRANCE),
+    TP("Underground Path", MAP_UNDERGROUND_PATH_NORTH_ENTRANCE),
+    TP("Rock Tunnel",      MAP_ROCK_TUNNEL_1F),
+    TP("Pokemon Tower",    MAP_POKEMON_TOWER_1F),
+    TP("Rocket Hideout",   MAP_ROCKET_HIDEOUT_B1F),
+    TP("Silph Co.",        MAP_SILPH_CO_1F),
+    TP("Pokemon Mansion",  MAP_POKEMON_MANSION_1F),
+    TP("Safari Zone",      MAP_SAFARI_ZONE_CENTER),
+    TP("Seafoam Islands",  MAP_SEAFOAM_ISLANDS_1F),
+    TP("Power Plant",      MAP_POWER_PLANT),
+    TP("Victory Road",     MAP_VICTORY_ROAD_1F_FRLG),
+    TP("Cerulean Cave",    MAP_CERULEAN_CAVE_1F),
+    { NULL }
+};
+
+#undef TP
+
+static const struct DebugMenuOption sTeleport_Actions_Hoenn[] =
+{
+    { COMPOUND_STRING("Citta'…"),        DebugAction_OpenSubMenu, sTeleport_Actions_Cities, },
+    { COMPOUND_STRING("Route 101-117…"), DebugAction_OpenSubMenu, sTeleport_Actions_Routes1, },
+    { COMPOUND_STRING("Route 118-134…"), DebugAction_OpenSubMenu, sTeleport_Actions_Routes2, },
+    { COMPOUND_STRING("Dungeon…"),       DebugAction_OpenSubMenu, sTeleport_Actions_Dungeons, },
+    { NULL }
+};
+
+static const struct DebugMenuOption sTeleport_Actions_Kanto[] =
+{
+    { COMPOUND_STRING("Citta'…"),     DebugAction_OpenSubMenu, sTeleport_Actions_KantoCities, },
+    { COMPOUND_STRING("Route 1-13…"), DebugAction_OpenSubMenu, sTeleport_Actions_KantoRoutes1, },
+    { COMPOUND_STRING("Route 14-25…"),DebugAction_OpenSubMenu, sTeleport_Actions_KantoRoutes2, },
+    { COMPOUND_STRING("Dungeon…"),    DebugAction_OpenSubMenu, sTeleport_Actions_KantoDungeons, },
+    { NULL }
+};
+
+static const struct DebugMenuOption sTeleport_Actions_Main[] =
+{
+    { COMPOUND_STRING("Hoenn…"),  DebugAction_OpenSubMenu, sTeleport_Actions_Hoenn, },
+    { COMPOUND_STRING("Kanto…"),  DebugAction_OpenSubMenu, sTeleport_Actions_Kanto, },
+    { COMPOUND_STRING("Annulla"), DebugAction_Cancel, },
+    { NULL }
+};
+
+static void Teleport_WarpToMap(u8 taskId, const void *params)
+{
+    u32 mapId = (u32)params - 1;
+    SetWarpDestinationToMapWarp(mapId >> 8, mapId & 0xFF, 0);
+    DoWarp();
+    ResetInitialPlayerAvatarState();
+    Debug_DestroyMenu_Full(taskId);
+    ScriptContext_Stop();
+}
+
+void Teleport_ShowMenu(void)
+{
+    sDebugMenuListData = AllocZeroed(sizeof(*sDebugMenuListData));
+    sDebugMenuListData->menuType = DEBUG_BASIC_MENU;
+    Debug_ShowMenu(DebugTask_HandleMenuInput_General, sTeleport_Actions_Main);
+}
+
 void Debug_ShowMainMenu(void)
 {
     sDebugMenuListData = AllocZeroed(sizeof(*sDebugMenuListData));

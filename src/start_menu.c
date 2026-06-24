@@ -69,6 +69,7 @@ enum
     MENU_ACTION_PYRAMID_BAG,
     MENU_ACTION_DEBUG,
     MENU_ACTION_DEXNAV,
+    MENU_ACTION_TELEPORT,
 };
 
 // Save status
@@ -111,6 +112,7 @@ static bool8 StartMenuBattlePyramidRetireCallback(void);
 static bool8 StartMenuBattlePyramidBagCallback(void);
 static bool8 StartMenuDebugCallback(void);
 static bool8 StartMenuDexNavCallback(void);
+static bool8 StartMenuTeleportCallback(void);
 
 // Menu callbacks
 static bool8 SaveStartCallback(void);
@@ -188,6 +190,7 @@ static const struct WindowTemplate sWindowTemplate_PyramidPeak = {
 };
 
 static const u8 sText_MenuDebug[] = _("DEBUG");
+static const u8 sText_MenuTeleport[] = _("TELETRASPORTO");
 
 static const struct MenuAction sStartMenuItems[] =
 {
@@ -206,6 +209,7 @@ static const struct MenuAction sStartMenuItems[] =
     [MENU_ACTION_PYRAMID_BAG]     = {gText_MenuBag,     {.u8_void = StartMenuBattlePyramidBagCallback}},
     [MENU_ACTION_DEBUG]           = {sText_MenuDebug,   {.u8_void = StartMenuDebugCallback}},
     [MENU_ACTION_DEXNAV]          = {gText_MenuDexNav,  {.u8_void = StartMenuDexNavCallback}},
+    [MENU_ACTION_TELEPORT]        = {sText_MenuTeleport,{.u8_void = StartMenuTeleportCallback}},
 };
 
 static const struct BgTemplate sBgTemplates_LinkBattleSave[] =
@@ -331,6 +335,10 @@ static void AddStartMenuAction(u8 action)
 
 static void BuildNormalStartMenu(void)
 {
+    // Teleport tool, first entry: admin-gated, but auto-on in debug builds
+    if (FlagGet(FLAG_ADMIN_TELEPORT) || DEBUG_OVERWORLD_MENU == TRUE)
+        AddStartMenuAction(MENU_ACTION_TELEPORT);
+
     if (FlagGet(FLAG_SYS_POKEDEX_GET) == TRUE)
         AddStartMenuAction(MENU_ACTION_POKEDEX);
 
@@ -353,6 +361,9 @@ static void BuildNormalStartMenu(void)
 
 static void BuildDebugStartMenu(void)
 {
+    // Teleport tool, first entry: admin-gated, but auto-on in debug builds
+    if (FlagGet(FLAG_ADMIN_TELEPORT) || DEBUG_OVERWORLD_MENU == TRUE)
+        AddStartMenuAction(MENU_ACTION_TELEPORT);
     AddStartMenuAction(MENU_ACTION_DEBUG);
     if (FlagGet(FLAG_SYS_POKEDEX_GET) == TRUE)
         AddStartMenuAction(MENU_ACTION_POKEDEX);
@@ -662,6 +673,7 @@ static bool8 HandleStartMenuInput(void)
         if (gMenuCallback != StartMenuSaveCallback
             && gMenuCallback != StartMenuExitCallback
             && gMenuCallback != StartMenuDebugCallback
+            && gMenuCallback != StartMenuTeleportCallback
             && gMenuCallback != StartMenuSafariZoneRetireCallback
             && gMenuCallback != StartMenuBattlePyramidRetireCallback)
         {
@@ -825,6 +837,16 @@ static void HideStartMenuDebug(void)
     PlaySE(SE_SELECT);
     ClearStdWindowAndFrame(GetStartMenuWindowId(), TRUE);
     RemoveStartMenuWindow();
+}
+
+static bool8 StartMenuTeleportCallback(void)
+{
+    RemoveExtraStartMenuWindows();
+    HideStartMenuDebug(); // Hide start menu without enabling movement
+    FreezeObjectEvents();
+    Teleport_ShowMenu();
+
+    return TRUE;
 }
 
 static bool8 StartMenuLinkModePlayerNameCallback(void)
