@@ -41,6 +41,33 @@ def sanitize(s):
             out.append(ch)
     return ''.join(out)
 
+# Spezza il testo in segmenti ai codici di controllo \n \l \p (mantenendo il codice in coda
+# al segmento). Il preproc concatena le .string adiacenti ma limita ogni .string a 1024 byte:
+# emettere un segmento per riga tiene ogni .string ben sotto il limite. Se un segmento e'
+# comunque troppo lungo (raro), lo si taglia a forza su uno spazio vicino a ~400 byte.
+def split_segments(s):
+    parts = re.split(r'(\\[nlp])', s)  # mantiene i delimitatori \n \l \p
+    segs = []
+    buf = ''
+    for tok in parts:
+        buf += tok
+        if tok in ('\\n', '\\l', '\\p'):
+            segs.append(buf)
+            buf = ''
+    if buf:
+        segs.append(buf)
+    # taglio di sicurezza per segmenti enormi senza codici di controllo
+    out = []
+    for seg in segs:
+        while len(seg.encode('utf-8')) > 400:
+            cut = seg.rfind(' ', 0, 380)
+            if cut <= 0:
+                cut = 380
+            out.append(seg[:cut + 1])
+            seg = seg[cut + 1:]
+        out.append(seg)
+    return [x for x in out if x != '']
+
 DIRS = [os.path.join(ROOT, 'data', 'text'), os.path.join(ROOT, 'data', 'maps')]
 RE_LABEL = re.compile(r'^([A-Za-z_][A-Za-z0-9_]*)::?')
 RE_STRING = re.compile(r'^\s*\.string\s+"')
@@ -74,7 +101,11 @@ for base in DIRS:
                     if j > k:  # c'era almeno una .string
                         for t in range(i, k):  # riemetti le righe vuote/commento saltate
                             out.append(lines[t])
-                        out.append('\t.string "' + sanitize(cat[m.group(1)]) + '"')
+                        # Spezza in piu' .string ai codici di controllo \n \l \p: il preproc
+                        # concatena le .string adiacenti, ma ha un limite di 1024 byte per .string;
+                        # una traduzione lunga in un'unica .string lo supererebbe.
+                        for seg in split_segments(sanitize(cat[m.group(1)])):
+                            out.append('\t.string "' + seg + '"')
                         i = j
                         applied += 1
                         changed = True
