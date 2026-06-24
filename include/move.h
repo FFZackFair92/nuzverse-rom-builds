@@ -239,6 +239,7 @@ static inline enum Move SanitizeMoveId(enum Move moveId)
 
 #if NV_LANG != LANGUAGE_ENGLISH
 extern const u8 *const gNvMoveNames[]; // tabella nomi tradotti (src/nv_i18n_moves.c), per NV_LANG
+extern const u8 *const gNvMoveDescriptions[]; // descrizioni tradotte (src/nv_i18n_desc.c), per NV_LANG
 #endif
 
 static inline const u8 *GetMoveName(enum Move moveId)
@@ -262,6 +263,11 @@ static inline const u8 *GetMoveDescription(enum Move moveId)
     moveId = SanitizeMoveId(moveId);
     if (GetMoveEffect(moveId) == EFFECT_PLACEHOLDER)
         return gNotDoneYetDescription;
+#if NV_LANG != LANGUAGE_ENGLISH
+    // Nuzverse multilingua: descrizione tradotta se disponibile, altrimenti l'inglese di default.
+    if (gNvMoveDescriptions[moveId] != NULL)
+        return gNvMoveDescriptions[moveId];
+#endif
     return gMovesInfo[moveId].description;
 }
 

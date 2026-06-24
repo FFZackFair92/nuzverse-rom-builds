@@ -734,6 +734,7 @@ extern const u32 sExpCandyExperienceTable[];
 extern const struct AbilityInfo gAbilitiesInfo[];
 #if NV_LANG != LANGUAGE_ENGLISH
 extern const u8 *const gNvAbilityNames[]; // nomi abilita' tradotti (src/nv_i18n_moves.c), per NV_LANG
+extern const u8 *const gNvAbilityDescriptions[]; // descrizioni abilita' tradotte (src/nv_i18n_desc.c), per NV_LANG
 #endif
 // Nuzverse: getter unico del nome abilita' (override multilingua). Rimpiazza gli accessi
 // diretti gAbilitiesInfo[x].name; con NV_LANG=EN si comporta esattamente come prima.
@@ -744,6 +745,16 @@ static inline const u8 *GetAbilityName(u16 ability)
         return gNvAbilityNames[ability];
 #endif
     return gAbilitiesInfo[ability].name;
+}
+// Nuzverse: getter della descrizione abilita' (override multilingua). Rimpiazza gli accessi
+// diretti gAbilitiesInfo[x].description; con NV_LANG=EN si comporta esattamente come prima.
+static inline const u8 *GetAbilityDescription(u16 ability)
+{
+#if NV_LANG != LANGUAGE_ENGLISH
+    if (gNvAbilityDescriptions[ability] != NULL)
+        return gNvAbilityDescriptions[ability];
+#endif
+    return gAbilitiesInfo[ability].description;
 }
 extern const struct NatureInfo gNaturesInfo[];
 extern const struct BehaviorOWE gOWESpeciesBehavior[OWE_SPECIES_BEHAVIOR_COUNT];
