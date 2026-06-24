@@ -469,6 +469,10 @@ static const u8 *GetInteractedBackgroundEventScript(struct MapPosition *position
             return NULL;
         return EventScript_HiddenItemScript;
     case BG_EVENT_SECRET_BASE:
+#if NV_NO_SECRET_BASE
+        // Nuzverse (solo IronMon): feature Secret Base disabilitata -> interazione inerte.
+        return NULL;
+#else
         if (direction == DIR_NORTH)
         {
             gSpecialVar_0x8004 = bgEvent->bgUnion.secretBaseId;
@@ -476,6 +480,7 @@ static const u8 *GetInteractedBackgroundEventScript(struct MapPosition *position
                 return SecretBase_EventScript_CheckEntrance;
         }
         return NULL;
+#endif
     }
 
     return bgEvent->bgUnion.script;
@@ -1378,7 +1383,8 @@ static bool32 NvShouldCancelWarp(s8 warpEventId)
         || (dg == MAP_GROUP(MAP_VERMILION_CITY_POKEMON_FAN_CLUB)      && dn == MAP_NUM(MAP_VERMILION_CITY_POKEMON_FAN_CLUB))
         || (dg == MAP_GROUP(MAP_TWO_ISLAND_JOYFUL_GAME_CORNER)        && dn == MAP_NUM(MAP_TWO_ISLAND_JOYFUL_GAME_CORNER))
         || (dg == MAP_GROUP(MAP_ROUTE110_TRICK_HOUSE_ENTRANCE)        && dn == MAP_NUM(MAP_ROUTE110_TRICK_HOUSE_ENTRANCE))
-        || (dg == MAP_GROUP(MAP_TRAINER_TOWER_LOBBY)                  && dn == MAP_NUM(MAP_TRAINER_TOWER_LOBBY)))
+        || (dg == MAP_GROUP(MAP_TRAINER_TOWER_LOBBY)                  && dn == MAP_NUM(MAP_TRAINER_TOWER_LOBBY))
+        || (dg == MAP_GROUP(MAP_ROUTE117_POKEMON_DAY_CARE)           && dn == MAP_NUM(MAP_ROUTE117_POKEMON_DAY_CARE)))
         return TRUE;
 #endif
     return FALSE;

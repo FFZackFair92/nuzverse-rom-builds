@@ -98,6 +98,13 @@
 #define NV_NO_OPTIONAL_BUILDINGS NV_KAIZO
 #endif
 
+// Feature Secret Base disabilitata: interagendo con una postazione (albero/cespuglio/parete)
+// non si crea ne' si entra in una base. Gate in GetBackgroundEventScript (BG_EVENT_SECRET_BASE).
+// SOLO IronMon (= NV_KAIZO). In Nuzlocke resta attiva.
+#ifndef NV_NO_SECRET_BASE
+#define NV_NO_SECRET_BASE NV_KAIZO
+#endif
+
 // Regola MT Kaizo (stile StartAB): quando insegni una MT consumabile c'e' solo il 50%
 // di probabilita' che il Pokemon la impari; sul fallimento la MT viene comunque bruciata.
 // MN e oggetti 'importanti' (GetItemImportance != 0) NON sono toccati.
