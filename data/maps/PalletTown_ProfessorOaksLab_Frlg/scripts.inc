@@ -475,7 +475,12 @@ PalletTown_ProfessorOaksLab_EventScript_EndRivalBattle::
 	removeobject LOCALID_OAKS_LAB_RIVAL
 	playse SE_EXIT
 	fadedefaultbgm
-	setvar VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 4
+	@ Nuzverse: market chiusi -> il PACCO DI OAK non e' ottenibile (lo da' il commesso DENTRO la
+	@ mart). Salta la quest del pacco: porta la scena del lab a 6 (post-Pokedex) e marca la consegna
+	@ alla mart come gia' fatta. Cosi' Oak non manda mai alla mart chiusa e non parte la cutscene di
+	@ consegna (ReceiveDexScene). Il Pokedex e' gia' dato dal preset di new-game.
+	setvar VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 6
+	setvar VAR_MAP_SCENE_VIRIDIAN_CITY_MART, 2
 	setflag FLAG_BEAT_RIVAL_IN_OAKS_LAB
 	releaseall
 	end
