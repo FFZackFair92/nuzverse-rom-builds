@@ -345,6 +345,11 @@ void NewGameInitData(void)
     AddBagItem(ITEM_POTION, 1);
     AddBagItem(ITEM_DEVON_SCOPE, 1); // "Repel Switch": interruttore incontri (no step count)
 #endif
+#if !NV_KAIZO
+    // Altari NPC modificatori: SOLO IronMon. In Nuzlocke (NV_PERMADEATH) nascondi gli object
+    // event altare via il loro flagId comune (gli .inc non possono usare #if NV_KAIZO).
+    FlagSet(FLAG_NV_ALTARS_HIDDEN);
+#endif
     // Nuzverse QoL (la QoL retail lato-client e' saltata sulle variant fork): testo
     // veloce, niente animazioni di battaglia, stile SET e scarpe da corsa. Con
     // IsRunningDisallowed gia' forzata a FALSE -> si corre OVUNQUE (indoor incluso).

@@ -155,6 +155,10 @@
 #define FLAG_NV_ALTAR_MOVES    0x4C3
 #define FLAG_NV_ALTAR_ABILITY  0x4C4
 #define FLAG_NV_ALTAR_NATURE   0x4C5
+// Hide-flag degli object event altare: SOLO IronMon. I .inc inclusi via .include NON passano
+// dal preprocessore C, quindi non posso usare #if NV_KAIZO negli script -> uso il flagId d'oggetto:
+// in new_game.c, se !NV_KAIZO setto questo flag -> in Nuzlocke gli NPC altare sono nascosti.
+#define FLAG_NV_ALTARS_HIDDEN  0x4C6
 
 // Ordine palestre G1->G8 (Hoenn): blocca l'ingresso di una palestra se manca la
 // medaglia precedente (usa i FLAG_BADGE0x_GET, comuni a entrambe le build).
