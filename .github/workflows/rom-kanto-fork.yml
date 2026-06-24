@@ -21,6 +21,10 @@ on:
         description: "ref del fork da buildare (vuoto = branch nuzverse/<variant>)"
         required: false
         default: ""
+      lang:
+        description: "lingua testi: en | it | es | fr | de | pt"
+        required: false
+        default: en
 
 env:
   PRET_FIRERED_REF: master
@@ -86,7 +90,18 @@ jobs:
             *nuzlocke*) NV='-DNV_PERMADEATH=1' ;;
             *) NV='' ;;
           esac
-          echo "NV_DEFINES=$NV"
+          case "${{ inputs.lang }}" in
+            it) NV="$NV -DNV_LANG=LANGUAGE_ITALIAN" ;;
+            es) NV="$NV -DNV_LANG=LANGUAGE_SPANISH" ;;
+            fr) NV="$NV -DNV_LANG=LANGUAGE_FRENCH" ;;
+            de) NV="$NV -DNV_LANG=LANGUAGE_GERMAN" ;;
+            pt) NV="$NV -DNV_LANG=NV_LANG_PORTUGUESE" ;;
+            *) ;;
+          esac
+          TAG="${{ matrix.variant }}"
+          [ "${{ inputs.lang }}" != "en" ] && TAG="${{ matrix.variant }}-${{ inputs.lang }}"
+          echo "TAG=$TAG" >> "$GITHUB_ENV"
+          echo "NV_DEFINES=$NV  TAG=$TAG"
           cd pex
           make firered -j"$(nproc)" NV_DEFINES="$NV" || make firered NV_DEFINES="$NV"
           GBA=$(ls *.gba | head -1)
@@ -115,14 +130,14 @@ jobs:
 
       - name: Genera BPS (variant vs vanilla FireRed)
         run: |
-          OUT="ironmon-base-BPRE0-${{ matrix.variant }}.bps"
+          OUT="ironmon-base-BPRE0-${TAG}.bps"
           python3 decomp/ironmon-overlays/make_bps.py vanilla-firered.gba "${{ matrix.variant }}.gba" "$OUT"
 
       - uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.variant }}
+          name: ${{ env.TAG }}
           path: |
-            ironmon-base-BPRE0-${{ matrix.variant }}.bps
+            ironmon-base-BPRE0-${{ env.TAG }}.bps
             seed-offset.txt
             variant.map
           if-no-files-found: error
@@ -132,6 +147,8 @@ jobs:
           DEPLOY_URL: ${{ secrets.ROM_DEPLOY_URL }}
           DEPLOY_TOKEN: ${{ secrets.ROM_DEPLOY_TOKEN }}
         run: |
+          if [ "${{ inputs.lang }}" != "en" ]; then
+            echo "build in lingua ${{ inputs.lang }} -> skip auto-deploy (solo artifact per test, non sovrascrivo la ROM EN in produzione)"; exit 0; fi
           if [ -z "$DEPLOY_URL" ] || [ -z "$DEPLOY_TOKEN" ]; then
             echo "ROM_DEPLOY_URL/TOKEN non settati -> skip auto-deploy (artifact comunque caricato)"; exit 0; fi
           SEED=$(grep "symbol=gIronmonFixedSeed " seed-offset.txt | grep -oE "0x0[0-9a-fA-F]+" | head -1)
