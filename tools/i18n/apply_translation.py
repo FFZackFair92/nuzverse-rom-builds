@@ -20,12 +20,26 @@ if not os.path.isfile(CAT):
 cat = json.load(open(CAT, encoding='utf-8'))
 
 # Sanitizza la punteggiatura non-ASCII assente nel charmap Gen3 (gli accenti latini restano).
-_SUB = {'‘': "'", '’': "'", '“': '"', '”': '"', '–': '-',
-        '—': '-', '…': '...', ' ': ' ', ' ': ' '}
+# NB: il charmap Gen3 NON ha la virgoletta dritta ASCII " (romperebbe la .string:
+# 'junk at end of line'); ha invece le curve LEFTDQ=B1 e RIGHTDQ=B2. Quindi le dritte
+# vanno convertite in curve (alternando apri/chiudi). Gli apostrofi ' restano (nel charmap).
+_LEFTDQ = '\u201c'
+_RIGHTDQ = '\u201d'
+_SUB = {'\u2018': "'", '\u2019': "'", '\u2013': '-', '\u2014': '-',
+        '\u2026': '...', '\u00a0': ' ', '\u2007': ' ', '\u202f': ' '}
 def sanitize(s):
+    # le curve eventuali restano (mappate dal charmap); converto le dritte in curve
     for k, v in _SUB.items():
         s = s.replace(k, v)
-    return s
+    out = []
+    open_q = True
+    for ch in s:
+        if ch == '"':
+            out.append(_LEFTDQ if open_q else _RIGHTDQ)
+            open_q = not open_q
+        else:
+            out.append(ch)
+    return ''.join(out)
 
 DIRS = [os.path.join(ROOT, 'data', 'text'), os.path.join(ROOT, 'data', 'maps')]
 RE_LABEL = re.compile(r'^([A-Za-z_][A-Za-z0-9_]*)::?')
