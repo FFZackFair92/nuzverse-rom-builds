@@ -248,61 +248,6 @@ MossdeepCity_EventScript_BlackBelt::
 	msgbox MossdeepCity_Text_SootopolisNewGymLeader, MSGBOX_NPC
 	end
 
-MossdeepCity_EventScript_Scott::
-	lock
-	faceplayer
-	msgbox MossdeepCity_Text_ScottSomethingWrongWithTown, MSGBOX_DEFAULT
-	closemessage
-	call_if_eq VAR_FACING, DIR_NORTH, MossdeepCity_EventScript_ScottExitNorth
-	call_if_eq VAR_FACING, DIR_EAST, MossdeepCity_EventScript_ScottExitEast
-	addvar VAR_SCOTT_STATE, 1
-	removeobject LOCALID_MOSSDEEP_SCOTT
-	release
-	end
-
-MossdeepCity_EventScript_ScottExitNorth::
-	applymovement LOCALID_PLAYER, MossdeepCity_Movement_PlayerWatchScottExit
-	applymovement LOCALID_MOSSDEEP_SCOTT, MossdeepCity_Movement_ScottExitNorth
-	waitmovement 0
-	return
-
-MossdeepCity_EventScript_ScottExitEast::
-	applymovement LOCALID_PLAYER, MossdeepCity_Movement_PlayerWatchScottExit
-	applymovement LOCALID_MOSSDEEP_SCOTT, MossdeepCity_Movement_ScottExitEast
-	waitmovement 0
-	return
-
-MossdeepCity_Movement_PlayerWatchScottExit:
-	delay_16
-	delay_16
-	walk_in_place_faster_left
-	step_end
-
-MossdeepCity_Movement_ScottExitNorth:
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	step_end
-
-MossdeepCity_Movement_ScottExitEast:
-	walk_down
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	step_end
-
 MossdeepCity_Text_WantKingsRockStevenGaveMe:
 	.string "I got this from STEVEN, but I don't\n"
 	.string "know what it's good for.\p"
