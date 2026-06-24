@@ -28,7 +28,7 @@ def sanitize(s):
     return s
 
 DIRS = [os.path.join(ROOT, 'data', 'text'), os.path.join(ROOT, 'data', 'maps')]
-RE_LABEL = re.compile(r'^([A-Za-z_][A-Za-z0-9_]*)::')
+RE_LABEL = re.compile(r'^([A-Za-z_][A-Za-z0-9_]*)::?')
 RE_STRING = re.compile(r'^\s*\.string\s+"')
 
 applied = 0
@@ -49,11 +49,17 @@ for base in DIRS:
                 if m and m.group(1) in cat:
                     out.append(line)  # tieni la label
                     i += 1
+                    # salta eventuali righe vuote/commento tra label e .string (preservandole)
+                    k = i
+                    while k < len(lines) and (lines[k].strip() == '' or lines[k].strip().startswith('@')):
+                        k += 1
                     # consuma il blocco .string originale (righe consecutive)
-                    j = i
+                    j = k
                     while j < len(lines) and RE_STRING.match(lines[j]):
                         j += 1
-                    if j > i:  # c'era almeno una .string
+                    if j > k:  # c'era almeno una .string
+                        for t in range(i, k):  # riemetti le righe vuote/commento saltate
+                            out.append(lines[t])
                         out.append('\t.string "' + sanitize(cat[m.group(1)]) + '"')
                         i = j
                         applied += 1

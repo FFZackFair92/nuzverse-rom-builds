@@ -22,7 +22,7 @@ DATA_FILES = [
 ]
 
 # .string con label che la precede: "Label::\n\t.string \"...\"$"
-RE_LABEL = re.compile(r'^([A-Za-z_][A-Za-z0-9_]*)::')
+RE_LABEL = re.compile(r'^([A-Za-z_][A-Za-z0-9_]*)::?')
 RE_STRING = re.compile(r'\.string\s+"((?:[^"\\]|\\.)*)"')
 RE_COMPOUND = re.compile(r'COMPOUND_STRING\(\s*"((?:[^"\\]|\\.)*)"\s*\)')
 
