@@ -1275,6 +1275,18 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
         // collaterale all'uscita verso l'esterno).
 
 #if NV_ONEWAY_DUNGEONS
+        // SCORCIATOIA Bosco Petalburg: a bosco completato (FLAG_NV_DUNGEON_WARDWOODS), entrando
+        // da SUD (woods warp 2/3) si salta direttamente all'USCITA NORD (Route 104 warp 2),
+        // senza riattraversare il bosco. L'ingresso nord resta one-way (inerte).
+        if (FlagGet(FLAG_NV_DUNGEON_WARDWOODS)
+         && warpEvent->mapGroup == MAP_GROUP(MAP_PETALBURG_WOODS)
+         && warpEvent->mapNum == MAP_NUM(MAP_PETALBURG_WOODS)
+         && (warpEvent->warpId == 2 || warpEvent->warpId == 3))
+        {
+            SetWarpDestinationToMapWarp(MAP_GROUP(MAP_ROUTE104), MAP_NUM(MAP_ROUTE104), 2);
+            UpdateEscapeWarp(position->x, position->y);
+            return;
+        }
         {
             // Dungeon one-way MARK: quando esci da un dungeon (src interno) verso l'esterno,
             // setta il flag "completato". Il SEAL del rientro e' inerte in NvShouldCancelWarp.
@@ -1358,6 +1370,11 @@ static bool32 NvShouldCancelWarp(s8 warpEventId)
         // (src non in quel dungeon) -> bloccato. Il MARK di completamento sta in SetupWarp.
         u16 nvDst = NvDungeonClearedFlagForMap(dg, dn);
         u16 nvSrc = NvDungeonClearedFlagForMap(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum);
+        // Eccezione SCORCIATOIA Bosco Petalburg: l'ingresso SUD (woods warp 2/3) NON e' inerte
+        // -> prosegue a SetupWarp, che a bosco completato lo redirige all'uscita nord.
+        if (dg == MAP_GROUP(MAP_PETALBURG_WOODS) && dn == MAP_NUM(MAP_PETALBURG_WOODS)
+         && (warpEvent->warpId == 2 || warpEvent->warpId == 3))
+            return FALSE;
         if (nvDst != 0 && nvSrc != nvDst && FlagGet(nvDst))
             return TRUE;
     }
