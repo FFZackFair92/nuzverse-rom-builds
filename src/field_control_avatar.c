@@ -69,7 +69,7 @@ static bool8 IsWarpMetatileBehavior(u16);
 static bool8 IsArrowWarpMetatileBehavior(u16, enum Direction);
 static s8 GetWarpEventAtMapPosition(struct MapHeader *, struct MapPosition *);
 static void SetupWarp(struct MapHeader *, s8, struct MapPosition *);
-#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER || NV_ONEWAY_DUNGEONS
 static bool32 NvShouldCancelWarp(s8 warpEventId);
 #endif
 static bool8 TryDoorWarp(struct MapPosition *, u16, enum Direction);
@@ -972,8 +972,8 @@ static bool8 TryArrowWarp(struct MapPosition *position, u16 metatileBehavior, en
     if (warpEventId == WARP_ID_NONE)
         return FALSE;
 
-#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER
-    // Nuzverse: ingresso sigillato (Regi/Safari/palestra ecc.) -> warp inerte (niente warp).
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER || NV_ONEWAY_DUNGEONS
+    // Nuzverse: ingresso sigillato (Regi/Safari/palestra/dungeon ecc.) -> warp inerte.
     if (NvShouldCancelWarp(warpEventId))
         return FALSE;
 #endif
@@ -1006,8 +1006,8 @@ static bool8 TryStartWarpEventScript(struct MapPosition *position, u16 metatileB
 
     if (warpEventId != WARP_ID_NONE && IsWarpMetatileBehavior(metatileBehavior) == TRUE)
     {
-#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER
-        // Nuzverse: ingresso sigillato (Regi/Safari/palestra ecc.) -> warp inerte.
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER || NV_ONEWAY_DUNGEONS
+        // Nuzverse: ingresso sigillato (Regi/Safari/palestra/dungeon ecc.) -> warp inerte.
         if (NvShouldCancelWarp(warpEventId))
             return FALSE;
 #endif
@@ -1226,29 +1226,6 @@ static u16 NvGymOwnBadge(u16 g, u16 n)
 }
 #endif
 
-#if NV_ONEWAY_DUNGEONS
-// Nuzverse: quando un warp viene neutralizzato (Centro chiuso / dungeon o palestra
-// one-way), il giocatore va rimbalzato sulla tile da cui e' ARRIVATO (opposto alla
-// direzione di marcia), che e' sempre calpestabile. Un offset fisso (+1 in y) causava
-// softlock/loop sugli ingressi percorsi verso il basso (es. entrata nord del BOSCO
-// PETALBURG) o quando la tile a sud era bloccata.
-static void NvBounceCoords(struct MapPosition *position, s16 *bx, s16 *by)
-{
-    s16 x = position->x - MAP_OFFSET;
-    s16 y = position->y - MAP_OFFSET;
-    switch (GetPlayerFacingDirection())
-    {
-    case DIR_SOUTH: y -= 1; break; // arrivato da nord
-    case DIR_EAST:  x -= 1; break; // arrivato da ovest
-    case DIR_WEST:  x += 1; break; // arrivato da est
-    case DIR_NORTH:
-    default:        y += 1; break; // arrivato da sud (default sicuro = porte)
-    }
-    *bx = x;
-    *by = y;
-}
-#endif
-
 static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPosition *position)
 {
     const struct WarpEvent *warpEvent;
@@ -1286,25 +1263,18 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
     {
         const struct MapHeader *mapHeader = Overworld_GetMapHeaderByGroupAndId(warpEvent->mapGroup, warpEvent->mapNum);
 
-        // Nuzverse: Centri/Market piccoli, camere Regi, gate Safari e palestre -> ingresso
-        // RIMOSSO del tutto (warp inerte), gestito a monte in TryDoorWarp/TryArrowWarp/
-        // TryStartWarpEventScript via NvShouldCancelWarp: nessun warp, nessuna transizione.
-        // Qui resta solo il bounce dei dungeon one-way (+ il MARK di completamento).
+        // Nuzverse: Centri/Market piccoli, camere Regi, gate Safari, palestre e dungeon
+        // one-way -> ingresso RIMOSSO del tutto (warp inerte), gestito a monte in TryDoorWarp/
+        // TryArrowWarp/TryStartWarpEventScript via NvShouldCancelWarp: nessun warp, nessuna
+        // transizione, niente bounce. Qui resta solo il MARK "completato" dei dungeon (effetto
+        // collaterale all'uscita verso l'esterno).
 
 #if NV_ONEWAY_DUNGEONS
         {
-            u16 nvDst = NvDungeonClearedFlagForMap(warpEvent->mapGroup, warpEvent->mapNum);
+            // Dungeon one-way MARK: quando esci da un dungeon (src interno) verso l'esterno,
+            // setta il flag "completato". Il SEAL del rientro e' inerte in NvShouldCancelWarp.
             u16 nvSrc = NvDungeonClearedFlagForMap(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum);
-            // SEAL: rientro in un dungeon gia' completato (dst interno) dall'esterno (src
-            // non in quel dungeon) -> neutralizza il warp (il giocatore resta davanti).
-            if (nvDst != 0 && nvSrc != nvDst && FlagGet(nvDst))
-            {
-                { s16 nvbx, nvby; NvBounceCoords(position, &nvbx, &nvby);
-                  SetWarpDestination(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
-                                     WARP_ID_NONE, nvbx, nvby); }
-                return;
-            }
-            // MARK: esci dal dungeon (src interno) verso l'esterno -> "completato".
+            u16 nvDst = NvDungeonClearedFlagForMap(warpEvent->mapGroup, warpEvent->mapNum);
             if (nvSrc != 0 && nvDst != nvSrc)
                 FlagSet(nvSrc);
         }
@@ -1317,13 +1287,14 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
     }
 }
 
-#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER || NV_ONEWAY_DUNGEONS
 // Nuzverse: il warp (verso warpEventId) deve essere ANNULLATO del tutto? Se TRUE l'ingresso
 // e' "rimosso": nessun warp e nessuna transizione (il giocatore resta fermo, niente bounce
 // su tile). Chiamato all'inizio di tutti i percorsi di warp del giocatore (porta/arrow/
-// generic). Copre: Centri, Market piccoli (non i grandi magazzini), camere Regi, gate Safari
-// e palestre (ingresso senza medaglia precedente / rientro dopo battuta / lock-in in uscita).
-// I dungeon one-way restano gestiti col bounce in SetupWarp (non inclusi qui).
+// generic). Copre: Centri, Market piccoli (non i grandi magazzini), camere Regi, gate Safari,
+// palestre (ingresso senza medaglia precedente / rientro dopo battuta / lock-in in uscita) e
+// dungeon one-way (rientro dopo completamento). Il MARK "completato" dei dungeon resta in
+// SetupWarp (effetto collaterale all'uscita, non un annullamento).
 static bool32 NvShouldCancelWarp(s8 warpEventId)
 {
     const struct WarpEvent *warpEvent;
@@ -1375,6 +1346,16 @@ static bool32 NvShouldCancelWarp(s8 warpEventId)
         }
     }
 #endif
+#if NV_ONEWAY_DUNGEONS
+    {
+        // Dungeon one-way: rientro in un dungeon gia' completato (dst interno) dall'esterno
+        // (src non in quel dungeon) -> bloccato. Il MARK di completamento sta in SetupWarp.
+        u16 nvDst = NvDungeonClearedFlagForMap(dg, dn);
+        u16 nvSrc = NvDungeonClearedFlagForMap(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum);
+        if (nvDst != 0 && nvSrc != nvDst && FlagGet(nvDst))
+            return TRUE;
+    }
+#endif
     return FALSE;
 }
 #endif
@@ -1396,9 +1377,9 @@ static bool8 TryDoorWarp(struct MapPosition *position, u16 metatileBehavior, enu
             warpEventId = GetWarpEventAtMapPosition(&gMapHeader, position);
             if (warpEventId != WARP_ID_NONE && IsWarpMetatileBehavior(metatileBehavior) == TRUE)
             {
-#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER
-                // Nuzverse: ingresso sigillato (Centro/Market/Regi/Safari/palestra) -> porta
-                // inerte: nessun warp, nessuna transizione.
+#if NV_NO_POKECENTERS || NV_NO_POKEMARTS || NV_NO_REGI || NV_NO_SAFARI || NV_GYM_ORDER || NV_ONEWAY_DUNGEONS
+                // Nuzverse: ingresso sigillato (Centro/Market/Regi/Safari/palestra/dungeon) ->
+                // porta inerte: nessun warp, nessuna transizione.
                 if (NvShouldCancelWarp(warpEventId))
                     return FALSE;
 #endif
