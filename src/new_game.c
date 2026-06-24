@@ -331,6 +331,12 @@ void NewGameInitData(void)
     VarSet(VAR_MAP_SCENE_ROUTE24, 1);                          // niente cutscene del Ponte Pepita
     FlagSet(FLAG_HIDE_NUGGET_BRIDGE_ROCKET);                   // nasconde il Rocket sul ponte
     VarSet(VAR_MAP_SCENE_ROUTE5_ROUTE6_ROUTE7_ROUTE8_GATES, 1); // guardie gate Saffron via (Te' gia' in borsa)
+    // Nuzverse: leggendari Kanto RIMOSSI (sprite + interazione), dungeon comunque percorribili.
+    // Zapdos (Centrale) e' gia' irraggiungibile dal taglio connessioni R9/R10; lo nascondiamo per coerenza.
+    FlagSet(FLAG_HIDE_MEWTWO);    // Grotta Celeste
+    FlagSet(FLAG_HIDE_ARTICUNO);  // Isole Spumarine
+    FlagSet(FLAG_HIDE_MOLTRES);   // Monte Cenere
+    FlagSet(FLAG_HIDE_ZAPDOS);    // Centrale Elettrica
 #endif
 #endif
 #if NV_KAIZO

@@ -1192,6 +1192,20 @@ static u16 NvDungeonClearedFlagForMap(u16 g, u16 n)
     if (NV_MAP_IS(g,n,MAP_SKY_PILLAR_ENTRANCE) || NV_MAP_IS(g,n,MAP_SKY_PILLAR_1F) || NV_MAP_IS(g,n,MAP_SKY_PILLAR_2F) || NV_MAP_IS(g,n,MAP_SKY_PILLAR_3F) || NV_MAP_IS(g,n,MAP_SKY_PILLAR_4F) || NV_MAP_IS(g,n,MAP_SKY_PILLAR_5F) || NV_MAP_IS(g,n,MAP_SKY_PILLAR_TOP))
         return FLAG_NV_DUNGEON_SKYPILLAR;
 #endif // !IS_FRLG
+#if IS_FRLG // dungeon Kanto (mappe assenti/flag inesistenti in Emerald). Elencare TUTTI i piani.
+    if (NV_MAP_IS(g,n,MAP_POKEMON_TOWER_1F) || NV_MAP_IS(g,n,MAP_POKEMON_TOWER_2F) || NV_MAP_IS(g,n,MAP_POKEMON_TOWER_3F) || NV_MAP_IS(g,n,MAP_POKEMON_TOWER_4F) || NV_MAP_IS(g,n,MAP_POKEMON_TOWER_5F) || NV_MAP_IS(g,n,MAP_POKEMON_TOWER_6F) || NV_MAP_IS(g,n,MAP_POKEMON_TOWER_7F))
+        return FLAG_NV_DUNGEON_POKETOWER;
+    if (NV_MAP_IS(g,n,MAP_SILPH_CO_1F) || NV_MAP_IS(g,n,MAP_SILPH_CO_2F) || NV_MAP_IS(g,n,MAP_SILPH_CO_3F) || NV_MAP_IS(g,n,MAP_SILPH_CO_4F) || NV_MAP_IS(g,n,MAP_SILPH_CO_5F) || NV_MAP_IS(g,n,MAP_SILPH_CO_6F) || NV_MAP_IS(g,n,MAP_SILPH_CO_7F) || NV_MAP_IS(g,n,MAP_SILPH_CO_8F) || NV_MAP_IS(g,n,MAP_SILPH_CO_9F) || NV_MAP_IS(g,n,MAP_SILPH_CO_10F) || NV_MAP_IS(g,n,MAP_SILPH_CO_11F) || NV_MAP_IS(g,n,MAP_SILPH_CO_ELEVATOR))
+        return FLAG_NV_DUNGEON_SILPH;
+    if (NV_MAP_IS(g,n,MAP_CERULEAN_CAVE_1F) || NV_MAP_IS(g,n,MAP_CERULEAN_CAVE_2F) || NV_MAP_IS(g,n,MAP_CERULEAN_CAVE_B1F))
+        return FLAG_NV_DUNGEON_CERULEANCAVE;
+    if (NV_MAP_IS(g,n,MAP_SEAFOAM_ISLANDS_1F) || NV_MAP_IS(g,n,MAP_SEAFOAM_ISLANDS_B1F) || NV_MAP_IS(g,n,MAP_SEAFOAM_ISLANDS_B2F) || NV_MAP_IS(g,n,MAP_SEAFOAM_ISLANDS_B3F) || NV_MAP_IS(g,n,MAP_SEAFOAM_ISLANDS_B4F))
+        return FLAG_NV_DUNGEON_SEAFOAM;
+    if (NV_MAP_IS(g,n,MAP_POKEMON_MANSION_1F) || NV_MAP_IS(g,n,MAP_POKEMON_MANSION_2F) || NV_MAP_IS(g,n,MAP_POKEMON_MANSION_3F) || NV_MAP_IS(g,n,MAP_POKEMON_MANSION_B1F))
+        return FLAG_NV_DUNGEON_MANSION;
+    if (NV_MAP_IS(g,n,MAP_VIRIDIAN_FOREST))
+        return FLAG_NV_DUNGEON_VIRIDIANFOR;
+#endif // IS_FRLG
     return 0;
 }
 #endif
@@ -1209,6 +1223,15 @@ static u16 NvGymRequiredBadge(u16 g, u16 n)
     if (NV_MAP_IS(g,n,MAP_FORTREE_CITY_GYM))       return FLAG_BADGE05_GET;
     if (NV_MAP_IS(g,n,MAP_MOSSDEEP_CITY_GYM))      return FLAG_BADGE06_GET;
     if (NV_MAP_IS(g,n,MAP_SOOTOPOLIS_CITY_GYM_1F)) return FLAG_BADGE07_GET;
+    // Kanto (FRLG): ordine vanilla Brock->Misty->Surge->Erika->Koga->Sabrina->Blaine->Giovanni.
+    // Palestra N richiede la medaglia N-1. Pewter (1a) non gated. Mappe assenti in Emerald = innocue.
+    if (NV_MAP_IS(g,n,MAP_CERULEAN_CITY_GYM))      return FLAG_BADGE01_GET;
+    if (NV_MAP_IS(g,n,MAP_VERMILION_CITY_GYM))     return FLAG_BADGE02_GET;
+    if (NV_MAP_IS(g,n,MAP_CELADON_CITY_GYM))       return FLAG_BADGE03_GET;
+    if (NV_MAP_IS(g,n,MAP_FUCHSIA_CITY_GYM))       return FLAG_BADGE04_GET;
+    if (NV_MAP_IS(g,n,MAP_SAFFRON_CITY_GYM))       return FLAG_BADGE05_GET;
+    if (NV_MAP_IS(g,n,MAP_CINNABAR_ISLAND_GYM))    return FLAG_BADGE06_GET;
+    if (NV_MAP_IS(g,n,MAP_VIRIDIAN_CITY_GYM))      return FLAG_BADGE07_GET;
     return 0;
 }
 
@@ -1227,6 +1250,16 @@ static u16 NvGymOwnBadge(u16 g, u16 n)
     if (NV_MAP_IS(g,n,MAP_MOSSDEEP_CITY_GYM))      return FLAG_BADGE07_GET;
     if (NV_MAP_IS(g,n,MAP_SOOTOPOLIS_CITY_GYM_1F) || NV_MAP_IS(g,n,MAP_SOOTOPOLIS_CITY_GYM_B1F))
         return FLAG_BADGE08_GET;
+    // Kanto (FRLG): lock-in con la medaglia PROPRIA della palestra. Viridian (Giovanni) inclusa:
+    // di norma e' chiusa finche' non torni dopo Silph Co -> nessun ingresso anticipato = niente softlock.
+    if (NV_MAP_IS(g,n,MAP_PEWTER_CITY_GYM))        return FLAG_BADGE01_GET;
+    if (NV_MAP_IS(g,n,MAP_CERULEAN_CITY_GYM))      return FLAG_BADGE02_GET;
+    if (NV_MAP_IS(g,n,MAP_VERMILION_CITY_GYM))     return FLAG_BADGE03_GET;
+    if (NV_MAP_IS(g,n,MAP_CELADON_CITY_GYM))       return FLAG_BADGE04_GET;
+    if (NV_MAP_IS(g,n,MAP_FUCHSIA_CITY_GYM))       return FLAG_BADGE05_GET;
+    if (NV_MAP_IS(g,n,MAP_SAFFRON_CITY_GYM))       return FLAG_BADGE06_GET;
+    if (NV_MAP_IS(g,n,MAP_CINNABAR_ISLAND_GYM))    return FLAG_BADGE07_GET;
+    if (NV_MAP_IS(g,n,MAP_VIRIDIAN_CITY_GYM))      return FLAG_BADGE08_GET;
     return 0;
 }
 #endif

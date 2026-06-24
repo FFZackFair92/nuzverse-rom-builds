@@ -136,6 +136,17 @@
 #define FLAG_NV_DUNGEON_AQUA         FLAG_UNUSED_0x4B2
 #define FLAG_NV_DUNGEON_NEWMAUVILLE  FLAG_UNUSED_0x4B3
 #define FLAG_NV_DUNGEON_SKYPILLAR    FLAG_UNUSED_0x4B4
+// Dungeon Kanto aggiunti (24 giu): SOLO FRLG (riferiti unicamente sotto #if IS_FRLG in
+// field_control_avatar.c -> il macro non viene mai espanso nella build Emerald, dove il
+// token FLAG_0x4BD non esiste). In flags_frlg.h 0x4B0-0x4BC sono i boss-clear delle gym
+// Kanto (NON toccare); 0x4BD-0x4FF sono la fascia "Unused?" (verificato: 0x4BD-0x4C2 senza
+// alcuna referenza in data/src).
+#define FLAG_NV_DUNGEON_POKETOWER    FLAG_0x4BD
+#define FLAG_NV_DUNGEON_SILPH        FLAG_0x4BE
+#define FLAG_NV_DUNGEON_CERULEANCAVE FLAG_0x4BF
+#define FLAG_NV_DUNGEON_SEAFOAM      FLAG_0x4C0
+#define FLAG_NV_DUNGEON_MANSION      FLAG_0x4C1
+#define FLAG_NV_DUNGEON_VIRIDIANFOR  FLAG_0x4C2
 
 // Ordine palestre G1->G8 (Hoenn): blocca l'ingresso di una palestra se manca la
 // medaglia precedente (usa i FLAG_BADGE0x_GET, comuni a entrambe le build).
