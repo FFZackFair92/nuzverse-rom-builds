@@ -67,5 +67,5 @@ tools/aif2pcm/aif2pcm
 __pycache__
 .map_version
 
-# i18n: catalogo/traduzioni generati (grandi)
-tools/i18n/catalog.*.json
+# i18n: solo il catalogo SORGENTE EN e' generato (grande); le traduzioni catalog.<lang>.json SI committano.
+tools/i18n/catalog.en.json
