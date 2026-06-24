@@ -638,5 +638,7 @@ gSpecials::
 	def_special SeafoamIslandsB4F_CurrentDumpsPlayerOnLand
 	def_special UpdateTrainerCardPhotoIcons
 	def_special StickerManGetBragFlags
-	def_special NvAltarCycleAbility
+	def_special NvAltarSeededNature
+	def_special NvAltarSeededAbility
+	def_special NvAltarSeededMove
 	def_special CheckAddCoins

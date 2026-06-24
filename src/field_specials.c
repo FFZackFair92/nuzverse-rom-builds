@@ -5773,36 +5773,76 @@ u16 StickerManGetBragFlags(void)
 }
 
 // ===== Nuzverse: altari NPC "modificatori" (one-shot per run) =====
-// Operano sul Pokemon scelto dallo script (slot in VAR_0x8004, via ChooseMonForMoveTutor/Relearner).
-// L'abilita' e' memorizzata come slot (MON_DATA_ABILITY_NUM) e la natura come HIDDEN_NATURE
-// (override gen8, NON tocca il PID) -> nessun effetto collaterale su shiny/genere.
+// Operano sul Pokemon scelto dallo script (slot in VAR_0x8004, via ChoosePartyMon).
+// L'ESITO (natura/abilita'/mossa) e' RANDOM ma SEEDATO: dipende SOLO dal seed della run
+// (gSaveBlock2Ptr->playerTrainerId = gIronmonFixedSeed) + un sale per tipo. Stesso seed =>
+// stesso esito per qualunque Pokemon e a prova di save-scum. Il giocatore sceglie solo QUALE
+// mon riceve il cambio. La webapp ricalcola gli stessi esiti dal seed (Seed Log + post-run):
+// la formula NvAltarSeed() e i sali sotto vanno tenuti IDENTICI in JS (utils/seedLog.js).
+// Abilita' come slot (MON_DATA_ABILITY_NUM), natura come HIDDEN_NATURE (override gen8, NON
+// tocca il PID -> niente effetti su shiny/genere).
 
-// Abilita': cicla allo slot abilita' VALIDO successivo (cur -> cur+1 -> cur+2, modulo 3,
-// saltando gli slot ABILITY_NONE). gStringVar2 = nuovo nome abilita'; VAR_RESULT = TRUE se cambiata.
-void NvAltarCycleAbility(void)
+extern u16 IronmonRemapMove(u16 move); // definita in pokemon.c (gia' usata per il randomizer mosse)
+
+#define NV_ALTAR_SALT_NATURE    0x4E415455u // "NATU"
+#define NV_ALTAR_SALT_ABILITY   0x4142494Cu // "ABIL"
+#define NV_ALTAR_SALT_MOVE      0x414C544Du // "ALTM"
+#define NV_ALTAR_SALT_MOVESLOT  0x534C4F54u // "SLOT"
+
+// Hash intero deterministico (finalizer di Murmur3 / splitmix-like) sul seed della run ^ sale.
+// REPLICARE IDENTICO in JS con >>> 0 e Math.imul.
+static u32 NvAltarSeed(u32 salt)
 {
-    u8 slot = gSpecialVar_0x8004;
-    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][slot];
-    u16 species = GetMonData(mon, MON_DATA_SPECIES);
-    u8 cur = GetMonData(mon, MON_DATA_ABILITY_NUM);
-    u8 next = cur;
-    u8 i;
-
-    for (i = 1; i <= 2; i++)
-    {
-        u8 cand = (cur + i) % 3;
-        if (GetSpeciesAbility(species, cand) != ABILITY_NONE)
-        {
-            next = cand;
-            break;
-        }
-    }
-    SetMonData(mon, MON_DATA_ABILITY_NUM, &next);
-    StringCopy(gStringVar2, gAbilitiesInfo[GetSpeciesAbility(species, next)].name);
-    gSpecialVar_Result = (next != cur);
+    const u8 *tid = gSaveBlock2Ptr->playerTrainerId;
+    u32 s = ((u32)tid[0] | ((u32)tid[1] << 8) | ((u32)tid[2] << 16) | ((u32)tid[3] << 24)) ^ salt;
+    s ^= s >> 16; s *= 0x7feb352du;
+    s ^= s >> 15; s *= 0x846ca68bu;
+    s ^= s >> 16;
+    return s;
 }
-// NB: per la NATURA si riusa lo special stock SetHiddenNature (gia' presente: legge VAR_RESULT
-// come natura, set HIDDEN_NATURE + CalculateMonStats). Niente special custom per quella.
+
+// Natura seedata (0..NUM_NATURES-1) -> HIDDEN_NATURE + ricalcolo stat. gStringVar2 = nome.
+void NvAltarSeededNature(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+    u8 nature = NvAltarSeed(NV_ALTAR_SALT_NATURE) % NUM_NATURES;
+    SetMonData(mon, MON_DATA_HIDDEN_NATURE, &nature);
+    CalculateMonStats(mon);
+    StringCopy(gStringVar2, gNaturesInfo[nature].name);
+    gSpecialVar_Result = TRUE;
+}
+
+// Slot abilita' seedato (0..2). Se NONE per la specie, avanza al primo valido (l'esito MOSTRATO
+// nel Seed Log e' lo SLOT seedato; il nome applicato dipende dalla specie). gStringVar2 = nome.
+void NvAltarSeededAbility(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+    u16 species = GetMonData(mon, MON_DATA_SPECIES);
+    u8 target = NvAltarSeed(NV_ALTAR_SALT_ABILITY) % 3;
+    u8 i;
+    for (i = 0; i < 3; i++)
+    {
+        u8 cand = (target + i) % 3;
+        if (GetSpeciesAbility(species, cand) != ABILITY_NONE) { target = cand; break; }
+    }
+    SetMonData(mon, MON_DATA_ABILITY_NUM, &target);
+    StringCopy(gStringVar2, gAbilitiesInfo[GetSpeciesAbility(species, target)].name);
+    gSpecialVar_Result = TRUE;
+}
+
+// Mossa seedata: scelgo un input pseudo-casuale nel pool e lo passo a IronmonRemapMove (gia'
+// portato in JS, gestisce le mosse bandite) -> mossa valida deterministica. Slot da sovrascrivere
+// anch'esso seedato. gStringVar2 = nome mossa.
+void NvAltarSeededMove(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+    u16 pseudo = 1 + (NvAltarSeed(NV_ALTAR_SALT_MOVE) % (MOVES_COUNT - 1));
+    u16 move = IronmonRemapMove(pseudo);
+    u8 rslot = NvAltarSeed(NV_ALTAR_SALT_MOVESLOT) % MAX_MON_MOVES;
+    SetMonMoveSlot(mon, move, rslot);
+    StringCopy(gStringVar2, GetMoveName(move));
+    gSpecialVar_Result = TRUE;
+}
 
 bool8 CheckAddCoins(void)
 {
