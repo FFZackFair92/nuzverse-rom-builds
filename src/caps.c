@@ -22,6 +22,14 @@ u32 GetCurrentLevelCap(void)
 
     u32 i;
 
+#if NV_KAIZO
+    // Kaizo IronMon: NESSUN level cap (scelta utente). Senza questo, l'expansion
+    // ha B_EXP_CAP_TYPE=EXP_CAP_HARD + tetto per-medaglia (sLevelCapFlagMap):
+    // un Pokemon AL cap riceve 0 EXP finche' non prendi la medaglia dopo.
+    // Tornando MAX_LEVEL il cap non scatta mai (curva libera fino a 100).
+    return MAX_LEVEL;
+#endif
+
     if (B_LEVEL_CAP_TYPE == LEVEL_CAP_FLAG_LIST)
     {
         for (i = 0; i < ARRAY_COUNT(sLevelCapFlagMap); i++)
