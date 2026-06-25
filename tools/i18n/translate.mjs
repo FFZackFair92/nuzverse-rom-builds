@@ -26,7 +26,7 @@ const MODEL = process.env.NV_TRANSLATE_MODEL || 'gpt-4o-mini'
 if (!API_KEY) { console.error('manca NV_TRANSLATE_API_KEY'); process.exit(1) }
 
 const LANG_NAME = { it: 'Italian', es: 'Spanish', fr: 'French', de: 'German', pt: 'Portuguese', ja: 'Japanese' }[LANG] || LANG
-const BATCH = 20
+const BATCH = Number(process.env.NV_TRANSLATE_BATCH || 12) // modelli locali: meglio 8-12
 const sleep = (ms) => new Promise(r => setTimeout(r, ms))
 
 const SYS = `You are a professional localizer of Pokémon Game Boy Advance ROMs into ${LANG_NAME}.
@@ -35,7 +35,20 @@ Rules — follow EXACTLY:
 - Keep the control codes UNCHANGED as literal two-character sequences: \\n (line break), \\l (scroll line), \\p (new text page). Keep the final $ terminator.
 - Re-wrap the translation so each visible line is AT MOST 26 characters: replace/insert \\n and \\l appropriately, keep \\p where the original starts a new page. Roughly match the original number of pages.
 - Write "POKéMON" with the accented é exactly like the source. Keep proper nouns, town & character names as in official ${LANG_NAME} Pokémon games when known.
-- Output ONLY a JSON object mapping each id to its translated string. No commentary.`
+- Output ONLY a raw JSON object mapping each id to its translated string. No commentary, NO markdown code fences (no \`\`\`).`
+
+// Parser JSON tollerante: i server locali (LM Studio/Ollama/GLM) spesso avvolgono il JSON
+// in code-fence o aggiungono testo. Togliamo i fence e isoliamo l'oggetto { ... }.
+function parseJsonLoose(s) {
+  let t = String(s || '').trim()
+  t = t.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim()
+  try { return JSON.parse(t) } catch {}
+  const i = t.indexOf('{'), j = t.lastIndexOf('}')
+  if (i >= 0 && j > i) {
+    try { return JSON.parse(t.slice(i, j + 1)) } catch {}
+  }
+  return null
+}
 
 async function callLLM(items) {
   const userObj = {}
@@ -44,10 +57,12 @@ async function callLLM(items) {
     model: MODEL,
     messages: [
       { role: 'system', content: SYS },
-      { role: 'user', content: 'Translate each value. Return JSON {id: translation}.\n' + JSON.stringify(userObj) },
+      { role: 'user', content: 'Translate each value. Return a raw JSON object {id: translation}. No code fences.\n' + JSON.stringify(userObj) },
     ],
     temperature: 0.2,
-    response_format: { type: 'json_object' },
+    // LM Studio accetta solo 'text' o 'json_schema' (NON 'json_object'); usiamo 'text'
+    // + parser tollerante. Compatibile anche con OpenAI/Ollama.
+    response_format: { type: 'text' },
   }
   for (let attempt = 1; attempt <= 4; attempt++) {
     try {
@@ -58,7 +73,9 @@ async function callLLM(items) {
       })
       if (!res.ok) throw new Error('HTTP ' + res.status + ' ' + (await res.text()).slice(0, 200))
       const data = await res.json()
-      return JSON.parse(data.choices[0].message.content)
+      const parsed = parseJsonLoose(data.choices?.[0]?.message?.content)
+      if (!parsed || typeof parsed !== 'object') throw new Error('risposta non-JSON dal modello')
+      return parsed
     } catch (e) {
       if (attempt === 4) { console.warn('  ! batch fallito:', e.message); return {} }
       await sleep(1500 * attempt)
