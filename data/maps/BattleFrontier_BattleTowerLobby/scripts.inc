@@ -167,6 +167,9 @@ BattleFrontier_BattleTowerLobby_EventScript_SetBravoTrainerOn::
 	return
 
 BattleFrontier_BattleTowerLobby_EventScript_SinglesAttendant::
+#if NV_TOWER_ONLY || NV_ARENA_ONLY
+	goto BattleFrontier_BattleTowerLobby_EventScript_NvHost
+#endif
 	lock
 	faceplayer
 	setvar VAR_FRONTIER_FACILITY, FRONTIER_FACILITY_TOWER
@@ -1397,3 +1400,41 @@ BattleFrontier_BattleTowerLobby_Text_ExplainMultiLinkRules:
 	.string "from those of your friend.\p"
 	.string "You may not interrupt this challenge\n"
 	.string "in the middle, unlike other modes.$"
+
+#if NV_TOWER_ONLY || NV_ARENA_ONLY
+@ ─── Nuzverse: host della sfida Torre/Arena ──────────────────────────────────
+@ Sostituisce l'attendente vanilla: scegli SINGOLO (1 mon) o DOPPIO (2 mon),
+@ genera una squadra random gen9 e avvia una lotta custom (SPECIAL_BATTLE_NV_CUSTOM).
+BattleFrontier_BattleTowerLobby_EventScript_NvHost::
+	lock
+	faceplayer
+	special SavePlayerParty
+	msgbox BattleFrontier_BattleTowerLobby_Text_NvWelcome, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_BattleTowerLobby_EventScript_NvHostEnd
+	msgbox BattleFrontier_BattleTowerLobby_Text_NvAskDouble, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, BattleFrontier_BattleTowerLobby_EventScript_NvHostDouble
+	setvar VAR_0x8005, 1
+	goto BattleFrontier_BattleTowerLobby_EventScript_NvHostStart
+
+BattleFrontier_BattleTowerLobby_EventScript_NvHostDouble::
+	setvar VAR_0x8005, 2
+
+BattleFrontier_BattleTowerLobby_EventScript_NvHostStart::
+	special NvScriptBuildRandomTeam
+	setvar VAR_0x8004, SPECIAL_BATTLE_NV_CUSTOM
+	special DoSpecialTrainerBattle
+	waitstate
+	special LoadPlayerParty
+
+BattleFrontier_BattleTowerLobby_EventScript_NvHostEnd::
+	release
+	end
+
+BattleFrontier_BattleTowerLobby_Text_NvWelcome:
+	.string "Benvenuto alla TORRE LOTTA!\n"
+	.string "Vuoi affrontare una sfida?$"
+
+BattleFrontier_BattleTowerLobby_Text_NvAskDouble:
+	.string "Lotta DOPPIA con 2 POKéMON?\n"
+	.string "(No = SINGOLA con 1 POKéMON)$"
+#endif

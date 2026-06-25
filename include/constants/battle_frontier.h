@@ -36,6 +36,7 @@
 #define SPECIAL_BATTLE_SECRET_BASE 1
 #define SPECIAL_BATTLE_EREADER 2
 #define SPECIAL_BATTLE_MULTI 3
+#define SPECIAL_BATTLE_NV_CUSTOM 4   // Nuzverse: lotta custom Torre/Arena (squadra iniettata/random, singolo o doppio)
 
 // Facility trainer Battles
 #define FACILITY_BATTLE_TOWER           0

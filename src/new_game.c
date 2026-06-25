@@ -6,6 +6,7 @@
 #include "move.h"
 #include "constants/species.h"
 #include "constants/moves.h"
+#include "constants/pokedex.h"
 #include "roamer.h"
 #include "pokemon_size_record.h"
 #include "script.h"
@@ -169,6 +170,81 @@ void NvBuildInjectedFoe(void)
         }
         SetMonData(mon, MON_DATA_HELD_ITEM, &src->heldItem);
         SetMonData(mon, MON_DATA_ABILITY_NUM, &src->abilityNum);
+        CalculateMonStats(mon);
+    }
+}
+
+// Nuzverse Torre: c'e' una squadra avversaria iniettata dal webapp (ghost Arena)?
+bool8 NvHasInjectedFoe(void)
+{
+    return (gNvInjectFoe.count != 0);
+}
+
+// Nuzverse Torre: genera una squadra RANDOM (National Dex fino a gen 9) di `count`
+// Pokemon a livello `level` nel party del GIOCATORE. IV perfetti + mosse di default
+// (learnset). Usata dal PC della lobby per la modalita' "squadra random".
+void NvBuildRandomPlayerTeam(u32 count, u32 level)
+{
+    u32 i, k;
+    u8 perfectIv = 31;
+
+    if (count < 1)
+        count = 1;
+    if (count > PARTY_SIZE)
+        count = PARTY_SIZE;
+
+    ZeroPlayerPartyMons();
+    for (i = 0; i < count; i++)
+    {
+        u16 dexNum = 1 + (Random() % NATIONAL_DEX_COUNT);
+        enum Species species = NationalPokedexNumToSpecies(dexNum);
+        struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][i];
+
+        if (species == SPECIES_NONE)
+            species = SPECIES_BULBASAUR;
+
+        CreateMon(mon, species, level, Random32(), OTID_STRUCT_PLAYER_ID);
+        for (k = 0; k < 6; k++)
+            SetMonData(mon, MON_DATA_HP_IV + k, &perfectIv);
+        CalculateMonStats(mon);
+    }
+}
+
+// Wrapper-special per gli script: legge gSpecialVar_0x8005 come numero di mon (1 o 2)
+// e costruisce la squadra random del giocatore a Lv50.
+void NvScriptBuildRandomTeam(void)
+{
+    u32 count = gSpecialVar_0x8005;
+    if (count < 1)
+        count = 1;
+    NvBuildRandomPlayerTeam(count, 50);
+}
+
+// Mirror per la squadra AVVERSARIA (OPPONENT_A): foe random level-matched per la Torre
+// quando non c'e' un ghost iniettato. Stesso numero di mon del giocatore.
+void NvBuildRandomFoe(u32 count, u32 level)
+{
+    u32 i, k;
+    u8 perfectIv = 31;
+
+    if (count < 1)
+        count = 1;
+    if (count > PARTY_SIZE)
+        count = PARTY_SIZE;
+
+    ZeroEnemyPartyMons();
+    for (i = 0; i < count; i++)
+    {
+        u16 dexNum = 1 + (Random() % NATIONAL_DEX_COUNT);
+        enum Species species = NationalPokedexNumToSpecies(dexNum);
+        struct Pokemon *mon = &gParties[B_TRAINER_OPPONENT_A][i];
+
+        if (species == SPECIES_NONE)
+            species = SPECIES_BULBASAUR;
+
+        CreateMon(mon, species, level, Random32(), OTID_STRUCT_RANDOM_NO_SHINY);
+        for (k = 0; k < 6; k++)
+            SetMonData(mon, MON_DATA_HP_IV + k, &perfectIv);
         CalculateMonStats(mon);
     }
 }

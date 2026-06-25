@@ -17,6 +17,8 @@
 #include "text.h"
 #include "constants/battle_frontier.h"
 #include "constants/battle_special.h"
+#include "constants/trainers.h"
+#include "constants/species.h"
 
 static void HandleSpecialTrainerBattleEnd(void);
 static void Task_StartBattleAfterTransition(u8 taskId);
@@ -125,6 +127,37 @@ void DoSpecialTrainerBattle(void)
 
         if (gSpecialVar_0x8005 & MULTI_BATTLE_CHOOSE_MONS) // Skip mons restoring(done in the script)
             gBattleScripting.specialTrainerBattleType = 0xFF;
+        break;
+    case SPECIAL_BATTLE_NV_CUSTOM:
+        // Nuzverse Torre/Arena: lotta custom con la squadra GIA' nel party del giocatore
+        // (iniettata dal roster o random dal PC). Singolo se 1 mon, doppio se >=2.
+        // Foe: ghost Arena iniettato se presente, altrimenti random level-matched (Torre).
+        {
+            u32 playerCount = 0;
+            for (i = 0; i < PARTY_SIZE; i++)
+            {
+                if (GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES) != SPECIES_NONE)
+                    playerCount++;
+            }
+            if (playerCount == 0)
+                playerCount = 1;
+
+            if (NvHasInjectedFoe())
+                NvBuildInjectedFoe();
+            else
+                NvBuildRandomFoe(playerCount, 50);
+
+            gBattleTypeFlags = BATTLE_TYPE_TRAINER;
+            if (playerCount >= 2)
+                gBattleTypeFlags |= BATTLE_TYPE_DOUBLE;
+
+            // TRAINER_SECRET_BASE -> CreateNPCTrainerParty NON rigenera gEnemyParty:
+            // la squadra nemica riempita a mano sopravvive.
+            TRAINER_BATTLE_PARAM.opponentA = TRAINER_SECRET_BASE;
+            CreateTask(Task_StartBattleAfterTransition, 1);
+            PlayMapChosenOrBattleBGM(0);
+            BattleTransition_StartOnField(GetTrainerBattleTransition());
+        }
         break;
     }
 }

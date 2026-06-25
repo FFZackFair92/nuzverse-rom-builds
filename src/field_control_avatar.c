@@ -1361,6 +1361,12 @@ static bool32 NvShouldCancelWarp(s8 warpEventId)
      || (dg == MAP_GROUP(MAP_FUCHSIA_CITY_SAFARI_ZONE_ENTRANCE) && dn == MAP_NUM(MAP_FUCHSIA_CITY_SAFARI_ZONE_ENTRANCE)))
         return TRUE;
 #endif
+#if NV_TOWER_ONLY || NV_ARENA_ONLY
+    // Confinamento Torre/Arena: l'uscita dalla lobby verso il Battle Frontier esterno e' inerte.
+    // L'utente resta dentro la facility (lobby + sala lotta interna), non puo' vagare nel Frontier.
+    if (dg == MAP_GROUP(MAP_BATTLE_FRONTIER_OUTSIDE_EAST) && dn == MAP_NUM(MAP_BATTLE_FRONTIER_OUTSIDE_EAST))
+        return TRUE;
+#endif
 #if NV_GYM_ORDER
     {
         u16 sg = gSaveBlock1Ptr->location.mapGroup;
