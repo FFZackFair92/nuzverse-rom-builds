@@ -28,10 +28,6 @@ on:
         description: "lingua testi: en | it | es | fr | de | pt"
         required: false
         default: en
-      deploy:
-        description: "deploy in produzione anche per lingua != en (sovrascrive EN)"
-        required: false
-        default: "false"
 
 env:
   PRET_EMERALD_REF: master
@@ -110,7 +106,7 @@ jobs:
           echo "TAG=$TAG" >> "$GITHUB_ENV"
           echo "NV_DEFINES=$NV  TAG=$TAG"
           cd pex
-          if [ "${{ inputs.lang }}" != "en" ] && [ "${{ inputs.deploy }}" != "true" ]; then
+          if [ "${{ inputs.lang }}" != "en" ]; then
             echo "Inject traduzioni dialoghi (${{ inputs.lang }})..."
             python3 tools/i18n/apply_translation.py "${{ inputs.lang }}" || true
           fi
@@ -154,7 +150,7 @@ jobs:
           DEPLOY_URL: ${{ secrets.ROM_DEPLOY_URL }}
           DEPLOY_TOKEN: ${{ secrets.ROM_DEPLOY_TOKEN }}
         run: |
-          if [ "${{ inputs.lang }}" != "en" ] && [ "${{ inputs.deploy }}" != "true" ]; then
+          if [ "${{ inputs.lang }}" != "en" ]; then
             echo "build in lingua ${{ inputs.lang }} -> skip auto-deploy (solo artifact per test)"; exit 0; fi
           if [ -z "$DEPLOY_URL" ] || [ -z "$DEPLOY_TOKEN" ]; then
             echo "ROM_DEPLOY_URL/TOKEN non settati -> skip auto-deploy (artifact comunque caricato)"; exit 0; fi
