@@ -220,6 +220,14 @@ void NvScriptBuildRandomTeam(void)
     NvBuildRandomPlayerTeam(count, 50);
 }
 
+// Special per gli script: gSpecialVar_0x8004 = 1 se c'e' una squadra SALVATA iniettata
+// dal webapp (gNvInjectParty.count > 0), altrimenti 0. Usato dall'host per il ramo
+// "squadra salvata" vs "random".
+void NvScriptCheckSavedTeam(void)
+{
+    gSpecialVar_0x8004 = (gNvInjectParty.count > 0) ? 1 : 0;
+}
+
 // Mirror per la squadra AVVERSARIA (OPPONENT_A): foe random level-matched per la Torre
 // quando non c'e' un ghost iniettato. Stesso numero di mon del giocatore.
 void NvBuildRandomFoe(u32 count, u32 level)

@@ -395,6 +395,21 @@ static void (*const sMovementStatusHandler[])(struct LinkPlayerObjectEvent *, st
 // code
 void DoWhiteOut(void)
 {
+#if NV_TOWER_ONLY || NV_ARENA_ONLY
+    // Sfida Torre/Arena: la sconfitta NON e' game-over e NON resetta la run (sandbox).
+    // Cura la squadra e riporta semplicemente alla lobby della facility. Rete di sicurezza:
+    // le lotte custom usano gia' il path special-battle (ritorno al campo senza whiteout),
+    // ma se per qualunque via si arrivasse qui, non si perde nulla.
+    HealPlayerParty();
+    Overworld_ResetStateAfterWhiteOut();
+  #if NV_ARENA_ONLY
+    SetWarpDestination(MAP_GROUP(MAP_BATTLE_FRONTIER_BATTLE_ARENA_LOBBY), MAP_NUM(MAP_BATTLE_FRONTIER_BATTLE_ARENA_LOBBY), WARP_ID_NONE, 7, 8);
+  #else
+    SetWarpDestination(MAP_GROUP(MAP_BATTLE_FRONTIER_BATTLE_TOWER_LOBBY), MAP_NUM(MAP_BATTLE_FRONTIER_BATTLE_TOWER_LOBBY), WARP_ID_NONE, 10, 6);
+  #endif
+    WarpIntoMap();
+    return;
+#endif
 #if NV_GAMEOVER_ON_LOSS
     // Nuzverse: black-out = GAME OVER. Segnala la fine run al webapp (gNvRunResult=1) e
     // FERMA la ROM: la run persa NON e' continuabile (regola in-ROM, a prova di bomba).

@@ -1411,16 +1411,32 @@ BattleFrontier_BattleTowerLobby_EventScript_NvHost::
 	special SavePlayerParty
 	msgbox BattleFrontier_BattleTowerLobby_Text_NvWelcome, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_BattleTowerLobby_EventScript_NvHostEnd
-	msgbox BattleFrontier_BattleTowerLobby_Text_NvAskDouble, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, BattleFrontier_BattleTowerLobby_EventScript_NvHostDouble
-	setvar VAR_0x8005, 1
-	goto BattleFrontier_BattleTowerLobby_EventScript_NvHostStart
+	@ Scelta sorgente squadra: SALVATA (roster) o RANDOM.
+	msgbox BattleFrontier_BattleTowerLobby_Text_NvAskSaved, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_BattleTowerLobby_EventScript_NvHostRandom
+	@ Ramo SALVATA: c'e' davvero una squadra iniettata dal webapp?
+	special NvScriptCheckSavedTeam
+	goto_if_eq VAR_0x8004, 0, BattleFrontier_BattleTowerLobby_EventScript_NvHostNoSaved
+	special NvBuildInjectedParty
+	goto BattleFrontier_BattleTowerLobby_EventScript_NvHostStartBattle
 
-BattleFrontier_BattleTowerLobby_EventScript_NvHostDouble::
+BattleFrontier_BattleTowerLobby_EventScript_NvHostNoSaved::
+	msgbox BattleFrontier_BattleTowerLobby_Text_NvNoSaved, MSGBOX_DEFAULT
+	@ fallthrough al ramo random
+
+BattleFrontier_BattleTowerLobby_EventScript_NvHostRandom::
+	msgbox BattleFrontier_BattleTowerLobby_Text_NvAskDouble, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, BattleFrontier_BattleTowerLobby_EventScript_NvHostRandomDouble
+	setvar VAR_0x8005, 1
+	goto BattleFrontier_BattleTowerLobby_EventScript_NvHostRandomBuild
+
+BattleFrontier_BattleTowerLobby_EventScript_NvHostRandomDouble::
 	setvar VAR_0x8005, 2
 
-BattleFrontier_BattleTowerLobby_EventScript_NvHostStart::
+BattleFrontier_BattleTowerLobby_EventScript_NvHostRandomBuild::
 	special NvScriptBuildRandomTeam
+
+BattleFrontier_BattleTowerLobby_EventScript_NvHostStartBattle::
 	setvar VAR_0x8004, SPECIAL_BATTLE_NV_CUSTOM
 	special DoSpecialTrainerBattle
 	waitstate
@@ -1433,6 +1449,14 @@ BattleFrontier_BattleTowerLobby_EventScript_NvHostEnd::
 BattleFrontier_BattleTowerLobby_Text_NvWelcome:
 	.string "Benvenuto alla TORRE LOTTA!\n"
 	.string "Vuoi affrontare una sfida?$"
+
+BattleFrontier_BattleTowerLobby_Text_NvAskSaved:
+	.string "Vuoi usare la tua squadra SALVATA?\n"
+	.string "(No = squadra RANDOM)$"
+
+BattleFrontier_BattleTowerLobby_Text_NvNoSaved:
+	.string "Non hai POKéMON salvati nel roster.\p"
+	.string "Useremo una squadra RANDOM!$"
 
 BattleFrontier_BattleTowerLobby_Text_NvAskDouble:
 	.string "Lotta DOPPIA con 2 POKéMON?\n"
