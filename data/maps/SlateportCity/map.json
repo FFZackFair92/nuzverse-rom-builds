@@ -3,7 +3,6 @@
   "name": "SlateportCity",
   "layout": "LAYOUT_SLATEPORT_CITY",
   "music": "MUS_SLATEPORT",
-  "region": "REGION_HOENN",
   "region_map_section": "MAPSEC_SLATEPORT_CITY",
   "requires_flash": false,
   "weather": "WEATHER_SUNNY",
@@ -12,6 +11,7 @@
   "allow_escaping": false,
   "allow_running": true,
   "show_map_name": true,
+  "floor_number": 0,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
@@ -28,6 +28,7 @@
   "object_events": [
     {
       "local_id": "LOCALID_SLATEPORT_FAT_MAN",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_FAT_MAN",
       "x": 21,
       "y": 11,
@@ -42,6 +43,7 @@
     },
     {
       "local_id": "LOCALID_SLATEPORT_MAN_1",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_MAN_1",
       "x": 34,
       "y": 29,
@@ -56,6 +58,7 @@
     },
     {
       "local_id": "LOCALID_SLATEPORT_RICH_BOY",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_RICH_BOY",
       "x": 5,
       "y": 13,
@@ -69,6 +72,7 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_4",
       "x": 26,
       "y": 29,
@@ -83,6 +87,7 @@
     },
     {
       "local_id": "LOCALID_SLATEPORT_COOK",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_COOK",
       "x": 5,
       "y": 43,
@@ -97,6 +102,7 @@
     },
     {
       "local_id": "LOCALID_SLATEPORT_OLD_WOMAN",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_OLD_WOMAN",
       "x": 20,
       "y": 37,
@@ -111,6 +117,7 @@
     },
     {
       "local_id": "LOCALID_SLATEPORT_GIRL",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_GIRL_1",
       "x": 8,
       "y": 42,
@@ -125,6 +132,7 @@
     },
     {
       "local_id": "LOCALID_SLATEPORT_TY",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_CAMERAMAN",
       "x": 29,
       "y": 13,
@@ -139,6 +147,7 @@
     },
     {
       "local_id": "LOCALID_SLATEPORT_GABBY",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_REPORTER_F",
       "x": 28,
       "y": 14,
@@ -153,6 +162,7 @@
     },
     {
       "local_id": "LOCALID_SLATEPORT_CAPT_STERN",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_SCIENTIST_1",
       "x": 28,
       "y": 13,
@@ -166,6 +176,7 @@
       "flag": "FLAG_HIDE_SLATEPORT_CITY_CAPTAIN_STERN"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_SAILOR",
       "x": 37,
       "y": 41,
@@ -179,6 +190,7 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_SAILOR",
       "x": 28,
       "y": 46,
@@ -192,6 +204,7 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_POKEFAN_F",
       "x": 9,
       "y": 50,
@@ -205,6 +218,7 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_MAN_3",
       "x": 16,
       "y": 46,
@@ -218,6 +232,7 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_MANIAC",
       "x": 8,
       "y": 24,
@@ -231,6 +246,7 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_5",
       "x": 15,
       "y": 31,
@@ -244,6 +260,7 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_MART_EMPLOYEE",
       "x": 6,
       "y": 38,
@@ -257,6 +274,7 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_MART_EMPLOYEE",
       "x": 5,
       "y": 51,
@@ -270,6 +288,7 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_MAN_5",
       "x": 34,
       "y": 51,
@@ -283,6 +302,7 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_5",
       "x": 4,
       "y": 47,
@@ -296,6 +316,7 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_MART_EMPLOYEE",
       "x": 11,
       "y": 47,
@@ -310,6 +331,7 @@
     },
     {
       "local_id": "LOCALID_SLATEPORT_ENERGY_GURU",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_POKEFAN_M",
       "x": 5,
       "y": 47,
@@ -323,6 +345,7 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_POKEFAN_F",
       "x": 11,
       "y": 37,
@@ -337,6 +360,7 @@
     },
     {
       "local_id": "LOCALID_SLATEPORT_SCOTT",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_SCOTT",
       "x": 10,
       "y": 12,
@@ -350,6 +374,7 @@
       "flag": "FLAG_HIDE_SLATEPORT_CITY_SCOTT"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_NURSE",
       "x": 20,
       "y": 20,
@@ -363,9 +388,10 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_DEOXYS",
-      "x": 19,
-      "y": 20,
+      "x": 18,
+      "y": 35,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 1,
@@ -571,5 +597,6 @@
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "SlateportCity_EventScript_BerryCrushRankingsSign"
     }
-  ]
+  ],
+  "region": "REGION_HOENN"
 }

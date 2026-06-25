@@ -3,7 +3,6 @@
   "name": "MauvilleCity",
   "layout": "LAYOUT_MAUVILLE_CITY",
   "music": "MUS_RUSTBORO",
-  "region": "REGION_HOENN",
   "region_map_section": "MAPSEC_MAUVILLE_CITY",
   "requires_flash": false,
   "weather": "WEATHER_SUNNY",
@@ -12,6 +11,7 @@
   "allow_escaping": false,
   "allow_running": true,
   "show_map_name": true,
+  "floor_number": 0,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
@@ -37,6 +37,7 @@
   ],
   "object_events": [
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_BOY_3",
       "x": 29,
       "y": 16,
@@ -50,6 +51,7 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_RICH_BOY",
       "x": 24,
       "y": 10,
@@ -63,6 +65,7 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_MANIAC",
       "x": 14,
       "y": 11,
@@ -76,6 +79,7 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_4",
       "x": 18,
       "y": 6,
@@ -89,6 +93,7 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_SCHOOL_KID_M",
       "x": 17,
       "y": 14,
@@ -103,6 +108,7 @@
     },
     {
       "local_id": "LOCALID_MAUVILLE_WALLY",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_WALLY",
       "x": 8,
       "y": 6,
@@ -117,6 +123,7 @@
     },
     {
       "local_id": "LOCALID_MAUVILLE_WALLYS_UNCLE",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_POKEFAN_M",
       "x": 9,
       "y": 6,
@@ -130,6 +137,7 @@
       "flag": "FLAG_HIDE_MAUVILLE_CITY_WALLYS_UNCLE"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_WATTSON",
       "x": 29,
       "y": 9,
@@ -143,6 +151,7 @@
       "flag": "FLAG_HIDE_MAUVILLE_CITY_WATTSON"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
       "x": 28,
       "y": 19,
@@ -156,6 +165,7 @@
       "flag": "FLAG_ITEM_MAUVILLE_CITY_X_SPEED"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_FAT_MAN",
       "x": 13,
       "y": 7,
@@ -170,6 +180,7 @@
     },
     {
       "local_id": "LOCALID_MAUVILLE_SCOTT",
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_SCOTT",
       "x": 12,
       "y": 14,
@@ -183,6 +194,7 @@
       "flag": "FLAG_HIDE_MAUVILLE_CITY_SCOTT"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_NURSE",
       "x": 23,
       "y": 6,
@@ -196,9 +208,10 @@
       "flag": "0"
     },
     {
+      "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_DEOXYS",
-      "x": 22,
-      "y": 6,
+      "x": 17,
+      "y": 9,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 1,
@@ -345,5 +358,6 @@
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "MauvilleCity_EventScript_GameCornerSign"
     }
-  ]
+  ],
+  "region": "REGION_HOENN"
 }
