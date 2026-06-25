@@ -221,9 +221,14 @@ static void ClearFrontierRecord(void)
 
 static void WarpToTruck(void)
 {
-#if NV_TOWER_ONLY || NV_ARENA_ONLY
-    // Sfide Torre/Arena: spawn diretto nella lobby del Battle Tower (hub).
+    // Sfide Torre/Arena: spawn diretto nella lobby dell'hub (Tower o Arena).
     // VAR_ROUTE101_STATE=2 -> CB2_NewGame usa il fade-in pulito (niente camion/Birch).
+#if NV_ARENA_ONLY
+    VarSet(VAR_ROUTE101_STATE, 2);
+    SetWarpDestination(MAP_GROUP(MAP_BATTLE_FRONTIER_BATTLE_ARENA_LOBBY), MAP_NUM(MAP_BATTLE_FRONTIER_BATTLE_ARENA_LOBBY), WARP_ID_NONE, 7, 8);
+    WarpIntoMap();
+    return;
+#elif NV_TOWER_ONLY
     VarSet(VAR_ROUTE101_STATE, 2);
     SetWarpDestination(MAP_GROUP(MAP_BATTLE_FRONTIER_BATTLE_TOWER_LOBBY), MAP_NUM(MAP_BATTLE_FRONTIER_BATTLE_TOWER_LOBBY), WARP_ID_NONE, 10, 6);
     WarpIntoMap();
