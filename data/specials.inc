@@ -641,4 +641,5 @@ gSpecials::
 	def_special NvAltarSeededNature
 	def_special NvAltarSeededAbility
 	def_special NvAltarSeededMove
+	def_special NvBuildInjectedParty
 	def_special CheckAddCoins

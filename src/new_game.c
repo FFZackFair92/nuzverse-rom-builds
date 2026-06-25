@@ -93,7 +93,7 @@ struct NvInjectParty
 
 EWRAM_DATA struct NvInjectParty gNvInjectParty = {0};
 
-static void NvBuildInjectedParty(void)
+void NvBuildInjectedParty(void)
 {
     u32 i, j, k;
 
