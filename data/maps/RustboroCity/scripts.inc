@@ -6,6 +6,16 @@ RustboroCity_MapScripts::
 RustboroCity_OnTransition:
 	setflag FLAG_VISITED_RUSTBORO_CITY
 	call Common_EventScript_SetupRivalGfxId
+	@ Nuzverse: rivale OBBLIGATORIO all'uscita sud, indipendente dalla quest Devon.
+	@ Finche' non l'hai battuto: mostra il rivale e arma i coord_event (STATE=7).
+	@ Dopo la sconfitta: ri-nascondi il rivale.
+	goto_if_set FLAG_DEFEATED_RIVAL_RUSTBORO, RustboroCity_EventScript_NvRivalDone
+	setvar VAR_RUSTBORO_CITY_STATE, 7
+	clearflag FLAG_HIDE_RUSTBORO_CITY_RIVAL
+	end
+
+RustboroCity_EventScript_NvRivalDone::
+	setflag FLAG_HIDE_RUSTBORO_CITY_RIVAL
 	call_if_eq VAR_RUSTBORO_CITY_STATE, 6, RustboroCity_EventScript_HideMapNamePopup
 	getplayerxy VAR_TEMP_0, VAR_TEMP_1
 	goto_if_eq VAR_RUSTBORO_CITY_STATE, 6, RustboroCity_EventScript_PositionScientistForExit
@@ -839,12 +849,8 @@ RustboroCity_EventScript_MayEncounter::
 	setvar VAR_RUSTBORO_CITY_STATE, 8
 	setvar VAR_ROUTE104_STATE, 2
 	setvar VAR_0x8008, 0
-	msgbox RustboroCity_Text_MayPassedBrineyWantToBattle, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, RustboroCity_EventScript_BattleMay
-	msgbox RustboroCity_Text_MayOhHaventRaisedPokemonEnough, MSGBOX_DEFAULT
-	call RustboroCity_EventScript_RestoreBgm
-	releaseall
-	end
+	@ Nuzverse: battaglia rivale OBBLIGATORIA (niente prompt SI/NO)
+	goto RustboroCity_EventScript_BattleMay
 
 RustboroCity_EventScript_MayAskToBattle::
 	setvar VAR_0x8008, 1
@@ -906,12 +912,8 @@ RustboroCity_EventScript_BrendanEncounter::
 	setflag FLAG_ENABLE_RIVAL_MATCH_CALL
 	setvar VAR_RUSTBORO_CITY_STATE, 8
 	setvar VAR_ROUTE104_STATE, 2
-	msgbox RustboroCity_Text_BrendanPassedBrineyWantToBattle, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, RustboroCity_EventScript_BattleBrendan
-	msgbox RustboroCity_Text_BrendanNoConfidenceInPokemon, MSGBOX_DEFAULT
-	call RustboroCity_EventScript_RestoreBgm
-	releaseall
-	end
+	@ Nuzverse: battaglia rivale OBBLIGATORIA (niente prompt SI/NO)
+	goto RustboroCity_EventScript_BattleBrendan
 
 RustboroCity_EventScript_BrendanAskToBattle::
 	msgbox RustboroCity_Text_BrendanWantToBattle, MSGBOX_YESNO
