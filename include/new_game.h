@@ -17,6 +17,7 @@ void NvBuildRandomPlayerTeam(u32 count, u32 level); // Nuzverse Torre: squadra p
 void NvBuildRandomFoe(u32 count, u32 level);        // Nuzverse Torre: foe random gen9 level-matched
 void NvScriptBuildRandomTeam(void);                 // Nuzverse Torre: special wrapper (legge VAR_0x8005=count)
 void NvScriptCheckSavedTeam(void);                  // Nuzverse Torre: VAR_0x8004 = (squadra salvata presente?)
+void NvScriptBuildSavedCapped(void);                // Nuzverse Arena: squadra salvata limitata a VAR_0x8005 mon
 void ResetMenuAndMonGlobals(void);
 void Sav2_ClearSetDefault(void);
 

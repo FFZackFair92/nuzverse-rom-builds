@@ -97,15 +97,21 @@ struct NvInjectParty
 EWRAM_DATA struct NvInjectParty gNvInjectParty = {0};
 EWRAM_DATA struct NvInjectParty gNvInjectFoe = {0};   // Arena ghost: squadra avversaria
 
-void NvBuildInjectedParty(void)
+// Costruisce gParties[player] da gNvInjectParty, ma al massimo `cap` mon (per le
+// modalita' Arena singolo=1 / doppio=2 che usano solo una parte del roster salvato).
+static void NvBuildInjectedPartyN(u32 cap)
 {
-    u32 i, j, k;
+    u32 i, j, k, n;
 
     if (gNvInjectParty.count == 0)
         return;
 
+    n = gNvInjectParty.count;
+    if (n > cap)
+        n = cap;
+
     ZeroPlayerPartyMons();
-    for (i = 0; i < gNvInjectParty.count && i < PARTY_SIZE; i++)
+    for (i = 0; i < n && i < PARTY_SIZE; i++)
     {
         struct NvInjectMon *src = &gNvInjectParty.mons[i];
         struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][i];
@@ -132,6 +138,22 @@ void NvBuildInjectedParty(void)
         SetMonData(mon, MON_DATA_ABILITY_NUM, &src->abilityNum);
         CalculateMonStats(mon);
     }
+}
+
+// Special: costruisce l'INTERA squadra salvata (fino a PARTY_SIZE). Usata dall'host Torre.
+void NvBuildInjectedParty(void)
+{
+    NvBuildInjectedPartyN(PARTY_SIZE);
+}
+
+// Special: costruisce la squadra salvata limitata a gSpecialVar_0x8005 mon (host Arena
+// singolo=1 / doppio=2). Se il roster ha meno mon del cap ne usa quanti ne ha.
+void NvScriptBuildSavedCapped(void)
+{
+    u32 cap = gSpecialVar_0x8005;
+    if (cap < 1)
+        cap = 1;
+    NvBuildInjectedPartyN(cap);
 }
 
 // Arena ghost (#4): costruisce la squadra AVVERSARIA (OPPONENT_A) da gNvInjectFoe.

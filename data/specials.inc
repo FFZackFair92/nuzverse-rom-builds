@@ -645,4 +645,5 @@ gSpecials::
 	def_special NvBuildInjectedFoe
 	def_special NvScriptBuildRandomTeam
 	def_special NvScriptCheckSavedTeam
+	def_special NvScriptBuildSavedCapped
 	def_special CheckAddCoins

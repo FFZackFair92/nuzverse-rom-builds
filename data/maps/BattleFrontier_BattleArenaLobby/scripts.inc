@@ -104,6 +104,9 @@ BattleFrontier_BattleArenaLobby_EventScript_ResumeChallenge::
 	goto BattleFrontier_BattleArenaLobby_EventScript_EnterChallenge
 
 BattleFrontier_BattleArenaLobby_EventScript_Attendant::
+#if NV_ARENA_ONLY
+	goto BattleFrontier_BattleArenaLobby_EventScript_NvArenaSingle
+#endif
 	lock
 	faceplayer
 	setvar VAR_FRONTIER_FACILITY, FRONTIER_FACILITY_ARENA
@@ -302,6 +305,9 @@ BattleFrontier_BattleArenaLobby_EventScript_Youngster::
 	end
 
 BattleFrontier_BattleArenaLobby_EventScript_Man::
+#if NV_ARENA_ONLY
+	goto BattleFrontier_BattleArenaLobby_EventScript_NvArenaDouble
+#endif
 	msgbox BattleFrontier_BattleArenaLobby_Text_LandingHitsWorked, MSGBOX_NPC
 	end
 
@@ -578,3 +584,57 @@ BattleFrontier_BattleArenaLobby_Text_PleaseAcceptBattlePoints:
 	.string "My dear challenger, in recognition of\n"
 	.string "your indefatigable spirit, please\l"
 	.string "accept these Battle Point(s).$"
+
+#if NV_ARENA_ONLY
+@ ─── Nuzverse: due host ARENA ────────────────────────────────────────────────
+@ Host SINGOLO (Attendant): 1 mon. Host DOPPIO (Man): 2 mon. Squadra SALVATA (roster,
+@ limitata al numero della modalita') o RANDOM. Foe = ghost iniettato o random.
+BattleFrontier_BattleArenaLobby_EventScript_NvArenaSingle::
+	setvar VAR_0x8005, 1
+	goto BattleFrontier_BattleArenaLobby_EventScript_NvArenaStart
+
+BattleFrontier_BattleArenaLobby_EventScript_NvArenaDouble::
+	setvar VAR_0x8005, 2
+
+BattleFrontier_BattleArenaLobby_EventScript_NvArenaStart::
+	lock
+	faceplayer
+	special SavePlayerParty
+	msgbox BattleFrontier_BattleArenaLobby_Text_NvWelcome, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_BattleArenaLobby_EventScript_NvArenaEnd
+	msgbox BattleFrontier_BattleArenaLobby_Text_NvAskSaved, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_BattleArenaLobby_EventScript_NvArenaRandom
+	special NvScriptCheckSavedTeam
+	goto_if_eq VAR_0x8004, 0, BattleFrontier_BattleArenaLobby_EventScript_NvArenaNoSaved
+	special NvScriptBuildSavedCapped
+	goto BattleFrontier_BattleArenaLobby_EventScript_NvArenaBattle
+
+BattleFrontier_BattleArenaLobby_EventScript_NvArenaNoSaved::
+	msgbox BattleFrontier_BattleArenaLobby_Text_NvNoSaved, MSGBOX_DEFAULT
+	@ fallthrough al ramo random
+
+BattleFrontier_BattleArenaLobby_EventScript_NvArenaRandom::
+	special NvScriptBuildRandomTeam
+
+BattleFrontier_BattleArenaLobby_EventScript_NvArenaBattle::
+	setvar VAR_0x8004, SPECIAL_BATTLE_NV_CUSTOM
+	special DoSpecialTrainerBattle
+	waitstate
+	special LoadPlayerParty
+
+BattleFrontier_BattleArenaLobby_EventScript_NvArenaEnd::
+	release
+	end
+
+BattleFrontier_BattleArenaLobby_Text_NvWelcome:
+	.string "Benvenuto all'ARENA!\n"
+	.string "Vuoi affrontare una sfida?$"
+
+BattleFrontier_BattleArenaLobby_Text_NvAskSaved:
+	.string "Vuoi usare la tua squadra SALVATA?\n"
+	.string "(No = squadra RANDOM)$"
+
+BattleFrontier_BattleArenaLobby_Text_NvNoSaved:
+	.string "Non hai POKéMON salvati nel roster.\p"
+	.string "Useremo una squadra RANDOM!$"
+#endif
