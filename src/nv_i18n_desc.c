@@ -1259,6 +1259,1999 @@ const u8 *const gNvAbilityDescriptions[ABILITIES_COUNT] = {
     [ABILITY_WHITE_SMOKE] = COMPOUND_STRING("Impedisce cali di abilita."),
     [ABILITY_ZEN_MODE] = COMPOUND_STRING("Si trasforma a meta PS."),
 };
+#elif NV_LANG == LANGUAGE_SPANISH
+const u8 *const gNvMoveDescriptions[MOVES_COUNT] = {
+    [MOVE_POUND] = COMPOUND_STRING("Golpea al rival con las
+patas delanteras o la cola.$"),
+    [MOVE_MEGA_PUNCH] = COMPOUND_STRING("Fuerte puñetazo lanzado
+con increíble potencia.$"),
+    [MOVE_THUNDER_PUNCH] = COMPOUND_STRING("Puñetazo electrificado que
+puede paralizar al rival.$"),
+    [MOVE_RAZOR_WIND] = COMPOUND_STRING("Mov. de 2 turnos que golpea
+al rival en el 2 turno.$"),
+    [MOVE_WING_ATTACK] = COMPOUND_STRING("Golpea al rival con
+las alas bien abiertas.$"),
+    [MOVE_SLAM] = COMPOUND_STRING("Golpea al rival con
+cola larga, enredaderas, etc.$"),
+    [MOVE_MEGA_KICK] = COMPOUND_STRING("Una patada muy poderosa
+con fuerza intensa.$"),
+    [MOVE_HEADBUTT] = COMPOUND_STRING("Ataque en embestida que
+puede hacer vacilar al rival.$"),
+    [MOVE_TACKLE] = COMPOUND_STRING("Embiste al rival con
+todo el cuerpo.$"),
+    [MOVE_THRASH] = COMPOUND_STRING("Ataca 2 o 3 turnos y luego
+confunde al usuario.$"),
+    [MOVE_TWINEEDLE] = COMPOUND_STRING("Pincha al rival dos veces
+con el aguijón. Puede envenenar.$"),
+    [MOVE_GROWL] = COMPOUND_STRING("Gruñe con ternura para
+bajar el Ataque del rival.$"),
+    [MOVE_SONIC_BOOM] = COMPOUND_STRING("Ondas de choque que siempre
+infligen 20 PS de daño.$"),
+    [MOVE_FLAMETHROWER] = COMPOUND_STRING("Potente ataque de fuego
+que puede causar quemadura.$"),
+    [MOVE_SURF] = COMPOUND_STRING("Crea una ola enorme y la
+lanza sobre todo el campo.$"),
+    [MOVE_BUBBLE_BEAM] = COMPOUND_STRING("Dispara burbujas con fuerza
+que pueden bajar Velocidad.$"),
+    [MOVE_DRILL_PECK] = COMPOUND_STRING("Ataque en espiral con
+el pico como taladro.$"),
+    [MOVE_SEISMIC_TOSS] = COMPOUND_STRING("Inflige daño igual
+al nivel del usuario.$"),
+    [MOVE_LEECH_SEED] = COMPOUND_STRING("Planta una semilla al rival
+para robar PS cada turno.$"),
+    [MOVE_POISON_POWDER] = COMPOUND_STRING("Esparce un polvo tóxico
+que puede envenenar al rival.$"),
+    [MOVE_STRING_SHOT] = COMPOUND_STRING("Ata al rival con hilo
+para reducir su Velocidad.$"),
+    [MOVE_THUNDERBOLT] = COMPOUND_STRING("Fuerte ataque eléctrico
+que puede paralizar al rival.$"),
+    [MOVE_EARTHQUAKE] = COMPOUND_STRING("Potente temblor que
+golpea a todos los POKéMON.$"),
+    [MOVE_CONFUSION] = COMPOUND_STRING("Ataque psíquico que puede
+causar confusión.$"),
+    [MOVE_AGILITY] = COMPOUND_STRING("Relaja el cuerpo para
+subir mucho la Velocidad.$"),
+    [MOVE_NIGHT_SHADE] = COMPOUND_STRING("Inflige daño igual
+al nivel del usuario.$"),
+    [MOVE_RECOVER] = COMPOUND_STRING("Recupera hasta la mitad
+de los PS máximos del usuario.$"),
+    [MOVE_CONFUSE_RAY] = COMPOUND_STRING("Un rayo siniestro que
+confunde al rival.$"),
+    [MOVE_LIGHT_SCREEN] = COMPOUND_STRING("Muro de luz que reduce el daño
+especial durante 5 turnos.$"),
+    [MOVE_BIDE] = COMPOUND_STRING("Aguanta 2 turnos para
+devolver el doble del daño.$"),
+    [MOVE_EGG_BOMB] = COMPOUND_STRING("Lanza un huevo con fuerza
+contra el rival.$"),
+    [MOVE_BONE_CLUB] = COMPOUND_STRING("Golpea al rival con un hueso.
+Puede hacerle vacilar.$"),
+    [MOVE_SWIFT] = COMPOUND_STRING("Dispara rayos en estrella
+que nunca fallan.$"),
+    [MOVE_AMNESIA] = COMPOUND_STRING("Olvida algo y sube mucho
+la Def. Esp. del usuario.$"),
+    [MOVE_GLARE] = COMPOUND_STRING("Intimida al rival hasta
+dejarlo paralizado.$"),
+    [MOVE_LEECH_LIFE] = COMPOUND_STRING("Ataque que roba la mitad
+del daño infligido.$"),
+    [MOVE_BUBBLE] = COMPOUND_STRING("Ataque con burbujas.
+Puede bajar la Velocidad.$"),
+    [MOVE_PSYWAVE] = COMPOUND_STRING("Ataca con onda psíquica
+de intensidad variable.$"),
+    [MOVE_EXPLOSION] = COMPOUND_STRING("Inflige daño grave pero
+hace debilitarse al usuario.$"),
+    [MOVE_ROCK_SLIDE] = COMPOUND_STRING("Lanza grandes rocas.
+Puede hacer vacilar al rival.$"),
+    [MOVE_TRI_ATTACK] = COMPOUND_STRING("Dispara tres tipos de rayos.
+Puede quemar/paralizar/helar.$"),
+    [MOVE_STRUGGLE] = COMPOUND_STRING("Solo se usa sin PP.
+También daña un poco al usuario.$"),
+    [MOVE_SPIDER_WEB] = COMPOUND_STRING("Atrapa al rival impidiéndole
+huir o cambiar.$"),
+    [MOVE_SNORE] = COMPOUND_STRING("Solo usable dormido.
+Ruidoso. Puede hacer vacilar.$"),
+    [MOVE_AEROBLAST] = COMPOUND_STRING("Lanza un chorro de vacío.
+Alta tasa de golpes críticos.$"),
+    [MOVE_POWDER_SNOW] = COMPOUND_STRING("Ráfaga de nieve helada.
+Puede causar congelación.$"),
+    [MOVE_FEINT_ATTACK] = COMPOUND_STRING("Se acerca al rival y
+golpea sin fallar.$"),
+    [MOVE_MUD_SLAP] = COMPOUND_STRING("Lanza barro a la cara
+del rival. Baja su Precisión.$"),
+    [MOVE_FORESIGHT] = COMPOUND_STRING("Anula los intentos del rival
+de aumentar su Evasión.$"),
+    [MOVE_DETECT] = COMPOUND_STRING("Esquiva ataques, pero puede
+fallar si se usa seguido.$"),
+    [MOVE_SANDSTORM] = COMPOUND_STRING("Provoca tormenta de arena
+que dura varios turnos.$"),
+    [MOVE_ROLLOUT] = COMPOUND_STRING("Ataque de 5 turnos con
+intensidad creciente.$"),
+    [MOVE_SPARK] = COMPOUND_STRING("Placaje electrificado que
+puede paralizar al rival.$"),
+    [MOVE_ATTRACT] = COMPOUND_STRING("El sexo opuesto tarda
+más en atacar.$"),
+    [MOVE_PRESENT] = COMPOUND_STRING("Regalo en forma de bomba.
+Puede restaurar PS.$"),
+    [MOVE_SACRED_FIRE] = COMPOUND_STRING("Ataque de fuego místico
+que puede causar quemadura.$"),
+    [MOVE_DRAGON_BREATH] = COMPOUND_STRING("Golpea al rival con un soplo.
+Puede paralizar.$"),
+    [MOVE_RAPID_SPIN] = COMPOUND_STRING("El usuario gira, elimina
+efectos y sube Velocidad.$"),
+    [MOVE_VITAL_THROW] = COMPOUND_STRING("El usuario actúa al final
+pero nunca falla.$"),
+    [MOVE_HIDDEN_POWER] = COMPOUND_STRING("El tipo varía
+según el usuario.$"),
+    [MOVE_SUNNY_DAY] = COMPOUND_STRING("Potencia movimientos Fuego
+durante 5 turnos.$"),
+    [MOVE_EXTREME_SPEED] = COMPOUND_STRING("Un ataque extremadamente
+rápido y poderoso.$"),
+    [MOVE_ROCK_SMASH] = COMPOUND_STRING("Rompe rocas y puede
+bajar la Defensa.$"),
+    [MOVE_UPROAR] = COMPOUND_STRING("Alboroto de 2 a 5 turnos
+que impide el sueño.$"),
+    [MOVE_HEAT_WAVE] = COMPOUND_STRING("Exhala aire caliente sobre
+rivales. Puede quemar.$"),
+    [MOVE_WILL_O_WISP] = COMPOUND_STRING("Inflige quemadura al rival
+con fuego intenso.$"),
+    [MOVE_SMELLING_SALTS] = COMPOUND_STRING("Potente vs. paralizado,
+pero también lo cura.$"),
+    [MOVE_TAUNT] = COMPOUND_STRING("Provoca al rival para que
+solo use ataques.$"),
+    [MOVE_WISH] = COMPOUND_STRING("Un deseo que restaura PS.
+Tarda un turno en activarse.$"),
+    [MOVE_MAGIC_COAT] = COMPOUND_STRING("Refleja efectos especiales
+hacia el atacante.$"),
+    [MOVE_YAWN] = COMPOUND_STRING("Hace bostezar al rival,
+que duerme el siguiente turno.$"),
+    [MOVE_SKILL_SWAP] = COMPOUND_STRING("El usuario intercambia
+habilidades con el objetivo.$"),
+    [MOVE_SNATCH] = COMPOUND_STRING("Roba el efecto del próximo
+movimiento del objetivo.$"),
+    [MOVE_CAMOUFLAGE] = COMPOUND_STRING("Cambia el tipo del POKéMON
+según la ubicación.$"),
+    [MOVE_FEATHER_DANCE] = COMPOUND_STRING("Envuelve al rival en plumón
+para bajar mucho su Ataque.$"),
+    [MOVE_ICE_BALL] = COMPOUND_STRING("Ataque de 5 turnos que
+gana potencia en cada golpe.$"),
+    [MOVE_POISON_FANG] = COMPOUND_STRING("Ataque con colmillos afilados.
+Puede envenenar gravemente.$"),
+    [MOVE_METEOR_MASH] = COMPOUND_STRING("Puñetazo como un meteoro.
+Puede subir el Ataque.$"),
+    [MOVE_FAKE_TEARS] = COMPOUND_STRING("Finge llorar para bajar
+mucho la Def. Esp. del rival.$"),
+    [MOVE_ROCK_TOMB] = COMPOUND_STRING("Inmoviliza al rival con rocas
+y reduce su Velocidad.$"),
+    [MOVE_TICKLE] = COMPOUND_STRING("Hace reír al rival bajando
+su Ataque y Defensa.$"),
+    [MOVE_SHADOW_PUNCH] = COMPOUND_STRING("Puñetazo inevitable
+lanzado desde las sombras.$"),
+    [MOVE_SHEER_COLD] = COMPOUND_STRING("Ataque helador que
+derrota al rival si acierta.$"),
+    [MOVE_ICICLE_SPEAR] = COMPOUND_STRING("Lanza de 2 a 5 carámbanos
+al rival en fila.$"),
+    [MOVE_DRAGON_CLAW] = COMPOUND_STRING("Araña al rival con
+garras afiladas.$"),
+    [MOVE_MUD_SHOT] = COMPOUND_STRING("Lanza barro al rival
+y reduce su Velocidad.$"),
+    [MOVE_MAGICAL_LEAF] = COMPOUND_STRING("Ataca con hoja extraña
+que no puede esquivarse.$"),
+    [MOVE_DRAGON_DANCE] = COMPOUND_STRING("Baile místico que sube
+Ataque y Velocidad.$"),
+    [MOVE_DOOM_DESIRE] = COMPOUND_STRING("Convoca luz intensa para
+atacar 2 turnos después.$"),
+    [MOVE_MIRACLE_EYE] = COMPOUND_STRING("Anula Evasión e inmunidades
+del tipo Siniestro.$"),
+    [MOVE_HEALING_WISH] = COMPOUND_STRING("El usuario se debilita para
+curar al receptor.$"),
+    [MOVE_PLUCK] = COMPOUND_STRING("Come la Baya del rival
+y obtiene su efecto.$"),
+    [MOVE_U_TURN] = COMPOUND_STRING("Inflige daño y luego
+cambia al usuario.$"),
+    [MOVE_EMBARGO] = COMPOUND_STRING("Impide al rival usar
+cualquier objeto.$"),
+    [MOVE_HEAL_BLOCK] = COMPOUND_STRING("Impide a rivales recuperar
+PS durante 5 turnos.$"),
+    [MOVE_LUCKY_CHANT] = COMPOUND_STRING("Impide al rival aterrizar
+golpes críticos.$"),
+    [MOVE_GUARD_SWAP] = COMPOUND_STRING("Intercambia cambios de Def.
+y Def. Esp. con el rival.$"),
+    [MOVE_SUCKER_PUNCH] = COMPOUND_STRING("Ataca primero si el rival
+prepara un ataque.$"),
+    [MOVE_MAGNET_RISE] = COMPOUND_STRING("El usuario levita gracias
+al electromagnetismo.$"),
+    [MOVE_ROCK_POLISH] = COMPOUND_STRING("Pule el cuerpo para
+subir mucho la Velocidad.$"),
+    [MOVE_AQUA_TAIL] = COMPOUND_STRING("El usuario agita la cola
+como una ola para atacar.$"),
+    [MOVE_BUG_BUZZ] = COMPOUND_STRING("Onda sonora dañina que
+puede bajar la Def. Esp.$"),
+    [MOVE_DRAIN_PUNCH] = COMPOUND_STRING("Ataque que absorbe
+la mitad del daño infligido.$"),
+    [MOVE_BRAVE_BIRD] = COMPOUND_STRING("Carga a baja altitud que
+también daña al usuario.$"),
+    [MOVE_NASTY_PLOT] = COMPOUND_STRING("Piensa en maldades para
+subir mucho el Atq. Esp.$"),
+    [MOVE_SHADOW_CLAW] = COMPOUND_STRING("Golpea con garra oscura.
+Alta tasa de golpes críticos.$"),
+    [MOVE_SHADOW_SNEAK] = COMPOUND_STRING("Extiende la sombra del
+usuario para atacar primero.$"),
+    [MOVE_MIRROR_SHOT] = COMPOUND_STRING("Emite destello de energía
+para dañar y bajar Precisión.$"),
+    [MOVE_TRICK_ROOM] = COMPOUND_STRING("POKéMON más lentos actúan
+primero durante 5 turnos.$"),
+    [MOVE_LEAF_STORM] = COMPOUND_STRING("Tormenta de hojas.
+Baja mucho el Atq. Esp.$"),
+    [MOVE_GUNK_SHOT] = COMPOUND_STRING("Dispara basura al rival.
+También puede envenenar.$"),
+    [MOVE_CAPTIVATE] = COMPOUND_STRING("El sexo opuesto baja
+mucho su Atq. Esp.$"),
+    [MOVE_JUDGMENT] = COMPOUND_STRING("El tipo varía según la
+Placa que se lleve equipada.$"),
+    [MOVE_AQUA_JET] = COMPOUND_STRING("Golpea primero lanzándose
+al rival a alta velocidad.$"),
+    [MOVE_HEAD_SMASH] = COMPOUND_STRING("Cabezazo arriesgado que
+daña gravemente al usuario.$"),
+    [MOVE_LUNAR_DANCE] = COMPOUND_STRING("El usuario se debilita para
+curar al receptor.$"),
+    [MOVE_SEED_FLARE] = COMPOUND_STRING("Genera onda expansiva
+que baja mucho la Def. Esp.$"),
+    [MOVE_WIDE_GUARD] = COMPOUND_STRING("Evita ataques de área
+durante un turno.$"),
+    [MOVE_PSYSHOCK] = COMPOUND_STRING("Onda psíquica que inflige
+daño físico al objetivo.$"),
+    [MOVE_TELEKINESIS] = COMPOUND_STRING("Hace flotar al rival. Es más
+fácil golpearle 3 turnos.$"),
+    [MOVE_FLAME_BURST] = COMPOUND_STRING("Llama explosiva que daña
+a todos los rivales.$"),
+    [MOVE_SYNCHRONOISE] = COMPOUND_STRING("Onda extraña que solo daña
+{PKMN} del mismo tipo.$"),
+    [MOVE_COIL] = COMPOUND_STRING("Se enrolla subiendo Ataque,
+Defensa y Precisión.$"),
+    [MOVE_SIMPLE_BEAM] = COMPOUND_STRING("Rayo que cambia la
+habilidad del rival a Simple.$"),
+    [MOVE_ECHOED_VOICE] = COMPOUND_STRING("Inflige más daño cada turno
+que se usa.$"),
+    [MOVE_QUICK_GUARD] = COMPOUND_STRING("Evita ataques prioritarios
+durante un turno.$"),
+    [MOVE_HEAL_PULSE] = COMPOUND_STRING("Recupera hasta la mitad
+de los PS máximos del objetivo.$"),
+    [MOVE_CIRCLE_THROW] = COMPOUND_STRING("Aleja al rival forzando
+el cambio o fin de batalla.$"),
+    [MOVE_REFLECT_TYPE] = COMPOUND_STRING("El usuario copia el tipo
+del rival.$"),
+    [MOVE_INFERNO] = COMPOUND_STRING("Seguro de quemar pero
+poco preciso.$"),
+    [MOVE_VOLT_SWITCH] = COMPOUND_STRING("Inflige daño y luego
+cambia al usuario.$"),
+    [MOVE_DRAGON_TAIL] = COMPOUND_STRING("Aleja al rival forzando
+el cambio o fin de batalla.$"),
+    [MOVE_DRILL_RUN] = COMPOUND_STRING("Gira como un taladro.
+Alta tasa de golpes críticos.$"),
+    [MOVE_SACRED_SWORD] = COMPOUND_STRING("Golpea ignorando cambios
+de estadísticas del rival.$"),
+    [MOVE_STEAMROLLER] = COMPOUND_STRING("Aplasta al rival con el cuerpo.
+Puede hacer vacilar.$"),
+    [MOVE_TAIL_SLAP] = COMPOUND_STRING("Golpea al rival con la cola
+de 2 a 5 veces.$"),
+    [MOVE_SEARING_SHOT] = COMPOUND_STRING("Llamas escarlatas queman
+todo alrededor del usuario.$"),
+    [MOVE_GLACIATE] = COMPOUND_STRING("Sopla aire muy frío sobre
+rivales. Baja su Velocidad.$"),
+    [MOVE_FREEZE_SHOCK] = COMPOUND_STRING("Potente movimiento de 2
+turnos. Puede paralizar.$"),
+    [MOVE_V_CREATE] = COMPOUND_STRING("Muy potente pero baja
+Def., Def. Esp. y Velocidad.$"),
+    [MOVE_MAT_BLOCK] = COMPOUND_STRING("Esquiva ataques dañinos.
+Solo funciona en el 1er turno.$"),
+    [MOVE_FELL_STINGER] = COMPOUND_STRING("Si noquea al rival,
+sube el Ataque del usuario.$"),
+    [MOVE_ION_DELUGE] = COMPOUND_STRING("Electrifica movimientos
+Normal con átomos cargados.$"),
+    [MOVE_FREEZE_DRY] = COMPOUND_STRING("Supereficaz contra Agua.
+Puede causar congelación.$"),
+    [MOVE_DRAINING_KISS] = COMPOUND_STRING("Absorbe más de la mitad
+del daño infligido.$"),
+    [MOVE_MISTY_TERRAIN] = COMPOUND_STRING("Cubre el suelo de niebla
+5 turnos. Bloquea estados.$"),
+    [MOVE_MOONBLAST] = COMPOUND_STRING("Ataca con el poder lunar.
+Puede bajar el Atq. Esp.$"),
+    [MOVE_PLAY_NICE] = COMPOUND_STRING("Se hace amigo del rival
+bajando su Ataque sin fallar.$"),
+    [MOVE_HYPERSPACE_HOLE] = COMPOUND_STRING("Usa un agujero warp
+para atacar. No se esquiva.$"),
+    [MOVE_AROMATIC_MIST] = COMPOUND_STRING("Sube la Def. Esp. de un
+POKéMON aliado.$"),
+    [MOVE_GEOMANCY] = COMPOUND_STRING("Sube Atq. Esp., Def. Esp. y
+Velocidad en el 2 turno.$"),
+    [MOVE_DAZZLING_GLEAM] = COMPOUND_STRING("Daña a rivales emitiendo
+un destello brillante.$"),
+    [MOVE_NUZZLE] = COMPOUND_STRING("Frota mejillas contra
+el rival, paralizándolo.$"),
+    [MOVE_OBLIVION_WING] = COMPOUND_STRING("Absorbe más de la mitad
+del daño infligido.$"),
+    [MOVE_LIGHT_OF_RUIN] = COMPOUND_STRING("Dispara gran rayo de luz
+que también daña al usuario.$"),
+    [MOVE_HYPERSPACE_FURY] = COMPOUND_STRING("Usa un agujero warp
+para atacar. No se esquiva.$"),
+    [MOVE_SPIRIT_SHACKLE] = COMPOUND_STRING("Tras ser golpeados, los
+rivales no pueden escapar.$"),
+    [MOVE_FLORAL_HEALING] = COMPOUND_STRING("Restaura PS de un aliado.
+Cura más en la hierba.$"),
+    [MOVE_LEAFAGE] = COMPOUND_STRING("Ataca con una ráfaga
+de pequeñas hojas.$"),
+    [MOVE_GEAR_UP] = COMPOUND_STRING("Potencia ataques de los
+que tienen Más o Menos.$"),
+    [MOVE_PSYCHIC_TERRAIN] = COMPOUND_STRING("Suelo psíquico 5 turnos.
+Bloquea la prioridad.$"),
+    [MOVE_BURN_UP] = COMPOUND_STRING("Quema al usuario quitándole
+el tipo Fuego.$"),
+    [MOVE_REVELATION_DANCE] = COMPOUND_STRING("Baile místico que coincide
+con el primer tipo.$"),
+    [MOVE_BEAK_BLAST] = COMPOUND_STRING("Calienta el pico y ataca.
+Quema al contacto.$"),
+    [MOVE_AURORA_VEIL] = COMPOUND_STRING("Debilita ataques, pero
+solo usable con nieve.$"),
+    [MOVE_STOMPING_TANTRUM] = COMPOUND_STRING("Patalea con furia.
+Más fuerte tras un fallo.$"),
+    [MOVE_PRISMATIC_LASER] = COMPOUND_STRING("Láser de alta potencia que
+obliga a recargar después.$"),
+    [MOVE_TEARFUL_LOOK] = COMPOUND_STRING("El usuario llora bajando
+Ataque y Atq. Esp. del rival.$"),
+    [MOVE_MIND_BLOWN] = COMPOUND_STRING("Hace explotar su cabeza
+dañando a todo a su alrededor.$"),
+    [MOVE_SPLISHY_SPLASH] = COMPOUND_STRING("Gran ola electrificada que
+puede paralizar a rivales.$"),
+    [MOVE_BUZZY_BUZZ] = COMPOUND_STRING("Dispara choque eléctrico
+que siempre paraliza.$"),
+    [MOVE_SAPPY_SEED] = COMPOUND_STRING("Tallo gigante dispersa
+semillas que drenan PS.$"),
+    [MOVE_DOUBLE_IRON_BASH] = COMPOUND_STRING("El usuario gira y golpea con
+brazos. Puede hacer vacilar.$"),
+    [MOVE_STUFF_CHEEKS] = COMPOUND_STRING("Consume su Baya y sube
+mucho la Defensa.$"),
+    [MOVE_DRAGON_DARTS] = COMPOUND_STRING("El usuario ataca dos veces.
+Cada objetivo recibe un golpe.$"),
+    [MOVE_FISHIOUS_REND] = COMPOUND_STRING("Doble potencia si el usuario
+ataca antes que el objetivo.$"),
+    [MOVE_DECORATE] = COMPOUND_STRING("Sube mucho Ataque y
+Atq. Esp. del objetivo.$"),
+    [MOVE_BEHEMOTH_BLADE] = COMPOUND_STRING("Golpea como espada. Doble
+daño a POKéMON Dynamax.$"),
+    [MOVE_BRANCH_POKE] = COMPOUND_STRING("El usuario pincha al objetivo
+con una rama afilada.$"),
+    [MOVE_SPIRIT_BREAK] = COMPOUND_STRING("Ataca con fuerza demoledora.
+Baja el Atq. Esp.$"),
+    [MOVE_FALSE_SURRENDER] = COMPOUND_STRING("Se inclina para apuñalar
+con el pelo. Nunca falla.$"),
+    [MOVE_EXPANDING_FORCE] = COMPOUND_STRING("Sube potencia y golpea a
+todos en Terreno Psíquico.$"),
+    [MOVE_SHELL_SIDE_ARM] = COMPOUND_STRING("Inflige daño físico o
+especial. Puede envenenar.$"),
+    [MOVE_TERRAIN_PULSE] = COMPOUND_STRING("Tipo y potencia cambian
+según el terreno activo.$"),
+    [MOVE_POLTERGEIST] = COMPOUND_STRING("Controla el objeto del rival
+para atacar. Falla sin objeto.$"),
+    [MOVE_TRIPLE_AXEL] = COMPOUND_STRING("Ataque de 3 patadas que
+gana potencia en cada golpe.$"),
+    [MOVE_WICKED_BLOW] = COMPOUND_STRING("Dominando estilo Siniestro,
+siempre golpe crítico.$"),
+    [MOVE_FREEZING_GLARE] = COMPOUND_STRING("Dispara poder psíquico con
+los ojos. Puede congelar.$"),
+    [MOVE_ASTRAL_BARRAGE] = COMPOUND_STRING("Envía multitud de pequeños
+fantasmas contra rivales.$"),
+    [MOVE_POWER_SHIFT] = COMPOUND_STRING("El usuario intercambia
+Ataque y Defensa.$"),
+    [MOVE_RAGING_FURY] = COMPOUND_STRING("Ataca 2 o 3 turnos y luego
+confunde al usuario.$"),
+    [MOVE_VICTORY_DANCE] = COMPOUND_STRING("Baila subiendo Ataque,
+Defensa y Velocidad.$"),
+    [MOVE_BITTER_MALICE] = COMPOUND_STRING("Rencor escalofriante.
+Baja el Ataque del rival.$"),
+    [MOVE_CEASELESS_EDGE] = COMPOUND_STRING("Golpea y esparce Púas
+alrededor de los rivales.$"),
+    [MOVE_LUNAR_BLESSING] = COMPOUND_STRING("El usuario se cura y cura
+los estados de su aliado.$"),
+    [MOVE_AXE_KICK] = COMPOUND_STRING("Puede fallar y dañar al que
+patea. Puede causar confusión.$"),
+    [MOVE_JET_PUNCH] = COMPOUND_STRING("Puñetazo a velocidad
+cegadora. Ataca primero.$"),
+    [MOVE_ICE_SPINNER] = COMPOUND_STRING("Pies de hielo golpean al rival
+y destruyen el terreno.$"),
+    [MOVE_TRIPLE_DIVE] = COMPOUND_STRING("Golpea al objetivo con
+salpicaduras de agua 3 veces.$"),
+    [MOVE_KOWTOW_CLEAVE] = COMPOUND_STRING("Hace una reverencia y
+corta al rival. Nunca falla.$"),
+    [MOVE_RAGING_BULL] = COMPOUND_STRING("Placaje que rompe barreras.
+Tipo según la forma.$"),
+    [MOVE_ELECTRO_DRIFT] = COMPOUND_STRING("Electricidad futurista.
+Más fuerte si es supereficaz.$"),
+    [MOVE_SNOWSCAPE] = COMPOUND_STRING("Invoca tormenta de granizo
+que golpea cada turno.$"),
+    [MOVE_HYPER_DRILL] = COMPOUND_STRING("Parte giratoria afilada
+evade el Proteger del rival.$"),
+    [MOVE_BITTER_BLADE] = COMPOUND_STRING("Ataque que absorbe
+la mitad del daño infligido.$"),
+    [MOVE_AQUA_CUTTER] = COMPOUND_STRING("Agua a presión con alta
+tasa de golpes críticos.$"),
+    [MOVE_MATCHA_GOTCHA] = COMPOUND_STRING("Absorbe la mitad del daño
+infligido. Puede quemar.$"),
+    [MOVE_TERA_STARSTORM] = COMPOUND_STRING("En forma Estelar de
+Terapagos, golpea a todos.$"),
+    [MOVE_MIGHTY_CLEAVE] = COMPOUND_STRING("Golpea rivales que usan
+movimientos de Proteger.$"),
+    [MOVE_ALLURING_VOICE] = COMPOUND_STRING("Confunde al rival si sus
+estats subieron este turno.$"),
+    [MOVE_UPPER_HAND] = COMPOUND_STRING("Hace vacilar al objetivo
+si prepara mov. prioritario.$"),
+    [MOVE_SUPERSONIC_SKYSTRIKE] = COMPOUND_STRING("Sube y se lanza al objetivo.
+La potencia varía.$"),
+    [MOVE_SAVAGE_SPIN_OUT] = COMPOUND_STRING("Escupe seda para atar
+al rival. Potencia variable.$"),
+    [MOVE_HYDRO_VORTEX] = COMPOUND_STRING("Gran remolino engulle
+al objetivo. Potencia variable.$"),
+    [MOVE_SUBZERO_SLAMMER] = COMPOUND_STRING("Congela al objetivo con
+temperatura extrema. Varía.$"),
+    [MOVE_CATASTROPIKA] = COMPOUND_STRING("Pikachu usa electricidad
+al máximo y embiste.$"),
+    [MOVE_PULVERIZING_PANCAKE] = COMPOUND_STRING("Snorlax se mueve con energía
+y ataca con toda su fuerza.$"),
+    [MOVE_OCEANIC_OPERETTA] = COMPOUND_STRING("Primarina invoca gran
+cantidad de agua sobre el rival.$"),
+    [MOVE_GUARDIAN_OF_ALOLA] = COMPOUND_STRING("El espíritu de la tierra
+reduce drásticamente los PS.$"),
+    [MOVE_SOUL_STEALING_7_STAR_STRIKE] = COMPOUND_STRING("Marshadow golpea con puños
+y patadas con toda su fuerza.$"),
+    [MOVE_MAX_LIGHTNING] = COMPOUND_STRING("Ataque Dynamax eléctrico.
+Convierte el terreno eléctrico.$"),
+    [MOVE_MAX_HAILSTORM] = COMPOUND_STRING("Ataque Dynamax de hielo.
+Invoca granizo 5 turnos.$"),
+    [MOVE_MAX_STARFALL] = COMPOUND_STRING("Ataque Dynamax Hada.
+Convierte el terreno brumoso.$"),
+    [MOVE_MAX_QUAKE] = COMPOUND_STRING("Ataque Dynamax Tierra.
+Sube Def. Esp. de aliados.$"),
+    [MOVE_G_MAX_VINE_LASH] = COMPOUND_STRING("Ataque G-máx de Venusaur.
+Daña durante 4 turnos.$"),
+    [MOVE_G_MAX_VOLT_CRASH] = COMPOUND_STRING("Ataque G-máx de Pikachu.
+Paraliza a los contrincantes.$"),
+    [MOVE_G_MAX_FOAM_BURST] = COMPOUND_STRING("Ataque G-máx de Kingler.
+Baja mucho la Velocidad rival.$"),
+    [MOVE_G_MAX_MALODOR] = COMPOUND_STRING("Ataque G-máx de Garbodor.
+Envenena a los contrincantes.$"),
+    [MOVE_G_MAX_HYDROSNIPE] = COMPOUND_STRING("Ataque G-máx de Inteleon.
+Ignora habilidades del objetivo.$"),
+    [MOVE_G_MAX_VOLCALITH] = COMPOUND_STRING("Ataque G-máx de Coalossal.
+Daña durante 4 turnos.$"),
+    [MOVE_G_MAX_STUN_SHOCK] = COMPOUND_STRING("Ataque G-máx de Toxtricity.
+Envenena o paraliza a rivales.$"),
+    [MOVE_G_MAX_FINALE] = COMPOUND_STRING("Ataque G-máx de Alcremie.
+Cura los PS de los aliados.$"),
+    [MOVE_G_MAX_RAPID_FLOW] = COMPOUND_STRING("Ataque G-máx de Urshifu.
+Ignora la Guardia Máxima.$"),
+    [MOVE_KARATE_CHOP] = COMPOUND_STRING("Ataque de karate con
+alto índice de golpe crítico.$"),
+    [MOVE_PAY_DAY] = COMPOUND_STRING("Lanza monedas al rival.
+Se recupera dinero al final.$"),
+    [MOVE_SCRATCH] = COMPOUND_STRING("Araña al rival con
+afiladas garras.$"),
+    [MOVE_SWORDS_DANCE] = COMPOUND_STRING("Danza que sube
+bastante el Ataque.$"),
+    [MOVE_WHIRLWIND] = COMPOUND_STRING("Expulsa al rival o termina
+el combate salvaje.$"),
+    [MOVE_VINE_WHIP] = COMPOUND_STRING("Golpea al rival con
+delgados látigos de vid.$"),
+    [MOVE_JUMP_KICK] = COMPOUND_STRING("Patada de salto fuerte.
+Falla: daña al lanzador.$"),
+    [MOVE_HORN_ATTACK] = COMPOUND_STRING("Clava sus afilados cuernos
+al rival.$"),
+    [MOVE_BODY_SLAM] = COMPOUND_STRING("Placaje total que puede
+causar parálisis.$"),
+    [MOVE_DOUBLE_EDGE] = COMPOUND_STRING("Placaje arriesgado que
+también daña al usuario.$"),
+    [MOVE_PIN_MISSILE] = COMPOUND_STRING("Dispara pinchos afilados
+de 2 a 5 veces.$"),
+    [MOVE_ROAR] = COMPOUND_STRING("Obliga al rival a cambiar
+o acaba el combate salvaje.$"),
+    [MOVE_DISABLE] = COMPOUND_STRING("Impide al rival usar el último
+mov. usado durante varios turnos.$"),
+    [MOVE_MIST] = COMPOUND_STRING("Crea una niebla que evita
+la reducción de stats.$"),
+    [MOVE_ICE_BEAM] = COMPOUND_STRING("Dispara un rayo de hielo.
+Puede causar congelación.$"),
+    [MOVE_AURORA_BEAM] = COMPOUND_STRING("Dispara un rayo de colores
+que puede bajar el Ataque.$"),
+    [MOVE_SUBMISSION] = COMPOUND_STRING("Placaje imprudente que
+también daña al usuario.$"),
+    [MOVE_STRENGTH] = COMPOUND_STRING("Acumula gran fuerza y
+lanza al rival.$"),
+    [MOVE_GROWTH] = COMPOUND_STRING("Crece el cuerpo, subiendo
+Ataque y Atq. Esp.$"),
+    [MOVE_STUN_SPORE] = COMPOUND_STRING("Esparce esporas que pueden
+paralizar al rival.$"),
+    [MOVE_DRAGON_RAGE] = COMPOUND_STRING("Lanza ondas de choque que
+infligen siempre 40 PS de daño.$"),
+    [MOVE_THUNDER_WAVE] = COMPOUND_STRING("Descarga eléctrica débil
+que paraliza al rival.$"),
+    [MOVE_FISSURE] = COMPOUND_STRING("Mueve de un golpe. Hunde
+al rival en una fisura.$"),
+    [MOVE_PSYCHIC] = COMPOUND_STRING("Ataque psíquico potente
+que puede bajar la Def. Esp.$"),
+    [MOVE_QUICK_ATTACK] = COMPOUND_STRING("Ataque rapidísimo que
+siempre golpea primero.$"),
+    [MOVE_MIMIC] = COMPOUND_STRING("Copia el último mov. usado
+por el rival en combate.$"),
+    [MOVE_HARDEN] = COMPOUND_STRING("Tensa los músculos del
+cuerpo para subir la Defensa.$"),
+    [MOVE_WITHDRAW] = COMPOUND_STRING("Se retira al caparazón
+duro para subir la Defensa.$"),
+    [MOVE_HAZE] = COMPOUND_STRING("Crea una neblina negra que
+elimina todos los cambios.$"),
+    [MOVE_METRONOME] = COMPOUND_STRING("Agita el dedo para usar
+cualquier mov. al azar.$"),
+    [MOVE_LICK] = COMPOUND_STRING("Lame con lengua larga para
+dañar. Puede paralizar.$"),
+    [MOVE_FIRE_BLAST] = COMPOUND_STRING("Incinera todo lo que toca.
+Puede causar quemaduras.$"),
+    [MOVE_SKULL_BASH] = COMPOUND_STRING("Esconde la cabeza y golpea
+en el siguiente turno.$"),
+    [MOVE_KINESIS] = COMPOUND_STRING("Distrae al rival.
+Puede bajar la Precisión.$"),
+    [MOVE_DREAM_EATER] = COMPOUND_STRING("Absorbe la mitad del daño
+causado al rival dormido.$"),
+    [MOVE_LOVELY_KISS] = COMPOUND_STRING("Pide un beso con cara
+terroriz. Induce el sueño.$"),
+    [MOVE_DIZZY_PUNCH] = COMPOUND_STRING("Puñetazo rítmico que puede
+confundir al objetivo.$"),
+    [MOVE_SPLASH] = COMPOUND_STRING("Solo es un chapuzón...
+No tiene ningún efecto.$"),
+    [MOVE_FURY_SWIPES] = COMPOUND_STRING("Araña al rival con garras
+de 2 a 5 veces.$"),
+    [MOVE_HYPER_FANG] = COMPOUND_STRING("Ataca con afilados colmillos.
+Puede causar retroceso.$"),
+    [MOVE_SUPER_FANG] = COMPOUND_STRING("Ataca con colmillos y reduce
+los PS del rival a la mitad.$"),
+    [MOVE_SKETCH] = COMPOUND_STRING("Copia el último mov. del
+rival de forma permanente.$"),
+    [MOVE_MIND_READER] = COMPOUND_STRING("Detecta la acción rival
+para asegurar el próximo golpe.$"),
+    [MOVE_CURSE] = COMPOUND_STRING("Mov. que funciona distinto
+para los FANTASMAS.$"),
+    [MOVE_COTTON_SPORE] = COMPOUND_STRING("Las esporas se adhieren al
+rival, bajando mucho la Velocidad.$"),
+    [MOVE_PROTECT] = COMPOUND_STRING("Esquiva ataques, pero puede
+fallar si se usa seguido.$"),
+    [MOVE_SWEET_KISS] = COMPOUND_STRING("Pide un beso con cara mona.
+Puede causar confusión.$"),
+    [MOVE_OCTAZOOKA] = COMPOUND_STRING("Dispara tinta para dañar
+y bajar la Precisión.$"),
+    [MOVE_DESTINY_BOND] = COMPOUND_STRING("Si el usuario se debilita,
+el rival también se debilita.$"),
+    [MOVE_BONE_RUSH] = COMPOUND_STRING("Golpea al rival con un hueso
+de 2 a 5 veces.$"),
+    [MOVE_GIGA_DRAIN] = COMPOUND_STRING("Ataque que roba la mitad
+del daño infligido.$"),
+    [MOVE_FALSE_SWIPE] = COMPOUND_STRING("Ataque que deja al rival
+con al menos 1 PS.$"),
+    [MOVE_FURY_CUTTER] = COMPOUND_STRING("Ataque que se intensifica
+en cada golpe consecutivo.$"),
+    [MOVE_SLEEP_TALK] = COMPOUND_STRING("Usa un movimiento disponible
+al azar mientras duerme.$"),
+    [MOVE_FRUSTRATION] = COMPOUND_STRING("Más fuerte si el Entrenador
+no le cae bien.$"),
+    [MOVE_MAGNITUDE] = COMPOUND_STRING("Ataque sísmico de
+intensidad aleatoria.$"),
+    [MOVE_BATON_PASS] = COMPOUND_STRING("Cambia al usuario mientras
+mantiene los efectos activos.$"),
+    [MOVE_SWEET_SCENT] = COMPOUND_STRING("Atrae a los rivales y baja
+mucho su Evasión.$"),
+    [MOVE_MORNING_SUN] = COMPOUND_STRING("Restaura PS. La cantidad
+varía según el clima.$"),
+    [MOVE_CROSS_CHOP] = COMPOUND_STRING("Doble ataque de karate.
+Alto índice de golpe crítico.$"),
+    [MOVE_CRUNCH] = COMPOUND_STRING("Muerde con colmillos afilados.
+Puede bajar la Defensa.$"),
+    [MOVE_ANCIENT_POWER] = COMPOUND_STRING("Ataque que puede subir
+todos los stats.$"),
+    [MOVE_WHIRLPOOL] = COMPOUND_STRING("Atrapa y daña al rival en
+un remolino durante turnos.$"),
+    [MOVE_STOCKPILE] = COMPOUND_STRING("Acumula energía hasta
+3 turnos.$"),
+    [MOVE_HAIL] = COMPOUND_STRING("Convoca una tormenta de nieve
+que dura cinco turnos.$"),
+    [MOVE_MEMENTO] = COMPOUND_STRING("El usuario se debilita y baja
+mucho Ataque y Atq. Esp. rival.$"),
+    [MOVE_FOLLOW_ME] = COMPOUND_STRING("Atrae la atención para que
+los rivales solo ataquen al usuario.$"),
+    [MOVE_HELPING_HAND] = COMPOUND_STRING("Aumenta la potencia de los
+mov. del aliado receptor.$"),
+    [MOVE_ASSIST] = COMPOUND_STRING("Ataca al azar con uno de
+los movimientos del compañero.$"),
+    [MOVE_RECYCLE] = COMPOUND_STRING("Recicla un objeto usado para
+usarlo una vez más.$"),
+    [MOVE_KNOCK_OFF] = COMPOUND_STRING("Derriba el objeto del rival
+impidiendo su uso.$"),
+    [MOVE_IMPRISON] = COMPOUND_STRING("Evita que los rivales usen
+los movimientos del usuario.$"),
+    [MOVE_SECRET_POWER] = COMPOUND_STRING("Ataque con efectos que varían
+según la ubicación.$"),
+    [MOVE_TAIL_GLOW] = COMPOUND_STRING("Emite luz que sube mucho
+el Atq. Esp.$"),
+    [MOVE_TEETER_DANCE] = COMPOUND_STRING("Confunde a todos los
+POKéMON en escena.$"),
+    [MOVE_NEEDLE_ARM] = COMPOUND_STRING("Ataca con brazos espinosos.
+Puede causar retroceso.$"),
+    [MOVE_CRUSH_CLAW] = COMPOUND_STRING("Desgarra al rival con garras.
+Puede bajar la Defensa.$"),
+    [MOVE_ASTONISH] = COMPOUND_STRING("Ataque que puede sorprender
+al rival y hacerlo retroceder.$"),
+    [MOVE_AIR_CUTTER] = COMPOUND_STRING("Corta con viento afilado.
+Alto índice de golpe crítico.$"),
+    [MOVE_SILVER_WIND] = COMPOUND_STRING("Ataque de polvo que puede
+subir las habilidades.$"),
+    [MOVE_COSMIC_POWER] = COMPOUND_STRING("Sube Defensa y Def. Esp.
+con poder místico.$"),
+    [MOVE_EXTRASENSORY] = COMPOUND_STRING("Ataca con poder especial.
+Puede causar retroceso.$"),
+    [MOVE_MUDDY_WATER] = COMPOUND_STRING("Ataca con agua turbia.
+Puede bajar la Precisión.$"),
+    [MOVE_IRON_DEFENSE] = COMPOUND_STRING("Endurece la superficie
+subiendo bastante la Defensa.$"),
+    [MOVE_FRENZY_PLANT] = COMPOUND_STRING("Muy potente pero deja al
+usuario inmóvil el siguiente turno.$"),
+    [MOVE_POISON_TAIL] = COMPOUND_STRING("Alto índice de golpe crítico.
+Puede envenenar.$"),
+    [MOVE_WATER_SPORT] = COMPOUND_STRING("El usuario se empapa para
+debilitar los mov. de tipo Fuego.$"),
+    [MOVE_ROCK_BLAST] = COMPOUND_STRING("Lanza rocas al rival
+de 2 a 5 veces seguidas.$"),
+    [MOVE_PSYCHO_BOOST] = COMPOUND_STRING("Ataque a plena potencia que
+baja bastante el Atq. Esp.$"),
+    [MOVE_WAKE_UP_SLAP] = COMPOUND_STRING("Muy potente contra rivales
+dormidos, pero los despierta.$"),
+    [MOVE_BRINE] = COMPOUND_STRING("Inflige el doble de daño a
+rivales con la mitad de PS.$"),
+    [MOVE_TAILWIND] = COMPOUND_STRING("Levanta brisa que duplica
+la Velocidad aliada 4 turnos.$"),
+    [MOVE_CLOSE_COMBAT] = COMPOUND_STRING("Ataque fuerte que baja
+los stats defensivos.$"),
+    [MOVE_FLING] = COMPOUND_STRING("La efectividad varía según
+el objeto sostenido.$"),
+    [MOVE_WRING_OUT] = COMPOUND_STRING("Cuantos más PS tenga el rival,
+más daño inflige.$"),
+    [MOVE_ME_FIRST] = COMPOUND_STRING("Ejecuta el ataque rival
+con mayor potencia.$"),
+    [MOVE_PUNISHMENT] = COMPOUND_STRING("Inflige más daño cuanto
+más se haya potenciado el rival.$"),
+    [MOVE_TOXIC_SPIKES] = COMPOUND_STRING("Coloca pinchos que envenenan
+al rival que entra.$"),
+    [MOVE_FLARE_BLITZ] = COMPOUND_STRING("Carga que puede quemar al
+rival. También daña al usuario.$"),
+    [MOVE_POISON_JAB] = COMPOUND_STRING("Ataque de puñalada que
+puede envenenar al rival.$"),
+    [MOVE_SEED_BOMB] = COMPOUND_STRING("Descarga una lluvia de
+semillas duras al rival.$"),
+    [MOVE_DRAGON_PULSE] = COMPOUND_STRING("Genera una onda expansiva
+para dañar al rival.$"),
+    [MOVE_VACUUM_WAVE] = COMPOUND_STRING("Hace girar los puños y envía
+una onda que golpea primero.$"),
+    [MOVE_EARTH_POWER] = COMPOUND_STRING("Hace erupcionar el suelo.
+Puede bajar la Def. Esp.$"),
+    [MOVE_BULLET_PUNCH] = COMPOUND_STRING("Puñetazo veloz como una bala.
+Siempre golpea primero.$"),
+    [MOVE_THUNDER_FANG] = COMPOUND_STRING("Puede causar retroceso o
+dejar al rival paralizado.$"),
+    [MOVE_MUD_BOMB] = COMPOUND_STRING("Lanza barro al rival para
+dañar y bajar la Precisión.$"),
+    [MOVE_FLASH_CANNON] = COMPOUND_STRING("Suelta un destello de luz
+que puede bajar la Def. Esp.$"),
+    [MOVE_DRACO_METEOR] = COMPOUND_STRING("Lanza cometas al rival.
+Baja bastante el Atq. Esp.$"),
+    [MOVE_POWER_WHIP] = COMPOUND_STRING("Azota violentamente al rival
+con vides o tentáculos.$"),
+    [MOVE_IRON_HEAD] = COMPOUND_STRING("Golpea al rival con la cabeza
+dura. Puede causar retroceso.$"),
+    [MOVE_STEALTH_ROCK] = COMPOUND_STRING("Coloca piedras flotantes que
+dañan al rival que entra.$"),
+    [MOVE_BUG_BITE] = COMPOUND_STRING("Come la Baya del rival
+obteniendo su efecto.$"),
+    [MOVE_ATTACK_ORDER] = COMPOUND_STRING("Subordinados golpean al rival.
+Alto índice de golpe crítico.$"),
+    [MOVE_DOUBLE_HIT] = COMPOUND_STRING("Golpea al rival con la cola
+u otro. Golpea dos veces.$"),
+    [MOVE_CRUSH_GRIP] = COMPOUND_STRING("Cuantos más PS tenga el rival,
+más daño inflige.$"),
+    [MOVE_OMINOUS_WIND] = COMPOUND_STRING("Ataque repulsivo que puede
+subir todos los stats.$"),
+    [MOVE_GUARD_SPLIT] = COMPOUND_STRING("Promedia los cambios de Def.
+y Def. Esp. con el rival.$"),
+    [MOVE_VENOSHOCK] = COMPOUND_STRING("Inflige el doble de daño si
+el rival está envenenado.$"),
+    [MOVE_MAGIC_ROOM] = COMPOUND_STRING("Los objetos pierden su efecto
+durante 5 turnos.$"),
+    [MOVE_SLUDGE_WAVE] = COMPOUND_STRING("Arrasa a todos con una ola de
+lodo. Puede envenenar.$"),
+    [MOVE_ELECTRO_BALL] = COMPOUND_STRING("Lanza un orbe que daña más
+a los rivales más lentos.$"),
+    [MOVE_LOW_SWEEP] = COMPOUND_STRING("Ataca las piernas del rival
+bajando su Velocidad.$"),
+    [MOVE_ENTRAINMENT] = COMPOUND_STRING("Hace que el rival imite al
+usuario, obteniendo su Habilidad.$"),
+    [MOVE_CHIP_AWAY] = COMPOUND_STRING("Golpea ignorando los cambios
+de stat del rival.$"),
+    [MOVE_ALLY_SWITCH] = COMPOUND_STRING("El usuario cambia de lugar
+con su compañero.$"),
+    [MOVE_HEX] = COMPOUND_STRING("Inflige el doble de daño si
+el rival tiene prob. de estado.$"),
+    [MOVE_INCINERATE] = COMPOUND_STRING("Quema Bayas y Gemas
+impidiendo su uso.$"),
+    [MOVE_RETALIATE] = COMPOUND_STRING("Ataque que inflige más daño
+si un aliado se debilitó.$"),
+    [MOVE_WATER_PLEDGE] = COMPOUND_STRING("Ataca con columna de agua.
+Puede crear un arcoíris.$"),
+    [MOVE_STRUGGLE_BUG] = COMPOUND_STRING("Resistiendo, el usuario ataca
+al rival. Baja el Atq. Esp.$"),
+    [MOVE_WORK_UP] = COMPOUND_STRING("El usuario se excita.
+Sube Ataque y Atq. Esp.$"),
+    [MOVE_DUAL_CHOP] = COMPOUND_STRING("Ataca con golpes brutales
+que impactan dos veces.$"),
+    [MOVE_RAZOR_SHELL] = COMPOUND_STRING("Desgarra al rival con conchas.
+Puede bajar la Defensa.$"),
+    [MOVE_COTTON_GUARD] = COMPOUND_STRING("Envuelve su cuerpo en algodón.
+Sube bastante la Defensa.$"),
+    [MOVE_HURRICANE] = COMPOUND_STRING("Atrapa al rival en viento
+feroz. Puede confundir.$"),
+    [MOVE_TECHNO_BLAST] = COMPOUND_STRING("El tipo varía según el
+Drive que sostenga.$"),
+    [MOVE_BOLT_STRIKE] = COMPOUND_STRING("Golpea con gran descarga
+eléctrica. Puede paralizar.$"),
+    [MOVE_ICE_BURN] = COMPOUND_STRING("Mov. potente de 2 turnos que
+puede causar quemaduras.$"),
+    [MOVE_FUSION_FLARE] = COMPOUND_STRING("Convoca una bola de fuego.
+Funciona bien con un rayo.$"),
+    [MOVE_BELCH] = COMPOUND_STRING("Lanza un eructo ruidoso.
+Debe comer una Baya para usarlo.$"),
+    [MOVE_PHANTOM_FORCE] = COMPOUND_STRING("Desaparece el primer turno
+y golpea el siguiente.$"),
+    [MOVE_PARABOLIC_CHARGE] = COMPOUND_STRING("Daña a POKéMON adyacentes
+y recupera la mitad del daño.$"),
+    [MOVE_DISARMING_VOICE] = COMPOUND_STRING("Emite un grito encantador
+que no puede esquivarse.$"),
+    [MOVE_CRAFTY_SHIELD] = COMPOUND_STRING("Esquiva movimientos de estado
+durante un turno.$"),
+    [MOVE_ELECTRIFY] = COMPOUND_STRING("Electrifica al rival para que
+su próximo mov. sea Eléctrico.$"),
+    [MOVE_BOOMBURST] = COMPOUND_STRING("Ataca a todos con una
+onda de sonido destructiva.$"),
+    [MOVE_CONFIDE] = COMPOUND_STRING("Comparte un secreto con el
+rival, bajando su Atq. Esp.$"),
+    [MOVE_WATER_SHURIKEN] = COMPOUND_STRING("Lanza de 2 a 5 estrellas que
+siempre golpean primero.$"),
+    [MOVE_EERIE_IMPULSE] = COMPOUND_STRING("Expone al rival a un pulso
+que baja bastante el Atq. Esp.$"),
+    [MOVE_MAGNETIC_FLUX] = COMPOUND_STRING("Sube la defensa de quienes
+tienen Más o Menos.$"),
+    [MOVE_CELEBRATE] = COMPOUND_STRING("¡Te felicita en
+tu día especial!$"),
+    [MOVE_HOLD_BACK] = COMPOUND_STRING("Ataque que deja al rival
+con al menos 1 PS.$"),
+    [MOVE_THOUSAND_ARROWS] = COMPOUND_STRING("Puede golpear rivales Voladores
+y los baja al suelo.$"),
+    [MOVE_ORIGIN_PULSE] = COMPOUND_STRING("Rayos de luz azul brillante
+golpean a ambos rivales.$"),
+    [MOVE_SHORE_UP] = COMPOUND_STRING("Restaura los PS del usuario.
+Más PS en tormenta de arena.$"),
+    [MOVE_DARKEST_LARIAT] = COMPOUND_STRING("Balancea los brazos para
+golpear. Ignora cambios de stat.$"),
+    [MOVE_HIGH_HORSEPOWER] = COMPOUND_STRING("Se lanza con toda su fuerza
+contra el rival.$"),
+    [MOVE_SPOTLIGHT] = COMPOUND_STRING("Hace que el rival ataque al
+POKéMON iluminado.$"),
+    [MOVE_THROAT_CHOP] = COMPOUND_STRING("Golpe en la garganta que
+inhabilita mov. de sonido 2 turnos.$"),
+    [MOVE_LUNGE] = COMPOUND_STRING("Se abalanza al rival para
+bajar su Ataque.$"),
+    [MOVE_SPEED_SWAP] = COMPOUND_STRING("Intercambia la Velocidad
+del usuario con la del objetivo.$"),
+    [MOVE_CORE_ENFORCER] = COMPOUND_STRING("Golpea con un rayo que
+anula la Habilidad del rival.$"),
+    [MOVE_CLANGING_SCALES] = COMPOUND_STRING("Hace ruido con sus escamas.
+Baja la Defensa.$"),
+    [MOVE_SHELL_TRAP] = COMPOUND_STRING("Coloca una trampa de concha
+que daña al contacto.$"),
+    [MOVE_SHADOW_BONE] = COMPOUND_STRING("Golpea con un hueso maldito.
+Puede bajar la Defensa.$"),
+    [MOVE_SPECTRAL_THIEF] = COMPOUND_STRING("Roba las subidas de stat
+del objetivo y luego ataca.$"),
+    [MOVE_ZING_ZAP] = COMPOUND_STRING("Impacto electrificado que
+puede causar retroceso.$"),
+    [MOVE_PLASMA_FISTS] = COMPOUND_STRING("Golpea con puños eléctricos.
+Los mov. Normales son Eléctricos.$"),
+    [MOVE_FLOATY_FALL] = COMPOUND_STRING("Flota y se lanza en ángulo.
+Puede causar retroceso.$"),
+    [MOVE_SIZZLY_SLIDE] = COMPOUND_STRING("Usuario envuelto en fuego carga.
+Deja al rival con quemadura.$"),
+    [MOVE_FREEZY_FROST] = COMPOUND_STRING("Cristal de niebla fría golpea.
+Elimina todos los cambios de stat.$"),
+    [MOVE_DYNAMAX_CANNON] = COMPOUND_STRING("Libera energía nuclear.
+2x contra rivales en Dinamax.$"),
+    [MOVE_NO_RETREAT] = COMPOUND_STRING("Sube todos los stats del usuario
+pero impide huir.$"),
+    [MOVE_TEATIME] = COMPOUND_STRING("Todos los POKéMON toman el té
+y comen sus Bayas.$"),
+    [MOVE_COURT_CHANGE] = COMPOUND_STRING("El usuario intercambia los
+efectos de ambos lados del campo.$"),
+    [MOVE_DRUM_BEATING] = COMPOUND_STRING("Toca un tambor para atacar.
+Baja la Velocidad del rival.$"),
+    [MOVE_BEHEMOTH_BASH] = COMPOUND_STRING("Ataca como un escudo. Inflige
+2x de daño a rivales en Dinamax.$"),
+    [MOVE_OVERDRIVE] = COMPOUND_STRING("El usuario toca su guitarra
+causando fuertes vibraciones.$"),
+    [MOVE_STRANGE_STEAM] = COMPOUND_STRING("Emite vapor extraño que puede
+confundir al rival.$"),
+    [MOVE_METEOR_ASSAULT] = COMPOUND_STRING("Ataca con un puerro grueso.
+El usuario descansa después.$"),
+    [MOVE_STEEL_ROLLER] = COMPOUND_STRING("Destruye el terreno. Falla
+si el suelo no es terreno.$"),
+    [MOVE_MISTY_EXPLOSION] = COMPOUND_STRING("Golpea a todos y se debilita.
+Más potente en Zona Vaporosa.$"),
+    [MOVE_SKITTER_SMACK] = COMPOUND_STRING("Usuario se escabulle tras el
+rival. Baja el Atq. Esp. rival.$"),
+    [MOVE_CORROSIVE_GAS] = COMPOUND_STRING("Gas muy ácido disuelve objetos
+de los POKéMON cercanos.$"),
+    [MOVE_DUAL_WINGBEAT] = COMPOUND_STRING("Golpea al objetivo con las
+alas dos veces seguidas.$"),
+    [MOVE_SURGING_STRIKES] = COMPOUND_STRING("Con el estilo Agua, golpea
+3 veces con golpe crítico.$"),
+    [MOVE_FIERY_WRATH] = COMPOUND_STRING("Ataque impulsado por la ira.
+Puede causar retroceso.$"),
+    [MOVE_EERIE_SPELL] = COMPOUND_STRING("Ataca con poder psíquico.
+El último mov. rival pierde 3 PP.$"),
+    [MOVE_STONE_AXE] = COMPOUND_STRING("Golpea y coloca piedras
+flotantes alrededor del rival.$"),
+    [MOVE_WAVE_CRASH] = COMPOUND_STRING("Placaje envuelto en agua.
+También daña al usuario.$"),
+    [MOVE_HEADLONG_RUSH] = COMPOUND_STRING("Golpea con placaje total.
+Baja las defensas del usuario.$"),
+    [MOVE_SHELTER] = COMPOUND_STRING("El usuario endurece su piel
+subiendo bastante su Defensa.$"),
+    [MOVE_BLEAKWIND_STORM] = COMPOUND_STRING("Golpea con vientos helados.
+Puede bajar la Velocidad rival.$"),
+    [MOVE_TAKE_HEART] = COMPOUND_STRING("El usuario se anima para
+curarse y fortalecerse.$"),
+    [MOVE_LAST_RESPECTS] = COMPOUND_STRING("Este mov. inflige más daño
+por cada aliado caído.$"),
+    [MOVE_SPICY_EXTRACT] = COMPOUND_STRING("Sube bastante el Ataque del
+objetivo, baja mucho su Defensa.$"),
+    [MOVE_GLAIVE_RUSH] = COMPOUND_STRING("Los ataques del rival el próx.
+turno no fallan y hacen 2x daño.$"),
+    [MOVE_MORTAL_SPIN] = COMPOUND_STRING("Borra mov. trampa y Drenadoras.
+Envenena a los rivales cercanos.$"),
+    [MOVE_FLOWER_TRICK] = COMPOUND_STRING("Ramo trucado. Siempre golpe
+crítico, nunca falla.$"),
+    [MOVE_MAKE_IT_RAIN] = COMPOUND_STRING("Baja el Atq. Esp. del usuario.
+Se recupera dinero al final.$"),
+    [MOVE_SHED_TAIL] = COMPOUND_STRING("Crea un Sustituto antes de
+cambiar al siguiente POKéMON.$"),
+    [MOVE_POUNCE] = COMPOUND_STRING("El usuario se abalanza al rival
+bajando su Velocidad.$"),
+    [MOVE_TWIN_BEAM] = COMPOUND_STRING("Rayos místicos de los ojos que
+golpean al objetivo dos veces.$"),
+    [MOVE_DOUBLE_SHOCK] = COMPOUND_STRING("Descarga toda la electricidad,
+perdiendo el tipo Eléctrico.$"),
+    [MOVE_PSYBLADE] = COMPOUND_STRING("La potencia de este movimiento
+sube en Terreno Eléctrico.$"),
+    [MOVE_SYRUP_BOMB] = COMPOUND_STRING("Baja la Velocidad del rival
+cada turno durante 3 turnos.$"),
+    [MOVE_FICKLE_BEAM] = COMPOUND_STRING("Dispara un rayo de luz.
+A veces es el doble de potente.$"),
+    [MOVE_TACHYON_CUTTER] = COMPOUND_STRING("Lanza hojas de partículas al
+objetivo. Golpea dos veces.$"),
+    [MOVE_TEMPER_FLARE] = COMPOUND_STRING("Ataque desesperado. Potencia
+doble si el último mov. falló.$"),
+    [MOVE_MALIGNANT_CHAIN] = COMPOUND_STRING("Ataque de cadena corrosiva
+que puede envenenar gravemente.$"),
+    [MOVE_ACID_DOWNPOUR] = COMPOUND_STRING("Hunde al objetivo en ciénaga
+venenosa. La potencia varía.$"),
+    [MOVE_NEVER_ENDING_NIGHTMARE] = COMPOUND_STRING("Rencores profundos atrapan
+al objetivo. La potencia varía.$"),
+    [MOVE_BLOOM_DOOM] = COMPOUND_STRING("Usa energía vegetal para
+atacar al objetivo. Potencia varía.$"),
+    [MOVE_DEVASTATING_DRAKE] = COMPOUND_STRING("Desarrolla aura y ataca al
+objetivo. La potencia varía.$"),
+    [MOVE_10000000_VOLT_THUNDERBOLT] = COMPOUND_STRING("Pikachu con gorra desata rayo.
+Alto índice de golpe crítico.$"),
+    [MOVE_GENESIS_SUPERNOVA] = COMPOUND_STRING("Mew ataca a plena fuerza.
+Carga el terreno psíquicamente.$"),
+    [MOVE_SPLINTERED_STORMSHARDS] = COMPOUND_STRING("Lycanroc ataca a plena fuerza.
+Elimina todos los terrenos.$"),
+    [MOVE_SEARING_SUNRAZE_SMASH] = COMPOUND_STRING("Solgaleo ataca a plena fuerza.
+Ignora las habilidades.$"),
+    [MOVE_MAX_GUARD] = COMPOUND_STRING("Esquiva ataques, pero puede
+fallar si se usa seguido.$"),
+    [MOVE_MAX_STRIKE] = COMPOUND_STRING("Ataque Dinamax Normal.
+Baja la Velocidad del rival.$"),
+    [MOVE_MAX_OOZE] = COMPOUND_STRING("Ataque Dinamax Veneno.
+Sube el Atq. Esp. del aliado.$"),
+    [MOVE_MAX_WYRMWIND] = COMPOUND_STRING("Ataque Dinamax Dragón.
+Baja el Ataque del rival.$"),
+    [MOVE_MAX_DARKNESS] = COMPOUND_STRING("Ataque Dinamax Siniestro.
+Baja la Def. Esp. del rival.$"),
+    [MOVE_G_MAX_WILDFIRE] = COMPOUND_STRING("Ataque G-max Charizard.
+Inflige daño durante 4 turnos.$"),
+    [MOVE_G_MAX_GOLD_RUSH] = COMPOUND_STRING("Ataque G-max Meowth.
+Confunde y gana dinero.$"),
+    [MOVE_G_MAX_RESONANCE] = COMPOUND_STRING("Ataque G-max Lapras.
+Reduce el daño durante 5 turnos.$"),
+    [MOVE_G_MAX_MELTDOWN] = COMPOUND_STRING("Ataque G-max Melmetal.
+Impide repetir el mismo mov.$"),
+    [MOVE_G_MAX_WIND_RAGE] = COMPOUND_STRING("Ataque G-max Corviknight.
+Elimina las pantallas rivales.$"),
+    [MOVE_G_MAX_TARTNESS] = COMPOUND_STRING("Ataque G-max Flapple.
+Baja la Evasión del rival.$"),
+    [MOVE_G_MAX_CENTIFERNO] = COMPOUND_STRING("Ataque G-max Centiskorch.
+Atrapa a los rivales en llamas.$"),
+    [MOVE_G_MAX_STEELSURGE] = COMPOUND_STRING("Ataque G-max Copperajah.
+Esparce pinchos afilados.$"),
+    [MOVE_DOUBLE_SLAP] = COMPOUND_STRING("Abofetea al rival repetidamente\n2 a 5 veces."),
+    [MOVE_FIRE_PUNCH] = COMPOUND_STRING("Un puñetazo ardiente que puede\nquemar al rival."),
+    [MOVE_VISE_GRIP] = COMPOUND_STRING("Sujeta al rival con grandes y\npoderosas pinzas."),
+    [MOVE_CUT] = COMPOUND_STRING("Corta al rival con afiladas\nhoces, garras, etc."),
+    [MOVE_FLY] = COMPOUND_STRING("Vuela el primer turno y\nataca al siguiente."),
+    [MOVE_STOMP] = COMPOUND_STRING("Pisotea al rival con un pie grande.\nPuede hacer retroceder."),
+    [MOVE_ROLLING_KICK] = COMPOUND_STRING("Patada rápida desde un giro veloz.\nPuede hacer retroceder."),
+    [MOVE_FURY_ATTACK] = COMPOUND_STRING("Pincha al rival 2 a 5 veces\ncon cuernos afilados, etc."),
+    [MOVE_WRAP] = COMPOUND_STRING("Envuelve y aprieta al rival\nvarias veces con enredaderas."),
+    [MOVE_TAIL_WHIP] = COMPOUND_STRING("Agita la cola para bajar la\nDefensa del rival."),
+    [MOVE_LEER] = COMPOUND_STRING("Asusta a los rivales con una\nmirada para bajar la Defensa."),
+    [MOVE_SING] = COMPOUND_STRING("Una canción suave adormece\nal rival profundamente."),
+    [MOVE_ACID] = COMPOUND_STRING("Lanza ácido corrosivo.\nPuede bajar la Def. Esp."),
+    [MOVE_WATER_GUN] = COMPOUND_STRING("Dispara agua para atacar\nal rival."),
+    [MOVE_BLIZZARD] = COMPOUND_STRING("Golpea con una tormenta helada.\nPuede helar al rival."),
+    [MOVE_HYPER_BEAM] = COMPOUND_STRING("Potente, pero deja al usuario\ninóvil el siguiente turno."),
+    [MOVE_LOW_KICK] = COMPOUND_STRING("Patada que causa más daño\na rivales más pesados."),
+    [MOVE_ABSORB] = COMPOUND_STRING("Ataque que absorbe la mitad\ndel daño infligido."),
+    [MOVE_RAZOR_LEAF] = COMPOUND_STRING("Corta a los rivales con hojas.\nAlta proporción de críticos."),
+    [MOVE_SLEEP_POWDER] = COMPOUND_STRING("Esparce un polvo que puede\ndormir al rival."),
+    [MOVE_FIRE_SPIN] = COMPOUND_STRING("Atrapa al rival en un aro de\nfuego durante varios turnos."),
+    [MOVE_THUNDER] = COMPOUND_STRING("Ataque de rayo que puede\ncausar parálisis."),
+    [MOVE_DIG] = COMPOUND_STRING("Cava el primer turno y\nataca al siguiente."),
+    [MOVE_HYPNOSIS] = COMPOUND_STRING("Movimiento hipnótico que\npuede inducir el sueño."),
+    [MOVE_RAGE] = COMPOUND_STRING("Sube el Ataque del usuario\ncada vez que recibe daño."),
+    [MOVE_SCREECH] = COMPOUND_STRING("Emite un chillido que baja\nbastante la Defensa del rival."),
+    [MOVE_MINIMIZE] = COMPOUND_STRING("Se hace pequeño para subir\nbastante la Evasión."),
+    [MOVE_DEFENSE_CURL] = COMPOUND_STRING("Se encoge para ocultar puntos\ndébiles y subir la Defensa."),
+    [MOVE_REFLECT] = COMPOUND_STRING("Muro de luz reduce el daño\nfísico durante 5 turnos."),
+    [MOVE_MIRROR_MOVE] = COMPOUND_STRING("Contraataca al rival con\nel mismo movimiento."),
+    [MOVE_SMOG] = COMPOUND_STRING("Ataque de gas de escape\nque puede envenenar."),
+    [MOVE_WATERFALL] = COMPOUND_STRING("Carga veloz para escalar cascadas.\nPuede hacer retroceder."),
+    [MOVE_SPIKE_CANNON] = COMPOUND_STRING("Lanza púas afiladas que\ngolpean 2 a 5 veces."),
+    [MOVE_SOFT_BOILED] = COMPOUND_STRING("Recupera hasta la mitad de\nlos PS máximos del usuario."),
+    [MOVE_POISON_GAS] = COMPOUND_STRING("Envuelve al rival en un gas\ntóxico que puede envenenar."),
+    [MOVE_SKY_ATTACK] = COMPOUND_STRING("Ataque 2 turnos. Alta proporción\nde críticos, puede hacer retroceder."),
+    [MOVE_SPORE] = COMPOUND_STRING("Esparce esporas que siempre\ninducen el sueño."),
+    [MOVE_ACID_ARMOR] = COMPOUND_STRING("Licuúa el cuerpo del usuario\npara subir bastante la Defensa."),
+    [MOVE_BONEMERANG] = COMPOUND_STRING("Lanza un boomerang de hueso\nque golpea dos veces."),
+    [MOVE_SHARPEN] = COMPOUND_STRING("Reduce el conteo de polígonos\ny sube el Ataque."),
+    [MOVE_SLASH] = COMPOUND_STRING("Ataca con garras, etc. Alta\nproporción de golpes críticos."),
+    [MOVE_TRIPLE_KICK] = COMPOUND_STRING("Patea al rival 3 veces seguidas\ncon intensidad creciente."),
+    [MOVE_NIGHTMARE] = COMPOUND_STRING("Inflige 1/4 de daño cada turno\na un rival dormido."),
+    [MOVE_FLAIL] = COMPOUND_STRING("Inflige más daño cuando\nbajan los PS del usuario."),
+    [MOVE_REVERSAL] = COMPOUND_STRING("Inflige más daño cuando\nbajan los PS del usuario."),
+    [MOVE_MACH_PUNCH] = COMPOUND_STRING("Puñetazo a velocidad fulminante\npara golpear primero."),
+    [MOVE_BELLY_DRUM] = COMPOUND_STRING("Maximiza el Ataque sacrificando\nla mitad de los PS máximos."),
+    [MOVE_SPIKES] = COMPOUND_STRING("Coloca pinchos que dañan al\nrival al entrar en batalla."),
+    [MOVE_PERISH_SONG] = COMPOUND_STRING("Todo POKéMON que oiga esta\ncanción se debilita en 3 turnos."),
+    [MOVE_LOCK_ON] = COMPOUND_STRING("Apunta al rival para asegurar\nque el próximo movimiento impacte."),
+    [MOVE_ENDURE] = COMPOUND_STRING("Aguanta cualquier ataque 1 turno,\ndejando al menos 1 PS."),
+    [MOVE_SWAGGER] = COMPOUND_STRING("Confúnde al rival pero también\nsube bastante su Ataque."),
+    [MOVE_STEEL_WING] = COMPOUND_STRING("Golpea al rival con alas\nduras bien extendidas."),
+    [MOVE_HEAL_BELL] = COMPOUND_STRING("Suena suavemente para curar\ntodas las alteraciones de estado."),
+    [MOVE_SAFEGUARD] = COMPOUND_STRING("Protege a los aliados de problemas\nde estado durante 5 turnos."),
+    [MOVE_DYNAMIC_PUNCH] = COMPOUND_STRING("Potente y siempre confúnde,\npero muy impreciso."),
+    [MOVE_ENCORE] = COMPOUND_STRING("Hace que el rival repita su\núltimo movimiento 3 turnos."),
+    [MOVE_IRON_TAIL] = COMPOUND_STRING("Ataca con una cola durísima.\nPuede bajar la Defensa."),
+    [MOVE_SYNTHESIS] = COMPOUND_STRING("Restaura PS. La cantidad\nvaría según el clima."),
+    [MOVE_TWISTER] = COMPOUND_STRING("Crea un violento torbellino\ncontra los rivales. Puede retroceder."),
+    [MOVE_MIRROR_COAT] = COMPOUND_STRING("Contraataca el ataque especial\ndel rival con el doble de potencia."),
+    [MOVE_SHADOW_BALL] = COMPOUND_STRING("Lanza un orbe negro que puede\nbajar la Def. Esp. del rival."),
+    [MOVE_BEAT_UP] = COMPOUND_STRING("Llama a los POKéMON del equipo\npara unirse al ataque."),
+    [MOVE_SPIT_UP] = COMPOUND_STRING("Libera la energía acumulada\n(cuanta más, mejor)."),
+    [MOVE_TORMENT] = COMPOUND_STRING("Atormenta al rival e impide\nel uso consecutivo de un movimiento."),
+    [MOVE_FACADE] = COMPOUND_STRING("Potencia si está quemado,\nparalizado o envenenado."),
+    [MOVE_NATURE_POWER] = COMPOUND_STRING("El tipo de ataque varía\nsegún la ubicación."),
+    [MOVE_TRICK] = COMPOUND_STRING("Engaña al rival para\nintercambiar objetos."),
+    [MOVE_INGRAIN] = COMPOUND_STRING("Echa raíces que restauran PS.\nEl usuario no puede cambiar."),
+    [MOVE_REVENGE] = COMPOUND_STRING("Ataque que actúa último y gana\npotencia si recibe daño."),
+    [MOVE_ENDEAVOR] = COMPOUND_STRING("Reduce los PS del rival\niguales a los del usuario."),
+    [MOVE_REFRESH] = COMPOUND_STRING("Cura el envenenamiento, parálisis\no una quemadura."),
+    [MOVE_DIVE] = COMPOUND_STRING("Se sumerge el primer turno\ny ataca al siguiente."),
+    [MOVE_LUSTER_PURGE] = COMPOUND_STRING("Ataca con un destello de luz.\nPuede bajar la Def. Esp."),
+    [MOVE_BLAZE_KICK] = COMPOUND_STRING("Patada con alta proporción de\ncríticos. Puede causar quemadura."),
+    [MOVE_SLACK_OFF] = COMPOUND_STRING("Se relaja y restaura la\nmitad de los PS máximos."),
+    [MOVE_BLAST_BURN] = COMPOUND_STRING("Potente, pero deja al usuario\ninóvil el siguiente turno."),
+    [MOVE_WEATHER_BALL] = COMPOUND_STRING("El tipo y la potencia del\nmovimiento cambian con el clima."),
+    [MOVE_OVERHEAT] = COMPOUND_STRING("Ataque a plena potencia pero\nbaja bastante el Atq. Esp."),
+    [MOVE_METAL_SOUND] = COMPOUND_STRING("Emite un chirrido horrible\nque baja bastante la Def. Esp."),
+    [MOVE_WATER_SPOUT] = COMPOUND_STRING("Inflige más daño si los PS\ndel usuario son elevados."),
+    [MOVE_SKY_UPPERCUT] = COMPOUND_STRING("Un uppercut lanzado como si\nsaltara hacia el cielo."),
+    [MOVE_BULLET_SEED] = COMPOUND_STRING("Dispara 2 a 5 semillas seguidas\ncontra el rival."),
+    [MOVE_BLOCK] = COMPOUND_STRING("Bloquea el paso del rival\ne impide su huida."),
+    [MOVE_BULK_UP] = COMPOUND_STRING("Muscula el cuerpo para subir\nel Ataque y la Defensa."),
+    [MOVE_COVET] = COMPOUND_STRING("Pide con ternura obtener un\nobjeto del rival."),
+    [MOVE_CALM_MIND] = COMPOUND_STRING("Sube el Atq. Esp. y Def. Esp.\nconcentrando la mente."),
+    [MOVE_SHOCK_WAVE] = COMPOUND_STRING("Un ataque eléctrico rápido\ne inevitable."),
+    [MOVE_ROOST] = COMPOUND_STRING("Restaura los PS del usuario\na la mitad de sus PS máximos."),
+    [MOVE_HAMMER_ARM] = COMPOUND_STRING("Ataque de puño con balanceo\nque también baja la Velocidad."),
+    [MOVE_NATURAL_GIFT] = COMPOUND_STRING("La efectividad varía según\nla Baya sostenida."),
+    [MOVE_ACUPRESSURE] = COMPOUND_STRING("El usuario sube bastante\nuna de sus estadísticas."),
+    [MOVE_PAYBACK] = COMPOUND_STRING("Ataque que gana potencia\nsi el usuario actúa último."),
+    [MOVE_PSYCHO_SHIFT] = COMPOUND_STRING("Transfiere los problemas de estado\nal rival."),
+    [MOVE_POWER_TRICK] = COMPOUND_STRING("El usuario intercambia su\nAtaque y su Defensa."),
+    [MOVE_COPYCAT] = COMPOUND_STRING("El usuario imita el último\nmovimiento usado por el rival."),
+    [MOVE_LAST_RESORT] = COMPOUND_STRING("Solo se puede usar si se han\nusado todos los demás movimientos."),
+    [MOVE_HEART_SWAP] = COMPOUND_STRING("Intercambia los cambios de\nestadísticas con el rival."),
+    [MOVE_FORCE_PALM] = COMPOUND_STRING("Ataque de onda expansiva que\npuede paralizar al rival."),
+    [MOVE_DARK_PULSE] = COMPOUND_STRING("Ataca con un aura horrible.\nPuede hacer retroceder."),
+    [MOVE_AIR_SLASH] = COMPOUND_STRING("Ataca con una hoja de aire.\nPuede hacer retroceder."),
+    [MOVE_DRAGON_RUSH] = COMPOUND_STRING("Arremete al rival con amenaza.\nPuede hacer retroceder."),
+    [MOVE_FOCUS_BLAST] = COMPOUND_STRING("Ataca a máxima potencia.\nPuede bajar la Def. Esp."),
+    [MOVE_SWITCHEROO] = COMPOUND_STRING("Intercambia objetos con el rival\nmás rápido que la vista."),
+    [MOVE_AVALANCHE] = COMPOUND_STRING("Ataque que actúa último y gana\npotencia si recibe daño."),
+    [MOVE_ICE_FANG] = COMPOUND_STRING("Puede hacer retroceder o\ndejar al rival con escalofrío."),
+    [MOVE_PSYCHO_CUT] = COMPOUND_STRING("Corta con cuchillas psíquicas.\nAlta proporción de críticos."),
+    [MOVE_ROCK_CLIMB] = COMPOUND_STRING("Ataque de carga que puede\nconfundir al rival."),
+    [MOVE_DISCHARGE] = COMPOUND_STRING("Descarga electricidad sobre todos\nlos {PKMN}. Puede paralizar."),
+    [MOVE_ROCK_WRECKER] = COMPOUND_STRING("Potente, pero deja al usuario\ninmóvil el siguiente turno."),
+    [MOVE_MAGNET_BOMB] = COMPOUND_STRING("Lanza un imán que impacta\nsin fallar."),
+    [MOVE_GRASS_KNOT] = COMPOUND_STRING("Ataque trampa que causa más\ndaño a rivales más pesados."),
+    [MOVE_CHARGE_BEAM] = COMPOUND_STRING("Dispara un rayo eléctrico.\nPuede subir el Atq. Esp."),
+    [MOVE_DEFEND_ORDER] = COMPOUND_STRING("Sube Defensa y Def. Esp.\ncon un escudo viviente."),
+    [MOVE_ROAR_OF_TIME] = COMPOUND_STRING("Potente, pero deja al usuario\ninmóvil el siguiente turno."),
+    [MOVE_MAGMA_STORM] = COMPOUND_STRING("Atrapa al rival en un vórtice\nde fuego durante varios turnos."),
+    [MOVE_SHADOW_FORCE] = COMPOUND_STRING("Desaparece el primer turno\ny golpea al siguiente."),
+    [MOVE_POWER_SPLIT] = COMPOUND_STRING("Promedia los cambios de Ataque\ny Atq. Esp. con el rival."),
+    [MOVE_AUTOTOMIZE] = COMPOUND_STRING("Pierde peso extra para subir\nbastante la Velocidad."),
+    [MOVE_SMACK_DOWN] = COMPOUND_STRING("Lanza una roca para derribar\nal rival al suelo."),
+    [MOVE_QUIVER_DANCE] = COMPOUND_STRING("Baila para subir Atq. Esp.,\nDef. Esp. y Velocidad."),
+    [MOVE_SOAK] = COMPOUND_STRING("Rocía agua al rival,\ncambiándolo a tipo Agua."),
+    [MOVE_ACID_SPRAY] = COMPOUND_STRING("Lanza ácido corrosivo.\nBaja bastante la Def. Esp."),
+    [MOVE_AFTER_YOU] = COMPOUND_STRING("Ayuda al objetivo para que\nactúe a continuación."),
+    [MOVE_CLEAR_SMOG] = COMPOUND_STRING("Ataca con neblina blanca que\nelimina todos los cambios de estad."),
+    [MOVE_SCALD] = COMPOUND_STRING("Dispara agua hirviendo al rival.\nPuede causar quemadura."),
+    [MOVE_SKY_DROP] = COMPOUND_STRING("Lleva al rival al cielo y\nlo lanza al siguiente turno."),
+    [MOVE_QUASH] = COMPOUND_STRING("Suprime al rival haciendo\nque actúe último."),
+    [MOVE_FINAL_GAMBIT] = COMPOUND_STRING("El usuario se debilita para\ndañar al rival con sus PS."),
+    [MOVE_FIRE_PLEDGE] = COMPOUND_STRING("Ataca con una columna de fuego.\nPuede quemar la hierba."),
+    [MOVE_BULLDOZE] = COMPOUND_STRING("Pisotea el suelo con fuerza.\nGolpea a todos y baja la Velocidad."),
+    [MOVE_ELECTROWEB] = COMPOUND_STRING("Atrapa a los rivales con una\nred eléctrica. Baja la Velocidad."),
+    [MOVE_HEART_STAMP] = COMPOUND_STRING("Un golpe súbito tras un gesto\ntierno. Puede hacer retroceder."),
+    [MOVE_HEAT_CRASH] = COMPOUND_STRING("Causa más daño si el usuario\npesa más que el rival."),
+    [MOVE_NIGHT_DAZE] = COMPOUND_STRING("Lanza una onda de choque oscura.\nPuede bajar la Precisión."),
+    [MOVE_HEAD_CHARGE] = COMPOUND_STRING("Carga con pelaje protector.\nDaña un poco al usuario."),
+    [MOVE_RELIC_SONG] = COMPOUND_STRING("Ataca con una canción ancestral.\nPuede inducir el sueño."),
+    [MOVE_BLUE_FLARE] = COMPOUND_STRING("Envuelve al rival en llama azul.\nPuede causar quemadura."),
+    [MOVE_SNARL] = COMPOUND_STRING("Grita y regaña al rival\nbajando su Atq. Esp."),
+    [MOVE_FUSION_BOLT] = COMPOUND_STRING("Invoca un rayo. Funciona bien\njunto a una bola de fuego."),
+    [MOVE_ROTOTILLER] = COMPOUND_STRING("Sube Ataque y Atq. Esp.\nde los POKéMON de tipo Planta."),
+    [MOVE_TRICK_OR_TREAT] = COMPOUND_STRING("Pide truco o trato,\nañadiendo tipo Fantasma al rival."),
+    [MOVE_FORESTS_CURSE] = COMPOUND_STRING("Maldice al rival,\nañadiéndole el tipo Planta."),
+    [MOVE_PARTING_SHOT] = COMPOUND_STRING("Baja el Ataque y Atq. Esp. del rival\ny luego cambia de POKéMON."),
+    [MOVE_FLOWER_SHIELD] = COMPOUND_STRING("Sube la Defensa de los\nPOKéMON de tipo Planta."),
+    [MOVE_PLAY_ROUGH] = COMPOUND_STRING("Juega brusco con el rival.\nPuede bajar el Ataque."),
+    [MOVE_FAIRY_LOCK] = COMPOUND_STRING("Bloquea el campo de batalla\nimpidiendo la huida el próximo turno."),
+    [MOVE_DIAMOND_STORM] = COMPOUND_STRING("Desata una tormenta de diamantes.\nPuede subir la Defensa."),
+    [MOVE_MYSTICAL_FIRE] = COMPOUND_STRING("Exhala fuego especial e intenso.\nBaja el Atq. Esp."),
+    [MOVE_VENOM_DRENCH] = COMPOUND_STRING("Baja Ataque, Atq. Esp. y Velocidad\nde rivales envenenados."),
+    [MOVE_HAPPY_HOUR] = COMPOUND_STRING("Duplica la cantidad de\nDinero premio recibido."),
+    [MOVE_HOLD_HANDS] = COMPOUND_STRING("El usuario y su aliado se toman\nde la mano, haciéndolos felices."),
+    [MOVE_INFESTATION] = COMPOUND_STRING("El rival es infestado y\natacado durante varios turnos."),
+    [MOVE_THOUSAND_WAVES] = COMPOUND_STRING("Los golpeados por la ola ya\nno pueden escapar."),
+    [MOVE_PRECIPICE_BLADES] = COMPOUND_STRING("Temibles cuchillas de piedra\natacan a ambos rivales."),
+    [MOVE_FIRST_IMPRESSION] = COMPOUND_STRING("Golpea fuerte y primero.\nSolo funciona el primer turno."),
+    [MOVE_SPARKLING_ARIA] = COMPOUND_STRING("Canta con burbujas. Cura\nquemaduras al contacto."),
+    [MOVE_STRENGTH_SAP] = COMPOUND_STRING("Absorbe el Ataque del rival para\ncurarse PS y baja su Ataque."),
+    [MOVE_TOXIC_THREAD] = COMPOUND_STRING("Ataca con un hilo que envenena\ny baja la Velocidad."),
+    [MOVE_POLLEN_PUFF] = COMPOUND_STRING("Explota sobre los rivales, pero\nrestaura los PS del aliado."),
+    [MOVE_FIRE_LASH] = COMPOUND_STRING("Fustiga al rival con fuego,\nbajando su Defensa."),
+    [MOVE_SMART_STRIKE] = COMPOUND_STRING("Golpea con un cuerno preciso\nque nunca falla."),
+    [MOVE_TROP_KICK] = COMPOUND_STRING("Una patada intensa de los\ntrópicos. Baja el Ataque."),
+    [MOVE_DRAGON_HAMMER] = COMPOUND_STRING("Mueve todo el cuerpo como\nun martillo para causar daño."),
+    [MOVE_FLEUR_CANNON] = COMPOUND_STRING("Un potente rayo que baja\nbastante el Atq. Esp."),
+    [MOVE_ACCELEROCK] = COMPOUND_STRING("Golpea con una roca a alta\nvelocidad que siempre va primero."),
+    [MOVE_SUNSTEEL_STRIKE] = COMPOUND_STRING("Golpe impulsado por el sol\nque ignora las habilidades."),
+    [MOVE_NATURES_MADNESS] = COMPOUND_STRING("Reduce a la mitad los PS del rival\ncon el poder de la naturaleza."),
+    [MOVE_PHOTON_GEYSER] = COMPOUND_STRING("La estadística de ataque más alta\ndetermina su categoría."),
+    [MOVE_PIKA_PAPOW] = COMPOUND_STRING("El amor de Pikachu aumenta su\npotencia. Nunca falla."),
+    [MOVE_GLITZY_GLOW] = COMPOUND_STRING("Fuerza telekinética que crea un\nmuro que reduce daño especial."),
+    [MOVE_SPARKLY_SWIRL] = COMPOUND_STRING("Envuelve al rival en torbellino\nperfumado. Cura al equipo."),
+    [MOVE_SNIPE_SHOT] = COMPOUND_STRING("El usuario ignora los efectos\nque atraen movimientos."),
+    [MOVE_TAR_SHOT] = COMPOUND_STRING("Baja la Velocidad del rival y\nlo hace débil al Fuego."),
+    [MOVE_OCTOLOCK] = COMPOUND_STRING("Atrapa al rival bajando Def.\ny Def. Esp. cada turno."),
+    [MOVE_CLANGOROUS_SOUL] = COMPOUND_STRING("Usa parte de sus PS para\nsubir todas sus estadísticas."),
+    [MOVE_SNAP_TRAP] = COMPOUND_STRING("Atrapa al objetivo en una trampa\ndurante cuatro a cinco turnos."),
+    [MOVE_AURA_WHEEL] = COMPOUND_STRING("Sube la Velocidad para atacar.\nEl tipo depende de su forma."),
+    [MOVE_APPLE_ACID] = COMPOUND_STRING("Ataca con ácido de manzana agria\npara bajar la Def. Esp. del rival."),
+    [MOVE_LIFE_DEW] = COMPOUND_STRING("Esparce agua para restaurar\nlos PS propios y de los aliados."),
+    [MOVE_ETERNABEAM] = COMPOUND_STRING("El movimiento más fuerte de Eternatus.\nEl usuario descansa el siguiente turno."),
+    [MOVE_SCALE_SHOT] = COMPOUND_STRING("Dispara escamas 2 a 5 veces.\nSube Velocidad, baja Defensa."),
+    [MOVE_GRASSY_GLIDE] = COMPOUND_STRING("Se desliza y golpea. Va primero\nen Terreno Herboso."),
+    [MOVE_BURNING_JEALOUSY] = COMPOUND_STRING("Rivales que subieron estadísticas\nen el turno quedan quemados."),
+    [MOVE_COACHING] = COMPOUND_STRING("Entrena a los aliados subiendo\nsu Ataque y Defensa."),
+    [MOVE_SCORCHING_SANDS] = COMPOUND_STRING("Lanza arena ardiente al objetivo.\nPuede causar quemadura."),
+    [MOVE_THUNDER_CAGE] = COMPOUND_STRING("Atrapa al rival en una jaula\neléctrica durante varios turnos."),
+    [MOVE_THUNDEROUS_KICK] = COMPOUND_STRING("Golpea con una patada veloz\ncomo un rayo. Baja la Defensa."),
+    [MOVE_DIRE_CLAW] = COMPOUND_STRING("Puede envenenar, paralizar o\ndormir al rival."),
+    [MOVE_SPRINGTIDE_STORM] = COMPOUND_STRING("Envuelve al rival en vientos furiosos.\nVaría según la forma del usuario."),
+    [MOVE_CHLOROBLAST] = COMPOUND_STRING("Estallido de clorofila que\ndaña también al usuario."),
+    [MOVE_BARB_BARRAGE] = COMPOUND_STRING("Puede envenenar al impactar. Más\npotente contra rivales envenenados."),
+    [MOVE_TRIPLE_ARROWS] = COMPOUND_STRING("Alta proporción de críticos.\nPuede bajar Defensa o hacer retroceder."),
+    [MOVE_WILDBOLT_STORM] = COMPOUND_STRING("Golpea con una brutal tempestad.\nPuede causar parálisis."),
+    [MOVE_TERA_BLAST] = COMPOUND_STRING("Si el usuario está Terastalizado,\ngolpea con su tipo Tera."),
+    [MOVE_LUMINA_CRASH] = COMPOUND_STRING("Una luz que afecta la mente\nbaja bastante la Def. Esp."),
+    [MOVE_SPIN_OUT] = COMPOUND_STRING("Fuerza furiosamente sus patas.\nBaja bastante la Velocidad del usuario."),
+    [MOVE_REVIVAL_BLESSING] = COMPOUND_STRING("Revive a un {PKMN} debilitado
+y restaura la mitad de sus PS.$"),
+    [MOVE_DOODLE] = COMPOUND_STRING("Cambia la Habilidad del usuario\ny aliado por la del objetivo."),
+    [MOVE_TORCH_SONG] = COMPOUND_STRING("Las llamas abrasan al objetivo.\nSube el Atq. Esp. del usuario."),
+    [MOVE_RUINATION] = COMPOUND_STRING("Invoca un desastre ruinoso\ny reduce a la mitad los PS del rival."),
+    [MOVE_CHILLY_RECEPTION] = COMPOUND_STRING("Un mal chiste invoca granizo.\nEl usuario también cambia."),
+    [MOVE_TRAILBLAZE] = COMPOUND_STRING("El usuario ataca de repente\ny sube su Velocidad."),
+    [MOVE_RAGE_FIST] = COMPOUND_STRING("Cuantos más golpes recibió el usuario,\nmayor es la potencia."),
+    [MOVE_GIGATON_HAMMER] = COMPOUND_STRING("Golpea con un enorme martillo.\nNo puede usarse dos veces seguidas."),
+    [MOVE_HYDRO_STEAM] = COMPOUND_STRING("La potencia de este movimiento\naumenta bajo la luz solar intensa."),
+    [MOVE_IVY_CUDGEL] = COMPOUND_STRING("El tipo cambia con la máscara.\nAlta proporción de críticos."),
+    [MOVE_BURNING_BULWARK] = COMPOUND_STRING("Esquiva el ataque y quema\nal rival si le golpea."),
+    [MOVE_HARD_PRESS] = COMPOUND_STRING("Cuantos más PS tiene el rival,\nmayor es el daño causado."),
+    [MOVE_SUPERCELL_SLAM] = COMPOUND_STRING("Un golpe electrificado. Si falla,\nel usuario sufre daño."),
+    [MOVE_BREAKNECK_BLITZ] = COMPOUND_STRING("Toma impulso y choca contra\nel rival. La potencia varía."),
+    [MOVE_TECTONIC_RAGE] = COMPOUND_STRING("Cava profundo y golpea al objetivo.\nLa potencia varía."),
+    [MOVE_CORKSCREW_CRASH] = COMPOUND_STRING("Gira a gran velocidad y embiste\nal objetivo. La potencia varía."),
+    [MOVE_GIGAVOLT_HAVOC] = COMPOUND_STRING("Golpea al rival con potente\nelectricidad. La potencia varía."),
+    [MOVE_BLACK_HOLE_ECLIPSE] = COMPOUND_STRING("Absorbe al objetivo con energía\noscura. La potencia varía."),
+    [MOVE_STOKED_SPARKSURFER] = COMPOUND_STRING("El Raichu de Alola ataca con\ntoda su fuerza. Causa parálisis."),
+    [MOVE_SINISTER_ARROW_RAID] = COMPOUND_STRING("Decidueye dispara innumerables\nflechas con plena fuerza."),
+    [MOVE_LETS_SNUGGLE_FOREVER] = COMPOUND_STRING("Mimikyu golpea al objetivo\ncon toda su fuerza."),
+    [MOVE_MENACING_MOONRAZE_MAELSTROM] = COMPOUND_STRING("Lunala ataca con plena fuerza.\nIgnora las habilidades."),
+    [MOVE_MAX_FLARE] = COMPOUND_STRING("Ataque Dinamax de Fuego.\nIntensifica el sol 5 turnos."),
+    [MOVE_MAX_KNUCKLE] = COMPOUND_STRING("Ataque Dinamax de Lucha.\nSube el Ataque de los aliados."),
+    [MOVE_MAX_GEYSER] = COMPOUND_STRING("Ataque Dinamax de Agua.\nInvoca lluvia durante 5 turnos."),
+    [MOVE_MAX_MINDSTORM] = COMPOUND_STRING("Ataque Dinamax Psíquico.\nConvierte el terreno en psíquico."),
+    [MOVE_MAX_OVERGROWTH] = COMPOUND_STRING("Ataque Dinamax de Planta.\nConvierte el terreno en herboso."),
+    [MOVE_G_MAX_CANNONADE] = COMPOUND_STRING("Ataque G-max de Blastoise.\nCausa daño durante 4 turnos."),
+    [MOVE_G_MAX_CHI_STRIKE] = COMPOUND_STRING("Ataque G-max de Machamp.\nAumenta la proporción de críticos."),
+    [MOVE_G_MAX_CUDDLE] = COMPOUND_STRING("Ataque G-max de Eevee.\nEnamora a los rivales."),
+    [MOVE_G_MAX_DRUM_SOLO] = COMPOUND_STRING("Ataque G-max de Rillaboom.\nIgnora las habilidades del objetivo."),
+    [MOVE_G_MAX_GRAVITAS] = COMPOUND_STRING("Ataque G-max de Orbeetle.\nCambia la gravedad 5 turnos."),
+    [MOVE_G_MAX_SWEETNESS] = COMPOUND_STRING("Ataque G-max de Appletun.\nCura las alteraciones del equipo."),
+    [MOVE_G_MAX_SMITE] = COMPOUND_STRING("Ataque G-max de Hatterene.\nConfunde a los rivales."),
+    [MOVE_G_MAX_DEPLETION] = COMPOUND_STRING("Ataque G-max de Duraludon.\nReduce los PP del objetivo."),
+    [MOVE_COMET_PUNCH] = COMPOUND_STRING("Golpea repetidamente al rival
+2 a 5 veces.$"),
+    [MOVE_ICE_PUNCH] = COMPOUND_STRING("Un punetazo helado que puede
+dejar congelado al rival.$"),
+    [MOVE_GUILLOTINE] = COMPOUND_STRING("Un potente ataque con pinzas
+que deja KO si conecta.$"),
+    [MOVE_GUST] = COMPOUND_STRING("Golpea al rival con una rafaga
+de viento de las alas.$"),
+    [MOVE_BIND] = COMPOUND_STRING("Inmoviliza y aprieta al rival
+durante varios turnos.$"),
+    [MOVE_DOUBLE_KICK] = COMPOUND_STRING("Un ataque de doble patada
+que golpea dos veces.$"),
+    [MOVE_SAND_ATTACK] = COMPOUND_STRING("Reduce la Precision del rival
+lanzando arena a la cara.$"),
+    [MOVE_HORN_DRILL] = COMPOUND_STRING("Un ataque que deja KO de un
+golpe usando el cuerno.$"),
+    [MOVE_TAKE_DOWN] = COMPOUND_STRING("Una cargada temeraria que
+tambien dana al usuario.$"),
+    [MOVE_POISON_STING] = COMPOUND_STRING("Ataque toxico con puas que
+puede envenenar al rival.$"),
+    [MOVE_BITE] = COMPOUND_STRING("Muerde con colmillos feroces.
+Puede hacer retroceder.$"),
+    [MOVE_SUPERSONIC] = COMPOUND_STRING("Emite ondas sonoras extranas
+que pueden confundir al rival.$"),
+    [MOVE_EMBER] = COMPOUND_STRING("Un debil ataque de fuego que
+puede causar quemaduras.$"),
+    [MOVE_HYDRO_PUMP] = COMPOUND_STRING("Lanza agua a gran potencia
+contra el rival.$"),
+    [MOVE_PSYBEAM] = COMPOUND_STRING("Dispara un rayo peculiar que
+puede confundir al rival.$"),
+    [MOVE_PECK] = COMPOUND_STRING("Ataca al rival con un pico
+puntiagudo, etc.$"),
+    [MOVE_COUNTER] = COMPOUND_STRING("Contraataca cualquier golpe
+fisico con el doble de potencia.$"),
+    [MOVE_MEGA_DRAIN] = COMPOUND_STRING("Un ataque que absorbe la
+mitad del dano infligido.$"),
+    [MOVE_SOLAR_BEAM] = COMPOUND_STRING("Absorbe luz un turno y ataca
+el siguiente.$"),
+    [MOVE_PETAL_DANCE] = COMPOUND_STRING("Una racha de 2 a 3 turnos
+que confunde al usuario.$"),
+    [MOVE_THUNDER_SHOCK] = COMPOUND_STRING("Un ataque electrico que puede
+paralizar al rival.$"),
+    [MOVE_ROCK_THROW] = COMPOUND_STRING("Lanza pequenas rocas para
+golpear al rival.$"),
+    [MOVE_TOXIC] = COMPOUND_STRING("Envenena al rival con una
+toxina que se intensifica.$"),
+    [MOVE_MEDITATE] = COMPOUND_STRING("Medita tranquilamente para
+aumentar el Ataque.$"),
+    [MOVE_TELEPORT] = COMPOUND_STRING("Sale en ultimo lugar al cambiar.
+Huye si lo usa un {PKMN} salvaje.$"),
+    [MOVE_DOUBLE_TEAM] = COMPOUND_STRING("Crea copias ilusorias para
+aumentar la Evasion.$"),
+    [MOVE_SMOKESCREEN] = COMPOUND_STRING("Reduce la Precision del rival
+con humo, tinta, etc.$"),
+    [MOVE_BARRIER] = COMPOUND_STRING("Crea una barrera que aumenta
+enormemente la Defensa.$"),
+    [MOVE_FOCUS_ENERGY] = COMPOUND_STRING("Concentra energia para subir
+la tasa de golpe critico.$"),
+    [MOVE_SELF_DESTRUCT] = COMPOUND_STRING("Inflige dano severo pero hace
+desmayar al usuario.$"),
+    [MOVE_SLUDGE] = COMPOUND_STRING("Lanza lodo para infligir dano.
+Puede envenenar al rival.$"),
+    [MOVE_CLAMP] = COMPOUND_STRING("Atrapa y aprieta al rival
+durante varios turnos.$"),
+    [MOVE_CONSTRICT] = COMPOUND_STRING("Constriccion dolorosa que
+puede bajar la Velocidad.$"),
+    [MOVE_HIGH_JUMP_KICK] = COMPOUND_STRING("Patada de rodilla en salto.
+Si falla, dana al usuario.$"),
+    [MOVE_BARRAGE] = COMPOUND_STRING("Lanza objetos redondos al
+rival 2 a 5 veces.$"),
+    [MOVE_TRANSFORM] = COMPOUND_STRING("Altera las celulas del usuario
+para copiar al rival.$"),
+    [MOVE_FLASH] = COMPOUND_STRING("Lanza un destello de luz
+potente que reduce Precision.$"),
+    [MOVE_CRABHAMMER] = COMPOUND_STRING("Golpea con una pinza. Alta
+tasa de golpe critico.$"),
+    [MOVE_REST] = COMPOUND_STRING("El usuario duerme 2 turnos
+y restaura PS y estado.$"),
+    [MOVE_CONVERSION] = COMPOUND_STRING("Cambia el tipo del usuario
+al del primer movimiento.$"),
+    [MOVE_SUBSTITUTE] = COMPOUND_STRING("Crea un senuelo usando 1/4
+de los PS maximos.$"),
+    [MOVE_THIEF] = COMPOUND_STRING("Al atacar, puede robar el
+objeto retenido del rival.$"),
+    [MOVE_FLAME_WHEEL] = COMPOUND_STRING("Una carga ardiente que
+puede causar quemaduras.$"),
+    [MOVE_CONVERSION_2] = COMPOUND_STRING("El usuario se vuelve resistente
+al tipo del ultimo ataque.$"),
+    [MOVE_SPITE] = COMPOUND_STRING("Reduce los PP del ultimo mov.
+rival en 4 maliciosamente.$"),
+    [MOVE_SCARY_FACE] = COMPOUND_STRING("Asusta con un gesto feroz para
+bajar mucho la Velocidad.$"),
+    [MOVE_SLUDGE_BOMB] = COMPOUND_STRING("Lanza lodo para infligir dano.
+Puede envenenar al rival.$"),
+    [MOVE_ZAP_CANNON] = COMPOUND_STRING("Potente y seguro de paralizar,
+pero con poca Precision.$"),
+    [MOVE_ICY_WIND] = COMPOUND_STRING("Un ataque helado que baja
+la Velocidad del rival.$"),
+    [MOVE_OUTRAGE] = COMPOUND_STRING("Una racha de 2 a 3 turnos
+que confunde al usuario.$"),
+    [MOVE_CHARM] = COMPOUND_STRING("Encanta al rival y baja
+enormemente su Ataque.$"),
+    [MOVE_MILK_DRINK] = COMPOUND_STRING("Recupera hasta la mitad
+de los PS maximos.$"),
+    [MOVE_MEAN_LOOK] = COMPOUND_STRING("Fija al rival con una mirada
+fria que impide la huida.$"),
+    [MOVE_RETURN] = COMPOUND_STRING("Un ataque que aumenta
+de potencia con la amistad.$"),
+    [MOVE_PAIN_SPLIT] = COMPOUND_STRING("Suma los PS del usuario y rival
+y los divide equitativamente.$"),
+    [MOVE_MEGAHORN] = COMPOUND_STRING("Un brutal ataque de embestida
+con el cuerno extendido.$"),
+    [MOVE_PURSUIT] = COMPOUND_STRING("Inflige dano extra si el rival
+esta cambiando de turno.$"),
+    [MOVE_METAL_CLAW] = COMPOUND_STRING("Un ataque de garra que puede
+subir el Ataque del usuario.$"),
+    [MOVE_MOONLIGHT] = COMPOUND_STRING("Restaura PS. La cantidad
+varia segun el clima.$"),
+    [MOVE_RAIN_DANCE] = COMPOUND_STRING("Potencia los mov. tipo Agua
+durante 5 turnos.$"),
+    [MOVE_PSYCH_UP] = COMPOUND_STRING("Copia los cambios de estad.
+del rival al usuario.$"),
+    [MOVE_FUTURE_SIGHT] = COMPOUND_STRING("Concentra poder interior para
+golpear 2 turnos despues.$"),
+    [MOVE_FAKE_OUT] = COMPOUND_STRING("Va primero y hace retroceder.
+Solo funciona el 1er turno.$"),
+    [MOVE_SWALLOW] = COMPOUND_STRING("Absorbe el poder acumulado
+y restaura PS.$"),
+    [MOVE_FLATTER] = COMPOUND_STRING("Confunde al rival pero sube
+su Atq. Esp.$"),
+    [MOVE_FOCUS_PUNCH] = COMPOUND_STRING("Golpe poderoso, actua ultimo.
+Falla si el usuario recibe dano.$"),
+    [MOVE_CHARGE] = COMPOUND_STRING("Carga energia para potenciar
+el proximo mov. Electrico.$"),
+    [MOVE_ROLE_PLAY] = COMPOUND_STRING("Imita al objetivo y copia
+su Habilidad.$"),
+    [MOVE_SUPERPOWER] = COMPOUND_STRING("Aumenta enormemente la fuerza
+pero baja las estadisticas.$"),
+    [MOVE_BRICK_BREAK] = COMPOUND_STRING("Destruye barreras como REFLECT
+y causa dano.$"),
+    [MOVE_ERUPTION] = COMPOUND_STRING("Cuanto mas PS tiene el usuario,
+mas dano inflige.$"),
+    [MOVE_GRUDGE] = COMPOUND_STRING("Si el usuario se desmaya, borra
+los PP del ultimo mov. rival.$"),
+    [MOVE_ARM_THRUST] = COMPOUND_STRING("Punetazos de brazo recto que
+golpean al rival 2 a 5 veces.$"),
+    [MOVE_MIST_BALL] = COMPOUND_STRING("Ataca con una lluvia de plumas.
+Puede bajar el Atq. Esp.$"),
+    [MOVE_MUD_SPORT] = COMPOUND_STRING("Cubre al usuario en barro para
+debilitar todos los mov. Elect.$"),
+    [MOVE_HYPER_VOICE] = COMPOUND_STRING("Un ataque ruidoso que usa
+ondas de sonido para danar.$"),
+    [MOVE_HYDRO_CANNON] = COMPOUND_STRING("Muy potente pero el usuario
+no puede moverse el sig. turno.$"),
+    [MOVE_AROMATHERAPY] = COMPOUND_STRING("Cura todos los estados
+con un aroma relajante.$"),
+    [MOVE_ODOR_SLEUTH] = COMPOUND_STRING("Cancela la Evasion e inmunidades
+del tipo Fantasma.$"),
+    [MOVE_GRASS_WHISTLE] = COMPOUND_STRING("Adormece al rival con una
+melodía agradable.$"),
+    [MOVE_SIGNAL_BEAM] = COMPOUND_STRING("Un extrano rayo que puede
+confundir al rival.$"),
+    [MOVE_SAND_TOMB] = COMPOUND_STRING("Atrapa y dana al rival en
+arenas movedizas durante turnos.$"),
+    [MOVE_AERIAL_ACE] = COMPOUND_STRING("Un ataque extremadamente
+veloz e inevitable.$"),
+    [MOVE_HOWL] = COMPOUND_STRING("Aulla para elevar el espiritu
+y aumentar el Ataque.$"),
+    [MOVE_BOUNCE] = COMPOUND_STRING("Salta arriba, luego baja al
+sig. turno. Puede paralizar.$"),
+    [MOVE_VOLT_TACKLE] = COMPOUND_STRING("Una carga arriesgada que dana
+al usuario. Puede paralizar.$"),
+    [MOVE_LEAF_BLADE] = COMPOUND_STRING("Corta con una hoja afilada.
+Alta tasa de golpe critico.$"),
+    [MOVE_WATER_PULSE] = COMPOUND_STRING("Ataca con ondas ultrasonicas.
+Puede confundir al rival.$"),
+    [MOVE_GRAVITY] = COMPOUND_STRING("La gravedad se intensifica
+anulando la levitacion.$"),
+    [MOVE_GYRO_BALL] = COMPOUND_STRING("Giro a alta velocidad que dana
+mas a rivales mas rapidos.$"),
+    [MOVE_FEINT] = COMPOUND_STRING("Un ataque que golpea a rivales
+usando mov. como PROTECT.$"),
+    [MOVE_METAL_BURST] = COMPOUND_STRING("Contraataca cualquier golpe
+con mayor potencia.$"),
+    [MOVE_ASSURANCE] = COMPOUND_STRING("Un ataque que gana potencia
+si el rival ya fue danado.$"),
+    [MOVE_TRUMP_CARD] = COMPOUND_STRING("Cuantos menos PP tenga,
+mas dano inflige.$"),
+    [MOVE_GASTRO_ACID] = COMPOUND_STRING("El acido gastrico suprime
+la Habilidad del rival.$"),
+    [MOVE_POWER_SWAP] = COMPOUND_STRING("Intercambia cambios de Ataque
+y Atq. Esp. con el rival.$"),
+    [MOVE_WORRY_SEED] = COMPOUND_STRING("Planta una semilla al rival
+otorgandole Insomnio.$"),
+    [MOVE_AQUA_RING] = COMPOUND_STRING("Forma un velo de agua
+que restaura PS.$"),
+    [MOVE_AURA_SPHERE] = COMPOUND_STRING("Ataca con un aura que no
+puede ser esquivada.$"),
+    [MOVE_NIGHT_SLASH] = COMPOUND_STRING("Golpea lo antes posible.
+Alta tasa de golpe critico.$"),
+    [MOVE_X_SCISSOR] = COMPOUND_STRING("Corta al rival con hoces,
+garras, etc. cruzadas.$"),
+    [MOVE_POWER_GEM] = COMPOUND_STRING("Ataca con rayos de luz que
+brillan como diamantes.$"),
+    [MOVE_ENERGY_BALL] = COMPOUND_STRING("Usa el poder de la naturaleza.
+Puede bajar la Def. Esp.$"),
+    [MOVE_GIGA_IMPACT] = COMPOUND_STRING("Muy potente pero el usuario
+no puede moverse el sig. turno.$"),
+    [MOVE_ICE_SHARD] = COMPOUND_STRING("Lanza un trozo de hielo que
+siempre golpea primero.$"),
+    [MOVE_FIRE_FANG] = COMPOUND_STRING("Puede hacer retroceder o
+dejar quemado al rival.$"),
+    [MOVE_ZEN_HEADBUTT] = COMPOUND_STRING("Golpea con un fuerte cabezazo.
+Puede hacer retroceder.$"),
+    [MOVE_DEFOG] = COMPOUND_STRING("Elimina obstaculos y
+reduce la Evasion.$"),
+    [MOVE_LAVA_PLUME] = COMPOUND_STRING("Llamas escarlatas abrasan
+todo lo que rodea al usuario.$"),
+    [MOVE_CROSS_POISON] = COMPOUND_STRING("Un corte que puede envenenar
+al rival y causar golpe critico.$"),
+    [MOVE_STONE_EDGE] = COMPOUND_STRING("Clava piedras en el rival.
+Alta tasa de golpe critico.$"),
+    [MOVE_CHATTER] = COMPOUND_STRING("Ataca con una onda sonora
+que causa confusion.$"),
+    [MOVE_WOOD_HAMMER] = COMPOUND_STRING("Golpea al rival con el cuerpo.
+El usuario tambien sufre dano.$"),
+    [MOVE_HEAL_ORDER] = COMPOUND_STRING("Los subordinados del usuario
+aparecen y curan la mitad de PS.$"),
+    [MOVE_SPACIAL_REND] = COMPOUND_STRING("Desgarra al rival y el espacio.
+Alta tasa de golpe critico.$"),
+    [MOVE_DARK_VOID] = COMPOUND_STRING("Arrastra a los rivales a la
+oscuridad total, causando sueno.$"),
+    [MOVE_HONE_CLAWS] = COMPOUND_STRING("Afila sus garras para subir
+el Ataque y la Precision.$"),
+    [MOVE_WONDER_ROOM] = COMPOUND_STRING("La Defensa y Def. Esp.
+se intercambian 5 turnos.$"),
+    [MOVE_RAGE_POWDER] = COMPOUND_STRING("Esparce polvo para que los
+rivales ataquen solo al usuario.$"),
+    [MOVE_STORM_THROW] = COMPOUND_STRING("Este ataque siempre resulta
+en un golpe critico.$"),
+    [MOVE_HEAVY_SLAM] = COMPOUND_STRING("Mas dano si el usuario
+pesa mas que el rival.$"),
+    [MOVE_FLAME_CHARGE] = COMPOUND_STRING("Ataca envuelto en llamas.
+Aumenta la Velocidad.$"),
+    [MOVE_FOUL_PLAY] = COMPOUND_STRING("Cuanto mayor es el Ataque
+del rival, mas dano causa.$"),
+    [MOVE_ROUND] = COMPOUND_STRING("Una cancion que inflige dano.
+Otros pueden unirse tambien.$"),
+    [MOVE_STORED_POWER] = COMPOUND_STRING("Cuanto mas altas las estads.
+del usuario, mas dano causa.$"),
+    [MOVE_SHELL_SMASH] = COMPOUND_STRING("Sube mucho Atq/Atq.Esp/Vel.,
+pero baja Def/Def.Esp.$"),
+    [MOVE_SHIFT_GEAR] = COMPOUND_STRING("Gira sus engranajes para
+subir Ataque y Velocidad.$"),
+    [MOVE_ACROBATICS] = COMPOUND_STRING("Dana el doble si el usuario
+no lleva objeto.$"),
+    [MOVE_BESTOW] = COMPOUND_STRING("El usuario le da al rival
+su objeto retenido.$"),
+    [MOVE_GRASS_PLEDGE] = COMPOUND_STRING("Ataca con una columna de
+hierba. Puede crear pantano.$"),
+    [MOVE_FROST_BREATH] = COMPOUND_STRING("Este ataque siempre resulta
+en un golpe critico.$"),
+    [MOVE_WILD_CHARGE] = COMPOUND_STRING("Una carga electrica que
+tambien dana al usuario.$"),
+    [MOVE_HORN_LEECH] = COMPOUND_STRING("Un ataque que absorbe la
+mitad del dano infligido.$"),
+    [MOVE_LEAF_TORNADO] = COMPOUND_STRING("Rodea al rival con hojas para
+danar y reducir Precision.$"),
+    [MOVE_PSYSTRIKE] = COMPOUND_STRING("Ataca con una onda psiquica
+que causa dano fisico.$"),
+    [MOVE_GEAR_GRIND] = COMPOUND_STRING("Lanza dos engranajes de acero
+que golpean dos veces.$"),
+    [MOVE_SECRET_SWORD] = COMPOUND_STRING("Corta con un largo cuerno
+que causa dano fisico.$"),
+    [MOVE_FIERY_DANCE] = COMPOUND_STRING("Baila envuelto en llamas.
+Puede subir el Atq. Esp.$"),
+    [MOVE_ICICLE_CRASH] = COMPOUND_STRING("Deja caer grandes carambanos
+al rival. Puede hacer retroceder.$"),
+    [MOVE_FLYING_PRESS] = COMPOUND_STRING("Este ataque inflige dano
+tipo Lucha y Volador.$"),
+    [MOVE_STICKY_WEB] = COMPOUND_STRING("Teje una red pegajosa que
+ralentiza a los rivales entrantes.$"),
+    [MOVE_NOBLE_ROAR] = COMPOUND_STRING("Intimida al rival para bajar
+el Ataque y el Atq. Esp.$"),
+    [MOVE_PETAL_BLIZZARD] = COMPOUND_STRING("Desata una violenta tormenta
+de petalos que ataca a todos.$"),
+    [MOVE_TOPSY_TURVY] = COMPOUND_STRING("Invierte todos los cambios de
+estad. que afectan al objetivo.$"),
+    [MOVE_GRASSY_TERRAIN] = COMPOUND_STRING("El suelo se llena de hierba
+5 turnos. Restaura PS.$"),
+    [MOVE_FAIRY_WIND] = COMPOUND_STRING("Agita un viento de hada para
+golpear al rival.$"),
+    [MOVE_KINGS_SHIELD] = COMPOUND_STRING("Esquiva dano y reduce el
+Ataque si es golpeado.$"),
+    [MOVE_STEAM_ERUPTION] = COMPOUND_STRING("Sumerge al rival en vapor
+caliente. Puede quemar.$"),
+    [MOVE_SPIKY_SHIELD] = COMPOUND_STRING("Esquiva el ataque y dana
+al rival si le golpea.$"),
+    [MOVE_POWDER] = COMPOUND_STRING("Dana al rival si usa un
+movimiento tipo Fuego.$"),
+    [MOVE_ELECTRIC_TERRAIN] = COMPOUND_STRING("Electrifica el suelo 5 turnos.
+Evita el sueno.$"),
+    [MOVE_BABY_DOLL_EYES] = COMPOUND_STRING("Baja el Ataque del rival
+antes de que pueda moverse.$"),
+    [MOVE_POWER_UP_PUNCH] = COMPOUND_STRING("Un duro punetazo que sube
+el Ataque del usuario.$"),
+    [MOVE_LANDS_WRATH] = COMPOUND_STRING("Recoge la energia de la
+tierra para atacar a todos.$"),
+    [MOVE_DRAGON_ASCENT] = COMPOUND_STRING("Un fuerte ataque pero baja
+las estadisticas defensivas.$"),
+    [MOVE_BANEFUL_BUNKER] = COMPOUND_STRING("Protege al usuario y envenena
+a los rivales al contacto.$"),
+    [MOVE_ICE_HAMMER] = COMPOUND_STRING("Golpea con el puno. Baja
+la Velocidad del usuario.$"),
+    [MOVE_SOLAR_BLADE] = COMPOUND_STRING("Carga el primer turno, luego
+corta con una hoja de luz.$"),
+    [MOVE_LASER_FOCUS] = COMPOUND_STRING("Garantiza que el proximo mov.
+sea un golpe critico.$"),
+    [MOVE_ANCHOR_SHOT] = COMPOUND_STRING("Estrangula al rival con una
+cadena. El rival no puede huir.$"),
+    [MOVE_POWER_TRIP] = COMPOUND_STRING("Golpea mas fuerte cuantos
+mas aumentos de estad. tenga.$"),
+    [MOVE_PURIFY] = COMPOUND_STRING("Cura el estado del rival
+para restaurar PS.$"),
+    [MOVE_INSTRUCT] = COMPOUND_STRING("Ordena al objetivo que use
+de nuevo su ultimo movimiento.$"),
+    [MOVE_BRUTAL_SWING] = COMPOUND_STRING("Se lanza violentamente para
+danar a todos los cercanos.$"),
+    [MOVE_PSYCHIC_FANGS] = COMPOUND_STRING("Muerde con colmillos psiquicos.
+Destruye cualquier barrera.$"),
+    [MOVE_LIQUIDATION] = COMPOUND_STRING("Golpea al rival con agua.
+Puede bajar la Defensa.$"),
+    [MOVE_MOONGEIST_BEAM] = COMPOUND_STRING("Un rayo de luna que ignora
+las habilidades.$"),
+    [MOVE_MULTI_ATTACK] = COMPOUND_STRING("Un ataque que cambia
+con los Recuerdos.$"),
+    [MOVE_ZIPPY_ZAP] = COMPOUND_STRING("Descargas electricas que van
+primero y son golpe critico.$"),
+    [MOVE_BOUNCY_BUBBLE] = COMPOUND_STRING("Un ataque que absorbe
+todo el dano infligido.$"),
+    [MOVE_BADDY_BAD] = COMPOUND_STRING("Actua mal al atacar. Crea
+barrera que reduce dano fis.$"),
+    [MOVE_VEEVEE_VOLLEY] = COMPOUND_STRING("El amor de Eevee aumenta
+su potencia. Nunca falla.$"),
+    [MOVE_JAW_LOCK] = COMPOUND_STRING("Impide que el usuario y
+el objetivo puedan huir.$"),
+    [MOVE_MAGIC_POWDER] = COMPOUND_STRING("El polvo magico convierte al
+objetivo en tipo Psiquico.$"),
+    [MOVE_BOLT_BEAK] = COMPOUND_STRING("Doble potencia si el usuario
+actua antes que el objetivo.$"),
+    [MOVE_BODY_PRESS] = COMPOUND_STRING("Mas dano cuanto mayor
+sea la Defensa del usuario.$"),
+    [MOVE_PYRO_BALL] = COMPOUND_STRING("Lanza una bola de fuego al
+objetivo. Puede quemar.$"),
+    [MOVE_BREAKING_SWIPE] = COMPOUND_STRING("Golpea con la cola. Baja el
+Ataque de los afectados.$"),
+    [MOVE_GRAV_APPLE] = COMPOUND_STRING("Deja caer una manzana desde
+arriba. Baja la Defensa rival.$"),
+    [MOVE_OBSTRUCT] = COMPOUND_STRING("Se protege y baja mucho la
+Defensa al contacto.$"),
+    [MOVE_STEEL_BEAM] = COMPOUND_STRING("Dispara un rayo de acero
+desde su cuerpo. Dana al usuario.$"),
+    [MOVE_METEOR_BEAM] = COMPOUND_STRING("Mov. de 2 turnos que sube
+el Atq. Esp. antes de atacar.$"),
+    [MOVE_RISING_VOLTAGE] = COMPOUND_STRING("La potencia se duplica
+en Terreno Electrico.$"),
+    [MOVE_LASH_OUT] = COMPOUND_STRING("Si las estads. del usuario
+bajaron este turno, se duplica.$"),
+    [MOVE_FLIP_TURN] = COMPOUND_STRING("Ataca y vuelve para cambiar
+por otro POKeMON del equipo.$"),
+    [MOVE_JUNGLE_HEALING] = COMPOUND_STRING("Cura PS y estado del usuario
+y de sus aliados en batalla.$"),
+    [MOVE_DRAGON_ENERGY] = COMPOUND_STRING("Cuanto mas PS tiene el usuario,
+mas dano inflige.$"),
+    [MOVE_GLACIAL_LANCE] = COMPOUND_STRING("Lanza una lanza de hielo
+envuelta en ventisca a rivales.$"),
+    [MOVE_PSYSHIELD_BASH] = COMPOUND_STRING("Golpea con energia psiquica.
+Puede subir la Defensa.$"),
+    [MOVE_MYSTICAL_POWER] = COMPOUND_STRING("Un poder misterioso golpea
+y sube el Atq. Esp. del usuario.$"),
+    [MOVE_MOUNTAIN_GALE] = COMPOUND_STRING("Enormes trozos de hielo danan
+al rival. Puede hacer retroceder.$"),
+    [MOVE_ESPER_WING] = COMPOUND_STRING("Alta tasa de golpe critico.
+Sube la Velocidad del usuario.$"),
+    [MOVE_INFERNAL_PARADE] = COMPOUND_STRING("Dana mas si el rival tiene
+una dolencia. Puede quemar.$"),
+    [MOVE_SANDSEAR_STORM] = COMPOUND_STRING("Golpea con arena abrasadora.
+Puede causar quemaduras.$"),
+    [MOVE_SILK_TRAP] = COMPOUND_STRING("Se protege y baja la Velocidad
+al contacto.$"),
+    [MOVE_ORDER_UP] = COMPOUND_STRING("Potencia las estads. del usuario
+segun el Tatsugiri.$"),
+    [MOVE_POPULATION_BOMB] = COMPOUND_STRING("Los companeros del usuario
+golpean de 1 a 10 veces.$"),
+    [MOVE_SALT_CURE] = COMPOUND_STRING("Dana al rival cada turno.
+Doble contra Acero y Agua.$"),
+    [MOVE_FILLET_AWAY] = COMPOUND_STRING("Sube mucho ofensiva y Vel.
+usando sus propios PS.$"),
+    [MOVE_AQUA_STEP] = COMPOUND_STRING("Golpea con pasos agiles.
+Sube la Velocidad del usuario.$"),
+    [MOVE_COLLISION_COURSE] = COMPOUND_STRING("Explosion prehistorica mas
+fuerte si es muy eficaz.$"),
+    [MOVE_TIDY_UP] = COMPOUND_STRING("El usuario limpia trampas y
+sube su Ataque y Velocidad.$"),
+    [MOVE_CHILLING_WATER] = COMPOUND_STRING("Un chorro de agua helada
+baja el Ataque del objetivo.$"),
+    [MOVE_ARMOR_CANNON] = COMPOUND_STRING("Un fuerte ataque pero baja
+las estadisticas defensivas.$"),
+    [MOVE_COMEUPPANCE] = COMPOUND_STRING("Contraataca con fuerza a quien
+haya danado al usuario.$"),
+    [MOVE_BLOOD_MOON] = COMPOUND_STRING("Desata la luna de sangre.
+No puede usarse dos veces seguidas.$"),
+    [MOVE_ELECTRO_SHOT] = COMPOUND_STRING("Acumula electricidad y dispara
+una descarga de alto voltaje.$"),
+    [MOVE_THUNDERCLAP] = COMPOUND_STRING("Golpea primero si el rival
+esta preparando un ataque.$"),
+    [MOVE_DRAGON_CHEER] = COMPOUND_STRING("Sube la tasa de critico de
+aliados, especialmente Dragon.$"),
+    [MOVE_PSYCHIC_NOISE] = COMPOUND_STRING("Ondas sonoras que danan e
+impiden curacion por 2 turnos.$"),
+    [MOVE_ALL_OUT_PUMMELING] = COMPOUND_STRING("Lanza un orbe de energia al
+objetivo. La potencia varia.$"),
+    [MOVE_CONTINENTAL_CRUSH] = COMPOUND_STRING("Deja caer una montana de roca
+sobre el rival. Potencia varia.$"),
+    [MOVE_INFERNO_OVERDRIVE] = COMPOUND_STRING("Escupe fuego intenso al
+objetivo. La potencia varia.$"),
+    [MOVE_SHATTERED_PSYCHE] = COMPOUND_STRING("Controla al objetivo para
+hacerle dano. Potencia varia.$"),
+    [MOVE_TWINKLE_TACKLE] = COMPOUND_STRING("Juega con el objetivo en un
+espacio encantador. Potencia varia.$"),
+    [MOVE_EXTREME_EVOBOOST] = COMPOUND_STRING("Eevee recibe energia de sus
+amigos. Potencia las estads.$"),
+    [MOVE_MALICIOUS_MOONSAULT] = COMPOUND_STRING("Incineroar golpea al objetivo
+con toda su fuerza.$"),
+    [MOVE_CLANGOROUS_SOULBLAZE] = COMPOUND_STRING("Kommo-o ataca con toda su
+fuerza. Potencia todas las estads.$"),
+    [MOVE_LIGHT_THAT_BURNS_THE_SKY] = COMPOUND_STRING("Usa el mayor ataque de Necrozma.
+Ignora las habilidades.$"),
+    [MOVE_MAX_FLUTTERBY] = COMPOUND_STRING("Ataque Dinamax Bicho.
+Baja el Atq. Esp. del rival.$"),
+    [MOVE_MAX_PHANTASM] = COMPOUND_STRING("Ataque Dinamax Fantasma.
+Baja la Defensa del rival.$"),
+    [MOVE_MAX_AIRSTREAM] = COMPOUND_STRING("Ataque Dinamax Volador.
+Sube la Velocidad aliada.$"),
+    [MOVE_MAX_ROCKFALL] = COMPOUND_STRING("Ataque Dinamax Roca.
+Invoca una tormenta de arena.$"),
+    [MOVE_MAX_STEELSPIKE] = COMPOUND_STRING("Ataque Dinamax Acero.
+Sube la Defensa aliada.$"),
+    [MOVE_G_MAX_BEFUDDLE] = COMPOUND_STRING("Ataque G-Max de Butterfree.
+Veneno, paralisis o sueno.$"),
+    [MOVE_G_MAX_TERROR] = COMPOUND_STRING("Ataque G-Max de Gengar.
+Impide huir a los rivales.$"),
+    [MOVE_G_MAX_REPLENISH] = COMPOUND_STRING("Ataque G-Max de Snorlax.
+Restaurar Bayas consumidas.$"),
+    [MOVE_G_MAX_FIREBALL] = COMPOUND_STRING("Ataque G-Max de Cinderace.
+Ignora las habilidades del rival.$"),
+    [MOVE_G_MAX_STONESURGE] = COMPOUND_STRING("Ataque G-Max de Drednaw.
+Esparce rocas afiladas.$"),
+    [MOVE_G_MAX_SANDBLAST] = COMPOUND_STRING("Ataque G-Max de Sandaconda.
+Atrapa rivales en tormenta de arena.$"),
+    [MOVE_G_MAX_SNOOZE] = COMPOUND_STRING("Ataque G-Max de Grimmsnarl.
+Adormece a los rivales.$"),
+    [MOVE_G_MAX_ONE_BLOW] = COMPOUND_STRING("Ataque G-Max de Urshifu.
+Ignora Max Guardia.$"),
+};
+
+const u8 *const gNvAbilityDescriptions[ABILITIES_COUNT] = {
+    [ABILITY_SPEED_BOOST] = COMPOUND_STRING("Sube la Velocidad gradualmente.$"),
+    [ABILITY_LIMBER] = COMPOUND_STRING("Evita la parálisis.$"),
+    [ABILITY_WATER_ABSORB] = COMPOUND_STRING("Convierte el agua en PS.$"),
+    [ABILITY_INSOMNIA] = COMPOUND_STRING("Evita quedarse dormido.$"),
+    [ABILITY_SHIELD_DUST] = COMPOUND_STRING("Evita los efectos añadidos.$"),
+    [ABILITY_SHADOW_TAG] = COMPOUND_STRING("Impide la huida del rival.$"),
+    [ABILITY_EFFECT_SPORE] = COMPOUND_STRING("Deja esporas al contacto.$"),
+    [ABILITY_LIGHTNING_ROD] = COMPOUND_STRING("Atrae los movimientos eléctricos.$"),
+    [ABILITY_ILLUMINATE] = COMPOUND_STRING("Sube la tasa de encuentros.$"),
+    [ABILITY_INNER_FOCUS] = COMPOUND_STRING("Evita la vacilación.$"),
+    [ABILITY_SOUNDPROOF] = COMPOUND_STRING("Evita movimientos sonoros.$"),
+    [ABILITY_THICK_FAT] = COMPOUND_STRING("Protección frente a calor y frío.$"),
+    [ABILITY_KEEN_EYE] = COMPOUND_STRING("Evita perder Precisión.$"),
+    [ABILITY_HUSTLE] = COMPOUND_STRING("Cambia Precisión por potencia.$"),
+    [ABILITY_FORECAST] = COMPOUND_STRING("Cambia según el clima.$"),
+    [ABILITY_MARVEL_SCALE] = COMPOUND_STRING("Sube Defensa si está afectado.$"),
+    [ABILITY_TORRENT] = COMPOUND_STRING("Potencia los movimientos Agua.$"),
+    [ABILITY_ARENA_TRAP] = COMPOUND_STRING("Impide la huida.$"),
+    [ABILITY_SHELL_ARMOR] = COMPOUND_STRING("Bloquea los golpes críticos.$"),
+    [ABILITY_RIVALRY] = COMPOUND_STRING("Más potencia contra rivales.$"),
+    [ABILITY_ANGER_POINT] = COMPOUND_STRING("Los críticos suben el Ataque.$"),
+    [ABILITY_DRY_SKIN] = COMPOUND_STRING("Prefiere la humedad al calor.$"),
+    [ABILITY_ADAPTABILITY] = COMPOUND_STRING("Potencia ataques del mismo tipo.$"),
+    [ABILITY_QUICK_FEET] = COMPOUND_STRING("Sube Velocidad si está afectado.$"),
+    [ABILITY_NO_GUARD] = COMPOUND_STRING("Todos los movimientos aciertan.$"),
+    [ABILITY_KLUTZ] = COMPOUND_STRING("No puede usar objetos equipados.$"),
+    [ABILITY_ANTICIPATION] = COMPOUND_STRING("Presiente movimientos peligrosos.$"),
+    [ABILITY_FILTER] = COMPOUND_STRING("Debilita ataques supereficaces.$"),
+    [ABILITY_ICE_BODY] = COMPOUND_STRING("Recupera PS en granizo o nieve.$"),
+    [ABILITY_FRISK] = COMPOUND_STRING("Comprueba el objeto del rival.$"),
+    [ABILITY_BAD_DREAMS] = COMPOUND_STRING("Daña a los POKéMON dormidos.$"),
+    [ABILITY_UNNERVE] = COMPOUND_STRING("Rivales no pueden comer Bayas.$"),
+    [ABILITY_HEALER] = COMPOUND_STRING("Cura al POKéMON aliado.$"),
+    [ABILITY_LIGHT_METAL] = COMPOUND_STRING("Reduce el peso a la mitad.$"),
+    [ABILITY_HARVEST] = COMPOUND_STRING("Puede reciclar una Baya usada.$"),
+    [ABILITY_POISON_TOUCH] = COMPOUND_STRING("Envenena al rival al contacto.$"),
+    [ABILITY_WONDER_SKIN] = COMPOUND_STRING("Puede evitar problemas de estado.$"),
+    [ABILITY_INFILTRATOR] = COMPOUND_STRING("Atraviesa las barreras.$"),
+    [ABILITY_RATTLED] = COMPOUND_STRING("Sube la Velocidad si se asusta.$"),
+    [ABILITY_SAND_FORCE] = COMPOUND_STRING("Gana potencia en tormenta arena.$"),
+    [ABILITY_TURBOBLAZE] = COMPOUND_STRING("Movimientos ignoran habilidades.$"),
+    [ABILITY_CHEEK_POUCH] = COMPOUND_STRING("Comer Bayas restaura PS.$"),
+    [ABILITY_BULLETPROOF] = COMPOUND_STRING("Evita algunos proyectiles.$"),
+    [ABILITY_SWEET_VEIL] = COMPOUND_STRING("Evita que el equipo se duerma.$"),
+    [ABILITY_GRASS_PELT] = COMPOUND_STRING("Sube Defensa en la hierba.$"),
+    [ABILITY_GOOEY] = COMPOUND_STRING("Baja la Velocidad al contacto.$"),
+    [ABILITY_FAIRY_AURA] = COMPOUND_STRING("Potencia los movimientos Hada.$"),
+    [ABILITY_DELTA_STREAM] = COMPOUND_STRING("Invoca vientos fuertes.$"),
+    [ABILITY_WATER_COMPACTION] = COMPOUND_STRING("El agua sube la Defensa.$"),
+    [ABILITY_WATER_BUBBLE] = COMPOUND_STRING("Protege del fuego y quemaduras.$"),
+    [ABILITY_LONG_REACH] = COMPOUND_STRING("Nunca hace contacto.$"),
+    [ABILITY_SURGE_SURFER] = COMPOUND_STRING("Más rápido en terreno eléctrico.$"),
+    [ABILITY_POWER_CONSTRUCT] = COMPOUND_STRING("Las células ayudan si está débil.$"),
+    [ABILITY_INNARDS_OUT] = COMPOUND_STRING("Daña al rival al ser derrotado.$"),
+    [ABILITY_DAZZLING] = COMPOUND_STRING("Protege de ataques prioritarios.$"),
+    [ABILITY_POWER_OF_ALCHEMY] = COMPOUND_STRING("Copia la habilidad del aliado.$"),
+    [ABILITY_PSYCHIC_SURGE] = COMPOUND_STRING("El campo se vuelve psíquico.$"),
+    [ABILITY_SHADOW_SHIELD] = COMPOUND_STRING("Reduce daño a PS máximos.$"),
+    [ABILITY_DAUNTLESS_SHIELD] = COMPOUND_STRING("Sube la Defensa al entrar.$"),
+    [ABILITY_PROPELLER_TAIL] = COMPOUND_STRING("Ignora la redirección del rival.$"),
+    [ABILITY_STEAM_ENGINE] = COMPOUND_STRING("Fuego o agua suben Velocidad.$"),
+    [ABILITY_RIPEN] = COMPOUND_STRING("Duplica el efecto de las Bayas.$"),
+    [ABILITY_SCREEN_CLEANER] = COMPOUND_STRING("Elimina muros de luz.$"),
+    [ABILITY_GORILLA_TACTICS] = COMPOUND_STRING("Sube Ataque y fija el movimiento.$"),
+    [ABILITY_QUICK_DRAW] = COMPOUND_STRING("A veces ataca primero.$"),
+    [ABILITY_DRAGONS_MAW] = COMPOUND_STRING("Potencia movimientos Dragón.$"),
+    [ABILITY_AS_ONE_SHADOW_RIDER] = COMPOUND_STRING("Unnerve y Grim Neigh.$"),
+    [ABILITY_ANGER_SHELL] = COMPOUND_STRING("Se enfurece a la mitad de PS.$"),
+    [ABILITY_GUARD_DOG] = COMPOUND_STRING("No puede ser intimidado.$"),
+    [ABILITY_COMMANDER] = COMPOUND_STRING("Manda desde Dondozo.$"),
+    [ABILITY_GOOD_AS_GOLD] = COMPOUND_STRING("Evita movimientos de estado.$"),
+    [ABILITY_BEADS_OF_RUIN] = COMPOUND_STRING("Baja la Def. Esp. de rivales.$"),
+    [ABILITY_CUD_CHEW] = COMPOUND_STRING("Come de nuevo una Baya usada.$"),
+    [ABILITY_TOXIC_DEBRIS] = COMPOUND_STRING("Pone púas tóxicas si recibe daño.$"),
+    [ABILITY_HOSPITALITY] = COMPOUND_STRING("Restaura los PS del aliado.$"),
+    [ABILITY_EMBODY_ASPECT_WELLSPRING_MASK] = COMPOUND_STRING("Sube la Def. Esp.$"),
+    [ABILITY_TERA_SHIFT] = COMPOUND_STRING("Se teracristaliza al entrar.$"),
+    [ABILITY_PIERCING_DRILL] = COMPOUND_STRING("El contacto evade la protección.$"),
+    [ABILITY_MEGA_SOL] = COMPOUND_STRING("Actúa como si hubiera sol.$"),
+    [ABILITY_NONE] = COMPOUND_STRING("Sin habilidad especial.$"),
+    [ABILITY_BATTLE_ARMOR] = COMPOUND_STRING("Bloquea los golpes críticos.$"),
+    [ABILITY_SAND_VEIL] = COMPOUND_STRING("Sube la Evasión en tormenta
+de arena.$"),
+    [ABILITY_OBLIVIOUS] = COMPOUND_STRING("Evita la atracción.$"),
+    [ABILITY_COLOR_CHANGE] = COMPOUND_STRING("Cambia de tipo al del
+movimiento rival.$"),
+    [ABILITY_OWN_TEMPO] = COMPOUND_STRING("Evita la confusión.$"),
+    [ABILITY_ROUGH_SKIN] = COMPOUND_STRING("Daña al tocarla.$"),
+    [ABILITY_SYNCHRONIZE] = COMPOUND_STRING("Transmite los problemas
+de estado.$"),
+    [ABILITY_SERENE_GRACE] = COMPOUND_STRING("Aumenta los efectos
+adicionales.$"),
+    [ABILITY_TRACE] = COMPOUND_STRING("Copia la habilidad especial.$"),
+    [ABILITY_MAGMA_ARMOR] = COMPOUND_STRING("Evita la congelación.$"),
+    [ABILITY_RAIN_DISH] = COMPOUND_STRING("Recupera PS lentamente
+bajo la lluvia.$"),
+    [ABILITY_EARLY_BIRD] = COMPOUND_STRING("Despierta rápido del sueño.$"),
+    [ABILITY_HYPER_CUTTER] = COMPOUND_STRING("Evita la reducción de Ataque.$"),
+    [ABILITY_CUTE_CHARM] = COMPOUND_STRING("Enamora al contacto.$"),
+    [ABILITY_STICKY_HOLD] = COMPOUND_STRING("Evita el robo de objetos.$"),
+    [ABILITY_LIQUID_OOZE] = COMPOUND_STRING("El drenaje provoca daño.$"),
+    [ABILITY_SWARM] = COMPOUND_STRING("Potencia mov. Bicho
+en apuros.$"),
+    [ABILITY_VITAL_SPIRIT] = COMPOUND_STRING("Evita el sueño.$"),
+    [ABILITY_AIR_LOCK] = COMPOUND_STRING("Anula los efectos del clima.$"),
+    [ABILITY_STEADFAST] = COMPOUND_STRING("Encogerse sube la Velocidad.$"),
+    [ABILITY_UNBURDEN] = COMPOUND_STRING("Usar objeto sube la Velocidad.$"),
+    [ABILITY_DOWNLOAD] = COMPOUND_STRING("Ajusta la potencia de forma
+favorable.$"),
+    [ABILITY_SKILL_LINK] = COMPOUND_STRING("Los mov. múltiples golpean
+5 veces.$"),
+    [ABILITY_NORMALIZE] = COMPOUND_STRING("Los movimientos son de
+tipo Normal.$"),
+    [ABILITY_STALL] = COMPOUND_STRING("Siempre actúa el último.$"),
+    [ABILITY_MOLD_BREAKER] = COMPOUND_STRING("Los movimientos ignoran
+habilidades.$"),
+    [ABILITY_FOREWARN] = COMPOUND_STRING("Averigua el movimiento
+del rival.$"),
+    [ABILITY_SLOW_START] = COMPOUND_STRING("Tarda en arrancar.$"),
+    [ABILITY_SOLID_ROCK] = COMPOUND_STRING("Atenúa los golpes
+“supereficaces”.$"),
+    [ABILITY_RECKLESS] = COMPOUND_STRING("Potencia mov. con retroceso.$"),
+    [ABILITY_PICKPOCKET] = COMPOUND_STRING("Roba el objeto del rival.$"),
+    [ABILITY_DEFIANT] = COMPOUND_STRING("Stat reducido sube el Ataque.$"),
+    [ABILITY_FRIEND_GUARD] = COMPOUND_STRING("Reduce el daño al compañero.$"),
+    [ABILITY_MULTISCALE] = COMPOUND_STRING("Reduce daño a PS completos.$"),
+    [ABILITY_TELEPATHY] = COMPOUND_STRING("No recibe daño de un aliado.$"),
+    [ABILITY_REGENERATOR] = COMPOUND_STRING("Cura PS al cambiar.$"),
+    [ABILITY_ANALYTIC] = COMPOUND_STRING("Actuar último sube la potencia.$"),
+    [ABILITY_MUMMY] = COMPOUND_STRING("Se propaga al contacto.$"),
+    [ABILITY_MAGIC_BOUNCE] = COMPOUND_STRING("Refleja los movimientos
+de estado.$"),
+    [ABILITY_IRON_BARBS] = COMPOUND_STRING("Daña al tocarla.$"),
+    [ABILITY_TERAVOLT] = COMPOUND_STRING("Los movimientos ignoran
+habilidades.$"),
+    [ABILITY_PROTEAN] = COMPOUND_STRING("Cambia de tipo al del
+movimiento usado.$"),
+    [ABILITY_COMPETITIVE] = COMPOUND_STRING("Stat reducido sube el
+Atq. Esp.$"),
+    [ABILITY_STANCE_CHANGE] = COMPOUND_STRING("Se transforma en combate.$"),
+    [ABILITY_SYMBIOSIS] = COMPOUND_STRING("Pasa su objeto a un aliado.$"),
+    [ABILITY_AERILATE] = COMPOUND_STRING("Los mov. Normales son
+de tipo Volador.$"),
+    [ABILITY_AURA_BREAK] = COMPOUND_STRING("Invierte las habilidades
+de aura.$"),
+    [ABILITY_STAMINA] = COMPOUND_STRING("Sube la Defensa al recibir
+golpe.$"),
+    [ABILITY_MERCILESS] = COMPOUND_STRING("Golpes críticos a rivales
+envenenados.$"),
+    [ABILITY_STEELWORKER] = COMPOUND_STRING("Potencia los mov. de tipo
+Acero.$"),
+    [ABILITY_LIQUID_VOICE] = COMPOUND_STRING("Los mov. de sonido son
+de tipo Agua.$"),
+    [ABILITY_SCHOOLING] = COMPOUND_STRING("Forma un banco cuando es
+poderoso.$"),
+    [ABILITY_CORROSION] = COMPOUND_STRING("Puede envenenar cualquier
+tipo.$"),
+    [ABILITY_DANCER] = COMPOUND_STRING("Baila junto a los demás.$"),
+    [ABILITY_SOUL_HEART] = COMPOUND_STRING("Los KOs suben el Atq. Esp.$"),
+    [ABILITY_BEAST_BOOST] = COMPOUND_STRING("Los KOs suben el mejor stat.$"),
+    [ABILITY_MISTY_SURGE] = COMPOUND_STRING("El campo se llena de niebla.$"),
+    [ABILITY_PRISM_ARMOR] = COMPOUND_STRING("Atenúa los golpes
+“supereficaces”.$"),
+    [ABILITY_LIBERO] = COMPOUND_STRING("Cambia de tipo al del
+movimiento.$"),
+    [ABILITY_MIRROR_ARMOR] = COMPOUND_STRING("Refleja las reducciones
+de stat.$"),
+    [ABILITY_PUNK_ROCK] = COMPOUND_STRING("Amplifica y resiste el sonido.$"),
+    [ABILITY_ICE_FACE] = COMPOUND_STRING("Granizo o Nevada renuevan
+golpe gratis.$"),
+    [ABILITY_STEELY_SPIRIT] = COMPOUND_STRING("Potencia mov. Acero
+del aliado.$"),
+    [ABILITY_NEUTRALIZING_GAS] = COMPOUND_STRING("Anula todas las habilidades.$"),
+    [ABILITY_UNSEEN_FIST] = COMPOUND_STRING("El contacto evita la
+protección.$"),
+    [ABILITY_CHILLING_NEIGH] = COMPOUND_STRING("Los KOs suben el Ataque.$"),
+    [ABILITY_LINGERING_AROMA] = COMPOUND_STRING("Se propaga al contacto.$"),
+    [ABILITY_PURIFYING_SALT] = COMPOUND_STRING("Protegido por sales puras.$"),
+    [ABILITY_ROCKY_PAYLOAD] = COMPOUND_STRING("Potencia los mov. de tipo
+Roca.$"),
+    [ABILITY_ELECTROMORPHOSIS] = COMPOUND_STRING("Se Carga al recibir golpes.$"),
+    [ABILITY_VESSEL_OF_RUIN] = COMPOUND_STRING("Reduce el daño esp. del rival.$"),
+    [ABILITY_ORICHALCUM_PULSE] = COMPOUND_STRING("Invoca la luz solar en combate.$"),
+    [ABILITY_SHARPNESS] = COMPOUND_STRING("Refuerza los mov. de corte.$"),
+    [ABILITY_ARMOR_TAIL] = COMPOUND_STRING("Protege contra la prioridad.$"),
+    [ABILITY_MINDS_EYE] = COMPOUND_STRING("Ojo Lince y Sin Miedo.$"),
+    [ABILITY_EMBODY_ASPECT_CORNERSTONE_MASK] = COMPOUND_STRING("Sube la Defensa.$"),
+    [ABILITY_TERA_SHELL] = COMPOUND_STRING("Resiste todo a PS completos.$"),
+    [ABILITY_DRAGONIZE] = COMPOUND_STRING("Los mov. Normales son
+tipo Dragón.$"),
+    [ABILITY_316] = COMPOUND_STRING("Sin habilidad especial.$"),
+    [ABILITY_STENCH] = COMPOUND_STRING("Puede hacer retroceder al rival."),
+    [ABILITY_STURDY] = COMPOUND_STRING("Anula ataques de KO de un golpe."),
+    [ABILITY_STATIC] = COMPOUND_STRING("Paraliza al contacto."),
+    [ABILITY_CLOUD_NINE] = COMPOUND_STRING("Anula los efectos del clima."),
+    [ABILITY_IMMUNITY] = COMPOUND_STRING("Evita el envenenamiento."),
+    [ABILITY_SUCTION_CUPS] = COMPOUND_STRING("Ancla firmemente el cuerpo."),
+    [ABILITY_WONDER_GUARD] = COMPOUND_STRING("Solo impactan los golpes
+“supereficaces”."),
+    [ABILITY_CLEAR_BODY] = COMPOUND_STRING("Evita la reducción de estadísticas."),
+    [ABILITY_SWIFT_SWIM] = COMPOUND_STRING("Sube la Velocidad bajo la lluvia."),
+    [ABILITY_HUGE_POWER] = COMPOUND_STRING("Aumenta el Ataque."),
+    [ABILITY_WATER_VEIL] = COMPOUND_STRING("Evita las quemaduras."),
+    [ABILITY_SAND_STREAM] = COMPOUND_STRING("Invoca una tormenta de arena."),
+    [ABILITY_FLAME_BODY] = COMPOUND_STRING("Quema al rival al contacto."),
+    [ABILITY_PICKUP] = COMPOUND_STRING("Puede recoger objetos."),
+    [ABILITY_PLUS] = COMPOUND_STRING("Potencia con Minus."),
+    [ABILITY_SHED_SKIN] = COMPOUND_STRING("Se cura mudando la piel."),
+    [ABILITY_OVERGROW] = COMPOUND_STRING("Potencia mov. Planta en apuros."),
+    [ABILITY_ROCK_HEAD] = COMPOUND_STRING("Evita el daño por retroceso."),
+    [ABILITY_WHITE_SMOKE] = COMPOUND_STRING("Evita la reducción de estadísticas."),
+    [ABILITY_TANGLED_FEET] = COMPOUND_STRING("Sube la Evasión si está confuso."),
+    [ABILITY_SNOW_CLOAK] = COMPOUND_STRING("Sube la Evasión en granizo o nieve."),
+    [ABILITY_HEATPROOF] = COMPOUND_STRING("Protección contra calor y quemaduras."),
+    [ABILITY_IRON_FIST] = COMPOUND_STRING("Potencia los movimientos de puño."),
+    [ABILITY_HYDRATION] = COMPOUND_STRING("Cura el estado bajo la lluvia."),
+    [ABILITY_SNIPER] = COMPOUND_STRING("Potencia los golpes críticos."),
+    [ABILITY_TECHNICIAN] = COMPOUND_STRING("Potencia los movimientos débiles."),
+    [ABILITY_SUPER_LUCK] = COMPOUND_STRING("Los golpes críticos son frecuentes."),
+    [ABILITY_UNAWARE] = COMPOUND_STRING("Ignora los cambios de estadísticas."),
+    [ABILITY_SCRAPPY] = COMPOUND_STRING("Golpea a POKéMON tipo Fantasma."),
+    [ABILITY_SNOW_WARNING] = COMPOUND_STRING("Invoca nieve al entrar en batalla."),
+    [ABILITY_MULTITYPE] = COMPOUND_STRING("Cambia de tipo según su Tabla."),
+    [ABILITY_SHEER_FORCE] = COMPOUND_STRING("Cambia efectos secundarios por potencia."),
+    [ABILITY_DEFEATIST] = COMPOUND_STRING("Se rinde a la mitad de PS."),
+    [ABILITY_WEAK_ARMOR] = COMPOUND_STRING("Sus estadísticas cambian al recibir daño."),
+    [ABILITY_TOXIC_BOOST] = COMPOUND_STRING("Sube el Ataque si está envenenado."),
+    [ABILITY_MOODY] = COMPOUND_STRING("Las estadísticas cambian gradualmente."),
+    [ABILITY_BIG_PECKS] = COMPOUND_STRING("Evita la reducción de Defensa."),
+    [ABILITY_ILLUSION] = COMPOUND_STRING("Aparece como un compañero."),
+    [ABILITY_MOXIE] = COMPOUND_STRING("Los KO suben el Ataque."),
+    [ABILITY_SAP_SIPPER] = COMPOUND_STRING("Los mov. Planta suben el Ataque."),
+    [ABILITY_ZEN_MODE] = COMPOUND_STRING("Se transforma a la mitad de PS."),
+    [ABILITY_AROMA_VEIL] = COMPOUND_STRING("Evita la restricción de movimientos."),
+    [ABILITY_FUR_COAT] = COMPOUND_STRING("Aumenta la Defensa."),
+    [ABILITY_STRONG_JAW] = COMPOUND_STRING("Potencia los movimientos de mordisco."),
+    [ABILITY_GALE_WINGS] = COMPOUND_STRING("Los movimientos Volador van primero."),
+    [ABILITY_TOUGH_CLAWS] = COMPOUND_STRING("Potencia los movimientos de contacto."),
+    [ABILITY_PARENTAL_BOND] = COMPOUND_STRING("Los movimientos golpean dos veces."),
+    [ABILITY_PRIMORDIAL_SEA] = COMPOUND_STRING("Invoca una lluvia torrencial."),
+    [ABILITY_WIMP_OUT] = COMPOUND_STRING("Huye a la mitad de PS."),
+    [ABILITY_SHIELDS_DOWN] = COMPOUND_STRING("El caparazón se rompe a mitad de PS."),
+    [ABILITY_BERSERK] = COMPOUND_STRING("Sube el Atq. Esp. con pocos PS."),
+    [ABILITY_TRIAGE] = COMPOUND_STRING("Los movimientos curativos van primero."),
+    [ABILITY_DISGUISE] = COMPOUND_STRING("Un señuelo le protege una vez."),
+    [ABILITY_COMATOSE] = COMPOUND_STRING("Siempre dormitando."),
+    [ABILITY_BATTERY] = COMPOUND_STRING("Sube el Atq. Esp. del aliado."),
+    [ABILITY_TANGLING_HAIR] = COMPOUND_STRING("Baja la Velocidad al contacto."),
+    [ABILITY_RKS_SYSTEM] = COMPOUND_STRING("Los Recuerdos cambian su tipo."),
+    [ABILITY_GRASSY_SURGE] = COMPOUND_STRING("El campo se vuelve herboso."),
+    [ABILITY_NEUROFORCE] = COMPOUND_STRING("Potencia los ataques “supereficaces”."),
+    [ABILITY_BALL_FETCH] = COMPOUND_STRING("Recoge la Poké Ball fallida."),
+    [ABILITY_GULP_MISSILE] = COMPOUND_STRING("Si recibe daño, escupe presa marina."),
+    [ABILITY_SAND_SPIT] = COMPOUND_STRING("Crea tormenta de arena al ser golpeado."),
+    [ABILITY_POWER_SPOT] = COMPOUND_STRING("Potencia los movimientos del aliado."),
+    [ABILITY_PERISH_BODY] = COMPOUND_STRING("El rival se debilita en 3 turnos al golpear."),
+    [ABILITY_PASTEL_VEIL] = COMPOUND_STRING("Protege al equipo del veneno."),
+    [ABILITY_CURIOUS_MEDICINE] = COMPOUND_STRING("Elimina cambios de estadísticas del aliado."),
+    [ABILITY_GRIM_NEIGH] = COMPOUND_STRING("Los KO suben el Atq. Esp."),
+    [ABILITY_SEED_SOWER] = COMPOUND_STRING("Afecta el terreno al recibir daño."),
+    [ABILITY_WELL_BAKED_BODY] = COMPOUND_STRING("Se fortalece con movimientos Fuego."),
+    [ABILITY_WIND_POWER] = COMPOUND_STRING("Se carga con el viento."),
+    [ABILITY_PROTOSYNTHESIS] = COMPOUND_STRING("El sol potencia la mejor estadística."),
+    [ABILITY_SWORD_OF_RUIN] = COMPOUND_STRING("Baja la Defensa de los rivales."),
+    [ABILITY_HADRON_ENGINE] = COMPOUND_STRING("El campo se vuelve eléctrico."),
+    [ABILITY_SUPREME_OVERLORD] = COMPOUND_STRING("Hereda la fuerza de los caídos."),
+    [ABILITY_EARTH_EATER] = COMPOUND_STRING("Come tierra para recuperar PS."),
+    [ABILITY_EMBODY_ASPECT_TEAL_MASK] = COMPOUND_STRING("Aumenta la Velocidad."),
+    [ABILITY_TOXIC_CHAIN] = COMPOUND_STRING("Los movimientos pueden envenenar."),
+    [ABILITY_TERAFORM_ZERO] = COMPOUND_STRING("Anula el clima y el terreno."),
+    [ABILITY_313] = COMPOUND_STRING("Sin habilidad especial."),
+    [ABILITY_317] = COMPOUND_STRING("Sin habilidad especial."),
+    [ABILITY_DRIZZLE] = COMPOUND_STRING("Invoca lluvia en batalla.$"),
+    [ABILITY_DAMP] = COMPOUND_STRING("Evita la autodestruccion.$"),
+    [ABILITY_VOLT_ABSORB] = COMPOUND_STRING("Convierte electricidad en PS.$"),
+    [ABILITY_COMPOUND_EYES] = COMPOUND_STRING("Aumenta la Precision.$"),
+    [ABILITY_FLASH_FIRE] = COMPOUND_STRING("Se potencia si recibe fuego.$"),
+    [ABILITY_INTIMIDATE] = COMPOUND_STRING("Baja el Ataque del rival.$"),
+    [ABILITY_LEVITATE] = COMPOUND_STRING("No le afectan mov. de Tierra.$"),
+    [ABILITY_NATURAL_CURE] = COMPOUND_STRING("Se cura al cambiar de turno.$"),
+    [ABILITY_CHLOROPHYLL] = COMPOUND_STRING("Sube la Velocidad con sol.$"),
+    [ABILITY_POISON_POINT] = COMPOUND_STRING("Envenena al rival al contacto.$"),
+    [ABILITY_MAGNET_PULL] = COMPOUND_STRING("Atrapa POKeMON de tipo Acero.$"),
+    [ABILITY_PRESSURE] = COMPOUND_STRING("Aumenta el uso de PP del rival.$"),
+    [ABILITY_RUN_AWAY] = COMPOUND_STRING("Facilita la huida.$"),
+    [ABILITY_TRUANT] = COMPOUND_STRING("Solo actua cada dos turnos.$"),
+    [ABILITY_MINUS] = COMPOUND_STRING("Se potencia junto a Mas.$"),
+    [ABILITY_GUTS] = COMPOUND_STRING("Sube el Ataque si hay estado.$"),
+    [ABILITY_BLAZE] = COMPOUND_STRING("Potencia mov. Fuego en apuros.$"),
+    [ABILITY_DROUGHT] = COMPOUND_STRING("Invoca luz solar en batalla.$"),
+    [ABILITY_PURE_POWER] = COMPOUND_STRING("Aumenta el Ataque.$"),
+    [ABILITY_MOTOR_DRIVE] = COMPOUND_STRING("La electricidad sube Velocidad.$"),
+    [ABILITY_GLUTTONY] = COMPOUND_STRING("Come Bayas antes de tiempo.$"),
+    [ABILITY_SIMPLE] = COMPOUND_STRING("Los cambios de estadisticas
+son mas pronunciados.$"),
+    [ABILITY_POISON_HEAL] = COMPOUND_STRING("Restaura PS si esta envenenado.$"),
+    [ABILITY_SOLAR_POWER] = COMPOUND_STRING("Se potencia con el sol.$"),
+    [ABILITY_MAGIC_GUARD] = COMPOUND_STRING("Solo recibe dano de ataques.$"),
+    [ABILITY_LEAF_GUARD] = COMPOUND_STRING("Bloquea estados con sol.$"),
+    [ABILITY_AFTERMATH] = COMPOUND_STRING("Al debilitarse, dana al rival.$"),
+    [ABILITY_TINTED_LENS] = COMPOUND_STRING("Potencia los mov. “poco eficaces”.$"),
+    [ABILITY_STORM_DRAIN] = COMPOUND_STRING("Atrae los movimientos Agua.$"),
+    [ABILITY_HONEY_GATHER] = COMPOUND_STRING("Puede recolectar Miel.$"),
+    [ABILITY_FLOWER_GIFT] = COMPOUND_STRING("Potencia aliados con el sol.$"),
+    [ABILITY_CONTRARY] = COMPOUND_STRING("Invierte los cambios de estad.$"),
+    [ABILITY_CURSED_BODY] = COMPOUND_STRING("Deshabilita movimientos
+al recibir contacto.$"),
+    [ABILITY_HEAVY_METAL] = COMPOUND_STRING("Duplica el peso.$"),
+    [ABILITY_FLARE_BOOST] = COMPOUND_STRING("Sube Atq. Esp. si esta quemado.$"),
+    [ABILITY_OVERCOAT] = COMPOUND_STRING("Bloquea clima y polvos.$"),
+    [ABILITY_SAND_RUSH] = COMPOUND_STRING("Sube Velocidad en tormenta.$"),
+    [ABILITY_IMPOSTER] = COMPOUND_STRING("Se transforma en el rival.$"),
+    [ABILITY_JUSTIFIED] = COMPOUND_STRING("Los golpes Siniestro
+aumentan el Ataque.$"),
+    [ABILITY_PRANKSTER] = COMPOUND_STRING("Los mov. de estado van primero.$"),
+    [ABILITY_VICTORY_STAR] = COMPOUND_STRING("Sube la Precision del equipo.$"),
+    [ABILITY_FLOWER_VEIL] = COMPOUND_STRING("Protege a los tipo Planta.$"),
+    [ABILITY_MAGICIAN] = COMPOUND_STRING("Roba el objeto del rival.$"),
+    [ABILITY_REFRIGERATE] = COMPOUND_STRING("Los mov. Normal se vuelven Hielo.$"),
+    [ABILITY_MEGA_LAUNCHER] = COMPOUND_STRING("Potencia movimientos de pulso.$"),
+    [ABILITY_PIXILATE] = COMPOUND_STRING("Los mov. Normal se vuelven Hada.$"),
+    [ABILITY_DARK_AURA] = COMPOUND_STRING("Potencia los mov. Siniestro.$"),
+    [ABILITY_DESOLATE_LAND] = COMPOUND_STRING("Invoca luz solar intensa.$"),
+    [ABILITY_EMERGENCY_EXIT] = COMPOUND_STRING("Huye al llegar a la mitad de PS.$"),
+    [ABILITY_STAKEOUT] = COMPOUND_STRING("Mas poderoso contra
+rivales que entran.$"),
+    [ABILITY_SLUSH_RUSH] = COMPOUND_STRING("Sube Velocidad en Granizo/Nieve.$"),
+    [ABILITY_GALVANIZE] = COMPOUND_STRING("Los mov. Normal se vuelven
+Electrico.$"),
+    [ABILITY_BATTLE_BOND] = COMPOUND_STRING("Cambia de forma tras derrotar.$"),
+    [ABILITY_QUEENLY_MAJESTY] = COMPOUND_STRING("Protege de movimientos rapidos.$"),
+    [ABILITY_FLUFFY] = COMPOUND_STRING("Mas resistente pero inflamable.$"),
+    [ABILITY_RECEIVER] = COMPOUND_STRING("Copia la habilidad del aliado.$"),
+    [ABILITY_ELECTRIC_SURGE] = COMPOUND_STRING("El campo se electrifica.$"),
+    [ABILITY_FULL_METAL_BODY] = COMPOUND_STRING("Evita la reduccion de estadist.$"),
+    [ABILITY_INTREPID_SWORD] = COMPOUND_STRING("Sube el Ataque al entrar.$"),
+    [ABILITY_COTTON_DOWN] = COMPOUND_STRING("Baja la Velocidad de todos
+al recibir un golpe.$"),
+    [ABILITY_STALWART] = COMPOUND_STRING("Ignora la redirigencia del rival.$"),
+    [ABILITY_ICE_SCALES] = COMPOUND_STRING("Reduce a la mitad el dano esp.$"),
+    [ABILITY_MIMICRY] = COMPOUND_STRING("Cambia de tipo segun el terreno.$"),
+    [ABILITY_WANDERING_SPIRIT] = COMPOUND_STRING("Intercambia habilidades
+al contacto.$"),
+    [ABILITY_HUNGER_SWITCH] = COMPOUND_STRING("Cambia de forma cada turno.$"),
+    [ABILITY_TRANSISTOR] = COMPOUND_STRING("Potencia mov. tipo Electrico.$"),
+    [ABILITY_AS_ONE_ICE_RIDER] = COMPOUND_STRING("Nerviosismo y Galope Gelido.$"),
+    [ABILITY_THERMAL_EXCHANGE] = COMPOUND_STRING("Los golpes Fuego suben Ataque.$"),
+    [ABILITY_WIND_RIDER] = COMPOUND_STRING("Sube Ataque si le golpea el viento.$"),
+    [ABILITY_ZERO_TO_HERO] = COMPOUND_STRING("Cambia de forma al salir.$"),
+    [ABILITY_QUARK_DRIVE] = COMPOUND_STRING("Campo elect. potencia mejor est.$"),
+    [ABILITY_TABLETS_OF_RUIN] = COMPOUND_STRING("Reduce el dano de los rivales.$"),
+    [ABILITY_OPPORTUNIST] = COMPOUND_STRING("Copia los cambios de estad. rival.$"),
+    [ABILITY_COSTAR] = COMPOUND_STRING("Copia los cambios de estad.
+del aliado.$"),
+    [ABILITY_MYCELIUM_MIGHT] = COMPOUND_STRING("Los mov. de estado nunca fallan.$"),
+    [ABILITY_EMBODY_ASPECT_HEARTHFLAME_MASK] = COMPOUND_STRING("Aumenta el Ataque.$"),
+    [ABILITY_SUPERSWEET_SYRUP] = COMPOUND_STRING("Baja la Evasion del rival.$"),
+    [ABILITY_POISON_PUPPETEER] = COMPOUND_STRING("Confunde a los rivales envenenados.$"),
+    [ABILITY_314] = COMPOUND_STRING("Sin habilidad especial.$"),
+    [ABILITY_SPICY_SPRAY] = COMPOUND_STRING("Quema al rival al recibir dano.$"),
+};
 #else
 const u8 *const gNvMoveDescriptions[MOVES_COUNT] = {0};
 const u8 *const gNvAbilityDescriptions[ABILITIES_COUNT] = {0};
