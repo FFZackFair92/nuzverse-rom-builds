@@ -110,7 +110,10 @@ jobs:
           echo "TAG=$TAG" >> "$GITHUB_ENV"
           echo "NV_DEFINES=$NV  TAG=$TAG"
           cd pex
-          if [ "${{ inputs.lang }}" != "en" ] && [ "${{ inputs.deploy }}" != "true" ]; then
+          if [ "${{ inputs.lang }}" != "en" ]; then
+            echo "Valida traduzione (${{ inputs.lang }}) - report non bloccante..."
+            python3 tools/i18n/extract.py >/dev/null 2>&1 || true
+            python3 tools/i18n/validate.py "${{ inputs.lang }}" || true
             echo "Inject traduzioni dialoghi (${{ inputs.lang }})..."
             python3 tools/i18n/apply_translation.py "${{ inputs.lang }}" || true
           fi
