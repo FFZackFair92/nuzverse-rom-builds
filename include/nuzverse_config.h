@@ -195,4 +195,12 @@
 #define NV_NO_UTILITY_FIELD_MOVES 1
 #endif
 
+// Sfida "Torre Lotta" (sandbox Battle Frontier: Battle Tower + Battle Arena).
+// Quando 1: boot diretto nell'hub Frontier, squadra rental competitiva seedata,
+// scelta livello Lv50/Open. Salta tutto il viaggio (niente palestre/storia).
+// Default 0: variant attivata solo dalla build dedicata (-DNV_TOWER_ONLY=1).
+#ifndef NV_TOWER_ONLY
+#define NV_TOWER_ONLY 0
+#endif
+
 #endif // GUARD_NUZVERSE_CONFIG_H
