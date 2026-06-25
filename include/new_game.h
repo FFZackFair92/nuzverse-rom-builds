@@ -11,6 +11,7 @@ u32 GetTrainerId(u8 *trainerId);
 void CopyTrainerId(u8 *dst, u8 *src);
 void NewGameInitData(void);
 void NvBuildInjectedParty(void);   // Nuzverse: costruisce gParties[player] da gNvInjectParty (special, sfide Torre/Arena)
+void NvBuildInjectedFoe(void);     // Nuzverse: costruisce gParties[OPPONENT_A] da gNvInjectFoe (special, Arena ghost)
 void ResetMenuAndMonGlobals(void);
 void Sav2_ClearSetDefault(void);
 

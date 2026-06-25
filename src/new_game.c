@@ -94,6 +94,7 @@ struct NvInjectParty
 };
 
 EWRAM_DATA struct NvInjectParty gNvInjectParty = {0};
+EWRAM_DATA struct NvInjectParty gNvInjectFoe = {0};   // Arena ghost: squadra avversaria
 
 void NvBuildInjectedParty(void)
 {
@@ -113,6 +114,46 @@ void NvBuildInjectedParty(void)
         while (GetNatureFromPersonality(personality) != src->nature);
 
         CreateMon(mon, src->species, src->level, personality, OTID_STRUCT_PLAYER_ID);
+
+        for (j = 0; j < 4; j++)
+        {
+            u16 move = src->moves[j];
+            u8 pp = gMovesInfo[move].pp;
+            SetMonData(mon, MON_DATA_MOVE1 + j, &move);
+            SetMonData(mon, MON_DATA_PP1 + j, &pp);
+        }
+        for (k = 0; k < 6; k++)
+        {
+            SetMonData(mon, MON_DATA_HP_IV + k, &src->ivs[k]);
+            SetMonData(mon, MON_DATA_HP_EV + k, &src->evs[k]);
+        }
+        SetMonData(mon, MON_DATA_HELD_ITEM, &src->heldItem);
+        SetMonData(mon, MON_DATA_ABILITY_NUM, &src->abilityNum);
+        CalculateMonStats(mon);
+    }
+}
+
+// Arena ghost (#4): costruisce la squadra AVVERSARIA (OPPONENT_A) da gNvInjectFoe.
+// Mirror del builder player; OTID casuale (avversario). Richiamabile via special
+// NvBuildInjectedFoe da uno script Arena prima della battaglia. Inerte se count==0.
+void NvBuildInjectedFoe(void)
+{
+    u32 i, j, k;
+
+    if (gNvInjectFoe.count == 0)
+        return;
+
+    ZeroEnemyPartyMons();
+    for (i = 0; i < gNvInjectFoe.count && i < PARTY_SIZE; i++)
+    {
+        struct NvInjectMon *src = &gNvInjectFoe.mons[i];
+        struct Pokemon *mon = &gParties[B_TRAINER_OPPONENT_A][i];
+        u32 personality;
+
+        do { personality = Random32(); }
+        while (GetNatureFromPersonality(personality) != src->nature);
+
+        CreateMon(mon, src->species, src->level, personality, OTID_STRUCT_RANDOM_NO_SHINY);
 
         for (j = 0; j < 4; j++)
         {
