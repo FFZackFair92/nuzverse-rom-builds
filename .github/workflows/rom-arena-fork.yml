@@ -1,4 +1,4 @@
-name: ROM · Arena (FORK)
+name: ROM· Arena (FORK)
 
 # Sfida "Torre Lotta": builda la variant arena dal fork (NV_ARENA_ONLY=1).
 # Squadra iniettata via gNvInjectParty (offset esportato nel sidecar -> inject_addr).
