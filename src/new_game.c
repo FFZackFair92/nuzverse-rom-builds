@@ -4,6 +4,8 @@
 #include "random.h"
 #include "pokemon.h"
 #include "move.h"
+#include "constants/species.h"
+#include "constants/moves.h"
 #include "roamer.h"
 #include "pokemon_size_record.h"
 #include "script.h"
@@ -130,6 +132,24 @@ void NvBuildInjectedParty(void)
     }
 }
 
+// Nuzverse: squadra di TEST per la sfida Torre (finche' il webapp non inietta la
+// squadra vera in gNvInjectParty). 3 competitivi Lv50, cosi' la Torre e' subito giocabile.
+#if NV_TOWER_ONLY || NV_ARENA_ONLY
+static void NvFillTestTowerParty(void)
+{
+    static const struct NvInjectMon sTest[3] =
+    {
+        { SPECIES_SALAMENCE, ITEM_LEFTOVERS, {MOVE_DRAGON_CLAW, MOVE_EARTHQUAKE, MOVE_BRICK_BREAK, MOVE_FLAMETHROWER}, 50, NATURE_ADAMANT, 0, {31,31,31,31,31,31}, {0,252,0,252,0,4} },
+        { SPECIES_METAGROSS, ITEM_LEFTOVERS, {MOVE_METEOR_MASH, MOVE_EARTHQUAKE, MOVE_PSYCHIC, MOVE_BRICK_BREAK}, 50, NATURE_ADAMANT, 0, {31,31,31,31,31,31}, {252,252,0,0,0,4} },
+        { SPECIES_BLAZIKEN, ITEM_LEFTOVERS, {MOVE_FLAMETHROWER, MOVE_BRICK_BREAK, MOVE_EARTHQUAKE, MOVE_PSYCHIC}, 50, NATURE_ADAMANT, 0, {31,31,31,31,31,31}, {0,252,0,252,0,4} },
+    };
+    u32 i;
+    gNvInjectParty.count = 3;
+    for (i = 0; i < 3; i++)
+        gNvInjectParty.mons[i] = sTest[i];
+}
+#endif // NV_TOWER_ONLY || NV_ARENA_ONLY
+
 static const struct ContestWinner sContestWinnerPicDummy =
 {
     .monName = _(""),
@@ -201,6 +221,14 @@ static void ClearFrontierRecord(void)
 
 static void WarpToTruck(void)
 {
+#if NV_TOWER_ONLY || NV_ARENA_ONLY
+    // Sfide Torre/Arena: spawn diretto nella lobby del Battle Tower (hub).
+    // VAR_ROUTE101_STATE=2 -> CB2_NewGame usa il fade-in pulito (niente camion/Birch).
+    VarSet(VAR_ROUTE101_STATE, 2);
+    SetWarpDestination(MAP_GROUP(MAP_BATTLE_FRONTIER_BATTLE_TOWER_LOBBY), MAP_NUM(MAP_BATTLE_FRONTIER_BATTLE_TOWER_LOBBY), WARP_ID_NONE, 10, 6);
+    WarpIntoMap();
+    return;
+#endif
     if (IS_FRLG)
     {
         // Nuzverse kanto skip-intro: spawn nel lab di Oak, pronti a scegliere lo starter.
@@ -425,7 +453,12 @@ void NewGameInitData(void)
     ResetItemFlags();
     ResetDexNav();
     ClearFollowerNPCData();
-    NvBuildInjectedParty();   // Nuzverse: iniezione squadra (Torre/Arena) — inerte se count==0
+#if NV_TOWER_ONLY || NV_ARENA_ONLY
+    FlagSet(FLAG_SYS_FRONTIER_PASS);     // accesso al Battle Frontier (Tower/Arena)
+    if (gNvInjectParty.count == 0)       // niente squadra dal webapp -> team di TEST (giocabile subito)
+        NvFillTestTowerParty();
+#endif
+    NvBuildInjectedParty();   // costruisce la squadra (iniettata dal webapp o di test)
 }
 
 static void ResetMiniGamesRecords(void)
