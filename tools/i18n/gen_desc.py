@@ -53,6 +53,9 @@ def emit_table(cat, name, prefix, count_macro):
     for k, v in cat.items():
         if not (k.startswith(prefix) and k.endswith('.description')):
             continue
+        # Gestisci dict (descrizioni) o stringhe
+        if isinstance(v, dict):
+            v = v.get('fr') or v.get('en', '')
         if not v or v.strip() in ('-', '---'):
             continue
         sym = k[:-len('.description')]  # es. MOVE_POUND / ABILITY_STENCH

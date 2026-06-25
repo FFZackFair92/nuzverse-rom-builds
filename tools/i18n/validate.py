@@ -58,7 +58,9 @@ for k, tv in tr.items():
             errors.append((k, 'terminatore', '$ finale aggiunto'))
     # \p pagine
     if ev.count('\\p') != tv.count('\\p'):
-        warns.append((k, 'pagine', f"\\p EN={ev.count('\\p')} {LANG}={tv.count('\\p')}"))
+        page_count_en = ev.count('\p')
+        page_count_tv = tv.count('\p')
+        warns.append((k, 'pagine', f"\p EN={page_count_en} {LANG}={page_count_tv}"))
     # identica all'inglese
     if tv == ev and ev.strip() not in ('', '-'):
         identical += 1
