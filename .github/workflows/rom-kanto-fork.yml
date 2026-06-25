@@ -25,6 +25,10 @@ on:
         description: "lingua testi: en | it | es | fr | de | pt"
         required: false
         default: en
+      deploy:
+        description: "deploy in produzione anche per lingua != en (sovrascrive lo slot di quella lingua)"
+        required: false
+        default: "false"
 
 env:
   PRET_FIRERED_REF: master
@@ -103,7 +107,7 @@ jobs:
           echo "TAG=$TAG" >> "$GITHUB_ENV"
           echo "NV_DEFINES=$NV  TAG=$TAG"
           cd pex
-          if [ "${{ inputs.lang }}" != "en" ]; then
+          if [ "${{ inputs.lang }}" != "en" ] && [ "${{ inputs.deploy }}" != "true" ]; then
             echo "Inject traduzioni dialoghi (${{ inputs.lang }})..."
             python3 tools/i18n/apply_translation.py "${{ inputs.lang }}" || true
           fi
@@ -151,7 +155,7 @@ jobs:
           DEPLOY_URL: ${{ secrets.ROM_DEPLOY_URL }}
           DEPLOY_TOKEN: ${{ secrets.ROM_DEPLOY_TOKEN }}
         run: |
-          if [ "${{ inputs.lang }}" != "en" ]; then
+          if [ "${{ inputs.lang }}" != "en" ] && [ "${{ inputs.deploy }}" != "true" ]; then
             echo "build in lingua ${{ inputs.lang }} -> skip auto-deploy (solo artifact per test, non sovrascrivo la ROM EN in produzione)"; exit 0; fi
           if [ -z "$DEPLOY_URL" ] || [ -z "$DEPLOY_TOKEN" ]; then
             echo "ROM_DEPLOY_URL/TOKEN non settati -> skip auto-deploy (artifact comunque caricato)"; exit 0; fi
@@ -163,7 +167,7 @@ jobs:
           echo "deploy ${{ matrix.variant }} (BPRE0): seed=$SEED pool_count=$PC pool=$PD"
           curl -fsS -X POST "$DEPLOY_URL/api/rom/deploy" \
             -H "X-Deploy-Token: $DEPLOY_TOKEN" \
-            -F "game_key=BPRE0" -F "variant=${{ matrix.variant }}" \
+            -F "game_key=BPRE0" -F "variant=${{ matrix.variant }}" -F "lang=${{ inputs.lang }}" \
             -F "patch=@ironmon-base-BPRE0-${{ matrix.variant }}.bps" \
             ${SEED:+-F "seed_addr=$SEED"} ${PC:+-F "pool_count_addr=$PC"} ${PD:+-F "pool_addr=$PD"} ${PARTIES:+-F "parties_addr=$PARTIES"} ${SB1:+-F "sb1ptr_addr=$SB1"}
           echo "auto-deploy OK"
