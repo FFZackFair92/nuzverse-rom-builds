@@ -6,20 +6,17 @@ RustboroCity_MapScripts::
 RustboroCity_OnTransition:
 	setflag FLAG_VISITED_RUSTBORO_CITY
 	call Common_EventScript_SetupRivalGfxId
-	@ Nuzverse: rivale OBBLIGATORIO all'uscita sud, indipendente dalla quest Devon.
-	@ Finche' non l'hai battuto: mostra il rivale e arma i coord_event (STATE=7).
-	@ Dopo la sconfitta: ri-nascondi il rivale.
-	goto_if_set FLAG_DEFEATED_RIVAL_RUSTBORO, RustboroCity_EventScript_NvRivalDone
-	setvar VAR_RUSTBORO_CITY_STATE, 7
-	clearflag FLAG_HIDE_RUSTBORO_CITY_RIVAL
-	end
-
-RustboroCity_EventScript_NvRivalDone::
-	setflag FLAG_HIDE_RUSTBORO_CITY_RIVAL
+	@ Nuzverse: il rivale viene mostrato+armato (STATE=7) dalla scena di
+	@ restituzione Devon (ReturnGoods). Qui, dopo averlo battuto, lo ri-nascondo.
+	call_if_set FLAG_DEFEATED_RIVAL_RUSTBORO, RustboroCity_EventScript_NvHideRival
 	call_if_eq VAR_RUSTBORO_CITY_STATE, 6, RustboroCity_EventScript_HideMapNamePopup
 	getplayerxy VAR_TEMP_0, VAR_TEMP_1
 	goto_if_eq VAR_RUSTBORO_CITY_STATE, 6, RustboroCity_EventScript_PositionScientistForExit
 	end
+
+RustboroCity_EventScript_NvHideRival::
+	setflag FLAG_HIDE_RUSTBORO_CITY_RIVAL
+	return
 
 RustboroCity_EventScript_PositionScientistForExit::
 	goto_if_eq VAR_TEMP_0, 11, RustboroCity_EventScript_PositionScientistLeftExit
@@ -603,14 +600,29 @@ RustboroCity_EventScript_ReturnGoods::
 	msgbox RustboroCity_Text_YouGotItThankYou, MSGBOX_DEFAULT
 	giveitem ITEM_GREAT_BALL
 	call_if_eq VAR_RESULT, FALSE, RustboroCity_EventScript_BagFull
-	msgbox RustboroCity_Text_PleaseComeWithMe, MSGBOX_DEFAULT
-	closemessage
+	@ Nuzverse: quest Devon compressa. NIENTE teletrasporto nell'edificio ne'
+	@ colloquio con Mr. Stone: qui consegno TUTTO cio' che dava la Devon Corp
+	@ (PokeNav, EXP Condivisa, flag Lettera), sblocco Briney->Dewford, e armo il rivale.
+	giveitem ITEM_EXP_SHARE
+	call_if_eq VAR_RESULT, FALSE, RustboroCity_EventScript_BagFull
+	setflag FLAG_RECEIVED_EXP_SHARE
+	setflag FLAG_SYS_POKENAV_GET
+	setflag FLAG_RECEIVED_POKENAV
+	setflag FLAG_DELIVERED_STEVEN_LETTER
+	setflag FLAG_HIDE_RUSTBORO_CITY_POKEMON_SCHOOL_SCOTT
+	setflag FLAG_HIDE_ROUTE_116_WANDAS_BOYFRIEND
+	clearflag FLAG_HIDE_RUSTURF_TUNNEL_WANDAS_BOYFRIEND
+	clearflag FLAG_HIDE_RUSTURF_TUNNEL_WANDA
+	clearflag FLAG_HIDE_BRINEYS_HOUSE_MR_BRINEY
+	clearflag FLAG_HIDE_BRINEYS_HOUSE_PEEKO
+	setvar VAR_BRINEY_LOCATION, 1
+	setvar VAR_DEVON_CORP_3F_STATE, 1
 	setflag FLAG_RETURNED_DEVON_GOODS
 	setflag FLAG_HIDE_RUSTBORO_CITY_DEVON_EMPLOYEE_1
-	setvar VAR_RUSTBORO_CITY_STATE, 5
-	delay 30
-	warp MAP_RUSTBORO_CITY_DEVON_CORP_3F, 2, 2
-	waitstate
+	closemessage
+	@ arma il rivale all'uscita sud: mostralo + STATE=7 (i coord_event y=53)
+	clearflag FLAG_HIDE_RUSTBORO_CITY_RIVAL
+	setvar VAR_RUSTBORO_CITY_STATE, 7
 	releaseall
 	end
 
