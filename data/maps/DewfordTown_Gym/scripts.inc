@@ -7,6 +7,8 @@ DewfordTown_Gym_OnTransition:
 	end
 
 DewfordTown_Gym_EventScript_SetFlashLevel::
+	@ Nuzverse: palestra Dewford sempre illuminata (niente Flash/buio)
+	goto DewfordTown_Gym_EventScript_SetLightsOn
 	goto_if_defeated TRAINER_BRAWLY_1, DewfordTown_Gym_EventScript_SetLightsOn
 	call DewfordTown_Gym_EventScript_CountTrainersDefeated
 	copyvar VAR_0x8001, VAR_0x8000
@@ -53,6 +55,9 @@ DewfordTown_Gym_EventScript_SetFlashLevel7::
 	return
 
 DewfordTown_Gym_EventScript_BrightenRoom::
+	@ Nuzverse: sempre piena luce, nessun cambio buio dopo le battaglie
+	setflashlevel 0
+	return
 	call DewfordTown_Gym_EventScript_CountTrainersDefeated
 	nop1
 	goto_if_eq VAR_0x8000, VAR_0x8001, DewfordTown_Gym_EventScript_NoLightChange
