@@ -166,7 +166,7 @@ jobs:
           echo "deploy ${{ matrix.variant }} (BPEE0): seed=$SEED pool_count=$PC pool=$PD"
           curl -fsS -X POST "$DEPLOY_URL/api/rom/deploy" \
             -H "X-Deploy-Token: $DEPLOY_TOKEN" \
-            -F "game_key=BPEE0" -F "variant=${{ matrix.variant }}" \
+            -F "game_key=BPEE0" -F "variant=${{ matrix.variant }}" -F "lang=${{ inputs.lang }}" \
             -F "patch=@${{ matrix.variant }}.bps" \
             ${SEED:+-F "seed_addr=$SEED"} ${PC:+-F "pool_count_addr=$PC"} ${PD:+-F "pool_addr=$PD"} ${PARTIES:+-F "parties_addr=$PARTIES"} ${SB1:+-F "sb1ptr_addr=$SB1"}
           echo "auto-deploy OK"
