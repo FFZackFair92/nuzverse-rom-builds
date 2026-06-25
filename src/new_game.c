@@ -3,6 +3,7 @@
 #include "new_game.h"
 #include "random.h"
 #include "pokemon.h"
+#include "move.h"
 #include "roamer.h"
 #include "pokemon_size_record.h"
 #include "script.h"
@@ -66,6 +67,68 @@ static void ResetDexNav(void);
 
 EWRAM_DATA bool8 gDifferentSaveFile = FALSE;
 EWRAM_DATA bool8 gEnableContestDebugging = FALSE;
+
+// ── Nuzverse: iniezione squadra (sfide Torre Lotta / Arena) ──────────────────
+// Il JS (webapp) scrive gNvInjectParty in RAM (offset dal .map, esportato nel
+// sidecar CI). NvBuildInjectedParty costruisce gParties[B_TRAINER_PLAYER] con le
+// funzioni native (niente cifratura/checksum lato JS). INERTE se count==0:
+// non tocca nessuna delle altre variant. Vedi memoria ironmon_torre_lotta.
+struct NvInjectMon
+{
+    u16 species;
+    u16 heldItem;
+    u16 moves[4];
+    u8 level;
+    u8 nature;
+    u8 abilityNum;
+    u8 ivs[6];   // HP, Atk, Def, Speed, SpA, SpD
+    u8 evs[6];
+};
+
+struct NvInjectParty
+{
+    u8 count;    // 0 = inerte
+    struct NvInjectMon mons[PARTY_SIZE];
+};
+
+EWRAM_DATA struct NvInjectParty gNvInjectParty = {0};
+
+static void NvBuildInjectedParty(void)
+{
+    u32 i, j, k;
+
+    if (gNvInjectParty.count == 0)
+        return;
+
+    ZeroPlayerPartyMons();
+    for (i = 0; i < gNvInjectParty.count && i < PARTY_SIZE; i++)
+    {
+        struct NvInjectMon *src = &gNvInjectParty.mons[i];
+        struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][i];
+        u32 personality;
+
+        do { personality = Random32(); }
+        while (GetNatureFromPersonality(personality) != src->nature);
+
+        CreateMon(mon, src->species, src->level, personality, OTID_STRUCT_PLAYER_ID);
+
+        for (j = 0; j < 4; j++)
+        {
+            u16 move = src->moves[j];
+            u8 pp = gMovesInfo[move].pp;
+            SetMonData(mon, MON_DATA_MOVE1 + j, &move);
+            SetMonData(mon, MON_DATA_PP1 + j, &pp);
+        }
+        for (k = 0; k < 6; k++)
+        {
+            SetMonData(mon, MON_DATA_HP_IV + k, &src->ivs[k]);
+            SetMonData(mon, MON_DATA_HP_EV + k, &src->evs[k]);
+        }
+        SetMonData(mon, MON_DATA_HELD_ITEM, &src->heldItem);
+        SetMonData(mon, MON_DATA_ABILITY_NUM, &src->abilityNum);
+        CalculateMonStats(mon);
+    }
+}
 
 static const struct ContestWinner sContestWinnerPicDummy =
 {
@@ -362,6 +425,7 @@ void NewGameInitData(void)
     ResetItemFlags();
     ResetDexNav();
     ClearFollowerNPCData();
+    NvBuildInjectedParty();   // Nuzverse: iniezione squadra (Torre/Arena) — inerte se count==0
 }
 
 static void ResetMiniGamesRecords(void)
