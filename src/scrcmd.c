@@ -2312,12 +2312,9 @@ bool8 ScrCmd_checkfieldmove(struct ScriptContext *ctx)
     Script_RequestEffects(SCREFF_V1);
 
     gSpecialVar_Result = PARTY_SIZE;
-#if !NV_HM_FREE
+    // Nuzverse: gate per medaglia SEMPRE attivo (MN-less ma sbloccato per palestra).
     if (doUnlockedCheck && !IsFieldMoveUnlocked(fieldMove))
         return FALSE;
-#else
-    (void)doUnlockedCheck; // Nuzverse MN-less: nessun gate medaglia
-#endif
 
     move = FieldMove_GetMoveId(fieldMove);
     for (u32 i = 0; i < PARTY_SIZE; i++)
