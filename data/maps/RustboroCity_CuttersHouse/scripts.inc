@@ -5,15 +5,12 @@ RustboroCity_CuttersHouse_EventScript_Cutter::
 	lock
 	faceplayer
 	goto_if_set FLAG_RECEIVED_HM_CUT, RustboroCity_CuttersHouse_EventScript_ExplainCut
-	msgbox RustboroCity_CuttersHouse_Text_YouCanPutThisHMToGoodUse, MSGBOX_DEFAULT
-	@ Nuzverse: MN non data in borsa (mossa usabile per medaglia)
+	@ Nuzverse: dialoghi MN rimossi (mossa usabile per medaglia)
 	setflag FLAG_RECEIVED_HM_CUT
-	msgbox RustboroCity_CuttersHouse_Text_ExplainCut, MSGBOX_DEFAULT
 	release
 	end
 
 RustboroCity_CuttersHouse_EventScript_ExplainCut::
-	msgbox RustboroCity_CuttersHouse_Text_ExplainCut, MSGBOX_DEFAULT
 	release
 	end
 
