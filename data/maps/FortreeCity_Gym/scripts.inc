@@ -46,7 +46,9 @@ FortreeCity_Gym_EventScript_WinonaDefeated::
 	setflag FLAG_ENABLE_WINONA_MATCH_CALL
 	setvar VAR_SCOTT_FORTREE_CALL_STEP_COUNTER, 0
 	setflag FLAG_SCOTT_CALL_FORTREE_GYM
-	release
+	@ Nuzverse: teletrasporto fuori dalla palestra dopo il leader
+	warp MAP_FORTREE_CITY, 22, 12
+	waitstate
 	end
 
 FortreeCity_Gym_EventScript_GiveAerialAce2::

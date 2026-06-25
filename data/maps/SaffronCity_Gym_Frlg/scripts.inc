@@ -26,7 +26,9 @@ SaffronCity_Gym_EventScript_GiveTM04::
 	giveitem_msg SaffronCity_Gym_Text_ReceivedTM04FromSabrina, ITEM_TM04
 	setflag FLAG_GOT_TM04_FROM_SABRINA
 	msgbox SaffronCity_Gym_Text_SabrinaPostBattle
-	release
+	@ Nuzverse: teletrasporto fuori dalla palestra dopo il leader
+	warp MAP_SAFFRON_CITY, 46, 13
+	waitstate
 	end
 
 SaffronCity_Gym_EventScript_NoRoomForTM04::

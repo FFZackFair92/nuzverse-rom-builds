@@ -27,7 +27,9 @@ PewterCity_Gym_EventScript_GiveTM39::
 	giveitem_msg PewterCity_Gym_Text_ReceivedTM39FromBrock, ITEM_TM39
 	setflag FLAG_GOT_TM39_FROM_BROCK
 	msgbox PewterCity_Gym_Text_ExplainTM39
-	release
+	@ Nuzverse: teletrasporto fuori dalla palestra dopo il leader
+	warp MAP_PEWTER_CITY, 15, 17
+	waitstate
 	end
 
 PewterCity_Gym_EventScript_NoRoomForTM39::

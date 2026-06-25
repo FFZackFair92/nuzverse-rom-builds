@@ -26,7 +26,9 @@ CeladonCity_Gym_EventScript_GiveTM19::
 	giveitem_msg CeladonCity_Gym_Text_ReceivedTM19FromErika, ITEM_TM19
 	setflag FLAG_GOT_TM19_FROM_ERIKA
 	msgbox CeladonCity_Gym_Text_ExplainTM19
-	release
+	@ Nuzverse: teletrasporto fuori dalla palestra dopo il leader
+	warp MAP_CELADON_CITY, 11, 31
+	waitstate
 	end
 
 CeladonCity_Gym_EventScript_NoRoomForTM19::

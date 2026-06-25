@@ -25,7 +25,9 @@ CeruleanCity_Gym_EventScript_GiveTM03::
 	giveitem_msg CeruleanCity_Gym_Text_ReceivedTM03FromMisty, ITEM_TM03
 	setflag FLAG_GOT_TM03_FROM_MISTY
 	msgbox CeruleanCity_Gym_Text_ExplainTM03
-	release
+	@ Nuzverse: teletrasporto fuori dalla palestra dopo il leader
+	warp MAP_CERULEAN_CITY, 31, 22
+	waitstate
 	end
 
 CeruleanCity_Gym_EventScript_NoRoomForTM03::

@@ -108,7 +108,9 @@ MauvilleCity_Gym_EventScript_WattsonDefeated::
 	closemessage
 	delay 30
 	setflag FLAG_ENABLE_WATTSON_MATCH_CALL
-	release
+	@ Nuzverse: teletrasporto fuori dalla palestra dopo il leader
+	warp MAP_MAUVILLE_CITY, 8, 6
+	waitstate
 	end
 
 MauvilleCity_Gym_EventScript_GiveShockWave2::

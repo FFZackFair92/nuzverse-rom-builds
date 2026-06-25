@@ -91,7 +91,9 @@ MossdeepCity_Gym_EventScript_TateAndLizaDefeated::
 	closemessage
 	delay 30
 	setflag FLAG_ENABLE_TATE_AND_LIZA_MATCH_CALL
-	release
+	@ Nuzverse: teletrasporto fuori dalla palestra dopo il leader
+	warp MAP_MOSSDEEP_CITY, 38, 10
+	waitstate
 	end
 
 MossdeepCity_Gym_EventScript_GiveCalmMind2::

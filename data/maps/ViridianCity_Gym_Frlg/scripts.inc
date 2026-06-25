@@ -30,7 +30,9 @@ ViridianCity_Gym_EventScript_GiveTM26::
 	giveitem_msg ViridianCity_Gym_Text_ReceivedTM26FromGiovanni, ITEM_TM26
 	setflag FLAG_GOT_TM26_FROM_GIOVANNI
 	msgbox ViridianCity_Gym_Text_ExplainTM26
-	release
+	@ Nuzverse: teletrasporto fuori dalla palestra dopo il leader
+	warp MAP_VIRIDIAN_CITY, 36, 11
+	waitstate
 	end
 
 ViridianCity_Gym_EventScript_NoRoomForTM26::

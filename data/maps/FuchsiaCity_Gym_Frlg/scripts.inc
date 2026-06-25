@@ -25,7 +25,9 @@ FuchsiaCity_Gym_EventScript_GiveTM06::
 	giveitem_msg FuchsiaCity_Gym_Text_ReceivedTM06FromKoga, ITEM_TM06
 	setflag FLAG_GOT_TM06_FROM_KOGA
 	msgbox FuchsiaCity_Gym_Text_KogaExplainTM06
-	release
+	@ Nuzverse: teletrasporto fuori dalla palestra dopo il leader
+	warp MAP_FUCHSIA_CITY, 9, 33
+	waitstate
 	end
 
 FuchsiaCity_Gym_EventScript_NoRoomForTM06::

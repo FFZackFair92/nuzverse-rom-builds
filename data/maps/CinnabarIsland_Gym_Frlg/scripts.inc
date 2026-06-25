@@ -71,7 +71,9 @@ CinnabarIsland_Gym_EventScript_GiveTM38::
 	giveitem_msg CinnabarIsland_Gym_Text_ReceivedTM38FromBlaine, ITEM_TM38
 	setflag FLAG_GOT_TM38_FROM_BLAINE
 	msgbox CinnabarIsland_Gym_Text_FireBlastIsUltimateFireMove
-	release
+	@ Nuzverse: teletrasporto fuori dalla palestra dopo il leader
+	warp MAP_CINNABAR_ISLAND, 20, 5
+	waitstate
 	end
 
 CinnabarIsland_Gym_EventScript_NoRoomForTM38::

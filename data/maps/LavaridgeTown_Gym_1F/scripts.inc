@@ -75,7 +75,9 @@ LavaridgeTown_Gym_1F_EventScript_FlanneryDefeated::
 	closemessage
 	delay 30
 	setflag FLAG_ENABLE_FLANNERY_MATCH_CALL
-	release
+	@ Nuzverse: teletrasporto fuori dalla palestra dopo il leader
+	warp MAP_LAVARIDGE_TOWN, 5, 16
+	waitstate
 	end
 
 LavaridgeTown_Gym_1F_EventScript_GiveOverheat2::
