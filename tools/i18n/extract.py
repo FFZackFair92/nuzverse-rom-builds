@@ -91,6 +91,44 @@ for path in DATA_FILES:
                 catalog[key] = {'en': s, 'src': rel, 'type': field}
                 stats['data'] += 1
 
+# --- 2b) descrizioni MOSSE multi-riga: COMPOUND_STRING spezzato su piu' righe ---
+# Il loop sopra cattura solo i COMPOUND_STRING single-line; molte .description di
+# moves_info.h sono multi-riga e venivano perse. Qui le estraiamo col bilanciamento
+# delle parentesi (chiave MOVE_X.description) cosi' translate.mjs/GLM le traducono e
+# gen_desc.py le aggancia in-ROM come le descrizioni delle abilita'.
+moves_h = os.path.join(ROOT, 'src', 'data', 'moves_info.h')
+if os.path.isfile(moves_h):
+    mtxt = open(moves_h, encoding='utf-8', errors='replace').read()
+    idxs = list(re.finditer(r'\[(MOVE_[A-Z0-9_]+)\]\s*=', mtxt))
+    for i2, mm in enumerate(idxs):
+        mv = mm.group(1)
+        key = f'{mv}.description'
+        if key in catalog:
+            continue
+        start = mm.end()
+        end = idxs[i2 + 1].start() if i2 + 1 < len(idxs) else len(mtxt)
+        block = mtxt[start:end]
+        dm = re.search(r'\.description\s*=\s*COMPOUND_STRING\(', block)
+        if not dm:
+            continue
+        j = dm.end()
+        depth = 1
+        buf = []
+        while j < len(block) and depth > 0:
+            ch = block[j]
+            if ch == '(':
+                depth += 1
+            elif ch == ')':
+                depth -= 1
+                if depth == 0:
+                    break
+            buf.append(ch)
+            j += 1
+        s = ''.join(re.findall(r'"((?:[^"\\]|\\.)*)"', ''.join(buf)))
+        if s and s != '-':
+            catalog[key] = {'en': s, 'src': 'src/data/moves_info.h', 'type': 'description'}
+            stats['data'] += 1
+
 # codici di controllo + lunghezza, per ogni voce
 for k, v in catalog.items():
     v['codes'] = control_codes(v['en'])

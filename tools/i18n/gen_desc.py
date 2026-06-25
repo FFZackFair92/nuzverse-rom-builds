@@ -17,10 +17,29 @@ LANGS = {  # lang-code -> macro NV_LANG
     'pt': 'NV_LANG_PORTUGUESE',
 }
 
+_LDQ = '“'  # virgoletta curva di apertura (charmap B1)
+_RDQ = '”'  # virgoletta curva di chiusura (charmap B2)
+_SUB = {'‘': "'", '’': "'", '«': _LDQ, '»': _RDQ,
+        '–': '-', '—': '-', '…': '...', '°': '',
+        ' ': ' '}
+
 def cstr(s):
     # il valore contiene gia' i codici di controllo come backslash-n letterale: tienili.
-    # escapa solo le doppie virgolette; lascia i backslash (sono \n \l \p).
-    return s.replace('"', '\\"')
+    # Il charmap Gen3 NON ha la virgoletta dritta ASCII " (ne' dentro COMPOUND_STRING):
+    # convertiamo le dritte in curve (alternando apri/chiudi) e normalizziamo i caratteri
+    # fuori charmap (guillemette, trattino lungo, ellissi, grado). Cosi' anche l'output di
+    # un traduttore esterno (GLM) compila. I backslash (\n \l \p) restano.
+    for k, v in _SUB.items():
+        s = s.replace(k, v)
+    out = []
+    oq = True
+    for ch in s:
+        if ch == '"':
+            out.append(_LDQ if oq else _RDQ)
+            oq = not oq
+        else:
+            out.append(ch)
+    return ''.join(out)
 
 def load(lang):
     p = os.path.join(here, f'catalog.{lang}.json')
