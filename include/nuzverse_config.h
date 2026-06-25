@@ -203,4 +203,10 @@
 #define NV_TOWER_ONLY 0
 #endif
 
+// Sfida "Arena" (sandbox PvP: bot + ghost asincrono = squadra di altri giocatori
+// giocata dall'IA). Stessa infrastruttura iniezione mon (gNvInjectParty).
+#ifndef NV_ARENA_ONLY
+#define NV_ARENA_ONLY 0
+#endif
+
 #endif // GUARD_NUZVERSE_CONFIG_H
