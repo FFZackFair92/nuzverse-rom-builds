@@ -30,7 +30,9 @@ RustboroCity_Gym_EventScript_GiveRockTomb::
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 	setflag FLAG_RECEIVED_TM_ROCK_TOMB
 	msgbox RustboroCity_Gym_Text_ExplainRockTomb, MSGBOX_DEFAULT
-	release
+	@ Nuzverse: teletrasporto fuori dalla palestra dopo aver battuto il leader
+	warp MAP_RUSTBORO_CITY, 27, 20
+	waitstate
 	end
 
 RustboroCity_Gym_EventScript_RoxanneRematch::
