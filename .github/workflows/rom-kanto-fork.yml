@@ -4,8 +4,7 @@ name: ROM · Kanto variants (FORK)
 # (FFZackFair92/nuzverse-expansion, branch nuzverse/<variant>), con `make firered`.
 # NIENTE apply-*.py: il sorgente E' gia' la variant. Parallelo a rom-kanto-variants.yml.
 #
-# PREREQUISITO — secret FORK_PAT (PAT fine-grained, READ Contents su nuzverse-expansion):
-#   Settings -> Secrets and variables -> Actions -> New repository secret -> FORK_PAT.
+# Sorgenti decomp = branch nuzverse/main DI QUESTO repo (niente FORK_PAT, niente clone esterno).
 #
 # Output (artifact "{variant}"): ironmon-base-BPRE0-{variant}.bps (diff vs FireRed vanilla
 # byte-exact BPRE0) + seed-offset.txt + variant.map.
@@ -32,7 +31,6 @@ on:
 
 env:
   PRET_FIRERED_REF: master
-  FORK_HOST: github.com/FFZackFair92/nuzverse-expansion.git
 
 jobs:
   setup:
@@ -80,13 +78,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential binutils-arm-none-eabi gcc-arm-none-eabi libpng-dev python3 git
 
-      - name: Clona il branch del fork (sorgente = variant, niente apply)
-        run: |
-          REF="${{ inputs.fork_ref }}"
-          [ -z "$REF" ] && REF="nuzverse/main"   # branch unico: tutte le variant
-          echo "Clono $REF da $FORK_HOST"
-          git clone --depth 1 --branch "$REF" \
-            "https://x-access-token:${{ secrets.FORK_PAT }}@${FORK_HOST}" pex
+      - name: Checkout sorgente (branch nuzverse/main di questo repo)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.fork_ref != '' && inputs.fork_ref || 'nuzverse/main' }}
+          path: pex
+          fetch-depth: 1
 
       - name: Build variant (make firered)
         run: |

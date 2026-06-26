@@ -5,10 +5,7 @@ name: ROM · Emerald variants (FORK)
 # il sorgente E' gia' la variant (materializzato da decomp/fork-migration/bootstrap-fork.sh).
 # Gira in PARALLELO a rom-emerald-variants.yml finche' non e' verde, poi si switcha.
 #
-# PREREQUISITO — secret FORK_PAT:
-#   Crea un PAT fine-grained con accesso READ "Contents" su nuzverse-expansion, poi
-#   Settings -> Secrets and variables -> Actions -> New repository secret -> nome FORK_PAT.
-#   (Serve perche' il fork e' privato e GITHUB_TOKEN non vede altri repo.)
+# Sorgenti decomp = branch nuzverse/main DI QUESTO repo (niente FORK_PAT, niente clone esterno).
 #
 # Output (artifact "{variant}"): {variant}.bps (diff vs Emerald vanilla byte-exact BPEE0)
 # + {variant}.gba + seed-offset.txt. Stesso formato dei workflow attuali.
@@ -35,7 +32,6 @@ on:
 
 env:
   PRET_EMERALD_REF: master
-  FORK_HOST: github.com/FFZackFair92/nuzverse-expansion.git
 
 jobs:
   setup:
@@ -83,13 +79,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential binutils-arm-none-eabi gcc-arm-none-eabi libpng-dev python3 git
 
-      - name: Clona il branch del fork (sorgente = variant, niente apply)
-        run: |
-          REF="${{ inputs.fork_ref }}"
-          [ -z "$REF" ] && REF="nuzverse/main"   # branch unico: tutte le variant
-          echo "Clono $REF da $FORK_HOST"
-          git clone --depth 1 --branch "$REF" \
-            "https://x-access-token:${{ secrets.FORK_PAT }}@${FORK_HOST}" pex
+      - name: Checkout sorgente (branch nuzverse/main di questo repo)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.fork_ref != '' && inputs.fork_ref || 'nuzverse/main' }}
+          path: pex
+          fetch-depth: 1
 
       - name: Build variant
         run: |
