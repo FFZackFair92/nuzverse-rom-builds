@@ -168,6 +168,6 @@ jobs:
           curl -fsS -X POST "$DEPLOY_URL/api/rom/deploy" \
             -H "X-Deploy-Token: $DEPLOY_TOKEN" \
             -F "game_key=BPRE0" -F "variant=${{ matrix.variant }}" -F "lang=${{ inputs.lang }}" \
-            -F "patch=@ironmon-base-BPRE0-${{ matrix.variant }}.bps" \
+            -F "patch=@ironmon-base-BPRE0-${TAG}.bps" \
             ${SEED:+-F "seed_addr=$SEED"} ${PC:+-F "pool_count_addr=$PC"} ${PD:+-F "pool_addr=$PD"} ${PARTIES:+-F "parties_addr=$PARTIES"} ${SB1:+-F "sb1ptr_addr=$SB1"}
           echo "auto-deploy OK"
