@@ -588,6 +588,14 @@ void NewGameInitData(void)
     AddBagItem(ITEM_POTION, 1);
     AddBagItem(ITEM_DEVON_SCOPE, 1); // "Repel Switch": interruttore incontri (no step count)
 #endif
+#if NV_PERMADEATH
+    // Nuzlocke: scorta di Poke Ball alla partenza. I Market sono chiusi (NV_NO_POKEMARTS)
+    // e il Nuzlocke non ha le Master Ball del Kaizo, quindi senza questo non avrebbe modo
+    // di catturare il primo incontro delle aree. Poke Ball semplici = la cattura resta
+    // una scelta (non garantita). Devon Scope = "Repel Switch" (toggle incontri).
+    AddBagItem(ITEM_POKE_BALL, 15);
+    AddBagItem(ITEM_DEVON_SCOPE, 1);
+#endif
 #if !NV_KAIZO
     // Altari NPC modificatori: SOLO IronMon. In Nuzlocke (NV_PERMADEATH) nascondi gli object
     // event altare via il loro flagId comune (gli .inc non possono usare #if NV_KAIZO).
