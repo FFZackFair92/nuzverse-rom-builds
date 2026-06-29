@@ -2899,6 +2899,15 @@ static const u8 *BattleStringGetOpponentNameByTrainerId(u16 trainerId, u8 *text,
         else
             toCpy = gLinkPlayers[GetBattlerMultiplayerId(battler) & BIT_SIDE].name;
     }
+    else if (trainerId == TRAINER_SECRET_BASE)
+    {
+        // Lotte custom NV (Torre/Arena, SPECIAL_BATTLE_NV_CUSTOM): opponentA =
+        // TRAINER_SECRET_BASE ma SENZA record base-segreta (BATTLE_TYPE_SECRET_BASE non
+        // settato) -> il ramo else leggerebbe il nome di TRAINER_NONE (vuoto) e farebbe
+        // scattare l'assert "opponent needs a valid name". Diamo un nome valido.
+        static const u8 sNvOpponentName[] = _("SFIDANTE");
+        toCpy = sNvOpponentName;
+    }
     else if (trainerId == TRAINER_FRONTIER_BRAIN)
     {
         CopyFrontierBrainTrainerName(text);
