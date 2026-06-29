@@ -229,6 +229,7 @@ void NvBuildRandomPlayerTeam(u32 count, u32 level)
         for (k = 0; k < 6; k++)
             SetMonData(mon, MON_DATA_HP_IV + k, &perfectIv);
         CalculateMonStats(mon);
+        GiveMonInitialMoveset(mon); // CreateMon NON assegna le mosse nel fork -> falle dare dal learnset
     }
 }
 
@@ -276,6 +277,7 @@ void NvBuildRandomFoe(u32 count, u32 level)
         for (k = 0; k < 6; k++)
             SetMonData(mon, MON_DATA_HP_IV + k, &perfectIv);
         CalculateMonStats(mon);
+        GiveMonInitialMoveset(mon); // CreateMon NON assegna le mosse nel fork -> falle dare dal learnset
     }
 }
 
