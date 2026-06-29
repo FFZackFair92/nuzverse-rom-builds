@@ -312,7 +312,14 @@ static void HandleInputChooseAction(enum BattlerId battler)
         case 0: // Top left
             BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_USE_MOVE, 0);
             break;
-        case 1: // Top right
+        case 1: // Top right (BORSA)
+#if NV_PERMADEATH
+            // Hardcore Nuzlocke: niente oggetti dallo zaino in battaglia. Le Ball
+            // restano usabili SOLO nelle lotte selvatiche (la borsa serve a catturare
+            // il primo incontro dell'area); nelle lotte allenatore la borsa e' bloccata.
+            if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+                return; // resta sul menu azione (come il blocco switch del Kaizo)
+#endif
             BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_USE_ITEM, 0);
             break;
         case 2: // Bottom left (Pokémon / switch)

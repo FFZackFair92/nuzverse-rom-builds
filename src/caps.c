@@ -7,17 +7,34 @@
 
 u32 GetCurrentLevelCap(void)
 {
+    // Hardcore Nuzlocke: il cap = livello dell'ACE del PROSSIMO boss (la prima badge
+    // ancora mancante), allineato alla curva NvKaizoLevel (nuzverse_levels.c). Cosi' non
+    // puoi superare il prossimo capopalestra (regola Hardcore "no overleveling").
+    // NB: il Kaizo IronMon esce prima con MAX_LEVEL (vedi sotto), quindi questi valori
+    // valgono SOLO per il Nuzlocke (NV_PERMADEATH). Valori per-regione = ace dei boss.
     static const u32 sLevelCapFlagMap[][2] =
     {
-        {FLAG_BADGE01_GET, 15},
-        {FLAG_BADGE02_GET, 19},
-        {FLAG_BADGE03_GET, 24},
-        {FLAG_BADGE04_GET, 29},
-        {FLAG_BADGE05_GET, 31},
-        {FLAG_BADGE06_GET, 33},
-        {FLAG_BADGE07_GET, 42},
-        {FLAG_BADGE08_GET, 46},
-        {FLAG_IS_CHAMPION, 58},
+#if IS_FRLG
+        {FLAG_BADGE01_GET, 23}, // Brock
+        {FLAG_BADGE02_GET, 29}, // Misty
+        {FLAG_BADGE03_GET, 35}, // Lt. Surge
+        {FLAG_BADGE04_GET, 41}, // Erika
+        {FLAG_BADGE05_GET, 51}, // Koga
+        {FLAG_BADGE06_GET, 57}, // Sabrina
+        {FLAG_BADGE07_GET, 62}, // Blaine
+        {FLAG_BADGE08_GET, 64}, // Giovanni
+        {FLAG_IS_CHAMPION, 88}, // Lega (ace finale dei Superquattro: Lance)
+#else
+        {FLAG_BADGE01_GET, 23}, // Roxanne
+        {FLAG_BADGE02_GET, 29}, // Brawly
+        {FLAG_BADGE03_GET, 35}, // Wattson
+        {FLAG_BADGE04_GET, 41}, // Flannery
+        {FLAG_BADGE05_GET, 46}, // Norman
+        {FLAG_BADGE06_GET, 51}, // Winona
+        {FLAG_BADGE07_GET, 57}, // Tate & Liza
+        {FLAG_BADGE08_GET, 64}, // Juan
+        {FLAG_IS_CHAMPION, 88}, // Lega (ace finale dei Superquattro: Drake)
+#endif
     };
 
     u32 i;

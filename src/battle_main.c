@@ -3134,7 +3134,13 @@ static void ClearSetBScriptingStruct(void)
     memset(&gBattleScripting, 0, sizeof(gBattleScripting));
 
     gBattleScripting.windowsType = temp;
+#if NV_PERMADEATH
+    // Hardcore Nuzlocke: modalita' SET forzata (niente cambio "gratis" dopo un KO
+    // avversario), non bypassabile dal menu Opzioni. Sovrascrive optionsBattleStyle.
+    gBattleScripting.battleStyle = OPTIONS_BATTLE_STYLE_SET;
+#else
     gBattleScripting.battleStyle = gSaveBlock2Ptr->optionsBattleStyle;
+#endif
     #if TESTING
     gBattleScripting.battleStyle = OPTIONS_BATTLE_STYLE_SET;
     #endif
