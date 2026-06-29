@@ -2094,6 +2094,17 @@ static void ItemMenu_UseInBattle(u8 taskId)
     enum ItemType type = GetItemType(gSpecialVar_ItemId);
     if (!GetItemBattleUsage(gSpecialVar_ItemId))
         return;
+#if NV_PERMADEATH
+    // Hardcore Nuzlocke: in battaglia si possono usare SOLO le Poke Ball (per catturare
+    // il primo incontro nelle lotte selvatiche). Ogni altro oggetto (cure, X-item, ecc.)
+    // viene rifiutato. Le lotte allenatore hanno gia' la borsa bloccata a monte
+    // (battle_controller_player.c); questo copre le lotte selvatiche.
+    if (gBagPosition.pocket != POCKET_POKE_BALLS)
+    {
+        PlaySE(SE_FAILURE);
+        return;
+    }
+#endif
 
     RemoveContextWindow();
     if (type == ITEM_USE_BAG_MENU || (type == ITEM_USE_BATTLER && !IsDoubleBattle()))
