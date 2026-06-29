@@ -257,6 +257,15 @@ static inline bool32 IsSpecialTrainer(u16 trainerId)
 
 static inline u16 SanitizeTrainerId(u16 trainerId)
 {
+    // Trainer "speciali" (SECRET_BASE / LINK_OPPONENT / UNION_ROOM) sono >= TRAINERS_COUNT
+    // e NON hanno una voce in gTrainers: senza questo short-circuit l'assertf sotto
+    // crasha (schermo blu "INVALID TRAINER: 65280"). Le lotte custom NV (Torre/Arena,
+    // SPECIAL_BATTLE_NV_CUSTOM) usano opponentA = TRAINER_SECRET_BASE per non rigenerare
+    // gEnemyParty -> qualunque chiamante (nome/sprite/AI/money/difficulty) deve ricadere
+    // su TRAINER_NONE invece di assertare.
+    if (IsSpecialTrainer(trainerId))
+        return TRAINER_NONE;
+
     assertf(trainerId < TRAINERS_COUNT, "invalid trainer: %d", trainerId)
     {
         return TRAINER_NONE;
