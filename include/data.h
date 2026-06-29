@@ -288,6 +288,14 @@ static inline const struct Trainer *GetTrainerStructFromId(u16 trainerId)
     }
     else
     {
+        // Trainer "speciali" (SECRET_BASE / LINK_OPPONENT / UNION_ROOM) non hanno una
+        // voce in gTrainers: senza questo, SanitizeTrainerId assertarebbe "invalid
+        // trainer" e crasha (schermo blu). Le lotte custom NV (Torre/Arena,
+        // SPECIAL_BATTLE_NV_CUSTOM) impostano opponentA = TRAINER_SECRET_BASE per NON
+        // far rigenerare gEnemyParty (squadra costruita a mano), quindi qui ricadiamo
+        // su TRAINER_NONE: nessun crash, e nome/sprite/AI usano il trainer 0.
+        if (IsSpecialTrainer(trainerId))
+            trainerId = TRAINER_NONE;
         difficulty = GetTrainerDifficultyLevel(trainerId);
         return &gTrainers[difficulty][SanitizeTrainerId(trainerId)];
     }
