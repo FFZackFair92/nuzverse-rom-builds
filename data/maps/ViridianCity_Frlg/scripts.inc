@@ -12,6 +12,11 @@ ViridianCity_OnTransition::
 
 ViridianCity_EventScript_SetOldManNormal::
 	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_OLD_MAN_1
+	@ Nuzverse lineare (var>=2): il tutorial e' "fatto", ma SetOldManNormal non spostava
+	@ l'old man -> restava a vagolare (default 21,6 range 2x3) nel corridoio nord e
+	@ bloccava il passaggio verso Route 2. Lo despawniamo del tutto: niente tutorial,
+	@ strada libera. (L'altro NPC vecchio LOCALID_VIRIDIAN_OLD_MAN non e' toccato.)
+	removeobject LOCALID_TUTORIAL_MAN
 	return
 
 ViridianCity_EventScript_SetOldManStandingByRoad::
