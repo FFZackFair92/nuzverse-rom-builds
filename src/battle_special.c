@@ -12,6 +12,7 @@
 #include "new_game.h"
 #include "overworld.h"
 #include "recorded_battle.h"
+#include "script_pokemon_util.h"
 #include "string_util.h"
 #include "task.h"
 #include "text.h"
@@ -134,6 +135,11 @@ void DoSpecialTrainerBattle(void)
         // Foe: ghost Arena iniettato se presente, altrimenti random level-matched (Torre).
         {
             u32 playerCount = 0;
+            // Torre/Arena = sandbox: ogni lotta parte con la squadra CURATA (HP/PP pieni,
+            // nessuno stato). Senza, lo stato (es. SONNO inflitto dai foe random, che ora
+            // hanno mosse) e i danni si TRASCINANO tra una lotta e l'altra e non c'e' modo
+            // di curare (Centri/Market chiusi, niente oggetti) -> il mon resta addormentato.
+            HealPlayerParty();
             for (i = 0; i < PARTY_SIZE; i++)
             {
                 if (GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES) != SPECIES_NONE)
